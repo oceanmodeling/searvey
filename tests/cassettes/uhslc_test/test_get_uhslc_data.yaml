@@ -1,0 +1,52 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.26.0
+    method: GET
+    uri: https://uhslc.soest.hawaii.edu/erddap/tabledap/global_hourly_fast.csvp?&time%3E=1627776000.0&time%3C=1627819200.0&latitude%3E=-15.0&latitude%3C=15.0&longitude%3E=300.0&longitude%3C=360.0
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAALWUzYrbMBCA7/sUYU8bmIQZSdbPHruFPkCyl70YEYusqWJTSVlon75KWlpstDcJ
+        hKxhZH/WoPmis713H85vni6j9+PFJRfiFlJebZ5ejy9b8DaN6TrkcHDn4Fzspzmk95yYp/Mq42xM
+        W4gpvzJP/WQv7l9wmq9TCj/XcX4ODoI7zWHoxwGu79Gfbouzn2O8LWK8xz5/ug8/+sGmv3/2QFwY
+        YMhoh3qHdER8vo83ILGXSgEXbN9p+Gq/2wAHN7mz9SC1BMY43iZgHYfhnmZIekdsx+nI2HNn8nh7
+        ICH5gkDVCR0XK8KfTEWC6BYEXr9KBhcEUZ3ANa0ItavEVlWS1c9ApBcEVZ2AHFeE2lVCVAuCqX+G
+        btHTVL+nSa0J1e+SWVSJWO0zMKlE2Xx5697IjGC0F5rD48H6DzvMATavh5dvh0f4Euyv0YOSoFDj
+        bQKeHRTzvs9ghsoSbAHr8t6iD1vABImyGlvASJuyJVvAcCUb0bCMZJgou7MFTC+b679Gm5xMd2Wj
+        Nrkg/BO5toBxFGXPNmlqlGXlNtGVorJ9G8B+A3Zjx51ACwAA
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Disposition:
+      - attachment;filename=global_hourly_fast_fde9_a160_5e91.csv
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - text/csv;charset=ISO-8859-1
+      Date:
+      - Thu, 23 Sep 2021 09:49:29 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Last-Modified:
+      - Thu, 23 Sep 2021 09:49:29 GMT
+      Server:
+      - Apache/2.4.29 (Ubuntu)
+      Transfer-Encoding:
+      - chunked
+      erddap-server:
+      - '2.02'
+      xdods-server:
+      - dods/3.7
+    status:
+      code: 200
+      message: ''
+version: 1

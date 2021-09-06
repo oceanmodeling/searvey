@@ -1,0 +1,54 @@
+---
+default_language_version:
+  python: 'python3.9'
+fail_fast: true
+
+repos:
+  - repo: "https://github.com/pre-commit/pre-commit-hooks"
+    rev: "v4.0.1"
+    hooks:
+      - id: "check-added-large-files"
+      - id: "check-ast"
+      - id: "check-byte-order-marker"
+      - id: "check-docstring-first"
+      - id: "check-executables-have-shebangs"
+      - id: "check-json"
+      - id: "check-symlinks"
+      - id: "check-merge-conflict"
+      - id: "check-vcs-permalinks"
+      - id: "check-xml"
+      - id: "check-yaml"
+      - id: "debug-statements"
+      - id: "end-of-file-fixer"
+      - id: "name-tests-test"
+      - id: "trailing-whitespace"
+
+  - repo: "https://github.com/asottile/reorder_python_imports"
+    rev: "v2.6.0"
+    hooks:
+      - id: "reorder-python-imports"
+        args:
+          - "--py39-plus"
+          - "--separate-relative"
+          - "--separate-from-import"
+
+  - repo: "local"
+    hooks:
+      - id: "black"
+        name: "black"
+        entry: "black"
+        language: "system"
+        types: ["python"]
+
+
+      - id: "prospector"
+        name: "prospector"
+        entry: "prospector --absolute-paths --no-external-config --profile-path .prospector.yaml -w profile-validator -W pep257"
+        language: "system"
+        types: ["python"]
+
+      - id: "mypy"
+        name: "mypy"
+        entry: "mypy --config ./mypy.ini"
+        language: "system"
+        types: ["python"]
