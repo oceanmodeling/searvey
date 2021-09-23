@@ -2,6 +2,8 @@
 default_language_version:
   python: 'python3.9'
 fail_fast: true
+ci:
+    skip: ["prospector", "mypy"]
 
 repos:
   - repo: "https://github.com/pre-commit/pre-commit-hooks"
@@ -30,14 +32,13 @@ repos:
         args:
           - "--py39-plus"
 
-  - repo: "local"
+  - repo: "https://github.com/psf/black"
+    rev: "21.9b0"
     hooks:
       - id: "black"
-        name: "black"
-        entry: "black"
-        language: "system"
-        types: ["python"]
 
+  - repo: "local"
+    hooks:
 
       - id: "prospector"
         name: "prospector"
