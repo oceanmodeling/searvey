@@ -1,10 +1,9 @@
 import datetime
 import enum
 import logging
+from typing import Final
 
 import pydantic
-
-from typing import Final
 
 logging.basicConfig(level=10)
 logger = logging.getLogger()

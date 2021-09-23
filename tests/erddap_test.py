@@ -1,5 +1,4 @@
 import pytest
-
 from requests import HTTPError
 from requests import ReadTimeout
 

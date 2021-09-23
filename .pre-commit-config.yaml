@@ -29,8 +29,6 @@ repos:
       - id: "reorder-python-imports"
         args:
           - "--py39-plus"
-          - "--separate-relative"
-          - "--separate-from-import"
 
   - repo: "local"
     hooks:
