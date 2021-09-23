@@ -21,6 +21,6 @@ def test_openurl_timeout_raises() -> None:
             url="https://www.google.com/gibberish",
             session=erddap.DEFAULT_SEARVEY_SESSION,
             requests_kwargs={},
-            timeout=0.001,
+            timeout=0.00001,
         )
     assert "Read timed out" in str(exc)
