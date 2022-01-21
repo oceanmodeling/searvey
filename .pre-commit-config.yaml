@@ -48,6 +48,6 @@ repos:
 
       - id: "mypy"
         name: "mypy"
-        entry: "mypy --config ./mypy.ini"
+        entry: "dmypy run searvey"
         language: "system"
         types: ["python"]
