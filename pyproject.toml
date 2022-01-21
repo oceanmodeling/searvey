@@ -19,7 +19,7 @@ mypy = "0.910"
 pre-commit = "^2.15"
 prospector = "^1.5"
 pytest = "^6.2"
-pytest-cov = "^2.12"
+pytest-cov = "^3.0"
 pytest-recording = "^0.12.0"
 types-requests = "^2.25"
 
