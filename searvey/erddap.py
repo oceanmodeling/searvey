@@ -1,13 +1,14 @@
 import datetime
 import io
 import logging
-from typing import Any
-from typing import Final
+from typing import cast
+from typing import Optional
 
 import erddapy
 import pandas as pd
 import requests
 
+from .custom_types import StrDict
 from .models import Constraints
 from .models import ERDDAPDataset
 
@@ -15,8 +16,6 @@ from .models import ERDDAPDataset
 logger = logging.getLogger(__name__)
 
 DEFAULT_SEARVEY_SESSION = requests.Session()
-_REQUESTS_KWARGS_SENTINEL: Final[dict[str, Any]] = {}
-_READ_CSV_KWARGS_SENTINEL: Final[dict[str, Any]] = {}
 
 
 def ts_to_erddap(ts: datetime.datetime) -> str:
@@ -29,7 +28,7 @@ def ts_to_erddap(ts: datetime.datetime) -> str:
 def urlopen(
     url: str,
     session: requests.Session,
-    requests_kwargs: dict[str, Any],
+    requests_kwargs: StrDict,
     timeout: float = 10,
 ) -> io.BytesIO:
     # logger.debug("Making a GET request to: %s", url)
@@ -63,23 +62,21 @@ def get_erddap_url(
         "longitude<=": constraints.lon_max,
     }
     url = erddap.get_download_url()
-    return url
+    return cast(str, url)
 
 
-def query_erddap(  # pylint: disable=dangerous-default-value
+def query_erddap(
     dataset: ERDDAPDataset,
     constraints: Constraints,
     session: requests.Session = DEFAULT_SEARVEY_SESSION,
     timeout: int = 10,
-    read_csv_kwargs: dict[str, Any] = _READ_CSV_KWARGS_SENTINEL,
-    requests_kwargs: dict[str, Any] = _REQUESTS_KWARGS_SENTINEL,
+    requests_kwargs: Optional[StrDict] = None,
+    read_csv_kwargs: Optional[StrDict] = None,
 ) -> pd.DataFrame:
-    # Replace sentinel values with empty dicts (if necessary)
-    # https://stackoverflow.com/a/67841737/592289
-    if requests_kwargs is _REQUESTS_KWARGS_SENTINEL:
-        requests_kwargs: dict[str, Any] = {}  # type: ignore[no-redef]
-    if read_csv_kwargs is _READ_CSV_KWARGS_SENTINEL:
-        read_csv_kwargs: dict[str, Any] = {}  # type: ignore[no-redef]
+    if requests_kwargs is None:
+        requests_kwargs = {}
+    if read_csv_kwargs is None:
+        read_csv_kwargs = {}
     # Make the query and parse the result
     url = get_erddap_url(dataset=dataset, constraints=constraints)
     logger.debug(url)

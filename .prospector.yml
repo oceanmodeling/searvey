@@ -30,7 +30,7 @@ pylint:
     - "too-many-arguments"
     - "wrong-import-order"
   options:
-    max-line-length: 109
+    max-line-length: 108
     extension-pkg-whitelist:
       - "pydantic"
     max-args: 7
@@ -82,7 +82,7 @@ mccabe:
 
 pep8:
   options:
-    max-line-length: 109
+    max-line-length: 108
   disable:
     - "E203"  # disable whitespace before colon - useful for numpy slicing
     - "E501"  # disable line too length. No reason to check for line length in each and every tool
