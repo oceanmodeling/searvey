@@ -53,7 +53,22 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       #----------------------------------------------
-      #    add matrix specifics and run test suite
+      #  Linters
+      #----------------------------------------------
+      - name: black it!
+        run: |
+          source .venv/bin/activate
+          black --check
+      - name: lint
+        run: |
+          source .venv/bin/activate
+          make lint
+      - name: mypy
+        run: |
+          source .venv/bin/activate
+          make mypy
+      #----------------------------------------------
+      # Run tests
       #----------------------------------------------
       - name: Run tests
         run: |
