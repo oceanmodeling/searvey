@@ -20,5 +20,3 @@ source .venv/bin/activate
 poetry install
 pre-commit install
 ```
-
-
