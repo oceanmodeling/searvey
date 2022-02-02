@@ -1,0 +1,13 @@
+---
+
+name: searvey
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - pandas>=1.3
+  - erddapy>=1.1
+  - black
+  - pytest-recording>=0.12.0
