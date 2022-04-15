@@ -1,11 +1,28 @@
 from abc import ABC, abstractmethod
-from datetime import datetime, timedelta
+from datetime import datetime
+from enum import Enum
 from typing import Any, Dict
 
 from pandas import DataFrame
-from pyproj import CRS
 from shapely.geometry import Point
 from xarray import Dataset
+
+
+class StationDataProduct(Enum):
+    pass
+
+
+class StationDataInterval(Enum):
+    pass
+
+
+class StationDatum(Enum):
+    pass
+
+
+class StationStatus(Enum):
+    ACTIVE = 'active'
+    DISCONTINUED = 'discontinued'
 
 
 class Station(ABC):
@@ -16,14 +33,18 @@ class Station(ABC):
     id: str
     location: Point
 
+    def __init__(self, id: str, location: Point):
+        self.id = id
+        self.location = location
+
     @abstractmethod
     def product(
             self,
-            product: str,
+            product: StationDataProduct,
             start_date: datetime,
             end_date: datetime = None,
-            datum: CRS = None,
-            interval: timedelta = None,
+            interval: StationDataInterval = None,
+            datum: StationDatum = None,
     ) -> Dataset:
         """
         retrieve data for the current station within the specified parameters
@@ -31,8 +52,8 @@ class Station(ABC):
         :param product: name of data product
         :param start_date: start date
         :param end_date: end date
-        :param datum: vertical datum
         :param interval: time interval of data
+        :param datum: vertical datum
         :return: data for the current station within the specified parameters
         """
         raise NotImplementedError()
@@ -47,11 +68,27 @@ class StationQuery(ABC):
     """
 
     station_id: str
+    product: StationDataProduct
     start_date: datetime
     end_date: datetime
-    product: str
-    datum: CRS
-    interval: timedelta
+    interval: StationDataInterval
+    datum: StationDatum
+
+    def __init__(
+            self,
+            station_id: str,
+            product: StationDataProduct,
+            start_date: datetime,
+            end_date: datetime = None,
+            interval: StationDataInterval = None,
+            datum: StationDatum = None,
+    ):
+        self.station_id = station_id
+        self.product = product
+        self.start_date = start_date
+        self.end_date = end_date
+        self.interval = interval
+        self.datum = datum
 
     @property
     @abstractmethod

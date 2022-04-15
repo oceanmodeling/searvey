@@ -1,8 +1,9 @@
 """
-interface with the NOAA Center for Operational Oceanographic Products and Services (CO-OPS) API
+interface with the U.S. National Oceanic and Atmospheric Administration (NOAA) Center for Operational Oceanographic Products and Services (CO-OPS) API
 https://api.tidesandcurrents.noaa.gov/api/prod/
 """
 
+import datetime
 from datetime import datetime
 from enum import Enum
 from functools import lru_cache
@@ -17,15 +18,16 @@ import numpy
 import pandas
 from pandas import DataFrame, Series
 import requests
-from shapely.geometry import MultiPolygon, Polygon, box
+import shapely
+from shapely.geometry import MultiPolygon, Polygon
 import typepigeon
 import xarray
 from xarray import Dataset
 
-from searvey.station import Station, StationQuery
+from searvey.station import Station, StationDataInterval, StationDataProduct, StationDatum, StationQuery, StationStatus
 
 
-class COOPS_Product(Enum):
+class COOPS_Product(StationDataProduct):
     WATER_LEVEL = (
         'water_level'
         # Preliminary or verified water levels, depending on availability.
@@ -56,7 +58,12 @@ class COOPS_Product(Enum):
     )
 
 
-class COOPS_TidalDatum(Enum):
+class COOPS_Interval(StationDataInterval):
+    H = 'h'  # Hourly Met data and harmonic predictions will be returned
+    HILO = 'hilo'  # High/Low tide predictions for all stations.
+
+
+class COOPS_TidalDatum(StationDatum):
     CRD = 'CRD'  # Columbia River Datum
     IGLD = 'IGLD'  # International Great Lakes Datum
     LWD = 'LWD'  # Great Lakes Low Water Datum (Chart Datum)
@@ -84,16 +91,6 @@ class COOPS_TimeZone(Enum):
     GMT = 'gmt'  # Greenwich Mean Time
     LST = 'lst'  # Local Standard Time. The time local to the requested station.
     LST_LDT = 'lst_ldt'  # Local Standard/Local Daylight Time. The time local to the requested station.
-
-
-class COOPS_Interval(Enum):
-    H = 'h'  # Hourly Met data and harmonic predictions will be returned
-    HILO = 'hilo'  # High/Low tide predictions for all stations.
-
-
-class COOPS_StationStatus(Enum):
-    ACTIVE = 'active'
-    DISCONTINUED = 'discontinued'
 
 
 class COOPS_Station(Station):
@@ -145,9 +142,9 @@ class COOPS_Station(Station):
         if isinstance(metadata, DataFrame):
             metadata = metadata.iloc[0]
 
-        self.id = metadata.name
+        Station.__init__(self, id=str(metadata.name), location=metadata.geometry)
+
         self.nws_id = metadata['nws_id']
-        self.location = metadata.geometry
         self.state = metadata['state']
         self.name = metadata['name']
 
@@ -199,8 +196,8 @@ class COOPS_Station(Station):
             product: COOPS_Product,
             start_date: datetime,
             end_date: datetime = None,
-            datum: COOPS_TidalDatum = None,
             interval: COOPS_Interval = None,
+            datum: COOPS_TidalDatum = None,
     ) -> Dataset:
         """
         retrieve data for the current station within the specified parameters
@@ -208,8 +205,8 @@ class COOPS_Station(Station):
         :param product: CO-OPS product
         :param start_date: start date
         :param end_date: end date
-        :param datum: tidal datum
         :param interval: time interval of data
+        :param datum: tidal datum
         :return: data for the current station within the specified parameters
 
         >>> station = COOPS_Station(8632200)
@@ -231,7 +228,7 @@ class COOPS_Station(Station):
 
         if self.__query is None:
             self.__query = COOPS_Query(
-                station=self.id,
+                station=int(self.id),
                 product=product,
                 start_date=start_date,
                 end_date=end_date,
@@ -325,6 +322,8 @@ class COOPS_Query(StationQuery):
             time_zone = COOPS_TimeZone.GMT
         if interval is None:
             interval = COOPS_Interval.H
+
+        StationQuery.__init__(self, station_id=station, product=product, start_date=start_date, end_date=end_date)
 
         self.station_id = station
         self.product = product
@@ -488,7 +487,7 @@ def __coops_stations_html_tables() -> element.ResultSet:
 
 
 @lru_cache(maxsize=None)
-def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
+def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:
     """
     retrieve a list of CO-OPS stations with associated metadata
 
@@ -545,8 +544,8 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
     tables = __coops_stations_html_tables()
 
     status_tables = {
-        COOPS_StationStatus.ACTIVE: (0, 'NWSTable'),
-        COOPS_StationStatus.DISCONTINUED: (1, 'HistNWSTable'),
+        StationStatus.ACTIVE: (0, 'NWSTable'),
+        StationStatus.DISCONTINUED: (1, 'HistNWSTable'),
     }
 
     dataframes = {}
@@ -585,7 +584,7 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
         )
         stations.set_index('nos_id', inplace=True)
 
-        if status == COOPS_StationStatus.DISCONTINUED:
+        if status == StationStatus.DISCONTINUED:
             with open(Path(__file__).parent / 'us_states.json') as us_states_file:
                 us_states = json.load(us_states_file)
 
@@ -617,11 +616,11 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
         stations['status'] = status.value
         dataframes[status] = stations
 
-    active_stations = dataframes[COOPS_StationStatus.ACTIVE]
-    discontinued_stations = dataframes[COOPS_StationStatus.DISCONTINUED]
+    active_stations = dataframes[StationStatus.ACTIVE]
+    discontinued_stations = dataframes[StationStatus.DISCONTINUED]
     discontinued_stations.loc[
         discontinued_stations.index.isin(active_stations.index), 'status'
-    ] = COOPS_StationStatus.ACTIVE.value
+    ] = StationStatus.ACTIVE.value
 
     stations = pandas.concat(
         (
@@ -629,11 +628,11 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
             discontinued_stations,
         )
     )
-    stations.loc[pandas.isna(stations['status']), 'status'] = COOPS_StationStatus.ACTIVE.value
+    stations.loc[pandas.isna(stations['status']), 'status'] = StationStatus.ACTIVE.value
     stations.sort_values(['status', 'removed'], na_position='first', inplace=True)
 
     if station_status is not None:
-        if isinstance(station_status, COOPS_StationStatus):
+        if isinstance(station_status, StationStatus):
             station_status = station_status.value
         stations = stations[stations['status'] == station_status]
 
@@ -644,7 +643,7 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
 
 
 def coops_stations_within_region(
-        region: Polygon, station_status: COOPS_StationStatus = None,
+        region: Polygon, station_status: StationStatus = None,
 ) -> GeoDataFrame:
     """
     retrieve all stations within the specified region of interest
@@ -653,23 +652,23 @@ def coops_stations_within_region(
     :param station_status: one of ``active`` or ``discontinued``
     :return: data frame of stations within the specified region
 
-    >>> from stormevents.nhc import VortexTrack
-    >>> from shapely import ops
-    >>> track = VortexTrack('florence2018', file_deck='b')
-    >>> combined_wind_swaths = ops.unary_union(list(track.wind_swaths(34).values()))
-    >>> coops_stations_within_region(region=combined_wind_swaths)
-            nws_id                               name state removed                    geometry
+    >>> import shapely
+    >>> east_coast = shapely.geometry.box(-85, 25, -65, 45)
+    >>> coops_stations_within_region(east_coast)
+            nws_id                           name state        status                                            removed                    geometry
     nos_id
-    8651370  DUKN7                               Duck    NC     NaT  POINT (-75.75000 36.18750)
-    8652587  ORIN7                Oregon Inlet Marina    NC     NaT  POINT (-75.56250 35.78125)
-    8654467  HCGN7              USCG Station Hatteras    NC     NaT  POINT (-75.68750 35.21875)
-    8656483  BFTN7          Beaufort, Duke Marine Lab    NC     NaT  POINT (-76.68750 34.71875)
-    8658120  WLON7                         Wilmington    NC     NaT  POINT (-77.93750 34.21875)
-    8658163  JMPN7                 Wrightsville Beach    NC     NaT  POINT (-77.81250 34.21875)
-    8661070  MROS1                    Springmaid Pier    SC     NaT  POINT (-78.93750 33.65625)
-    8662245  NITS1   Oyster Landing (N Inlet Estuary)    SC     NaT  POINT (-79.18750 33.34375)
-    8665530  CHTS1  Charleston, Cooper River Entrance    SC     NaT  POINT (-79.93750 32.78125)
-    8670870  FPKG1                       Fort Pulaski    GA     NaT  POINT (-80.87500 32.03125)
+    8726412  MTBF1               Middle Tampa Bay              active                                               <NA>  POINT (-82.62500 27.65625)
+    8726679  TSHF1              East Bay Causeway    FL        active                                               <NA>  POINT (-82.43750 27.92188)
+    8726694  TPAF1          TPA Cruise Terminal 2    FL        active                                               <NA>  POINT (-82.43750 27.93750)
+    9044036  FWNM4                     Fort Wayne    MI        active  2005-04-29 23:59:00,2005-04-29 00:00:00,2001-1...  POINT (-83.06250 42.31250)
+    9075035  ESVM4                     Essexville    MI        active  2007-03-28 23:59:00,2007-03-28 00:00:00,2007-0...  POINT (-83.87500 43.62500)
+    ...        ...                            ...   ...           ...                                                ...                         ...
+    8720503  GCVF1  Red Bay Point, St Johns River    FL  discontinued  2017-10-07 20:54:00,2017-10-07 10:54:00,2017-1...  POINT (-81.62500 29.98438)
+    8654400  CFPN7     Cape Hatteras Fishing Pier    NC  discontinued  2018-09-19 23:59:00,2003-09-18 23:59:00,2003-0...  POINT (-75.62500 35.21875)
+    8720625  RCYF1     Racy Point, St Johns River    FL  discontinued  2019-08-05 14:00:00,2017-06-14 15:36:00,2017-0...  POINT (-81.56250 29.79688)
+    8423898  FTPN3                     Fort Point    NH  discontinued  2020-04-13 00:00:00,2014-08-05 00:00:00,2012-0...  POINT (-70.68750 43.06250)
+    8726667  MCYF1             Mckay Bay Entrance    FL  discontinued  2020-05-20 00:00:00,2019-03-08 00:00:00,2017-0...  POINT (-82.43750 27.90625)
+    [164 rows x 6 columns]
     """
 
     stations = coops_stations(station_status=station_status)
@@ -681,10 +680,10 @@ def coops_stations_within_bounds(
         miny: float,
         maxx: float,
         maxy: float,
-        station_status: COOPS_StationStatus = None,
+        station_status: StationStatus = None,
 ) -> GeoDataFrame:
     return coops_stations_within_region(
-        region=box(minx=minx, miny=miny, maxx=maxx, maxy=maxy), station_status=station_status
+        region=shapely.geometry.box(minx=minx, miny=miny, maxx=maxx, maxy=maxy), station_status=station_status
     )
 
 
@@ -694,10 +693,8 @@ def coops_product_within_region(
         start_date: datetime,
         end_date: datetime = None,
         datum: COOPS_TidalDatum = None,
-        units: COOPS_Units = None,
-        time_zone: COOPS_TimeZone = None,
         interval: COOPS_Interval = None,
-        station_status: COOPS_StationStatus = None,
+        station_status: StationStatus = None,
 ) -> Dataset:
     """
     retrieve CO-OPS data from within the specified region of interest
@@ -707,30 +704,26 @@ def coops_product_within_region(
     :param start_date: start date of CO-OPS query
     :param end_date: start date of CO-OPS query
     :param datum: tidal datum
-    :param units: one of ``metric`` or ``english``
-    :param time_zone: station time zone
     :param interval: data time interval
     :param station_status: either ``active`` or ``discontinued``
     :return: array of data within the specified region
 
-    >>> from stormevents.nhc import VortexTrack
-    >>> from shapely import ops
     >>> from datetime import datetime, timedelta
-    >>> track = VortexTrack('florence2018', file_deck='b')
-    >>> combined_wind_swaths = ops.unary_union(list(track.wind_swaths(34).values()))
-    >>> coops_product_within_region('water_level', region=combined_wind_swaths, start_date=datetime.now() - timedelta(hours=1), end_date=datetime.now())
+    >>> import shapely
+    >>> east_coast = shapely.geometry.box(-85, 25, -65, 45)
+    >>> coops_product_within_region('water_level', region=east_coast, start_date=datetime(2022, 4, 2, 12), end_date=datetime(2022, 4, 2, 12, 30))
     <xarray.Dataset>
-    Dimensions:  (nos_id: 10, t: 11)
+    Dimensions:  (t: 6, nos_id: 111)
     Coordinates:
-      * nos_id   (nos_id) int64 8651370 8652587 8654467 ... 8662245 8665530 8670870
-      * t        (t) datetime64[ns] 2022-03-08T14:48:00 ... 2022-03-08T15:48:00
-        nws_id   (nos_id) <U5 'DUKN7' 'ORIN7' 'HCGN7' ... 'NITS1' 'CHTS1' 'FPKG1'
-        x        (nos_id) float64 -75.75 -75.56 -75.69 ... -79.19 -79.94 -80.88
-        y        (nos_id) float64 36.19 35.78 35.22 34.72 ... 33.34 32.78 32.03
+      * t        (t) datetime64[ns] 2022-04-02T12:00:00 ... 2022-04-02T12:30:00
+      * nos_id   (nos_id) int64 9044036 9075035 9052076 ... 8516945 9052000 8638901
+        nws_id   (nos_id) <U5 'FWNM4' 'ESVM4' 'OCTN6' ... 'KPTN6' 'CAVN6' 'CHBV2'
+        x        (nos_id) float64 -83.06 -83.88 -78.75 ... -73.75 -76.31 -76.06
+        y        (nos_id) float64 42.31 43.62 43.34 42.09 ... 40.81 44.12 37.03
     Data variables:
-        v        (nos_id, t) float32 6.256 6.304 6.361 6.375 ... 2.633 2.659 2.686
-        s        (nos_id, t) float32 0.107 0.097 0.127 0.122 ... 0.005 0.004 0.004
-        f        (nos_id, t) object '1,0,0,0' '1,0,0,0' ... '1,0,0,0' '1,0,0,0'
+        v        (nos_id, t) float32 175.1 175.1 175.1 175.1 ... 2.084 2.089 2.096
+        s        (nos_id, t) float32 0.0 0.0 0.0 0.0 0.0 ... 0.059 0.076 0.088 0.08
+        f        (nos_id, t) object '0,0,0,0' '0,0,0,0' ... '1,0,0,0' '1,0,0,0'
         q        (nos_id, t) object 'p' 'p' 'p' 'p' 'p' 'p' ... 'p' 'p' 'p' 'p' 'p'
     """
 
@@ -741,8 +734,6 @@ def coops_product_within_region(
             start_date=start_date,
             end_date=end_date,
             datum=datum,
-            units=units,
-            time_zone=time_zone,
             interval=interval,
         )
         for station in stations.index
