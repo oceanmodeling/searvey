@@ -14,7 +14,7 @@ beautifulsoup4 = "^4.11.1"
 geopandas = "^0.10.2"
 typepigeon = "^1.0.13"
 xarray = "^2022.3.0"
-Shapely = "^1.8.1.post1"
+Shapely = "^1.8.1"
 
 [tool.poetry.dev-dependencies]
 setuptools = "*"
