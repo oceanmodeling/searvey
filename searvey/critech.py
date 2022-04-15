@@ -4,9 +4,9 @@ from typing import Optional
 import pandas as pd
 import pydantic
 
-from .erddap import query_erddap
-from .models import ERDDAPDataset
-from .models import SymmetricConstraints
+from searvey.erddap import query_erddap
+from searvey.models import ERDDAPDataset
+from searvey.models import SymmetricConstraints
 
 _CRITECH_NORMALIZED_NAMES = {
     "stationID": "station_id",
