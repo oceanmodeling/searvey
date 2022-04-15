@@ -8,7 +8,7 @@ from enum import Enum
 from functools import lru_cache
 import json
 from pathlib import Path
-from typing import Union
+from typing import Any, Dict, Union
 
 from bs4 import BeautifulSoup, element
 import geopandas
@@ -17,10 +17,12 @@ import numpy
 import pandas
 from pandas import DataFrame, Series
 import requests
-from shapely.geometry import box, MultiPolygon, Polygon
+from shapely.geometry import MultiPolygon, Polygon, box
 import typepigeon
 import xarray
 from xarray import Dataset
+
+from searvey.station import Station, StationQuery
 
 
 class COOPS_Product(Enum):
@@ -94,7 +96,7 @@ class COOPS_StationStatus(Enum):
     DISCONTINUED = 'discontinued'
 
 
-class COOPS_Station:
+class COOPS_Station(Station):
     """
     a specific CO-OPS station
     """
@@ -143,7 +145,7 @@ class COOPS_Station:
         if isinstance(metadata, DataFrame):
             metadata = metadata.iloc[0]
 
-        self.nos_id = metadata.name
+        self.id = metadata.name
         self.nws_id = metadata['nws_id']
         self.location = metadata.geometry
         self.state = metadata['state']
@@ -166,7 +168,7 @@ class COOPS_Station:
         :return: table of tidal constituents for the current station
         """
 
-        url = f'https://tidesandcurrents.noaa.gov/harcon.html?id={self.nos_id}'
+        url = f'https://tidesandcurrents.noaa.gov/harcon.html?id={self.id}'
         response = requests.get(url)
         soup = BeautifulSoup(response.content, features='html.parser')
         table = soup.find_all('table', {'class': 'table table-striped'})
@@ -193,24 +195,20 @@ class COOPS_Station:
         return constituents
 
     def product(
-        self,
-        product: COOPS_Product,
-        start_date: datetime,
-        end_date: datetime = None,
-        datum: COOPS_TidalDatum = None,
-        units: COOPS_Units = None,
-        time_zone: COOPS_TimeZone = None,
-        interval: COOPS_Interval = None,
+            self,
+            product: COOPS_Product,
+            start_date: datetime,
+            end_date: datetime = None,
+            datum: COOPS_TidalDatum = None,
+            interval: COOPS_Interval = None,
     ) -> Dataset:
         """
         retrieve data for the current station within the specified parameters
 
+        :param product: CO-OPS product
         :param start_date: start date
         :param end_date: end date
-        :param product: CO-OPS product
         :param datum: tidal datum
-        :param units: either ``metric`` or ``english``
-        :param time_zone: time zone of data
         :param interval: time interval of data
         :return: data for the current station within the specified parameters
 
@@ -233,13 +231,11 @@ class COOPS_Station:
 
         if self.__query is None:
             self.__query = COOPS_Query(
-                station=self.nos_id,
+                station=self.id,
                 product=product,
                 start_date=start_date,
                 end_date=end_date,
                 datum=datum,
-                units=units,
-                time_zone=time_zone,
                 interval=interval,
             )
         else:
@@ -251,16 +247,12 @@ class COOPS_Station:
                 self.__query.product = product
             if datum is not None:
                 self.__query.datum = datum
-            if units is not None:
-                self.__query.units = units
-            if time_zone is not None:
-                self.__query.time_zone = time_zone
             if interval is not None:
                 self.__query.interval = interval
 
         data = self.__query.data
 
-        data['nos_id'] = self.nos_id
+        data['nos_id'] = self.id
         data.set_index(['nos_id', data.index], inplace=True)
 
         data = data.to_xarray()
@@ -279,13 +271,13 @@ class COOPS_Station:
         return data
 
     def __str__(self) -> str:
-        return f'{self.__class__.__name__} - {self.nos_id} ({self.name}) - {self.location}'
+        return f'{self.__class__.__name__} - {self.id} ({self.name}) - {self.location}'
 
     def __repr__(self) -> str:
-        return f'{self.__class__.__name__}({self.nos_id})'
+        return f'{self.__class__.__name__}({self.id})'
 
 
-class COOPS_Query:
+class COOPS_Query(StationQuery):
     """
     abstraction of an individual query to the CO-OPS API
     https://api.tidesandcurrents.noaa.gov/api/prod/
@@ -294,15 +286,15 @@ class COOPS_Query:
     URL = 'https://tidesandcurrents.noaa.gov/api/datagetter?'
 
     def __init__(
-        self,
-        station: int,
-        product: COOPS_Product,
-        start_date: datetime,
-        end_date: datetime = None,
-        datum: COOPS_TidalDatum = None,
-        units: COOPS_Units = None,
-        time_zone: COOPS_TimeZone = None,
-        interval: COOPS_Interval = None,
+            self,
+            station: int,
+            product: COOPS_Product,
+            start_date: datetime,
+            end_date: datetime = None,
+            datum: COOPS_TidalDatum = None,
+            units: COOPS_Units = None,
+            time_zone: COOPS_TimeZone = None,
+            interval: COOPS_Interval = None,
     ):
         """
         instantiate a new query with the specified parameters
@@ -322,7 +314,7 @@ class COOPS_Query:
         """
 
         if isinstance(station, COOPS_Station):
-            station = station.nos_id
+            station = station.id
         if end_date is None:
             end_date = datetime.today()
         if datum is None:
@@ -334,7 +326,7 @@ class COOPS_Query:
         if interval is None:
             interval = COOPS_Interval.H
 
-        self.station = station
+        self.station_id = station
         self.product = product
         self.start_date = start_date
         self.end_date = end_date
@@ -403,7 +395,7 @@ class COOPS_Query:
         self.__interval = typepigeon.convert_value(interval, COOPS_Interval)
 
     @property
-    def query(self):
+    def query(self) -> Dict[str, Any]:
         self.__error = None
 
         product = self.product
@@ -426,7 +418,7 @@ class COOPS_Query:
             interval = interval.value
 
         return {
-            'station': self.station,
+            'station': self.station_id,
             'product': product,
             'begin_date': start_date,
             'end_date': f'{self.end_date:%Y%m%d %H:%M}',
@@ -483,7 +475,7 @@ class COOPS_Query:
         return self.__data
 
     def __repr__(self) -> str:
-        return f'{self.__class__.__name__}({", ".join(repr(value) for value in (self.station, self.start_date, self.end_date, self.product.value, self.datum.value, self.units.value, self.time_zone.value, self.interval.value))})'
+        return f'{self.__class__.__name__}({", ".join(repr(value) for value in (self.station_id, self.start_date, self.end_date, self.product.value, self.datum.value, self.units.value, self.time_zone.value, self.interval.value))})'
 
 
 @lru_cache(maxsize=None)
@@ -606,9 +598,9 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
 
             stations = (
                 stations[~pandas.isna(stations['removed'])]
-                .sort_values('removed', ascending=False)
-                .groupby('nos_id')
-                .aggregate(
+                    .sort_values('removed', ascending=False)
+                    .groupby('nos_id')
+                    .aggregate(
                     {
                         'nws_id': 'first',
                         'removed': ','.join,
@@ -652,7 +644,7 @@ def coops_stations(station_status: COOPS_StationStatus = None) -> GeoDataFrame:
 
 
 def coops_stations_within_region(
-    region: Polygon, station_status: COOPS_StationStatus = None,
+        region: Polygon, station_status: COOPS_StationStatus = None,
 ) -> GeoDataFrame:
     """
     retrieve all stations within the specified region of interest
@@ -685,11 +677,11 @@ def coops_stations_within_region(
 
 
 def coops_stations_within_bounds(
-    minx: float,
-    miny: float,
-    maxx: float,
-    maxy: float,
-    station_status: COOPS_StationStatus = None,
+        minx: float,
+        miny: float,
+        maxx: float,
+        maxy: float,
+        station_status: COOPS_StationStatus = None,
 ) -> GeoDataFrame:
     return coops_stations_within_region(
         region=box(minx=minx, miny=miny, maxx=maxx, maxy=maxy), station_status=station_status
@@ -697,15 +689,15 @@ def coops_stations_within_bounds(
 
 
 def coops_product_within_region(
-    product: COOPS_Product,
-    region: Union[Polygon, MultiPolygon],
-    start_date: datetime,
-    end_date: datetime = None,
-    datum: COOPS_TidalDatum = None,
-    units: COOPS_Units = None,
-    time_zone: COOPS_TimeZone = None,
-    interval: COOPS_Interval = None,
-    station_status: COOPS_StationStatus = None,
+        product: COOPS_Product,
+        region: Union[Polygon, MultiPolygon],
+        start_date: datetime,
+        end_date: datetime = None,
+        datum: COOPS_TidalDatum = None,
+        units: COOPS_Units = None,
+        time_zone: COOPS_TimeZone = None,
+        interval: COOPS_Interval = None,
+        station_status: COOPS_StationStatus = None,
 ) -> Dataset:
     """
     retrieve CO-OPS data from within the specified region of interest
