@@ -1,3 +1,8 @@
+"""
+interface with the European Marine Observation and Data Network (EMODnet) API
+https://erddap.emodnet-physics.eu/erddap
+"""
+
 import datetime
 from typing import Optional
 
