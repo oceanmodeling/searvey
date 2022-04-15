@@ -4,10 +4,10 @@ from typing import Optional
 import pandas as pd
 import pydantic
 
-from .erddap import query_erddap
-from .models import AsymmetricConstraints
-from .models import ERDDAPDataset
-from .utils import lon3_to_lon1
+from searvey.erddap import query_erddap
+from searvey.models import AsymmetricConstraints
+from searvey.models import ERDDAPDataset
+from searvey.utils import lon3_to_lon1
 
 
 _UHSLC_NORMALIZED_NAMES = {

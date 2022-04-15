@@ -8,9 +8,9 @@ import erddapy
 import pandas as pd
 import requests
 
-from .custom_types import StrDict
-from .models import Constraints
-from .models import ERDDAPDataset
+from searvey.custom_types import StrDict
+from searvey.models import Constraints
+from searvey.models import ERDDAPDataset
 
 
 logger = logging.getLogger(__name__)
