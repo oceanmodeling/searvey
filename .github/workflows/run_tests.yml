@@ -21,7 +21,7 @@ jobs:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
-        if: steps.cached-dependencies.outputs.cache-hit != 'true'
+#        if: steps.cached-dependencies.outputs.cache-hit != 'true'
         run: pip install . black mypy prospector
       - name: lint with black
         run: black --check .
@@ -61,7 +61,7 @@ jobs:
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        if: steps.cached-dependencies.outputs.cache-hit != 'true'
+#        if: steps.cached-dependencies.outputs.cache-hit != 'true'
         run: pip install . pytest pytest-xdist
       #----------------------------------------------
       # Run tests
