@@ -27,7 +27,7 @@ jobs:
         run: black --check
       - name: lint with prospector
         run: make lint
-      - name: mypy
+      - name: lint with mypy
         run: make mypy
   test:
     needs: lint
