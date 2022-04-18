@@ -58,7 +58,7 @@ jobs:
       - name: black it!
         run: |
           source .venv/bin/activate
-          black --check
+          oitnb --check .
       - name: lint
         run: |
           source .venv/bin/activate
