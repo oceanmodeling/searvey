@@ -1,40 +1,39 @@
 #!/usr/bin/env python
-from setuptools import find_packages
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def readme():
-    with open("README.md", "r", encoding="utf-8") as fd:
+    with open('README.md', 'r', encoding='utf-8') as fd:
         return fd.read()
 
 
 # copy structure from xarray/xarray-extras setup
 
-DISTNAME = "searvey"
+DISTNAME = 'searvey'
 
 ISRELEASED = False
-VERSION = "0.1.0"
+VERSION = '0.1.0'
 QUALIFIER = ""
 
 
-LICENSE = "EUPL 1.2"
+LICENSE = 'EUPL 1.2'
 
-AUTHOR = "Panos Mavrogiorgos"
+AUTHOR = 'Panos Mavrogiorgos'
 
-AUTHOR_EMAIL = "pmav99@gmail.com"
+AUTHOR_EMAIL = 'pmav99@gmail.com'
 
 
 CLASSIFIERS = [
-    "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
-    "Operating System :: OS Independent",
-    "Development Status :: 4 - Beta",
-    "Environment :: Other Environment",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering :: Atmospheric Science",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
+    'License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)',
+    'Operating System :: OS Independent',
+    'Development Status :: 4 - Beta',
+    'Environment :: Other Environment',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'Topic :: Scientific/Engineering :: Atmospheric Science',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9',
 ]
 
 DESCRIPTION = ""
@@ -48,7 +47,7 @@ INSTALL_REQUIRES = ""
 SETUP_REQUIRES = ""
 
 
-TESTS_REQUIRE = ["pytest >= 3.9"]
+TESTS_REQUIRE = ['pytest >= 3.9']
 
 URL = ""
 

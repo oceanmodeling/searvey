@@ -5,25 +5,26 @@ import pandas as pd
 import pydantic
 
 from .erddap import query_erddap
-from .models import ERDDAPDataset
-from .models import SymmetricConstraints
+from .models import ERDDAPDataset, SymmetricConstraints
 
 _CRITECH_NORMALIZED_NAMES = {
-    "stationID": "station_id",
-    "stationName": "station_name",
-    "stationSensor": "station_sensor",
-    "stationProvider": "station_provider",
-    "time (UTC)": "time",
-    "latitude (degrees_north)": "lat",
-    "longitude (degrees_east)": "lon",
-    "SLEV (m)": "sea_level",
-    "timestamp (UTC)": "timestamp",
+    'stationID': 'station_id',
+    'stationName': 'station_name',
+    'stationSensor': 'station_sensor',
+    'stationProvider': 'station_provider',
+    'time (UTC)': 'time',
+    'latitude (degrees_north)': 'lat',
+    'longitude (degrees_east)': 'lon',
+    'SLEV (m)': 'sea_level',
+    'timestamp (UTC)': 'timestamp',
 }
 
 
 EMODNET_CRITECH = ERDDAPDataset(
-    server_url=pydantic.parse_obj_as(pydantic.HttpUrl, "https://erddap.emodnet-physics.eu/erddap"),
-    dataset_id="TAD_Tsunami_Alert_Device",
+    server_url=pydantic.parse_obj_as(
+        pydantic.HttpUrl, 'https://erddap.emodnet-physics.eu/erddap'
+    ),
+    dataset_id='TAD_Tsunami_Alert_Device',
     is_longitude_symmetric=True,
 )
 
@@ -45,12 +46,12 @@ def normalize_timestamps(df: pd.DataFrame) -> pd.DataFrame:
 
 def make_categories(df: pd.DataFrame) -> pd.DataFrame:
     df = df.assign(
-        station_id=df.station_id.astype("category"),
-        station_name=df.station_name.astype("category"),
-        station_sensor=df.station_sensor.astype("category"),
-        station_provider=df.station_provider.astype("category"),
-        author=df.author.astype("category"),
-        command=df.command.astype("category"),
+        station_id=df.station_id.astype('category'),
+        station_name=df.station_name.astype('category'),
+        station_sensor=df.station_sensor.astype('category'),
+        station_provider=df.station_provider.astype('category'),
+        author=df.author.astype('category'),
+        command=df.command.astype('category'),
     )
     return df
 

@@ -5,22 +5,22 @@ import pandas as pd
 import pydantic
 
 from .erddap import query_erddap
-from .models import AsymmetricConstraints
-from .models import ERDDAPDataset
+from .models import AsymmetricConstraints, ERDDAPDataset
 from .utils import lon3_to_lon1
 
-
 _UHSLC_NORMALIZED_NAMES = {
-    "sea_level (millimeters)": "sea_level",
-    "time (UTC)": "time",
-    "latitude (degrees_north)": "lat",
-    "longitude (degrees_east)": "lon",
-    "last_rq_date (UTC)": "last_rq_date",
+    'sea_level (millimeters)': 'sea_level',
+    'time (UTC)': 'time',
+    'latitude (degrees_north)': 'lat',
+    'longitude (degrees_east)': 'lon',
+    'last_rq_date (UTC)': 'last_rq_date',
 }
 
 SOEST_UHSLC = ERDDAPDataset(
-    server_url=pydantic.parse_obj_as(pydantic.HttpUrl, "https://uhslc.soest.hawaii.edu/erddap"),
-    dataset_id="global_hourly_fast",
+    server_url=pydantic.parse_obj_as(
+        pydantic.HttpUrl, 'https://uhslc.soest.hawaii.edu/erddap'
+    ),
+    dataset_id='global_hourly_fast',
     is_longitude_symmetric=False,
 )
 
@@ -40,7 +40,7 @@ def remove_null_sea_levels(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def normalize_timestamps(df: pd.DataFrame, freq: str = "H") -> pd.DataFrame:
+def normalize_timestamps(df: pd.DataFrame, freq: str = 'H') -> pd.DataFrame:
     df = df.assign(time=pd.to_datetime(df.time).dt.round(freq=freq))
     return df
 
@@ -53,13 +53,13 @@ def normalize_sea_level(df: pd.DataFrame) -> pd.DataFrame:
 def make_categories(df: pd.DataFrame) -> pd.DataFrame:
     df = df.assign(
         # gloss_id=df.gloss_id.astype(int),
-        station_name=df.station_name.astype("category"),
-        station_country=df.station_country.astype("category"),
-        station_country_code=df.station_country_code.astype("category"),
-        ssc_id=df.ssc_id.astype("category"),
-        uhslc_id=df.uhslc_id.astype("category"),
-        gloss_id=df.gloss_id.astype("category"),
-        record_id=df.record_id.astype("category"),
+        station_name=df.station_name.astype('category'),
+        station_country=df.station_country.astype('category'),
+        station_country_code=df.station_country_code.astype('category'),
+        ssc_id=df.ssc_id.astype('category'),
+        uhslc_id=df.uhslc_id.astype('category'),
+        gloss_id=df.gloss_id.astype('category'),
+        record_id=df.record_id.astype('category'),
     )
     return df
 

@@ -10,8 +10,8 @@ logger = logging.getLogger()
 
 
 class ERDDAPProtocol(str, enum.Enum):
-    TABLEDAP: Final = "tabledap"
-    GRIDDAP: Final = "griddap"
+    TABLEDAP: Final = 'tabledap'
+    GRIDDAP: Final = 'griddap'
 
 
 class Constraints(pydantic.BaseModel):
