@@ -20,7 +20,7 @@ jobs:
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
         if: steps.cached-dependencies.outputs.cache-hit != 'true'
-        run: pip install . black mypy prospector pytest
+        run: pip install . black mypy prospector pytest types-requests
       - name: lint with black
         run: black --check .
       - name: lint with prospector
