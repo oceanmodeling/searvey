@@ -15,16 +15,14 @@ jobs:
       - name: install Poetry
         uses: snok/install-poetry@v1
       - name: load cached Python installation
-        id: cached-poetry-dependencies
+        id: cached-dependencies
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-interaction --no-root
-          pip install black mypy prospector
+        if: steps.cached-dependencies.outputs.cache-hit != 'true'
+        run: pip install . black mypy prospector
       - name: lint with black
         run: black --check .
       - name: lint with prospector
@@ -54,33 +52,17 @@ jobs:
       #       load cached dependencies if cache exists
       #----------------------------------------------
       - name: load cached Python installation
-        id: cached-poetry-dependencies
+        id: cached-dependencies
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
-      #  -----  install & configure poetry  -----
-      #----------------------------------------------
-      - name: Install Poetry
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        uses: snok/install-poetry@v1
-        with:
-          version: 1.1.12
-      #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-interaction --no-root
-          pip install pytest-xdist
-      #----------------------------------------------
-      # install your root project, if required
-      #----------------------------------------------
-      - name: Install library
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+        if: steps.cached-dependencies.outputs.cache-hit != 'true'
+        run: pip install . pytest pytest-xdist
       #----------------------------------------------
       # Run tests
       #----------------------------------------------
