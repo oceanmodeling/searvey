@@ -60,12 +60,11 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-dependencies.outputs.cache-hit != 'true'
-        run: pip install . pytest pytest-cov pytest-xdist
+        run: pip install . pytest pytest-cov
       #----------------------------------------------
       # Run tests
       #----------------------------------------------
       - name: Run tests with coverage
         run: |
-          pytest tests/ -m "serial"
-          pytest --numprocesses auto tests/ -m "not serial" --cov-report xml:coverage.xml
+          pytest tests/ --numprocesses auto
           coverage report
