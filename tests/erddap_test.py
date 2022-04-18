@@ -15,7 +15,6 @@ def test_openurl_wrong_url_raises() -> None:
     assert "The requested URL <code>/gibberish</code> was not found on this server" in str(exc)
 
 
-@pytest.mark.serial
 def test_openurl_timeout_raises() -> None:
     with pytest.raises(ReadTimeout) as exc:
         erddap.urlopen(
