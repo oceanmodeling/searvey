@@ -80,14 +80,14 @@ pylint:
 mccabe:
   run: true
 
-pep8:
+pycodestyle:
   options:
     max-line-length: 108
   disable:
     - "E203"  # disable whitespace before colon - useful for numpy slicing
     - "E501"  # disable line too length. No reason to check for line length in each and every tool
 
-pep257:
+pydocstyle:
   run: false
   disable:
     - 'D400'
