@@ -5,7 +5,8 @@ import pandas as pd
 import pydantic
 
 from .erddap import query_erddap
-from .models import AsymmetricConstraints, ERDDAPDataset
+from .models import AsymmetricConstraints
+from .models import ERDDAPDataset
 from .utils import lon3_to_lon1
 
 _UHSLC_NORMALIZED_NAMES = {

@@ -1,5 +1,6 @@
 import pytest
-from requests import HTTPError, ReadTimeout
+from requests import HTTPError
+from requests import ReadTimeout
 
 from searvey import erddap
 

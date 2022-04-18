@@ -1,14 +1,16 @@
 import datetime
 import io
 import logging
-from typing import cast, Optional
+from typing import cast
+from typing import Optional
 
 import erddapy
 import pandas as pd
 import requests
 
 from .custom_types import StrDict
-from .models import Constraints, ERDDAPDataset
+from .models import Constraints
+from .models import ERDDAPDataset
 
 logger = logging.getLogger(__name__)
 

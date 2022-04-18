@@ -5,7 +5,8 @@ import pandas as pd
 import pydantic
 
 from .erddap import query_erddap
-from .models import ERDDAPDataset, SymmetricConstraints
+from .models import ERDDAPDataset
+from .models import SymmetricConstraints
 
 _CRITECH_NORMALIZED_NAMES = {
     'stationID': 'station_id',
