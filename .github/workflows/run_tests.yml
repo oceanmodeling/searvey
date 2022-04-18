@@ -66,5 +66,6 @@ jobs:
       #----------------------------------------------
       - name: Run tests with coverage
         run: |
-          pytest --numprocesses auto tests/ --cov-report xml:coverage.xml
+          pytest tests/ -m "serial"
+          pytest --numprocesses auto tests/ -m "not serial" --cov-report xml:coverage.xml
           coverage report
