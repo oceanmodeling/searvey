@@ -12,8 +12,6 @@ jobs:
         uses: actions/checkout@v2
       - name: install Python
         uses: actions/setup-python@v2
-      - name: install Poetry
-        uses: snok/install-poetry@v1
       - name: load cached Python installation
         id: cached-dependencies
         uses: actions/cache@v2
