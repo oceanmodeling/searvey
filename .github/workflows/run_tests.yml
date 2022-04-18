@@ -60,16 +60,11 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
 #        if: steps.cached-dependencies.outputs.cache-hit != 'true'
-        run: pip install . pytest pytest-xdist
+        run: pip install . pytest pytest-cov pytest-xdist
       #----------------------------------------------
       # Run tests
       #----------------------------------------------
-      - name: Run tests
-        if: matrix.python-version != '3.x' || matrix.os != 'ubuntu-latest'
-        run: pytest --numprocesses auto tests/
       - name: Run tests with coverage
-        if: matrix.python-version == '3.x' && matrix.os == 'ubuntu-latest'
         run: |
-          pip install pytest-cov
-          pytest --numprocesses auto --cov tests/ --cov-report xml:coverage.xml
+          pytest --numprocesses auto tests/ --cov-report xml:coverage.xml
           coverage report
