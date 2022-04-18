@@ -8,7 +8,7 @@ from searvey import utils
 
 
 @pytest.mark.parametrize(
-    'lon1,expected_lon3', [(-180, 180), (-90, 270), (0, 0), (90, 90), (180, 180),],
+    'lon1,expected_lon3', [(-180, 180), (-90, 270), (0, 0), (90, 90), (180, 180)],
 )
 def test_lon1_to_lon3_scalars(lon1: float, expected_lon3: float) -> None:
     assert utils.lon1_to_lon3(lon1) == expected_lon3
@@ -26,7 +26,7 @@ def test_lon1_to_lon3_numpy(lon1: npt.NDArray[Any], expected_lon3: npt.NDArray[A
 
 
 @pytest.mark.parametrize(
-    'lon3,expected_lon1', [(0, 0), (90, 90), (180, -180), (270, -90), (360, 0),],
+    'lon3,expected_lon1', [(0, 0), (90, 90), (180, -180), (270, -90), (360, 0)],
 )
 def test_lon3_to_lon1_scalars(lon3: float, expected_lon1: float) -> None:
     assert utils.lon3_to_lon1(lon3) == expected_lon1
