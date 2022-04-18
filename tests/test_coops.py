@@ -57,16 +57,16 @@ def test_coops_station():
     station_3 = COOPS_Station('Calcasieu Test Station')
     station_4 = COOPS_Station(9414458)
 
-    assert station_1.id == 1612480
+    assert station_1.id == '1612480'
     assert station_1.nws_id == 'MOKH1'
     assert station_1.name == 'Mokuoloe'
-    assert station_2.id == 1612340
+    assert station_2.id == '1612340'
     assert station_2.nws_id == 'OOUH1'
     assert station_2.name == 'Honolulu'
-    assert station_3.id == 9999531
+    assert station_3.id == '9999531'
     assert station_3.nws_id == ''
     assert station_3.name == 'Calcasieu Test Station'
-    assert station_4.id == 9414458
+    assert station_4.id == '9414458'
     assert station_4.nws_id == 'ZSMC1'
     assert station_4.name == 'San Mateo Bridge'
     assert not station_4.current
