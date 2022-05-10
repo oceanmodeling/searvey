@@ -12,7 +12,6 @@ pydantic = "^1.8"
 requests = "^2.26"
 
 [tool.poetry.dev-dependencies]
-black = "21.12b0"
 setuptools = "*"
 ipykernel = "*"
 mypy = "0.950"

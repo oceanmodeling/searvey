@@ -55,10 +55,6 @@ jobs:
       #----------------------------------------------
       #  Linters
       #----------------------------------------------
-      - name: black it!
-        run: |
-          source .venv/bin/activate
-          black --check
       - name: lint
         run: |
           source .venv/bin/activate
