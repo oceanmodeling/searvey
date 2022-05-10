@@ -18,7 +18,7 @@ setuptools = "*"
 mypy = "0.950"
 pre-commit = "^2.15"
 prospector = "^1.5"
-pytest = "^6.2"
+pytest = "^7.0"
 pytest-cov = "^3.0"
 pytest-recording = "^0.12.0"
 types-requests = "^2.26"
@@ -32,7 +32,7 @@ line-length = 108
 target-version = ['py39']
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "7.0"
 addopts = "-ra --verbose --showlocals --tb=short --cov=searvey --cov-report term-missing"
 testpaths = [
     "tests",
