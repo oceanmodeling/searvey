@@ -3,7 +3,6 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/oceanmodeling/searvey/master.svg)](https://results.pre-commit.ci/latest/github/oceanmodeling/searvey/master)
 [![tests](https://github.com/oceanmodeling/searvey/actions/workflows/run_tests.yml/badge.svg)](https://github.com/oceanmodeling/searvey/actions/workflows/run_tests.yml)
 
-
 Searvey aims to provide the following functionality:
 
 - Unified catalogue of observational data including near real time.
@@ -19,4 +18,11 @@ python3 -mvenv .venv
 source .venv/bin/activate
 poetry install
 pre-commit install
+```
+
+If you wish to use jupyterlab to test searvey, then, assuming you have an existing jupyterlab
+installation, you should be able to add a kernel to it with:
+
+```bash
+python -mipykernel install --user --name searvey
 ```
