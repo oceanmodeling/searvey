@@ -64,10 +64,11 @@ pylint:
       - "ax"
       - "rc"
       # various
-      - "logger"
-      - "router"
       - "app"
       - "env"
+      - "id"
+      - "logger"
+      - "router"
       # alembic
       - "revision"
       - "down_revision"

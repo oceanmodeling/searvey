@@ -51,10 +51,26 @@ plugins = [
 show_error_codes = true
 show_column_numbers = true
 show_error_context = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_ignores = true
 
 # configure behavior
 strict = true
 ignore_missing_imports = true
+
+# FIXME These errors get thrown by `searvey/coops.py`
+# I can't find a way to disable them on a per-module basis, so we are disabling them globally.
+# We should comment them out one by one, run `make mypy`, fix the errors and move on.
+disable_error_code = [
+    "assignment",
+    "override",
+    "attr-defined",
+    "no-any-return",
+    "unreachable",
+]
 
 # mypy per-module options:
 [[tool.mypy.overrides]]

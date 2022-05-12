@@ -1,7 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict
+from typing import Any
+from typing import Dict
 
 from pandas import DataFrame
 from shapely.geometry import Point
@@ -21,8 +23,8 @@ class StationDatum(Enum):
 
 
 class StationStatus(Enum):
-    ACTIVE = 'active'
-    DISCONTINUED = 'discontinued'
+    ACTIVE = "active"
+    DISCONTINUED = "discontinued"
 
 
 class Station(ABC):
@@ -33,18 +35,18 @@ class Station(ABC):
     id: str
     location: Point
 
-    def __init__(self, id: str, location: Point):
+    def __init__(self, id: str, location: Point):  # pylint: disable=redefined-builtin
         self.id = id
         self.location = location
 
     @abstractmethod
     def product(
-            self,
-            product: StationDataProduct,
-            start_date: datetime,
-            end_date: datetime = None,
-            interval: StationDataInterval = None,
-            datum: StationDatum = None,
+        self,
+        product: StationDataProduct,
+        start_date: datetime,
+        end_date: datetime = None,
+        interval: StationDataInterval = None,
+        datum: StationDatum = None,
     ) -> Dataset:
         """
         retrieve data for the current station within the specified parameters
@@ -75,13 +77,13 @@ class StationQuery(ABC):
     datum: StationDatum
 
     def __init__(
-            self,
-            station_id: str,
-            product: StationDataProduct,
-            start_date: datetime,
-            end_date: datetime = None,
-            interval: StationDataInterval = None,
-            datum: StationDatum = None,
+        self,
+        station_id: str,
+        product: StationDataProduct,
+        start_date: datetime,
+        end_date: datetime = None,
+        interval: StationDataInterval = None,
+        datum: StationDatum = None,
     ):
         self.station_id = station_id
         self.product = product
