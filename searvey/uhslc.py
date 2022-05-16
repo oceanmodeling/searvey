@@ -1,13 +1,17 @@
+"""
+interface with the University of Hawai'i at Manoa School of Ocean and Earth Science and Technology (SOEST) Sea Level Center (UHSLC) API
+https://uhslc.soest.hawaii.edu/erddap
+"""
 import datetime
 from typing import Optional
 
 import pandas as pd
 import pydantic
 
-from .erddap import query_erddap
-from .models import AsymmetricConstraints
-from .models import ERDDAPDataset
-from .utils import lon3_to_lon1
+from searvey.erddap import query_erddap
+from searvey.models import AsymmetricConstraints
+from searvey.models import ERDDAPDataset
+from searvey.utils import lon3_to_lon1
 
 
 _UHSLC_NORMALIZED_NAMES = {
