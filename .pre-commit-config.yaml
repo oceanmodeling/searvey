@@ -1,9 +1,9 @@
 ---
 default_language_version:
-  python: 'python3.9'
+  python: "python3.9"
 fail_fast: true
 ci:
-    skip: ["prospector", "mypy"]
+    skip: ["poetry-lock", "prospector", "mypy"]
 
 repos:
   - repo: "https://github.com/pre-commit/pre-commit-hooks"
@@ -58,3 +58,12 @@ repos:
         entry: "make mypy"
         language: "system"
         types: ["python"]
+
+  - repo: "https://github.com/pmav99/poetry11"
+    rev: "de1e372981c75860c4d8b86c6368e9a9d8a88450"
+    hooks:
+      - id: "poetry-version"
+      - id: "poetry-check"
+      - id: "poetry-lock"
+      - id: "poetry-export"
+      - id: "poetry-export-dev"
