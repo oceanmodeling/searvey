@@ -71,5 +71,5 @@ jobs:
       #----------------------------------------------
       - name: Run tests with coverage
         run: |
-          pytest tests/
+          pytest --record-mode none tests/
           coverage report
