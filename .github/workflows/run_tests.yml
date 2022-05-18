@@ -25,8 +25,8 @@ jobs:
         with:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
-      - name: Install dependencies
-        run: pip install . black mypy prospector pytest types-requests
+      - name: Install (dev) dependencies
+        run: pip install -r requirements/requirements-dev.txt
       - name: lint with prospector
         run: make lint
       - name: lint with mypy
