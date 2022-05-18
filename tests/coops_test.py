@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import pytest
 from shapely.geometry import box
 
 from searvey.coops import coops_product_within_region
@@ -8,6 +9,7 @@ from searvey.coops import coops_stations
 from searvey.coops import coops_stations_within_region
 
 
+@pytest.mark.vcr
 def test_coops_stations():
     stations = coops_stations()
 
@@ -22,6 +24,7 @@ def test_coops_stations():
     ]
 
 
+@pytest.mark.vcr
 def test_coops_stations_within_region():
     region = box(-83, 25, -75, 36)
 
@@ -38,6 +41,7 @@ def test_coops_stations_within_region():
     ]
 
 
+@pytest.mark.vcr
 def test_coops_product_within_region():
     region = box(-83, 25, -75, 36)
 
@@ -54,6 +58,7 @@ def test_coops_product_within_region():
     assert len(data["t"]) > 0
 
 
+@pytest.mark.vcr
 def test_coops_station():
     start_date = datetime(2021, 1, 1)
     end_date = datetime(2021, 1, 1, 0, 10)
