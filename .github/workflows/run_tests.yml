@@ -4,8 +4,8 @@ name: "Run Tests"
 on: [ push ]
 
 jobs:
-  lint:
-    name: lint
+  test:
+    name: test
     strategy:
       fail-fast: true
       matrix:
@@ -26,48 +26,42 @@ jobs:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install (dev) dependencies
-        run: pip install -r requirements/requirements-dev.txt
-      - name: lint with prospector
-        run: make lint
-      - name: lint with mypy
-        run: make mypy
-  test:
-    needs: lint
-    name: test
+        run: python -mpip install -r requirements/requirements-dev.txt
+      - name: Debug
+        run: |
+          python --version
+          python -mpip --version
+          pytest --version
+          python -mpip cache info
+      - name: Run tests with coverage
+        run: |
+          pytest --record-mode none tests/
+          coverage report
+
+  pre-commit:
+    name: pre-commit
     strategy:
       fail-fast: true
       matrix:
         os: [ "ubuntu-latest" ]
-        python-version: [ "3.9", "3.x" ]
+        python-version: [ "3.x" ]
     runs-on: ${{ matrix.os }}
     steps:
-      #----------------------------------------------
-      #       check-out repo and set-up python
-      #----------------------------------------------
-      - name: Check out repository
+      - name: clone repository
         uses: actions/checkout@v2
-      - name: Set up python ${{ matrix.python-version }}
+      - name: install Python
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      #----------------------------------------------
-      #       load cached dependencies if cache exists
-      #----------------------------------------------
       - name: load cached Python installation
         id: cached-dependencies
         uses: actions/cache@v2
         with:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
-      #----------------------------------------------
-      # install dependencies if cache does not exist
-      #----------------------------------------------
-      - name: Install dependencies
-        run: pip install . pytest pytest-cov
-      #----------------------------------------------
-      # Run tests
-      #----------------------------------------------
-      - name: Run tests with coverage
-        run: |
-          pytest --record-mode none tests/
-          coverage report
+      - name: Install (dev) dependencies
+        run: python -mpip install -r requirements/requirements-dev.txt
+      - name: pre-commit
+        uses: pre-commit/action@v2.0.3
+        with:
+          extra_args: "--verbose --all-files"
