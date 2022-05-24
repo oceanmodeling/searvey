@@ -26,13 +26,13 @@ jobs:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install (dev) dependencies
-        run: python -mpip install -r requirements/requirements-dev.txt
+        run: python -m pip install -r requirements/requirements-dev.txt
       - name: Debug
         run: |
           python --version
-          python -mpip --version
+          python -m pip --version
           pytest --version
-          python -mpip cache info
+          python -m pip cache info
       - name: Run tests with coverage
         run: |
           pytest --record-mode none tests/
@@ -60,7 +60,7 @@ jobs:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install (dev) dependencies
-        run: python -mpip install -r requirements/requirements-dev.txt
+        run: python -m pip install -r requirements/requirements-dev.txt
       - name: pre-commit
         uses: pre-commit/action@v2.0.3
         with:
