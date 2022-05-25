@@ -64,7 +64,7 @@ coops_stations_within_region(region=region)
 
 ```
         nws_id                               name state removed                    geometry
-nos_id                                                                                     
+nos_id
 8651370  DUKN7                               Duck    NC     NaT  POINT (-75.75000 36.18750)
 8652587  ORIN7                Oregon Inlet Marina    NC     NaT  POINT (-75.56250 35.78125)
 8654467  HCGN7              USCG Station Hatteras    NC     NaT  POINT (-75.68750 35.21875)
