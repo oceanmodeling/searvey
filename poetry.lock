@@ -1326,13 +1326,14 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [extras]
+docs = []
 linting = []
 testing = []
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "6fbebcfe8fa4e74ad9a99681dcb67f95e52534653e5b31a163c6b4b04bed8fb1"
+content-hash = "d129c37b94e44aa89cc2cc5d34c208b273ee2d4327ae517095262db0174878a9"
 
 [metadata.files]
 appnope = [

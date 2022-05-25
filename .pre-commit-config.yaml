@@ -22,6 +22,7 @@ repos:
       - id: "check-yaml"
       - id: "debug-statements"
       - id: "end-of-file-fixer"
+        exclude: .+\.ipynb
       - id: "name-tests-test"
       - id: "trailing-whitespace"
 
