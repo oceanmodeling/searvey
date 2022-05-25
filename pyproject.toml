@@ -58,6 +58,7 @@ types-requests = "^2.26"
 [tool.poetry.extras]
 linting = ["mypy", "prospector"]
 testing = ["pre-commit", "pytest", "pytest-cov", "pytest-recording", "pytest-xdist", "types-requests"]
+docs = ["dunamai", "m2r2", "sphinx", "sphinx-rtd-theme"]
 
 [tool.black]
 line-length = 108
