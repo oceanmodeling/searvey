@@ -2,7 +2,10 @@
 name = "searvey"
 version = "0.1.0"
 description = ""
-authors = ["Panos Mavrogiorgos <pmav99@gmail.com>"]
+authors = [
+  "Panos Mavrogiorgos <pmav99@gmail.com>",
+  "Zachary Burnett <zachary.r.burnett@gmail.com>",
+]
 license = "EUPL-1.0"
 readme = "README.md"
 repository = "https://github.com/oceanmodeling/searvey.git"
@@ -53,7 +56,7 @@ pytest-recording = "^0.12.0"
 types-requests = "^2.26"
 
 [tool.poetry.extras]
-linting = ["black", "mypy", "prospector"]
+linting = ["mypy", "prospector"]
 testing = ["pre-commit", "pytest", "pytest-cov", "pytest-recording", "pytest-xdist", "types-requests"]
 
 [tool.black]

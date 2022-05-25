@@ -1,9 +1,9 @@
 ---
 default_language_version:
-  python: 'python3.9'
+  python: "python3"
 fail_fast: true
 ci:
-    skip: ["prospector", "mypy"]
+    skip: ["poetry-lock", "prospector", "mypy"]
 
 repos:
   - repo: "https://github.com/pre-commit/pre-commit-hooks"
@@ -24,6 +24,13 @@ repos:
       - id: "end-of-file-fixer"
       - id: "name-tests-test"
       - id: "trailing-whitespace"
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-use-type-annotations
 
   - repo: "https://github.com/asottile/reorder_python_imports"
     rev: "v3.1.0"
@@ -51,3 +58,12 @@ repos:
         entry: "make mypy"
         language: "system"
         types: ["python"]
+
+  - repo: "https://github.com/pmav99/poetry11"
+    rev: "de1e372981c75860c4d8b86c6368e9a9d8a88450"
+    hooks:
+      - id: "poetry-version"
+      - id: "poetry-check"
+      - id: "poetry-lock"
+      - id: "poetry-export"
+      - id: "poetry-export-dev"

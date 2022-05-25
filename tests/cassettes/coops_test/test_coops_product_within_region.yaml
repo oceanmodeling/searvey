@@ -1,0 +1,3971 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726412&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:04 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726412&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726412&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYuSHzCIAMFuQQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - aec70878-3f8e-411c-9131-0ec98685ca57
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726679&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:06 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726679&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726679&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYulErZoAMFx4g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - e93903d9-25a7-4d96-a705-ca58d0f98476
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726694&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:08 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726694&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726694&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYu5EASoAMFzHg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 5227777e-f3d0-4ef1-897a-ed22a3d18eb6
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8662245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:10 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8662245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8662245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNsQrCMBBAd78i3KTQhkvSJrW7gyD6AeIQaJRCG7WNQin9dy916aDcLe94vBuh
+        dcFWNlgoR6grKKHQWsoshwS8bR0dTkMfXMcO1le1v7H1ke194wLb9eFlu2FDZmMDiUpxlQsT+e6J
+        U7PlotAGpoTB9wc7jxBViVKkGJchlohAxjveuVAz9ATIEVWEa4RknohPwgdFf6b0IpXLZSr7n7pM
+        qw8coSojCgEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '181'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:11 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYvQE5BIAMF1kQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '266'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:11 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 09c162f9-4fbf-4b99-9fb9-13c387e96451
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720233&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:13 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720233&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720233&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:14 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYvmHoBoAMF9bg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:14 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - bffdcbd6-ac38-4304-8d1f-f135698287c8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720228&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:15 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720228&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720228&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:16 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYv8GznIAMFtsg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:16 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 28ce1498-1558-400e-a3e8-921465e25a18
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:17 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNwQqCQBCG7z3FMOd1GRfdVY89QVC36DDhFkFq6SaE+O7N2sVDMf/l+/n5ZsLG
+        B645MFYT3mqssHDG5oZQYcuNl2IfNOx88P1wfvVXBQduHgxbfsvkzkEWxmlnyUbuWuGkMNoaW+Ks
+        AL9yOE64TMmkCcUAUUXyBnCUPtW2zCIMAqSJ8giXCGq5iE/BUaQ/VXalKtxalf1XnebNB6Y2OVgD
+        AQAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '174'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:18 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYwQHa-oAMFoVQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '259'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:18 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 32213a41-26b4-4964-b947-3413d00b749d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726724&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:19 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726724&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726724&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMMQ7CMAxFd04ReW4jx2mT0BGOgRgsGgRSW0SJylD17jhl6QCyl/f/15uhj4lb
+        TgzNDPcWGgienKcKChi4jxIcu8jjm1Mc1SHy5SZNx0kK8nrvg838GITLQDpY42EpFHyd6jTDOkUy
+        JeZXiA0iyGKS3Ggil+ElgBpdleGaoVgv41NwEulPlduoartR1fhfdV52H7MuHTn6AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:20 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYwjEtuoAMF_7A=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '250'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:20 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 90904127-3ac7-484f-ab7e-5dc352c7dc97
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726607&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:21 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726607&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726607&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAI2MsQrCMBCGd58i3JyGMyXJmZfQwU0cDlJBaFqroUvpu3upi4OD3C3fx8+3QO4K
+        Jy4McYF7gggUrPcYQMPAuRNx7JM6jc+izpwfLL7nItoGQy5Q5XEQbsga5yzBqhV8iuqywDZFu2+w
+        vkKMiCCLWfzBtC1VeAmgQXQVbhX0dhUnwVmiP1P+O+X/TF3X3RtJPS/Z+AAAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '160'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:22 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYw3Ee7IAMFjTw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '248'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:22 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - c51a01e1-e7b7-48c9-bb0c-828643b9c241
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720030&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:23 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720030&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720030&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWOMQ7CMAxFd04ReW4jJ22T0pGBSyAGiwRRiQYBUZeod8emAwwge3n/W08uMMVM
+        gTLBUGAMMEDvLWKDUEGiKXKwj49EKYyJ1C7S6cLNlTIXDWrnTSt8S8x1b3Truh6WSsHqVIcCcmrR
+        mhplFeKAbFcwc250573AkwE1rs1ZoHqP4J1xZulPlfuonNl+qeSxf6rjsnkBW81+yfoAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '167'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:24 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYxMH_IoAMFw1Q=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '250'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:24 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 1ec37f1f-06e0-4ad8-a9cf-f5bba8fe19b1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726384&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:25 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726384&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726384&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQrCMBCGd58i3JyGM7FJzTsI7uJw0AiCTVFDl9B39y4uHZS75fv4+SpMqdBI
+        hSBWuI8QYQjWu+EAGjJNicV5fhV1okwlJbYPKixtMLxywnNm7gZrem97WLWCb09dKrQp2n2H8gox
+        IgIvFvZo/NEJvBsgBoGbgG4n+GRcOPoz5bcpv035/6nruvsA+uePsfYAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:26 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYxgHh6IAMF7cg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '246'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:26 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 4a159206-b8f7-4105-b221-8aed6db96de8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8725520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:27 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8725520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8725520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMMQrDMAwA977CaHaMbGrL+AHd+oKQwRAXCk1CExMoJn+vnCwZWqTlTuIKDCnH
+        PuYIocCzhwCejLUGQcIYh8TiNs1Z3D9pXti9YmZlnHJXosrTyNx4rTxpA5sUcNREW2B/RaMbrCsQ
+        A3JXwMpeK7JUYWFAhcflUUHuU/HNuHL0Z8qdU/6csv9T3Xb5Agr4jkD0AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:28 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYx0EKCoAMFmog=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '244'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:28 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - d89761a9-3fde-4797-98a3-7b7da8756b79
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726671&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:29 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726671&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726671&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:30 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYyIFosoAMF0dA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:30 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 2cdd0de8-132d-4ad7-983f-16dd4cb08144
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726524&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:31 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726524&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726524&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:32 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYycGtnoAMF-UQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:32 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 40475e60-b21c-4fc3-a186-7ba05ea15cf5
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726674&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:33 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726674&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726674&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMwQrCMAyG7z5FybkrWVbarUfBpxAPgU0Q3ERWBlL27ib16kgu38fPV2CeMo+c
+        GVKBxwgJ+kghRA8WFp4nERdesznzR8yTswiKbqCuVX4twk1PzlPrYbcGfi1zLVCnSG2D+gYxIYIs
+        NvHo4kAKawXETuGuYOspvgU3if5NhcOUP07d9tMXWBWg+vIAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:34 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYyxFn0IAMFilQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '242'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:34 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 885ce30d-3943-4983-a2ab-2283e3d70a2b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720215&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:35 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720215&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720215&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:36 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYzHGtXIAMF7IQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:36 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 40495bed-2cc9-46f0-b4e4-3dc5d89a7bd8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720218&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:37 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720218&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720218&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXMQQuCQBCG4Xu/YplTgS3jKu7qMboG3aPDkAaSuqWLEOJ/b8YuHordyzt8PBO0
+        VaCSAkExQV1CAc4aNLGDCDpqKz6c6P30fVDbA/XqXDc+DOrob48dTxoKvEhQJ7kz0r7j3rtYp8bm
+        MEcKvri6TCBTsfcoXyEWiMCLUQidpVZi4ECNuMRdIlqe5ItzZPQnla0oi2sq+09d580HrKNj4QMB
+        AAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '173'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:38 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYzcGL8oAMFZqw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '259'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:38 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - a620acf3-caa2-4d5c-8371-2665505381ba
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8661070&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:39 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8661070&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8661070&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMwQ6CMAyG7z7F0jMs7SYb8BQmHo2HJZtmCaAi4UJ4d1u8cNC0l+/v32+BPk0h
+        hilAu0CO0ELtHKFHKGAIfeLg/BzzcO9DjuqU08iHLkycW6tdVUmxewzMpa91Q7WFtVDwVarLAlI1
+        aKhEWYXYIv8omDkn1GQ3ejOhxoYEbgLFNoIvxpmtP11u7zq6ncub/67revgAs6S47PsAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '167'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:40 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUYzwEJRIAMFl1w=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '251'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:40 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 7639331f-a13f-4a03-8353-a8046c79cf43
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8670870&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:41 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8670870&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8670870&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXMvwrCMBDH8d2nCDen4ZJILs0DOLuLQ6AViv2DNnYpfXfvdNBBSZbPj+O7wtCW
+        3OSSIa3QNZAgBsJICBrGPLQ8HKZ7UcdHn+drx2ufC4/eGfSBxNPIriKaGi3BphW8e+q0gpw6dLZC
+        +QoxIZcVLLKbQF4wM9CgdYKLQL+e8MZcOPozFT4p2rvvVP0/dd52T/jRfoD2AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '162'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:42 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY0GEk6oAMFSRQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '246'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:42 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 3ddc903a-8fe1-4d8c-a5af-ce925c3f7ef2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8722956&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:43 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8722956&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8722956&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMuwrDMAxF936F0ZwY2RC/9u6FjqWDIO4D8qCJ6yXk3yunFDq0SMu5VzoL9DFR
+        S4kgLHBvIYCzWvvGQAUD9ZGD4/hMN3EYpyT2OU7Xjto4c91R4lYbiU7ZwuPAXDuUShkLayXgLRan
+        BbZT1KrGsgIxIAJfZM6t9NYXmBlQIm5wKVBtU/DBmFn6U2U+KsffzZdK6f+q87p7AfT8blf/AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '171'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:44 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY0aEHXIAMFs8g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '255'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:44 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 280bcd77-9a87-4a55-adf7-aab148fb378d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:45 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:46 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY0vGivIAMFY6Q=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:46 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - b7e24c65-8962-4e0d-b975-a766ece4f943
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8658120&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:47 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8658120&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8658120&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMzQrDIBAG730K2bORVetPfZEeSg9C0iJES4nkInn3ruklh5bdywwf0yBPNY6x
+        RggN0ggBvDVeKgQOJeaJxDXNOZVnfRVyc6yk9Fko5UxnsgEG58TFaAsbZ/CtsVuDPlWo5ID9GWJA
+        6jJYyUuhteqwEKBAucOjA9+v45twpejPlD2kvD+k0P1P3bfTByr97KX0AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:48 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY1DH4FIAMF0mA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '244'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:48 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 20765143-ab95-4636-bbdc-29393884babc
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8658163&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:49 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8658163&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8658163&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQ6CMBCGd5+iuRmaa4EWGX0JB+PQSBWSAlGaLg3v7p0uDJq75fv/P1+GyUfX
+        u+igyzD20EFrmlaZCgqY3eQpOL/GxxDXNIbgxcm720BdcJGqqpZaVbwNy0xcWittayxshYCvVVwy
+        8FSjViXyC8QOEWiRKDfSNEeGlQAl6obhzlB8jvFJmEj6U2V2Kqv2qvq/6rod3uy/EHX8AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '168'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:51 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY1YEQ1oAMF-bQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '252'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:51 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 34da31fd-5306-4880-82c9-de6cd78bfcd0
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8652587&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:52 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8652587&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8652587&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXMwQrCMAyA4btPUXLeRlrNVvcGHsQHEA+BVRlsHc6yS9m7m+hFQWkvX9L+GcaQ
+        uOPE0GboO2jB1+TIN1BA5DHI4DSH2xTNIQ4hmSPPfWRZDpxkt6Wq2ROqpyguG6po5y2shYF31pwz
+        6FOHzpao1yC2KH8MLDK3FSIpHgIUOMVVUbyO8i5cJPozVX+k7FfK/k9d1s0TDZ1dJ/0AAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '167'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:53 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY1sF9kIAMFr_g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '253'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:53 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - fab6d132-5e3e-4d81-8699-9ea0c16dfb46
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8654467&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:54 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8654467&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8654467&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNsQ6CQAyGd5/i0hku5bg7LqwOuhMn49AETEgEojQshHe31YVB0y5f/z9fVxg6
+        ppaYoF6hb6GGFIP3sYIMRho6OVya48k0TNxPozkTc/eiWeIHsaRlsA5TVJ5G4bwKtkLvYMsMfMXm
+        uoJWHboiR12DWCOCNBb9aH0qFGYBtIilwl0h+4ziU3AR6U9V3KvSXhX+q27b4Q0fg+3e/wAAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '169'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:55 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY2BHoYIAMFW0A=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '255'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:55 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 31adc4f8-91be-4f83-8f5f-23f3c757bac1
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8665530&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:56 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8665530&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8665530&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNwQ6CMAyG7z7F0vNYypAxuBJfwKvx0MiMJLApLFwI726HFw+aNk2+5s/3rzC6
+        SB1FgmaFvoMGrDFlWSBI8DQ6frQPmgY3x+ClaEN4ukmc+4XvyceJ/M1xdKDIyUKryqJNHDxzVtWq
+        1oWBTQr4lIjLCimqUecZphWIDXKdgCX9VW52mBlQYX5McE8g90n4YlxY+lNlvlTWfKmw/q+6boc3
+        y7HVYQsBAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '179'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:57 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY2VFnQIAMFY8w=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '267'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:57 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 8901d82f-c089-496a-b5fc-70cba5db8ed6
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8656483&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:13:58 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8656483&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8656483&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMMQ6CQBBFe0+xmXrZDAsuuKWx1BMYizEsCVEg4kJDuLsz2FBo5jfv58+boQ2R
+        KooEfoamAg+l27u8zEBDR23g4hhorPshanUaH0FdaGi6oM5058mTIi+y3BQWUbjvmJPCGVdwsWgF
+        X7m6ziBTizZNUKIQvfwomLhPjbW5wJsBDeIKtYBeT/DFOLH0p8ptVYetyv1X3ZbdByyjN9QDAQAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '171'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:13:59 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY2sE-_oAMFpsg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '259'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:13:59 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 62b1b6c8-960e-44d4-b88a-a78a4d875680
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8725110&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:00 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8725110&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8725110&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNTQqDQAxG9z1FyHockhEdnQt01V6gdDHUEQR/WrRSEO/ejC7aRUuyed8XXhbs
+        wuQrP3l0CzYVOiysyZgJFfa+CxKc/b0No4Ljs61hqOEUXs1tkL71k9Qm15yyjTz0wknBuiCb4aoA
+        dzNcFtxOyXBCcYHIkfwAnCVnnZoNRgHStDd1BLVNxIfgLNKfqvyjMrb8UqXlf9V1PbwBcjQvzAAB
+        AAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '173'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:01 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY3AGiGIAMFUeQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '256'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:01 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 74bb484a-7e22-489d-a386-f135a350372b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8721604&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:02 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8721604&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8721604&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMQQrCMBBF954izDoNk7SNMVsv0IU7cTHQCIU2xRi6Kb27k4rgQpmBz/t83gpT
+        yNRTJvArDD14cEejLTYgIdIUuLikoQ8xi24ISYpuTlmcKdISEo28GinzyDjV6NYVniNz5VC1p1rD
+        JgW8/eK6wj5FoyssLxA9IvBi4d4qU5sCT4aSd06U+xV8MC7s+2mxXxbbfiyoUOv/qtt2eAF3JwL8
+        AQEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '175'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:03 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY3VESzoAMF_Sw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '257'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:03 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - c6470977-f63b-4c48-94b2-7c9a335bc355
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8722670&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:04 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8722670&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8722670&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNMQ+CMBCFd3/F5ebSHAVKZXM30c3BODRQIxFKxIaF8N+94sKguVu+l5fvzdi7
+        YBsbLFYztg1WaEqldEko0NvecXC0TweXYQwPOLduFHAInfWhreFUO+u52NnAPaWlTpWJPHjmxJCk
+        LFe4CMDvBFxnXKuk0oTiA1FFPAY4cb6XJssivBlIpoWOcI8g1ov4YpxY+lOlN6qctqriv+q27D7N
+        tK1oCQEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '178'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY3oGPcIAMF46w=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '265'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - a3fc79a9-885e-4d21-a25c-ebbcea8be11f
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720226&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:06 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720226&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720226&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAI2NPQ6CQBCFe08xmXrZDIuLwBEspTQWa8BAgCXKigXh7s5IY2FhZprv5f0sONTB
+        VS44LBZsKywwOxgyJkWF3g01C+X4DM3V+Q5O7Vw/Xq7vFJQBjmPjp01jc+8CexPSiSESHj1zlMU6
+        tVmCqwLcZuC8oFh5JY5IHogKyQDOEiFtbC40MZEmsgI3AfU5wTvjzK0/u9Lvrr39s+uy7t6xHyPS
+        DwEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '175'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY38EydIAMFsoA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '271'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - d878f384-b214-400e-81be-a8fd21637be4
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8723214&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:08 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8723214&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8723214&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMPQvCMBBAd3/FcXMaLon9oGNXdxdxOGyUQBvRlkIp/e9e6tJBuVve8e4t2PuR
+        Wx4Z6wVDizVWpXXWHFFh5N7L4RzejxADw8nPCpow3HiOHhqexel4FMXmunTbT/eMwllF2hSmwlUB
+        futwWXBTyZqM0gJRTYRiTHJ3Oj/mCQYB0pRqgPcEapuEL8FJoj9TxS5V0D7l/qeu6+EDOG7c9wQB
+        AAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '173'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY4REgaIAMFZPg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '260'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 783796a1-68fc-40a6-bf45-f3999aa43148
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720357&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:10 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720357&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720357&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:11 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY4lHh-IAMFwIQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:11 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - aed95535-0c61-4859-afdd-9e3181c76ec4
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720219&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:12 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720219&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720219&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMMQrDMAwA977CaHaMHNeK47kP6F46GJJCoHEoMVlM/l6pXTK0SCDuEFdhHksa
+        UkkQK0wDRAhdi63tQUNO88jiwmdV12XKheUzFXYOjQvUCS+ZuQnWeB8c7FrBN6duFeRVag3KKsSI
+        CPyxsbeGHAmsDGgQvcBDQH9G8MW4cfRnig4p8sfU+X/qvp/eow3lo/UAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:13 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY49FD5oAMFpIw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '245'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:13 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 82f72641-fcaa-49d0-a269-27c1d04da4fe
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720242&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:15 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720242&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720242&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:16 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY5UFfGoAMFRUg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:16 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 9b880203-3caf-4c4b-ae62-1e3c5fd59339
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8664941&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:17 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8664941&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8664941&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:18 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY5qHqaIAMFY6Q=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:18 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - a2e55901-f7fb-4281-b3de-c2d9c2edcc9c
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8668498&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:19 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8668498&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8668498&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:20 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY6AF2oIAMFUiQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:20 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 48479b23-69c7-47f7-8846-4f0db8829e4c
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8659897&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:21 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8659897&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8659897&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:22 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY6UG3YoAMFg8g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:22 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 3c4b8ee7-9883-4624-972e-fdb2700216dd
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720767&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:23 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720767&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720767&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:25 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY6uGDmIAMF_Vw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:25 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 136153c3-0ce0-41b0-bd4d-f0603ee0d543
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720774&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:26 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720774&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720774&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:27 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY7DEfpoAMFgnA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:27 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - c9bdf4a6-8449-4aca-9839-292da52be1f3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726673&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:28 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726673&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726673&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:29 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY7ZHokIAMFqpw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:29 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - fb7df396-84fd-420a-961d-c1079c61637b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720503&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:30 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720503&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720503&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:31 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY7vHJ2oAMFSdA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:31 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 360b035f-e391-445d-afc1-51f9d5ae26f4
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8654400&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:32 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8654400&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8654400&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:33 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY8FE9BIAMFtOw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:33 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - 639ca977-3182-41fe-9d13-5b5a9ba85e29
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8720625&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:35 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8720625&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720625&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:36 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY8bFHVIAMFSzQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:36 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - f65dd607-cc91-46d9-9f42-486056339107
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://tidesandcurrents.noaa.gov/api/datagetter?station=8726667&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n</body>\r\n</html>\r\n"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '134'
+      Content-Type:
+      - text/html
+      Date:
+      - Wed, 18 May 2022 11:14:37 GMT
+      Location:
+      - https://api.tidesandcurrents.noaa.gov:443/api/prod/datagetter?station=8726667&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+      Server:
+      - awselb/2.0
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.27.1
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726667&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 18 May 2022 11:14:38 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - SUY8xE2hIAMFb3Q=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 18 May 2022 11:14:38 GMT
+      x-amzn-Remapped-Server:
+      - nginx/1.20.0
+      x-amzn-RequestId:
+      - b90ec13b-cec4-4c7a-9fdd-0051ec993f16
+    status:
+      code: 200
+      message: OK
+version: 1
