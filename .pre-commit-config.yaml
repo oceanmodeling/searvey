@@ -1,7 +1,7 @@
 ---
 default_language_version:
   python: "python3"
-fail_fast: true
+fail_fast: false
 ci:
     skip: ["poetry-lock", "prospector", "mypy"]
 
