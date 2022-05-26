@@ -17,6 +17,7 @@ ignore-paths:
   # - "test"
 
 pylint:
+  run: false
   disable:
     - "bad-continuation"  # there is a conflict with black in function arguments
     - "empty-docstring"

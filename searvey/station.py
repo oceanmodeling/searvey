@@ -35,7 +35,7 @@ class Station(ABC):
     id: str
     location: Point
 
-    def __init__(self, id: str, location: Point):  # pylint: disable=redefined-builtin
+    def __init__(self, id: str, location: Point):
         self.id = id
         self.location = location
 

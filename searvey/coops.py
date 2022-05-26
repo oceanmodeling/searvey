@@ -2,7 +2,6 @@
 interface with the U.S. National Oceanic and Atmospheric Administration (NOAA) Center for Operational Oceanographic Products and Services (CO-OPS) API
 https://api.tidesandcurrents.noaa.gov/api/prod/
 """
-# pylint: disable=unused-private-member
 import json
 from datetime import datetime
 from enum import Enum
@@ -109,7 +108,7 @@ class COOPS_Station(Station):  # noqa: N801
     a specific CO-OPS station
     """
 
-    def __init__(self, id: Union[int, str]):  # pylint: disable=redefined-builtin
+    def __init__(self, id: Union[int, str]):
         """
         :param id: NOS ID, NWS ID, or station name
 
@@ -503,7 +502,7 @@ def __coops_stations_html_tables() -> element.ResultSet:
 
 
 @lru_cache(maxsize=1)
-def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pylint: disable=too-many-locals
+def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:
     """
     retrieve a list of CO-OPS stations with associated metadata
 
@@ -566,7 +565,7 @@ def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pyl
 
     dataframes = {}
     for status, (table_index, table_id) in status_tables.items():
-        table = tables[table_index]  # pylint: disable=invalid-sequence-index
+        table = tables[table_index]
         table = table.find("table", {"id": table_id}).find_all("tr")
         stations_columns = [field.text for field in table[0].find_all("th")]
         stations = DataFrame(
