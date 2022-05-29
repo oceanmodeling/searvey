@@ -5,8 +5,7 @@ from typing import Final
 
 import pydantic
 
-logging.basicConfig(level=10)
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 class ERDDAPProtocol(str, enum.Enum):

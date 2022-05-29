@@ -3,6 +3,7 @@ interface with the U.S. National Oceanic and Atmospheric Administration (NOAA) C
 https://api.tidesandcurrents.noaa.gov/api/prod/
 """
 import json
+import logging
 from datetime import datetime
 from enum import Enum
 from functools import lru_cache
@@ -33,6 +34,8 @@ from searvey.station import StationDataProduct
 from searvey.station import StationDatum
 from searvey.station import StationQuery
 from searvey.station import StationStatus
+
+logger = logging.getLogger(__name__)
 
 
 class COOPS_Product(StationDataProduct):  # noqa: N801
@@ -236,6 +239,7 @@ class COOPS_Station(Station):  # noqa: N801
             q        (nos_id, t) object 'v' 'v' 'v' 'v' 'v' 'v' ... 'v' 'v' 'v' 'v' 'v'
         """
 
+        logger.debug("Downloading: %s", self)
         if self.__query is None:
             self.__query = COOPS_Query(
                 station=int(self.id),
@@ -494,9 +498,9 @@ class COOPS_Query(StationQuery):  # noqa: N801
 
 @lru_cache(maxsize=1)
 def __coops_stations_html_tables() -> element.ResultSet:
-    response = requests.get(
-        "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current",
-    )
+    url = "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current"
+    logger.debug("Downloading: %s", url)
+    response = requests.get(url)
     soup = BeautifulSoup(response.content, features="html.parser")
     return soup.find_all("div", {"class": "table-responsive"})
 
