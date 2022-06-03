@@ -3,8 +3,8 @@ name = "searvey"
 version = "0.1.0"
 description = ""
 authors = [
-  "Panos Mavrogiorgos <pmav99@gmail.com>",
-  "Zachary Burnett <zachary.r.burnett@gmail.com>",
+    "Panos Mavrogiorgos <pmav99@gmail.com>",
+    "Zachary Burnett <zachary.r.burnett@gmail.com>",
 ]
 license = "EUPL-1.0"
 readme = "README.md"
@@ -54,10 +54,13 @@ pytest-xdist = "*"
 pytest-cov = "^3.0"
 pytest-recording = "^0.12.0"
 types-requests = "^2.26"
+sphinx = '*'
+sphinx-rtd-theme = '*'
 
 [tool.poetry.extras]
 linting = ["mypy", "prospector"]
 testing = ["pre-commit", "pytest", "pytest-cov", "pytest-recording", "pytest-xdist", "types-requests"]
+docs = ["dunamai", "m2r2", "sphinx", "sphinx-rtd-theme"]
 
 [tool.black]
 line-length = 108
