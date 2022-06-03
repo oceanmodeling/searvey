@@ -13,23 +13,38 @@ class ERDDAPProtocol(str, enum.Enum):
     GRIDDAP: Final = "griddap"
 
 
-class Constraints(pydantic.BaseModel):
+class BBox(pydantic.BaseModel):
     lon_min: float
     lon_max: float
     lat_min: float = pydantic.Field(-90, ge=-90, le=90)
     lat_max: float = pydantic.Field(90, ge=-90, le=90)
+
+    class Config:
+        extra = "forbid"
+
+
+class SymmetricBBox(BBox):
+    lon_min: float = pydantic.Field(-180, ge=-180, le=180)
+    lon_max: float = pydantic.Field(180, ge=-180, le=180)
+
+
+class AsymmetricBBox(BBox):
+    lon_min: float = pydantic.Field(0, ge=0, le=360)
+    lon_max: float = pydantic.Field(360, ge=0, le=360)
+
+
+class Constraints(pydantic.BaseModel):
+    bbox: BBox = pydantic.Field(...)
     start_date: datetime.datetime = pydantic.Field(...)
     end_date: datetime.datetime = pydantic.Field(datetime.datetime.now())
 
 
 class SymmetricConstraints(Constraints):
-    lon_min: float = pydantic.Field(-180, ge=-180, le=180)
-    lon_max: float = pydantic.Field(180, ge=-180, le=180)
+    bbox: SymmetricBBox = SymmetricBBox()
 
 
 class AsymmetricConstraints(Constraints):
-    lon_min: float = pydantic.Field(0, ge=0, le=360)
-    lon_max: float = pydantic.Field(360, ge=0, le=360)
+    bbox: AsymmetricBBox = AsymmetricBBox()
 
 
 class ERDDAPDataset(pydantic.BaseModel):

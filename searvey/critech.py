@@ -10,6 +10,7 @@ import pydantic
 
 from searvey.erddap import query_erddap
 from searvey.models import ERDDAPDataset
+from searvey.models import SymmetricBBox
 from searvey.models import SymmetricConstraints
 
 _CRITECH_NORMALIZED_NAMES = {
@@ -68,13 +69,16 @@ def get_critech_data(
     lon_max: float = 180,
     timeout: int = 60,
 ) -> pd.DataFrame:
-    constraints = SymmetricConstraints(
-        start_date=start_date,
-        end_date=end_date or datetime.datetime.now(),
+    bbox = SymmetricBBox(
         lat_min=lat_min,
         lat_max=lat_max,
         lon_min=lon_min,
         lon_max=lon_max,
+    )
+    constraints = SymmetricConstraints(
+        bbox=bbox,
+        start_date=start_date,
+        end_date=end_date or datetime.datetime.now(),
     )
     df = query_erddap(dataset=EMODNET_CRITECH, constraints=constraints, timeout=timeout)
     df = normalize_names(df)

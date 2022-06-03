@@ -56,10 +56,10 @@ def get_erddap_url(
     erddap.constraints = {
         "time>=": ts_to_erddap(constraints.start_date),
         "time<=": ts_to_erddap(constraints.end_date),
-        "latitude>=": constraints.lat_min,
-        "latitude<=": constraints.lat_max,
-        "longitude>=": constraints.lon_min,
-        "longitude<=": constraints.lon_max,
+        "latitude>=": constraints.bbox.lat_min,
+        "latitude<=": constraints.bbox.lat_max,
+        "longitude>=": constraints.bbox.lon_min,
+        "longitude<=": constraints.bbox.lon_max,
     }
     url = erddap.get_download_url()
     return cast(str, url)
