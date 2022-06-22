@@ -170,7 +170,7 @@ class COOPS_Station(Station):  # noqa: N801
         return self.__removed
 
     @property  # type: ignore[misc]
-    @lru_cache(maxsize=None)
+    @lru_cache(maxsize=1)
     def constituents(self) -> DataFrame:
         """
         :return: table of tidal constituents for the current station
@@ -493,7 +493,7 @@ class COOPS_Query(StationQuery):  # noqa: N801
         return f'{self.__class__.__name__}({", ".join(repr(value) for value in (self.station_id, self.start_date, self.end_date, self.product.value, self.datum.value, self.units.value, self.time_zone.value, self.interval.value))})'
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=1)
 def __coops_stations_html_tables() -> element.ResultSet:
     response = requests.get(
         "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current",
@@ -502,7 +502,7 @@ def __coops_stations_html_tables() -> element.ResultSet:
     return soup.find_all("div", {"class": "table-responsive"})
 
 
-@lru_cache(maxsize=None)
+@lru_cache(maxsize=1)
 def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pylint: disable=too-many-locals
     """
     retrieve a list of CO-OPS stations with associated metadata
@@ -588,8 +588,8 @@ def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pyl
             {
                 "nos_id": numpy.int32,
                 "nws_id": "string",
-                "x": numpy.float16,
-                "y": numpy.float16,
+                "x": numpy.float32,
+                "y": numpy.float32,
                 "state": "string",
                 "name": "string",
             },
