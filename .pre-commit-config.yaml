@@ -3,7 +3,7 @@ default_language_version:
   python: "python3"
 fail_fast: false
 ci:
-    skip: ["poetry-lock", "prospector", "mypy"]
+  skip: ["poetry-lock", "prospector", "mypy", "docs"]
 
 repos:
   - repo: "https://github.com/pre-commit/pre-commit-hooks"
@@ -59,6 +59,11 @@ repos:
         entry: "make mypy"
         language: "system"
         types: ["python"]
+
+      - id: "docs"
+        name: "docs"
+        entry: "make docs"
+        language: "system"
 
   - repo: "https://github.com/pmav99/poetry11"
     rev: "de1e372981c75860c4d8b86c6368e9a9d8a88450"

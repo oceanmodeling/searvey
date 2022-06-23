@@ -1,7 +1,7 @@
 Installation
 ============
 
-To install ``searvey``, you need `Python greater than or equal to version 3.6 <https://www.python.org/downloads>`_.
+To install ``searvey``, you need `Python greater than or equal to version 3.9 <https://www.python.org/downloads>`_.
 
 Once you have installed Python, and presumably have ``pip`` that comes with the default installation,
 you can run the following command to install ``searvey``:
