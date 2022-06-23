@@ -1,4 +1,3 @@
-from typing import Optional
 from typing import Union
 
 from shapely.geometry import box
@@ -23,10 +22,10 @@ def lon3_to_lon1(lon3: ScalarOrArray) -> ScalarOrArray:
 
 
 def get_region_from_bbox_corners(
-    lon_min: Optional[float] = None,
-    lon_max: Optional[float] = None,
-    lat_min: Optional[float] = None,
-    lat_max: Optional[float] = None,
+    lon_min: Union[float, None] = None,
+    lon_max: Union[float, None] = None,
+    lat_min: Union[float, None] = None,
+    lat_max: Union[float, None] = None,
     symmetric: bool = True,
 ) -> Polygon:
     """Return a ``shapely.geometry.Polygon`` from the corners of a Bounding Box."""
@@ -59,13 +58,13 @@ def get_region_from_bbox_corners(
 
 
 def get_region(
-    region: Optional[Union[Polygon, MultiPolygon]] = None,
-    lon_min: Optional[float] = None,
-    lon_max: Optional[float] = None,
-    lat_min: Optional[float] = None,
-    lat_max: Optional[float] = None,
+    region: Union[Union[Polygon, MultiPolygon], None] = None,
+    lon_min: Union[float, None] = None,
+    lon_max: Union[float, None] = None,
+    lat_min: Union[float, None] = None,
+    lat_max: Union[float, None] = None,
     symmetric: bool = True,
-) -> Optional[Polygon]:
+) -> Union[Polygon, None]:
     """
     Return a shapely Region
 

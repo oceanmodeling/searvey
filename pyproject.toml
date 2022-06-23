@@ -43,6 +43,11 @@ geopandas = "^0.10"
 typepigeon = "^1"
 xarray = "^2022.3"
 Shapely = "^1.8"
+limits = "^2.6"
+tqdm = "^4.64"
+html5lib = "^1.1"
+lxml = "^4.9"
+more-itertools = "^8.0"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "*"
@@ -56,6 +61,7 @@ pytest-recording = "^0.12.0"
 types-requests = "^2.26"
 sphinx = '*'
 sphinx-rtd-theme = '*'
+importlib-metadata = "^4.11.4"
 
 [tool.poetry.extras]
 linting = ["mypy", "prospector"]
@@ -70,6 +76,11 @@ target-version = ['py39']
 minversion = "7.0"
 addopts = "-ra --verbose --showlocals --tb=short --cov=searvey --cov-report term-missing"
 testpaths = ["tests"]
+log_cli = true
+filterwarnings = [
+    'ignore:distutils Version classes are deprecated. Use packaging.version instead:DeprecationWarning',
+]
+
 
 [tool.mypy]
 python_version = "3.9"
