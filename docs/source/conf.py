@@ -7,12 +7,14 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
+import datetime
 import os
 import subprocess
 import sys
 from os import PathLike
 from pathlib import Path
 
+import toml
 from dunamai import Version
 from setuptools import config
 
@@ -40,17 +42,16 @@ subprocess.run(
 )
 
 # -- Project information -----------------------------------------------------
-metadata = config.read_configuration("../../setup.cfg")["metadata"]
+metadata = toml.load("../../pyproject.toml")["tool"]["poetry"]
 
 project = metadata["name"]
-author = metadata["author"]
-copyright = f"2021, {author}"
+copyright = f"{datetime.date.today().year}, https://github.com/oceanmodeling"
 
 # The full version, including alpha/beta/rc tags
 try:
     release = Version.from_any_vcs().serialize()
 except RuntimeError:
-    release = os.environ.get("VERSION")
+    release = os.environ.get("VERSION", "0.0.0")
 
 # -- General configuration ---------------------------------------------------
 

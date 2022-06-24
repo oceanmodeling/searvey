@@ -2,8 +2,10 @@
 interface with the U.S. National Oceanic and Atmospheric Administration (NOAA) Center for Operational Oceanographic Products and Services (CO-OPS) API
 https://api.tidesandcurrents.noaa.gov/api/prod/
 """
-# pylint: disable=unused-private-member
 import json
+import logging
+from abc import ABC
+from abc import abstractmethod
 from datetime import datetime
 from enum import Enum
 from functools import lru_cache
@@ -25,15 +27,111 @@ from geopandas import GeoDataFrame
 from pandas import DataFrame
 from pandas import Series
 from shapely.geometry import MultiPolygon
+from shapely.geometry import Point
 from shapely.geometry import Polygon
 from xarray import Dataset
 
-from searvey.station import Station
-from searvey.station import StationDataInterval
-from searvey.station import StationDataProduct
-from searvey.station import StationDatum
-from searvey.station import StationQuery
-from searvey.station import StationStatus
+
+logger = logging.getLogger(__name__)
+
+
+class StationDataProduct(Enum):
+    pass
+
+
+class StationDataInterval(Enum):
+    pass
+
+
+class StationDatum(Enum):
+    pass
+
+
+class StationStatus(Enum):
+    ACTIVE = "active"
+    DISCONTINUED = "discontinued"
+
+
+class Station(ABC):
+    """
+    abstraction of a specific data station
+    """
+
+    id: str
+    location: Point
+
+    def __init__(self, id: str, location: Point):
+        self.id = id
+        self.location = location
+
+    @abstractmethod
+    def product(
+        self,
+        product: StationDataProduct,
+        start_date: datetime,
+        end_date: datetime = None,
+        interval: StationDataInterval = None,
+        datum: StationDatum = None,
+    ) -> Dataset:
+        """
+        retrieve data for the current station within the specified parameters
+
+        :param product: name of data product
+        :param start_date: start date
+        :param end_date: end date
+        :param interval: time interval of data
+        :param datum: vertical datum
+        :return: data for the current station within the specified parameters
+        """
+        raise NotImplementedError()
+
+    def __str__(self) -> str:
+        return f'{self.__class__.__name__} - "{self.id}" {self.location}'
+
+
+class StationQuery(ABC):
+    """
+    abstraction of an individual station data query
+    """
+
+    station_id: str
+    product: StationDataProduct
+    start_date: datetime
+    end_date: datetime
+    interval: StationDataInterval
+    datum: StationDatum
+
+    def __init__(
+        self,
+        station_id: str,
+        product: StationDataProduct,
+        start_date: datetime,
+        end_date: datetime = None,
+        interval: StationDataInterval = None,
+        datum: StationDatum = None,
+    ):
+        self.station_id = station_id
+        self.product = product
+        self.start_date = start_date
+        self.end_date = end_date
+        self.interval = interval
+        self.datum = datum
+
+    @property
+    @abstractmethod
+    def query(self) -> Dict[str, Any]:
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def data(self) -> DataFrame:
+        """
+        :return: data for the current query parameters
+        """
+        raise NotImplementedError()
+
+    def __str__(self) -> str:
+        return f'{self.__class__.__name__} - {self.product} at station "{self.station_id}" between {self.start_date} and {self.end_date} over {self.interval} in {self.datum}'
 
 
 class COOPS_Product(StationDataProduct):  # noqa: N801
@@ -109,7 +207,7 @@ class COOPS_Station(Station):  # noqa: N801
     a specific CO-OPS station
     """
 
-    def __init__(self, id: Union[int, str]):  # pylint: disable=redefined-builtin
+    def __init__(self, id: Union[int, str]):
         """
         :param id: NOS ID, NWS ID, or station name
 
@@ -237,6 +335,7 @@ class COOPS_Station(Station):  # noqa: N801
             q        (nos_id, t) object 'v' 'v' 'v' 'v' 'v' 'v' ... 'v' 'v' 'v' 'v' 'v'
         """
 
+        logger.debug("Downloading: %s", self)
         if self.__query is None:
             self.__query = COOPS_Query(
                 station=int(self.id),
@@ -495,15 +594,15 @@ class COOPS_Query(StationQuery):  # noqa: N801
 
 @lru_cache(maxsize=1)
 def __coops_stations_html_tables() -> element.ResultSet:
-    response = requests.get(
-        "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current",
-    )
+    url = "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current"
+    logger.debug("Downloading: %s", url)
+    response = requests.get(url)
     soup = BeautifulSoup(response.content, features="html.parser")
     return soup.find_all("div", {"class": "table-responsive"})
 
 
 @lru_cache(maxsize=1)
-def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pylint: disable=too-many-locals
+def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:
     """
     retrieve a list of CO-OPS stations with associated metadata
 
@@ -524,8 +623,8 @@ def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pyl
     9439011  HMDO3                           Hammond    OR  discontinued  2014-08-13 00:00:00,2011-04-12 23:59:00,2011-0...  POINT (-123.93750 46.18750)
     8762372  LABL1  East Bank 1, Norco, B. LaBranche    LA  discontinued  2012-11-05 10:38:00,2012-11-05 10:37:00,2012-1...   POINT (-90.37500 30.04688)
     8530528  CARN4       CARLSTADT, HACKENSACK RIVER    NJ  discontinued            1994-11-12 23:59:00,1994-11-12 00:00:00   POINT (-74.06250 40.81250)
-    [433 rows x 6 columns]
-    >>> coops_stations(station_status='ACTIVE')
+    [436 rows x 6 columns]
+    >>> coops_stations(station_status='active')
             nws_id                          name state  status removed                     geometry
     nos_id
     1600012  46125                     QREB buoy        active    <NA>   POINT (122.62500 37.75000)
@@ -539,22 +638,22 @@ def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pyl
     9761115  BARA9                       Barbuda        active    <NA>   POINT (-61.81250 17.59375)
     9999530  FRCB6  Bermuda, Ferry Reach Channel        active    <NA>   POINT (-64.68750 32.37500)
     9999531               Calcasieu Test Station    LA  active    <NA>   POINT (-93.31250 29.76562)
-    [363 rows x 6 columns]
-    >>> coops_stations(station_status='DISCONTINUED')
-            nws_id                                 name state        status                                            removed                     geometry
+    [365 rows x 6 columns]
+    >>> coops_stations(station_status='discontinued')
+            nws_id                               name state        status                                            removed                     geometry
     nos_id
-    8516945  KPTN6                          Kings Point    NY        active  2022-02-23 10:15:00,2018-03-20 13:00:00,2015-1...   POINT (-73.75000 40.81250)
-    8720357  BKBF1                 I-295 Buckman Bridge    FL        active  2022-02-04 17:00:00,2021-02-20 14:45:00,2021-0...   POINT (-81.68750 30.18750)
-    8720226  MSBF1  Southbank Riverwalk, St Johns River    FL        active  2022-02-02 14:00:00,2021-01-16 17:57:00,2020-0...   POINT (-81.68750 30.31250)
-    9063079  MRHO1                           Marblehead    OH        active  2022-02-01 00:00:00,2021-07-15 00:00:00,2019-0...   POINT (-82.75000 41.53125)
-    8724580  KYWF1                             Key West    FL        active  2022-01-31 00:00:00,2020-05-08 09:30:00,2018-0...   POINT (-81.81250 24.54688)
-    ...        ...                                  ...   ...           ...                                                ...                          ...
-    8760551  SPSL1                           South Pass    LA  discontinued  2000-09-26 23:59:00,2000-09-26 00:00:00,1998-1...   POINT (-89.12500 28.98438)
-    9440572  ILWW1              JETTY A, COLUMBIA RIVER    WA  discontinued                                1997-04-11 23:00:00  POINT (-124.06250 46.28125)
-    9415316  RVXC1                            Rio Vista    CA  discontinued            1997-03-04 23:59:00,1997-03-04 00:00:00  POINT (-121.68750 38.15625)
-    9415064  NCHC1           ANTIOCH, SAN JOAQUIN RIVER    CA  discontinued            1997-03-03 23:59:00,1997-03-03 00:00:00  POINT (-121.81250 38.03125)
-    8530528  CARN4          CARLSTADT, HACKENSACK RIVER    NJ  discontinued            1994-11-12 23:59:00,1994-11-12 00:00:00   POINT (-74.06250 40.81250)
-    [396 rows x 6 columns]
+    8530528  CARN4        CARLSTADT, HACKENSACK RIVER    NJ  discontinued            1994-11-12 23:59:00,1994-11-12 00:00:00   POINT (-74.06250 40.81250)
+    9415064  NCHC1         ANTIOCH, SAN JOAQUIN RIVER    CA  discontinued            1997-03-03 23:59:00,1997-03-03 00:00:00  POINT (-121.81250 38.03125)
+    9415316  RVXC1                          Rio Vista    CA  discontinued            1997-03-04 23:59:00,1997-03-04 00:00:00  POINT (-121.68750 38.15625)
+    9440572  ILWW1            JETTY A, COLUMBIA RIVER    WA  discontinued                                1997-04-11 23:00:00  POINT (-124.06250 46.28125)
+    8760551  SPSL1                         South Pass    LA  discontinued  2000-09-26 23:59:00,2000-09-26 00:00:00,1998-1...   POINT (-89.12500 28.98438)
+    ...        ...                                ...   ...           ...                                                ...                          ...
+    8726667  MCYF1                 Mckay Bay Entrance    FL  discontinued  2020-05-20 00:00:00,2019-03-08 00:00:00,2017-0...   POINT (-82.43750 27.90625)
+    8772447  FCGT2                           Freeport    TX  discontinued  2020-05-24 18:45:00,2018-10-10 21:50:00,2018-1...   POINT (-95.31250 28.93750)
+    9087079  GBWW3                          Green Bay    WI  discontinued  2020-10-28 13:00:00,2007-08-06 23:59:00,2007-0...   POINT (-88.00000 44.53125)
+    8770570  SBPT2                  Sabine Pass North    TX  discontinued  2021-01-18 00:00:00,2020-09-30 15:45:00,2020-0...   POINT (-93.87500 29.73438)
+    8740166  GBRM6  Grand Bay NERR, Mississippi Sound    MS  discontinued  2022-04-07 00:00:00,2022-03-30 23:58:00,2015-1...   POINT (-88.37500 30.40625)
+    [71 rows x 6 columns]
     """
 
     tables = __coops_stations_html_tables()
@@ -566,7 +665,7 @@ def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:  # pyl
 
     dataframes = {}
     for status, (table_index, table_id) in status_tables.items():
-        table = tables[table_index]  # pylint: disable=invalid-sequence-index
+        table = tables[table_index]
         table = table.find("table", {"id": table_id}).find_all("tr")
         stations_columns = [field.text for field in table[0].find_all("th")]
         stations = DataFrame(

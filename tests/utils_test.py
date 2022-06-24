@@ -3,6 +3,7 @@ from typing import Any
 import numpy as np
 import numpy.typing as npt
 import pytest
+import shapely.geometry
 
 from searvey import utils
 
@@ -66,3 +67,44 @@ def test_lon1_to_lon3_roundtrip(lon1: float) -> None:
 @pytest.mark.parametrize("lon3", [0.01, 45.23, 163.2, 181.1, 273.2, 332.1])
 def test_lon3_to_lon1_roundtrip(lon3: float) -> None:
     assert lon3 == pytest.approx(utils.lon1_to_lon3(utils.lon3_to_lon1(lon3)))
+
+
+@pytest.mark.parametrize("symmetric", [True, False])
+def test_get_region_defaults_return_none(symmetric):
+    assert utils.get_region(symmetric=symmetric) is None
+
+
+def test_get_region_bbox_corners_return_a_polygon():
+    lon_min = 1
+    lon_max = 2
+    lat_min = 1
+    lat_max = 2
+    region = utils.get_region(
+        lon_min=lon_min,
+        lon_max=lon_max,
+        lat_min=lat_min,
+        lat_max=lat_max,
+    )
+    assert isinstance(region, shapely.geometry.Polygon)
+    assert region == shapely.geometry.box(lon_min, lat_min, lon_max, lat_max)
+
+
+def test_get_region_raises_when_both_region_and_bbox_are_specified():
+    with pytest.raises(ValueError) as exc:
+        utils.get_region(
+            region=shapely.geometry.box(0, 0, 1, 1),
+            lon_min=1,
+        )
+    assert str(exc.value) == "You must specify either `region` or the `BBox` corners, not both"
+
+
+def test_get_region_symmetric_raises_for_longitude_over_180():
+    with pytest.raises(ValueError) as exc:
+        utils.get_region(lon_max=300, symmetric=True)
+    assert "ensure this value is less than or equal to 180" in str(exc.value)
+
+
+def test_get_region_asymmetric_raises_for_longitude_less_than_0():
+    with pytest.raises(ValueError) as exc:
+        utils.get_region(lon_min=-100, symmetric=False)
+    assert "ensure this value is greater than or equal to 0" in str(exc.value)

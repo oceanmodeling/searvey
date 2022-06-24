@@ -9,6 +9,7 @@ import pandas as pd
 import pydantic
 
 from searvey.erddap import query_erddap
+from searvey.models import AsymmetricBBox
 from searvey.models import AsymmetricConstraints
 from searvey.models import ERDDAPDataset
 from searvey.utils import lon3_to_lon1
@@ -77,13 +78,16 @@ def get_uhslc_data(
     lon_max: float = 360,
     timeout: int = 10,
 ) -> pd.DataFrame:
-    constraints = AsymmetricConstraints(
-        start_date=start_date,
-        end_date=end_date or datetime.datetime.now(),
+    bbox = AsymmetricBBox(
         lat_min=lat_min,
         lat_max=lat_max,
         lon_min=lon_min,
         lon_max=lon_max,
+    )
+    constraints = AsymmetricConstraints(
+        bbox=bbox,
+        start_date=start_date,
+        end_date=end_date or datetime.datetime.now(),
     )
     df = query_erddap(dataset=SOEST_UHSLC, constraints=constraints, timeout=timeout)
     df = normalize_names(df)

@@ -1,3 +1,10 @@
+from typing import Union
+
+from shapely.geometry import box
+from shapely.geometry import MultiPolygon
+from shapely.geometry import Polygon
+
+from . import models
 from .custom_types import ScalarOrArray
 
 
@@ -12,3 +19,74 @@ def lon1_to_lon3(lon1: ScalarOrArray) -> ScalarOrArray:
 
 def lon3_to_lon1(lon3: ScalarOrArray) -> ScalarOrArray:
     return ((lon3 + 180) % 360) - 180
+
+
+def get_region_from_bbox_corners(
+    lon_min: Union[float, None] = None,
+    lon_max: Union[float, None] = None,
+    lat_min: Union[float, None] = None,
+    lat_max: Union[float, None] = None,
+    symmetric: bool = True,
+) -> Polygon:
+    """Return a ``shapely.geometry.Polygon`` from the corners of a Bounding Box."""
+    bbox_kwargs = {
+        "lon_min": lon_min,
+        "lon_max": lon_max,
+        "lat_min": lat_min,
+        "lat_max": lat_max,
+    }
+    if symmetric:
+        klass = models.SymmetricBBox
+    else:
+        klass = models.AsymmetricBBox
+
+    # Create the BBox (i.e. validate input values)
+    # Not the most beautiful code in the world, but Pydantic needs keyword arguments
+    # and we want to only pass arguments that have actual values and not None
+    # moreover, we create a new object because mypy was complaining about redefining
+    filtered_bbox_kwargs: dict[str, float] = {k: v for (k, v) in bbox_kwargs.items() if v}
+    bbox = klass(**filtered_bbox_kwargs)
+
+    # Create the region
+    region = box(
+        minx=bbox.lon_min,
+        miny=bbox.lat_min,
+        maxx=bbox.lon_max,
+        maxy=bbox.lat_max,
+    )
+    return region
+
+
+def get_region(
+    region: Union[Union[Polygon, MultiPolygon], None] = None,
+    lon_min: Union[float, None] = None,
+    lon_max: Union[float, None] = None,
+    lat_min: Union[float, None] = None,
+    lat_max: Union[float, None] = None,
+    symmetric: bool = True,
+) -> Union[Polygon, None]:
+    """
+    Return a shapely Region
+
+    The region can either be a ``shapely.geometry`` object or it can be defined
+    from the corners of a Bounding Box.
+
+    If both a ``region`` and the corners are specified then an Exception is raised.
+
+    - If ``symmetric`` is ``False``, then it is assumed that Longitude ∈ [0, 360).
+    - If ``symmetric`` is ``True``, then it is assumed that Longitude ∈ [-180, 180).
+    """
+    if any((lon_min, lon_max, lat_min, lat_max)):
+        # Ensure that only one of region and bbox have been specified, not both
+        if region:
+            msg = "You must specify either `region` or the `BBox` corners, not both"
+            raise ValueError(msg)
+
+        region = get_region_from_bbox_corners(
+            lon_min=lon_min,
+            lon_max=lon_max,
+            lat_min=lat_min,
+            lat_max=lat_max,
+            symmetric=symmetric,
+        )
+    return region
