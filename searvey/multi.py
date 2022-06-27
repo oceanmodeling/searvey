@@ -28,7 +28,12 @@ logger = logging.getLogger(__name__)
 
 
 # https://docs.python.org/3/library/os.html#os.cpu_count
-MAX_AVAILABLE_PROCESSES = len(os.sched_getaffinity(0))
+try:
+    MAX_AVAILABLE_PROCESSES = len(os.sched_getaffinity(0))
+except AttributeError:
+    MAX_AVAILABLE_PROCESSES = os.cpu_count()
+    if MAX_AVAILABLE_PROCESSES is None:
+        MAX_AVAILABLE_PROCESSES = 1
 
 
 class FutureResult(pydantic.BaseModel):
