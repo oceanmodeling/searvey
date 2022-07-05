@@ -70,7 +70,7 @@ target-version = ['py39']
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra --verbose --showlocals --tb=short --cov=searvey --cov-report term-missing"
+addopts = "-ra --verbose --showlocals --tb=short"
 testpaths = ["tests"]
 log_cli = true
 filterwarnings = [

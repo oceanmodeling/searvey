@@ -1,0 +1,25 @@
+name: build
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build_and_publish:
+    name: build and publish package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
+        with:
+          python-version: '3.x'
+      - uses: actions/cache@main
+        with:
+          path: ${{ env.pythonLocation }}
+          key: build-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'setup.*') }}
+      - run: pip wheel . --no-deps -w dist
+      - uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
