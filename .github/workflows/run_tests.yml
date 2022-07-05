@@ -55,7 +55,7 @@ jobs:
       - run: python -m pip --version
       - run: pytest --version
       - run: python -m pip cache info
-      - run: pytest -n auto
+      - run: pytest tests/ -n auto --record-mode none
   test_with_coverage:
     needs: [ style, test ]
     name: test with code coverage
@@ -75,7 +75,7 @@ jobs:
       - run: python -m pip --version
       - run: pytest --version
       - run: python -m pip cache info
-      - run: pytest -n auto --record-mode none tests/ --cov=searvey --cov-report term-missing
+      - run: pytest tests/ -n auto --record-mode none --cov=searvey --cov-report term-missing
       - run: coverage report -m
       - uses: codecov/codecov-action@master
         with:
