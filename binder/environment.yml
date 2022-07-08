@@ -1,0 +1,15 @@
+---
+
+name: searvey
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.9
+  - nodejs
+  - ipympl
+  - pyviz_comms
+  - jupyterlab=3
+  - ipyevents
+  - searvey
