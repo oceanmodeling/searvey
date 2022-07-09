@@ -1,3 +1,7 @@
+import itertools
+from collections.abc import Iterable
+from collections.abc import Iterator
+from typing import TypeVar
 from typing import Union
 
 from shapely.geometry import box
@@ -6,6 +10,9 @@ from shapely.geometry import Polygon
 
 from . import models
 from .custom_types import ScalarOrArray
+
+_T = TypeVar("_T")
+_U = TypeVar("_U")
 
 
 # https://gis.stackexchange.com/questions/201789/verifying-formula-that-will-convert-longitude-0-360-to-180-to-180
@@ -90,3 +97,27 @@ def get_region(
             symmetric=symmetric,
         )
     return region
+
+
+# https://docs.python.org/3/library/itertools.html#itertools-recipes
+# https://github.com/more-itertools/more-itertools/blob/2ff5943d76afa4591b5b4ae8cb4524578d365f67/more_itertools/recipes.pyi#L42-L48
+def grouper(
+    iterable: Iterable[_T],
+    n: int,
+    *,
+    incomplete: str = "fill",
+    fillvalue: Union[_U, None] = None,
+) -> Iterator[tuple[Union[_T, _U], ...]]:
+    """Collect data into non-overlapping fixed-length chunks or blocks"""
+    # grouper('ABCDEFG', 3, fillvalue='x') --> ABC DEF Gxx
+    # grouper('ABCDEFG', 3, incomplete='strict') --> ABC DEF ValueError
+    # grouper('ABCDEFG', 3, incomplete='ignore') --> ABC DEF
+    args = [iter(iterable)] * n
+    if incomplete == "fill":
+        return itertools.zip_longest(*args, fillvalue=fillvalue)
+    if incomplete == "strict":
+        return zip(*args, strict=True)  # type: ignore[call-overload]
+    if incomplete == "ignore":
+        return zip(*args)
+    else:
+        raise ValueError("Expected fill, strict, or ignore")
