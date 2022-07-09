@@ -11,3 +11,16 @@ dependencies:
   - erddapy>=1.1
   - black
   - pytest-recording>=0.12.0
+  - geopandas
+  - shapely
+  - xarray
+  - beautifulsoup4
+  - typepigeon >=1.0.5
+  - requests
+  - tqdm
+  - limits
+  - pydantic
+  - html5lib
+  - ipykernel
+  - pytest-cov
+  - lxml

@@ -10,6 +10,18 @@ you can run the following command to install ``searvey``:
 
     pip install git+https://github.com/oceanmodeling/searvey.git
 
+
+
+installing with conda
+-------------------------------------
+
+The package can be installed with ``conda``:
+
+.. code-block:: bash
+
+	conda install -c conda-forge searvey
+
+
 installing into a virtual environment
 -------------------------------------
 
