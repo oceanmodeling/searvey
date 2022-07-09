@@ -23,7 +23,6 @@ import bs4
 import geopandas as gpd
 import html5lib  # noqa: F401 - imported but unused
 import limits
-import more_itertools
 import pandas as pd
 import requests
 import xarray as xr
@@ -35,6 +34,7 @@ from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
+from .utils import grouper
 
 
 logger = logging.getLogger(__name__)
@@ -320,13 +320,13 @@ def get_ioc_data(
 
     # in order to keep memory consumption low, let's group the datasets
     # and merge them in batches
-    datasets = [xr.merge(g for g in group if g) for group in more_itertools.grouper(datasets, 5)]
+    datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, 5)]
     if len(datasets) > 5:
         # There are quite a few stations left, let's do another grouping
-        datasets = [xr.merge(g for g in group if g) for group in more_itertools.grouper(datasets, 5)]
+        datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, 5)]
     if len(datasets) > 5:
         # There are quite a few stations left, let's do another grouping
-        datasets = [xr.merge(g for g in group if g) for group in more_itertools.grouper(datasets, 5)]
+        datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, 5)]
     # Do the final merging
     ds = xr.merge(datasets)
     return ds
