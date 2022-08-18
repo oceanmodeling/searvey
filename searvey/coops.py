@@ -785,7 +785,6 @@ def coops_stations_within_region(
     """
 
     stations = coops_stations(station_status=station_status)
-#    return stations[stations.within(region)]
     if region:
         return stations[stations.within(region)]
     else:
