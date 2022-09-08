@@ -8,6 +8,7 @@ import os, sys
 import CERA_get_active_stations
 import datetime
 import pandas as pd
+import re 
 
 ################################################################################
 def get_csv():
@@ -33,28 +34,39 @@ def get_csv():
   # filter active stations
 #  coops_active = stations_coops[stations_coops['is_active']]   # comes back as True/False
   ioc_active = stations_ioc[stations_ioc['is_active']]
-
+ 
   # convert to geojson
 #  coops_active = coops_active.to_json()
 #  f = open("CERA_searvey_coops_active.json", "w")
 #  f.write(coops_active)
 #  f.close()
 
-  # write geopandas into csv
-  tmp = open("tmp.csv", "w", encoding = 'latin1')
-  # fieldnames = ['', 'provider','provider_id','country','location','lon','lat','is_active','start_date','last_observation','geometry']
-  tmp.write(ioc_active.to_csv())
-  tmp.close()
+  ################################################
+  # write original geopandas into csv
+  f = open("CERA_searvey_ioc_active_all.csv", "w", encoding = 'latin1')
+  # original fieldnames = ['', 'provider','provider_id','country','location','lon','lat','is_active','start_date','last_observation','geometry']
+  f.write(ioc_active.to_csv())
+  f.close()
 
+  ##################################################
+  # remove US stations for IOC (assume they are duplicates from COOPS)
+  df =  ioc_active[ioc_active.country != "USA"] 
+  f1 = open("CERA_searvey_ioc_active_no_USA.csv", "w", encoding = 'latin1')
+  f1.write(df.to_csv())
+  f1.close()
+
+  ##################################################
+  # make pandas dataframe from csv
+  df = pd.read_csv('CERA_searvey_ioc_active_no_USA.csv', encoding = 'latin1')
+
+  #df["stationid"] = df.apply(lambda x:'STOFS_%s' % (x['provider_id']),axis=1)  # keep provider_id, STOFS_ will be added in CERA DB script
   # combine 'location' and 'country' to 'stationname'
-  df = pd.read_csv('tmp.csv', encoding = 'latin1')
-  df["stationid"] = df.apply(lambda x:'STOFS_%s' % (x['provider_id']),axis=1)
   df["stationname"] = df.apply(lambda x:'%s (%s)' % (x['location'],x['country']),axis=1)
   # keep only specific columns
-  keep_col = ['stationid','stationname','lon','lat']
-  f = df[keep_col]
+  keep_col = ['provider_id','stationname','lon','lat']
+  f2 = df[keep_col]
 
-  f.to_csv("CERA_searvey_ioc_active.csv", encoding = 'latin1', index=False)  
+  f2.to_csv("CERA_searvey_ioc_active_no USA_for_CERA_DB.csv", encoding = 'latin1', index=False)  
 
   # filter inactive stations
 #  coops_inactive = stations_coops[~stations_coops['is_active']]   # comes back as True/False
