@@ -857,3 +857,6 @@ def coops_product_within_region(
     ]
     station_data = [station for station in station_data if len(station["t"]) > 0]
     return xarray.combine_nested(station_data, concat_dim="nos_id")
+
+
+get_coops_stations = coops_stations_within_region
