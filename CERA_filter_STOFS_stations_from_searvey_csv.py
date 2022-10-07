@@ -17,8 +17,8 @@ def get_csv():
 
   # COOPS stations, status = active
 #  stations_coops = CERA_get_active_stations.get_coops_stations_activity()
-  #IOC stations, actve within the last 2 days
-  stations_ioc = CERA_get_active_stations.get_ioc_stations_activity(activity_threshold=datetime.timedelta(days=7))
+  #IOC stations, actve within the last 30 days
+  stations_ioc = CERA_get_active_stations.get_ioc_stations_activity(activity_threshold=datetime.timedelta(days=30))
 
   # convert to geojson
 #  coops = stations_coops.to_json()
