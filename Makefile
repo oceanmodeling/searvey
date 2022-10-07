@@ -11,3 +11,6 @@ mypy:
 
 docs:
 	make -C docs html
+
+deps:
+	deptry ./

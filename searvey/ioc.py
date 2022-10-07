@@ -23,6 +23,7 @@ import bs4
 import geopandas as gpd
 import html5lib  # noqa: F401 - imported but unused
 import limits
+import lxml  # noqa: F401 - imported but unused
 import pandas as pd
 import requests
 import xarray as xr
