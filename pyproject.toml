@@ -46,7 +46,9 @@ Shapely = "^1.8"
 limits = "^2.6"
 tqdm = "^4.64"
 html5lib = "^1.1"
-lxml = "^4.9"
+numpy = "^1.20"
+matplotlib = {version = "^3.3", optional = true}
+lxml = "^4.9.1"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "*"
@@ -62,6 +64,8 @@ sphinx = '*'
 sphinx-rtd-theme = '*'
 dunamai = "^1.12"
 m2r2 = "^0.3"
+deptry = "^0.6"
+toml = "^0.10"
 
 [tool.black]
 line-length = 108
@@ -112,3 +116,16 @@ init_forbid_extra = true
 init_typed = true
 warn_required_dynamic_aliases = true
 warn_untyped_fields = true
+
+
+[tool.deptry]
+ignore_obsolete = []
+ignore_missing = [
+  'CERA_get_active_stations'
+]
+ignore_transitive = []
+ignore_misplaced_dev = [
+  'dunamai',
+  'pytest',
+  'toml',
+]
