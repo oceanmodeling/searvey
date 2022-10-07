@@ -16,6 +16,7 @@ from __future__ import annotations
 import datetime
 import functools
 import logging
+import warnings
 from typing import Optional
 from typing import Union
 
@@ -219,7 +220,7 @@ def get_ioc_stations(
     return ioc_stations
 
 
-def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame) -> pd.DataFrame:
+def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame, truncate_seconds: bool) -> pd.DataFrame:
     # Each station may have more than one sensors.
     # Some of the sensors have nothing to do with sea level height. We drop these sensors
     df = df.rename(columns=IOC_STATION_DATA_COLUMNS)
@@ -232,13 +233,17 @@ def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame) -> pd.DataFrame:
         raise ValueError(msg)
     df = df.assign(
         ioc_code=ioc_code,
-        # Normalize timestamps to minutes: https://stackoverflow.com/a/14836359/592289
-        # WARNING: the astype() truncates seconds. This can potentially lead to duplicates!
-        time=pd.to_datetime(df.time).astype("datetime64[m]"),
+        time=pd.to_datetime(df.time),
     )
-    if len(df) != len(df.time.drop_duplicates()):
-        msg = f"{ioc_code}: The sampling ratio is less than 1 minute. Data have been lost"
-        raise ValueError(msg)
+    if truncate_seconds:
+        # Truncate seconds from timestamps: https://stackoverflow.com/a/28783971/592289
+        # WARNING: This can potentially lead to duplicates!
+        df = df.assign(time=df.time.dt.floor("min"))
+        if df.time.duplicated().any():
+            # There are duplicates. Keep the first datapoint per minute.
+            msg = f"{ioc_code}: Duplicate timestamps have been detected after the truncation of seconds. Keeping the first datapoint per minute"
+            warnings.warn(msg)
+            df = df.iloc[df.time.drop_duplicates().index].reset_index(drop=True)
     return df
 
 
@@ -246,6 +251,7 @@ def get_ioc_station_data(
     ioc_code: str,
     endtime: Union[str, datetime.date] = datetime.date.today(),
     period: float = IOC_MAX_DAYS_PER_REQUEST,
+    truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = None,
 ) -> pd.DataFrame:
     """Retrieve the TimeSeries of a single IOC station."""
@@ -265,7 +271,7 @@ def get_ioc_station_data(
         else:
             logger.exception("Something went wrong")
         raise
-    df = normalize_ioc_station_data(ioc_code=ioc_code, df=df)
+    df = normalize_ioc_station_data(ioc_code=ioc_code, df=df, truncate_seconds=truncate_seconds)
     return df
 
 
@@ -273,15 +279,40 @@ def get_ioc_data(
     ioc_metadata: pd.DataFrame,
     endtime: Union[str, datetime.date] = datetime.date.today(),
     period: float = 1,  # one day
+    truncate_seconds: bool = True,
     rate_limit: RateLimit = RateLimit(),
     disable_progress_bar: bool = False,
 ) -> xr.Dataset:
     """
     Return the data of the stations specified in ``ioc_metadata`` as an ``xr.Dataset``.
 
+    ``truncate_seconds`` needs some explaining. IOC has more than 1000 stations.
+    When you retrieve data from all (or at least most of) these stations, you
+    end up with thousands of timestamps that only contain a single datapoint.
+    This means that the returned ``xr.Dataset`` will contain a huge number of ``NaN``
+    which means that you will need a huge amount of RAM.
+
+    In order to reduce the amount of the required RAM we reduce the number of timestamps
+    by truncating the seconds. This is how this works:
+
+        2014-01-03 14:53:02 -> 2014-01-03 14:53:00
+        2014-01-03 14:53:32 -> 2014-01-03 14:53:00
+        2014-01-03 14:53:48 -> 2014-01-03 14:53:00
+        2014-01-03 14:54:09 -> 2014-01-03 14:54:00
+        2014-01-03 14:54:48 -> 2014-01-03 14:54:00
+
+    Nevertheless this approach has a downside. If a station returns multiple datapoints
+    within the same minute, then we end up with duplicate timestamps. When this happens
+    we only keep the first datapoint and drop the subsequent ones. So potentially you
+    may not retrieve all of the available data.
+
+    If you don't want this behavior, set ``truncate_seconds`` to ``False`` and you
+    will retrieve the full data.
+
     :param ioc_metadata: A ``pd.DataFrame`` returned by ``get_ioc_stations``.
     :param endtime: The date of the "end" of the data.
     :param period: The number of days to be requested. IOC does not support values greater than 30
+    :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
     :param disable_progress_bar: If ``True`` then the progress bar is not displayed.
 
@@ -295,7 +326,13 @@ def get_ioc_data(
     func_kwargs = []
     for ioc_code in ioc_metadata.ioc_code:
         func_kwargs.append(
-            dict(period=period, endtime=endtime, ioc_code=ioc_code, rate_limit=rate_limit),
+            dict(
+                period=period,
+                endtime=endtime,
+                ioc_code=ioc_code,
+                rate_limit=rate_limit,
+                truncate_seconds=truncate_seconds,
+            ),
         )
 
     results = multithread(
