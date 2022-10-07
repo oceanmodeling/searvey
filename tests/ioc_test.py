@@ -1,3 +1,5 @@
+import datetime
+
 import geopandas as gpd
 import numpy as np
 import pandas as pd
@@ -20,7 +22,33 @@ def test_get_ioc_stations():
     assert df_columns.issuperset(expected_columns)
 
 
-def test_get_ioc_data():
+@pytest.mark.vcr
+@pytest.mark.parametrize(
+    "truncate_seconds,no_records",
+    [
+        pytest.param(True, 145, id="truncate_seconds=True"),
+        pytest.param(False, 210, id="truncate_seconds=False"),
+    ],
+)
+def test_get_ioc_station_data(truncate_seconds, no_records):
+    """Truncate_seconds=False returns more datapoints compared to `=True`"""
+    df = ioc.get_ioc_station_data(
+        ioc_code="vera",
+        endtime=datetime.date(2022, 9, 1),
+        period=0.1,
+        truncate_seconds=truncate_seconds,
+    )
+    assert len(df) == no_records
+
+
+@pytest.mark.parametrize(
+    "truncate_seconds",
+    [
+        pytest.param(True, id="truncate_seconds=True"),
+        pytest.param(False, id="truncate_seconds=False"),
+    ],
+)
+def test_get_ioc_data(truncate_seconds):
     # in order to speed up the execution time, we don't retrieve the IOC metadata
     # from the internet
     ioc_metadata = pd.DataFrame.from_dict(
@@ -36,10 +64,10 @@ def test_get_ioc_data():
         ioc_metadata=ioc_metadata,
         endtime="2022-05-31",
         period=1,
+        truncate_seconds=truncate_seconds,
     )
     assert isinstance(ds, xr.Dataset)
     assert len(ds.ioc_code) == len(ioc_metadata)
-    np.testing.assert_equal(ds.ioc_code.values, ioc_metadata.ioc_code.values)
     np.testing.assert_equal(ds.ioc_code.values, ioc_metadata.ioc_code.values)
     np.testing.assert_equal(ds.lon.values, ioc_metadata.lon.values)
     np.testing.assert_equal(ds.lat.values, ioc_metadata.lat.values)
