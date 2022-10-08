@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from enum import Enum
 import datetime
+from enum import Enum
 
 import geopandas as gpd
 import numpy as np
@@ -9,8 +9,8 @@ import pandas as pd
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
-from searvey import ioc
 from searvey import coops
+from searvey import ioc
 
 
 class Providers(Enum):
@@ -42,9 +42,9 @@ def get_ioc_stations_activity(
         )
     )
 
-    # Some stations appear to have negative delay due to server 
+    # Some stations appear to have negative delay due to server
     # [time drift](https://www.bluematador.com/docs/troubleshooting/time-drift-ntp)
-    # or for other Provider specific reasons. IOC suggests to ignore the negative 
+    # or for other Provider specific reasons. IOC suggests to ignore the negative
     # delay and consider the stations as active.
     # https://github.com/oceanmodeling/searvey/issues/40#issuecomment-1219509512
     ioc_gdf.loc[(ioc_gdf.delay < 0), "delay"] = 0
@@ -57,12 +57,26 @@ def get_ioc_stations_activity(
     ioc_gdf = ioc_gdf.assign(
         provider=Providers.IOC.value,
         provider_id=ioc_gdf.ioc_code,
-        start_date=ioc_gdf.added_to_system.apply(pd.to_datetime).dt.tz_localize('UTC').apply(str),
+        start_date=ioc_gdf.added_to_system.apply(pd.to_datetime).dt.tz_localize("UTC").apply(str),
         is_active=ioc_gdf.last_observation > activity_threshold_ts,
         last_observation=ioc_gdf.last_observation.apply(str),
     )
 
-    return ioc_gdf[["provider", "provider_id", "country", "location", "lon", "lat", "is_active", "start_date", "last_observation", "geometry"]]
+    return ioc_gdf[
+        [
+            "provider",
+            "provider_id",
+            "country",
+            "location",
+            "lon",
+            "lat",
+            "is_active",
+            "start_date",
+            "last_observation",
+            "geometry",
+        ]
+    ]
+
 
 def get_coops_stations_activity(
     region: Polygon | MultiPolygon | None = None,
@@ -80,5 +94,22 @@ def get_coops_stations_activity(
         lat=coops_gdf.geometry.y,
         is_active=coops_gdf.status == "active",
         start_date=None,
-        last_observation=coops_gdf[coops_gdf.status == "discontinued"].removed.str[:18].apply(pd.to_datetime).dt.tz_localize('UTC').apply(str),
-    )[["provider", "provider_id", "country", "location", "lon", "lat", "is_active", "start_date", "last_observation", "geometry"]]
+        last_observation=coops_gdf[coops_gdf.status == "discontinued"]
+        .removed.str[:18]
+        .apply(pd.to_datetime)
+        .dt.tz_localize("UTC")
+        .apply(str),
+    )[
+        [
+            "provider",
+            "provider_id",
+            "country",
+            "location",
+            "lon",
+            "lat",
+            "is_active",
+            "start_date",
+            "last_observation",
+            "geometry",
+        ]
+    ]
