@@ -73,6 +73,8 @@ def test_concurrency_functions_returns_FutureResult_even_when_exceptions_are_rai
 
 @pytest.mark.parametrize("n_workers", [1, 2, 4])
 def test_multithread_pool_size(n_workers) -> None:
+    if n_workers == 4 and os.environ.get("CI", False):
+        pytest.skip("Github actions only permits 2 concurrent threads")
     # Test that the number of the used threads is equal to the specified number of workers
     results = multi.multithread(
         func=get_threadname, func_kwargs=[{"arg": i} for i in range(4 * n_workers)], n_workers=n_workers
