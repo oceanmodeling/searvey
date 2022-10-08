@@ -148,7 +148,6 @@ def normalize_ioc_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
     df = df.assign(
         # fmt: off
         gloss_id=df.gloss_id.astype(pd.Int64Dtype()),
-        country=df.country.astype("category"),
         observations_ratio_per_day=df.observations_ratio_per_day.replace("-", "0%").str[:-1].astype(int),
         observations_ratio_per_week=df.observations_ratio_per_week.replace("-", "0%").str[:-1].astype(int),
         observations_ratio_per_month=df.observations_ratio_per_month.replace("-", "0%").str[:-1].astype(int),
