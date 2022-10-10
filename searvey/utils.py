@@ -4,6 +4,7 @@ from collections.abc import Iterator
 from typing import TypeVar
 from typing import Union
 
+import xarray as xr
 from shapely.geometry import box
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
@@ -121,3 +122,8 @@ def grouper(
         return zip(*args)
     else:
         raise ValueError("Expected fill, strict, or ignore")
+
+
+def merge_datasets(datasets: list[xr.Dataset], size: int = 5) -> list[xr.Dataset]:
+    datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, size)]
+    return datasets

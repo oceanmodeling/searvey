@@ -36,7 +36,7 @@ from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
-from .utils import grouper
+from .utils import merge_datasets
 
 
 logger = logging.getLogger(__name__)
@@ -357,13 +357,8 @@ def get_ioc_data(
 
     # in order to keep memory consumption low, let's group the datasets
     # and merge them in batches
-    datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, 5)]
-    if len(datasets) > 5:
-        # There are quite a few stations left, let's do another grouping
-        datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, 5)]
-    if len(datasets) > 5:
-        # There are quite a few stations left, let's do another grouping
-        datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, 5)]
+    while len(datasets) > 5:
+        datasets = merge_datasets(datasets)
     # Do the final merging
     ds = xr.merge(datasets)
     return ds
