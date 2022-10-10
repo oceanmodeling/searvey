@@ -262,14 +262,14 @@ def get_ioc_station_data(
 
     endtime = pd.to_datetime(endtime).date().isoformat()
     url = IOC_BASE_URL.format(ioc_code=ioc_code, endtime=endtime, period=period)
-    logger.debug("Retrieving data from: %s", url)
+    logger.info("%s: Retrieving data from: %s", ioc_code, url)
     try:
         df = pd.read_html(url, header=0)[0]
     except ValueError as exc:
         if str(exc) == "No tables found":
-            logger.info("No data for %s", ioc_code)
+            logger.info("%s: No data", ioc_code)
         else:
-            logger.exception("Something went wrong")
+            logger.exception("%s: Something went wrong", ioc_code)
         raise
     df = normalize_ioc_station_data(ioc_code=ioc_code, df=df, truncate_seconds=truncate_seconds)
     return df
