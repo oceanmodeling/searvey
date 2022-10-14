@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import datetime
 from enum import Enum
-from typing import Literal
 
 import geopandas as gpd
 import numpy as np
@@ -29,26 +28,21 @@ STATIONS_COLUMNS: list[str] = [
 
 
 class Provider(str, Enum):
+    ALL: str = "ALL"
     COOPS: str = "COOPS"
     IOC: str = "IOC"
 
 
-ALL: Literal["all"] = "all"
-
-
-def get_stations(
-    activity_threshold: datetime.timedelta = datetime.timedelta(days=3),
-    providers: list[Provider] | str = ALL,
+def _get_ioc_stations(
+    activity_threshold: datetime.timedelta,
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
-
-    # Retrieve the metadata
-    ioc_gdf = ioc.get_ioc_stations(region=region)
-    coops_gdf = coops.coops_stations_within_region(region=region)
-
     # Convert activity threshold to a Timezone Aware Datetime object
     now_utc = datetime.datetime.now(datetime.timezone.utc)
     activity_threshold_ts = now_utc - activity_threshold
+
+    # Get full metadata
+    ioc_gdf = ioc.get_ioc_stations(region=region)
 
     # Normalize IOC
     # Convert delay to minutes
@@ -81,8 +75,16 @@ def get_stations(
         is_active=ioc_gdf.last_observation > activity_threshold_ts,
     )
 
+    # Filter out columns
     ioc_gdf = ioc_gdf[STATIONS_COLUMNS]
 
+    return ioc_gdf
+
+
+def _get_coops_stations(
+    region: Polygon | MultiPolygon | None = None,
+) -> gpd.GeoDataFrame:
+    coops_gdf = coops.coops_stations_within_region(region=region)
     coops_gdf = coops_gdf.assign(
         provider=Provider.COOPS.value,
         provider_id=coops_gdf.index,
@@ -97,5 +99,18 @@ def get_stations(
         .apply(pd.to_datetime)
         .dt.tz_localize("UTC"),
     )[STATIONS_COLUMNS]
+    return coops_gdf
 
-    return pd.concat((ioc_gdf, coops_gdf)).reset_index(drop=True)
+
+def get_stations(
+    activity_threshold: datetime.timedelta = datetime.timedelta(days=3),
+    providers: list[Provider] = Provider.ALL,
+    region: Polygon | MultiPolygon | None = None,
+) -> gpd.GeoDataFrame:
+    dataframes = []
+    if Provider.ALL in providers or Provider.IOC in providers:
+        dataframes.append(_get_ioc_stations(activity_threshold=activity_threshold, region=region))
+    if Provider.ALL in providers or Provider.COOPS in providers:
+        dataframes.append(_get_coops_stations(region=region))
+    df = pd.concat(dataframes).reset_index(drop=True)
+    return df

@@ -15,3 +15,17 @@ def test_get_stations():
     assert isinstance(stations_gdf, gpd.GeoDataFrame)
     assert len(stations_gdf) > 1000
     assert set(stations_gdf.columns) == set(stations.STATIONS_COLUMNS), "wrong columns"
+
+
+def test_get_stations_specify_providers():
+    threshold = datetime.timedelta(days=1)
+
+    ioc_provider = stations.get_stations(activity_threshold=threshold, providers=stations.Provider.IOC)
+    coops_provider = stations.get_stations(activity_threshold=threshold, providers=stations.Provider.COOPS)
+    all_providers = stations.get_stations(activity_threshold=threshold, providers=stations.Provider.ALL)
+    multiple_providers = stations.get_stations(
+        activity_threshold=threshold, providers=[stations.Provider.COOPS, stations.Provider.IOC]
+    )
+
+    assert len(ioc_provider) + len(coops_provider) == len(all_providers)
+    assert len(multiple_providers) == len(all_providers)
