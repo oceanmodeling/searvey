@@ -50,6 +50,7 @@ tqdm = "*"
 html5lib = "*"
 numpy = "*"
 lxml = "*"
+dataretrieval = "*"
 
 [tool.poetry.dev-dependencies]
 mypy = ">=0.991"

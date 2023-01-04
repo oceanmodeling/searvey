@@ -11,9 +11,9 @@ import pandas as pd
 
 import CERA_get_active_stations
 
+
 ################################################################################
 def get_csv():
-
     # read searvey data and return geopandas geodataframe object
 
     # COOPS stations, status = active

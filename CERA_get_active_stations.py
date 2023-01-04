@@ -22,7 +22,6 @@ def get_ioc_stations_activity(
     activity_threshold: datetime.timedelta,
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
-
     # Retrieve the metadata
     ioc_gdf = ioc.get_ioc_stations(region=region)
 
@@ -81,7 +80,6 @@ def get_ioc_stations_activity(
 def get_coops_stations_activity(
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
-
     # Retrieve the metadata
     coops_gdf = coops.coops_stations_within_region(region=region)
 
