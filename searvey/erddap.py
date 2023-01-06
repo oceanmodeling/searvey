@@ -49,7 +49,7 @@ def get_erddap_url(
 ) -> str:
     erddap = erddapy.ERDDAP(
         server=dataset.server_url,
-        protocol=dataset.protocol,
+        protocol=dataset.protocol.value,
         response=response,
     )
     erddap.dataset_id = dataset.dataset_id

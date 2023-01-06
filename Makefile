@@ -13,4 +13,4 @@ docs:
 	make -C docs html
 
 deps:
-	deptry ./
+	deptry --ignore-notebooks ./
