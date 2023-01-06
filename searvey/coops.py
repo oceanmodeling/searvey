@@ -267,7 +267,7 @@ class COOPS_Station(Station):  # noqa: N801
     def removed(self) -> Series:
         return self.__removed
 
-    @property  # type: ignore[misc]
+    @property
     @lru_cache(maxsize=1)
     def constituents(self) -> DataFrame:
         """

@@ -1,6 +1,8 @@
 import itertools
-from collections.abc import Iterable
-from collections.abc import Iterator
+from typing import Iterable
+from typing import Iterator
+from typing import List
+from typing import Tuple
 from typing import TypeVar
 from typing import Union
 
@@ -108,7 +110,7 @@ def grouper(
     *,
     incomplete: str = "fill",
     fillvalue: Union[_U, None] = None,
-) -> Iterator[tuple[Union[_T, _U], ...]]:
+) -> Iterator[Tuple[Union[_T, _U], ...]]:
     """Collect data into non-overlapping fixed-length chunks or blocks"""
     # grouper('ABCDEFG', 3, fillvalue='x') --> ABC DEF Gxx
     # grouper('ABCDEFG', 3, incomplete='strict') --> ABC DEF ValueError
@@ -124,6 +126,6 @@ def grouper(
         raise ValueError("Expected fill, strict, or ignore")
 
 
-def merge_datasets(datasets: list[xr.Dataset], size: int = 5) -> list[xr.Dataset]:
+def merge_datasets(datasets: List[xr.Dataset], size: int = 5) -> List[xr.Dataset]:
     datasets = [xr.merge(g for g in group if g) for group in grouper(datasets, size)]
     return datasets

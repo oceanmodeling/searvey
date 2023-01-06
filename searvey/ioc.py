@@ -22,9 +22,9 @@ from typing import Union
 
 import bs4
 import geopandas as gpd
-import html5lib  # noqa: F401 - imported but unused
+import html5lib  # noqa: F401  # imported but unused
 import limits
-import lxml  # noqa: F401 - imported but unused
+import lxml  # noqa: F401  # imported but unused
 import pandas as pd
 import requests
 import xarray as xr
@@ -161,7 +161,7 @@ def normalize_ioc_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
     return gdf
 
 
-@functools.cache
+@functools.lru_cache
 def _get_ioc_stations() -> gpd.GeoDataFrame:
     """
     Return IOC station metadata from: http://www.ioc-sealevelmonitoring.org/list.php?showall=all

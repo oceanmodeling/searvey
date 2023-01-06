@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        python: [ '3.9', '3.10' ]
+        python: [ '3.8', '3.9', '3.10', '3.11' ]
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-python@main
@@ -50,7 +50,7 @@ jobs:
         with:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'setup.*', 'requirements/*') }}
-      - run: pip install -r requirements/requirements-dev.txt pytest-xdist
+      - run: pip install -r requirements/requirements-dev.txt
       - run: python --version
       - run: python -m pip --version
       - run: pytest --version
@@ -70,12 +70,12 @@ jobs:
         with:
           path: ${{ env.pythonLocation }}
           key: test-coverage-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'setup.*', 'requirements/*') }}
-      - run: pip install -r requirements/requirements-dev.txt pytest-cov pytest-xdist
+      - run: pip install -r requirements/requirements-dev.txt pytest-cov
       - run: python --version
       - run: python -m pip --version
       - run: pytest --version
       - run: python -m pip cache info
-      - run: pytest tests/ -n auto --record-mode none --cov=searvey --cov-report term-missing
+      - run: pytest tests/ --record-mode none --cov=searvey --cov-report term-missing
       - run: coverage report -m
       - uses: codecov/codecov-action@v3
         with:
