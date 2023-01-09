@@ -1,47 +1,25 @@
 Installation
 ============
 
-To install ``searvey``, you need `Python greater than or equal to version 3.9 <https://www.python.org/downloads>`_.
+To install ``searvey``, you need `Python <https://www.python.org/downloads>`_
+greater than or equal to version 3.8.
 
-Once you have installed Python, and presumably have ``pip`` that comes with the default installation,
-you can run the following command to install ``searvey``:
+You can install it, either using `pip` (ideally within a Virtual Environment):
 
 .. code-block:: bash
 
-    pip install git+https://github.com/oceanmodeling/searvey.git
+  pip install searvey
 
-
-
-installing with conda
--------------------------------------
-
-The package can be installed with ``conda``:
+or using conda:
 
 .. code-block:: bash
 
 	conda install -c conda-forge searvey
 
+Installation of development version
 
-installing into a virtual environment
--------------------------------------
-
-The above steps detail how to install ``searvey`` to the system Python installation.
-However, you might find the need to install to a virtual environment, such as an `Anaconda <https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation>`_, ``virtualenv``.
-
-To set up a ``virtualenv`` environment, do the following:
+If you need to install the latest development version you can use:
 
 .. code-block:: bash
 
-    pip install virtualenv
-    mkdir ~/environments
-    virtualenv ~/environments/searvey
-    source ~/environments/searvey/bin/activate
-    pip install git+https://github.com/oceanmodeling/searvey.git
-
-Then, you can execute a Python script from this environment:
-
-.. code-block:: bash
-
-    source ~/environments/searvey/bin/activate
-    python /path/to/python/script.py
-    deactivate
+  pip install git+https://github.com/oceanmodeling/searvey.git
