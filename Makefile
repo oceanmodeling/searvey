@@ -14,3 +14,5 @@ docs:
 
 deps:
 	deptry --ignore-notebooks ./
+	poetry export --without-hashes -f requirements.txt -o requirements/requirements.txt
+	poetry export --without-hashes -f requirements.txt --with dev -o requirements/requirements-dev.txt
