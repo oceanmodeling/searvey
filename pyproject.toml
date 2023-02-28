@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "searvey"
-version = "0.2.1"
+version = "0.0.0" # overwritten by poetry-dynamic-versioning plugin
 description = ""
 authors = [
     "Panos Mavrogiorgos <pmav99@gmail.com>",
@@ -30,7 +30,7 @@ requires = [
     "poetry-core>=1.0.0",
     "poetry-dynamic-versioning",
 ]
-build-backend = "poetry.core.masonry.api"
+build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry-dynamic-versioning]
 enable = true
