@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import itertools
+from typing import Dict
 from typing import Iterable
 from typing import Iterator
 from typing import List
@@ -54,7 +57,7 @@ def get_region_from_bbox_corners(
     # Not the most beautiful code in the world, but Pydantic needs keyword arguments
     # and we want to only pass arguments that have actual values and not None
     # moreover, we create a new object because mypy was complaining about redefining
-    filtered_bbox_kwargs: dict[str, float] = {k: v for (k, v) in bbox_kwargs.items() if v}
+    filtered_bbox_kwargs: Dict[str, float] = {k: v for (k, v) in bbox_kwargs.items() if v}
     bbox = klass(**filtered_bbox_kwargs)
 
     # Create the region

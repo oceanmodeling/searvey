@@ -12,7 +12,7 @@ from searvey import multi
 # Some help functions to test multithreading
 def get_threadname(**kwargs) -> Tuple[str, str]:
     # We add a tiny amount of wait_time to make sure that all the threads are getting used.
-    time.sleep(0.00001)
+    time.sleep(0.001)
     return threading.current_thread().name
 
 
