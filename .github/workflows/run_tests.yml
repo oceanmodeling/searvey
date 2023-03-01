@@ -2,38 +2,25 @@ name: test
 
 on:
   push:
+    branches:
+      - main
+      - master
     paths:
       - '**.py'
       - '.github/workflows/test*.yml'
       - 'pyproject.toml'
+      - 'poetry.lock'
+      - 'requirements/requirements*.txt'
   pull_request:
     paths:
       - '**.py'
       - '.github/workflows/test*.yml'
       - 'pyproject.toml'
+      - 'poetry.lock'
+      - 'requirements/requirements*.txt'
 
 jobs:
-  style:
-    name: check code style
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-python@main
-        with:
-          python-version: '3.x'
-      - uses: actions/cache@main
-        id: cache
-        with:
-          path: ${{ env.pythonLocation }}
-          key: style-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'setup.*', 'requirements/*') }}
-      - run: pip install flake8 black
-      # stop the build if there are Python syntax errors or undefined names
-      - run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-      # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-      - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - run: black . --check
   test:
-    needs: [ style ]
     name: test Python ${{ matrix.python }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -49,34 +36,14 @@ jobs:
         id: cache
         with:
           path: ${{ env.pythonLocation }}
-          key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'setup.*', 'requirements/*') }}
+          key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements/*') }}
       - run: pip install -r requirements/requirements-dev.txt
       - run: python --version
       - run: python -m pip --version
       - run: pytest --version
       - run: python -m pip cache info
-      - run: pytest tests/ -n auto --record-mode none
-  test_with_coverage:
-    needs: [ style, test ]
-    name: test with code coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-python@main
-        with:
-          python-version: '3.x'
-      - uses: actions/cache@main
-        id: cache
-        with:
-          path: ${{ env.pythonLocation }}
-          key: test-coverage-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'setup.*', 'requirements/*') }}
-      - run: pip install -r requirements/requirements-dev.txt pytest-cov
-      - run: python --version
-      - run: python -m pip --version
-      - run: pytest --version
-      - run: python -m pip cache info
-      - run: pytest tests/ --record-mode none --cov=searvey --cov-report term-missing
-      - run: coverage report -m
+      - run: mypy searvey
+      - run: make cov
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
