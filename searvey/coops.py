@@ -70,9 +70,9 @@ class Station(ABC):
         self,
         product: StationDataProduct,
         start_date: datetime,
-        end_date: datetime = None,
-        interval: StationDataInterval = None,
-        datum: StationDatum = None,
+        end_date: datetime | None = None,
+        interval: StationDataInterval | None = None,
+        datum: StationDatum | None = None,
     ) -> Dataset:
         """
         retrieve data for the current station within the specified parameters
@@ -107,9 +107,9 @@ class StationQuery(ABC):
         station_id: str,
         product: StationDataProduct,
         start_date: datetime,
-        end_date: datetime = None,
-        interval: StationDataInterval = None,
-        datum: StationDatum = None,
+        end_date: datetime | None = None,
+        interval: StationDataInterval | None = None,
+        datum: StationDatum | None = None,
     ):
         self.station_id = station_id
         self.product = product
@@ -305,9 +305,9 @@ class COOPS_Station(Station):  # noqa: N801
         self,
         product: COOPS_Product,
         start_date: datetime,
-        end_date: datetime = None,
-        interval: COOPS_Interval = None,
-        datum: COOPS_TidalDatum = None,
+        end_date: datetime | None = None,
+        interval: COOPS_Interval | None = None,
+        datum: COOPS_TidalDatum | None = None,
     ) -> Dataset:
         """
         retrieve data for the current station within the specified parameters
@@ -398,13 +398,13 @@ class COOPS_Query(StationQuery):  # noqa: N801
     def __init__(
         self,
         station: int,
-        product: COOPS_Product | None,
+        product: COOPS_Product,
         start_date: datetime,
         end_date: datetime | None = None,
         datum: COOPS_TidalDatum | None = None,
         units: COOPS_Units | None = None,
         time_zone: COOPS_TimeZone | None = None,
-        interval: COOPS_Interval = None,
+        interval: COOPS_Interval | None = None,
     ):
         """
         instantiate a new query with the specified parameters
@@ -638,7 +638,7 @@ def __coops_stations_html_tables() -> element.ResultSet:
 
 
 @lru_cache(maxsize=1)
-def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:
+def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
     """
     retrieve a list of CO-OPS stations with associated metadata
 
@@ -791,8 +791,8 @@ def coops_stations(station_status: StationStatus = None) -> GeoDataFrame:
 
 
 def coops_stations_within_region(
-    region: Polygon,
-    station_status: StationStatus = None,
+    region: Polygon | None = None,
+    station_status: StationStatus | None = None,
 ) -> GeoDataFrame:
     """
     retrieve all stations within the specified region of interest
@@ -832,7 +832,7 @@ def coops_stations_within_bounds(
     miny: float,
     maxx: float,
     maxy: float,
-    station_status: StationStatus = None,
+    station_status: StationStatus | None = None,
 ) -> GeoDataFrame:
     return coops_stations_within_region(
         region=shapely.geometry.box(minx=minx, miny=miny, maxx=maxx, maxy=maxy),
@@ -844,10 +844,10 @@ def coops_product_within_region(
     product: COOPS_Product,
     region: Union[Polygon, MultiPolygon],
     start_date: datetime,
-    end_date: datetime = None,
-    datum: COOPS_TidalDatum = None,
-    interval: COOPS_Interval = None,
-    station_status: StationStatus = None,
+    end_date: datetime | None = None,
+    datum: COOPS_TidalDatum | None = None,
+    interval: COOPS_Interval | None = None,
+    station_status: StationStatus | None = None,
 ) -> Dataset:
     """
     retrieve CO-OPS data from within the specified region of interest
