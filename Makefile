@@ -21,7 +21,7 @@ test:
 
 cov:
 	coverage erase
-	python -m pytest --cov=searvey -n auto --durations=10
+	python -m pytest --cov=searvey --cov-report term-missing -n auto --durations=10 --record-mode=none
 
 docs:
 	make -C docs html
