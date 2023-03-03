@@ -13,7 +13,6 @@ We parse all 3 of them and we merge them.
 """
 from __future__ import annotations
 
-import datetime
 import functools
 import logging
 import warnings
@@ -31,12 +30,15 @@ import xarray as xr
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
+from .custom_types import DateLike
 from .multi import multiprocess
 from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
 from .utils import merge_datasets
+from .utils import resolve_date
+from .utils import TODAY
 
 
 logger = logging.getLogger(__name__)
@@ -249,7 +251,7 @@ def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame, truncate_seconds
 
 def get_ioc_station_data(
     ioc_code: str,
-    endtime: Union[str, datetime.date] = datetime.date.today(),
+    endtime: DateLike = TODAY,
     period: float = IOC_MAX_DAYS_PER_REQUEST,
     truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = None,
@@ -260,8 +262,8 @@ def get_ioc_station_data(
         while rate_limit.reached(identifier="IOC"):
             wait()
 
-    endtime = pd.to_datetime(endtime).date().isoformat()
-    url = IOC_BASE_URL.format(ioc_code=ioc_code, endtime=endtime, period=period)
+    endtime = resolve_date(endtime)
+    url = IOC_BASE_URL.format(ioc_code=ioc_code, endtime=endtime.isoformat(), period=period)
     logger.info("%s: Retrieving data from: %s", ioc_code, url)
     try:
         df = pd.read_html(url, header=0)[0]
@@ -277,7 +279,7 @@ def get_ioc_station_data(
 
 def get_ioc_data(
     ioc_metadata: pd.DataFrame,
-    endtime: Union[str, datetime.date] = datetime.date.today(),
+    endtime: DateLike = TODAY,
     period: float = 1,  # one day
     truncate_seconds: bool = True,
     rate_limit: RateLimit = RateLimit(),
@@ -309,8 +311,8 @@ def get_ioc_data(
     If you don't want this behavior, set ``truncate_seconds`` to ``False`` and you
     will retrieve the full data.
 
-    :param ioc_metadata: A ``pd.DataFrame`` returned by ``get_ioc_stations``.
-    :param endtime: The date of the "end" of the data.
+    :param ioc_metadata: A ``pd.DataFrame`` returned by ``get_ioc_stations``
+    :param endtime: The date of the "end" of the data. Defaults to ``datetime.date.today()``
     :param period: The number of days to be requested. IOC does not support values greater than 30
     :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
