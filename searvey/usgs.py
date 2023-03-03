@@ -36,16 +36,18 @@ from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 from shapely.geometry import shape
 
+from .custom_types import DateLike
 from .multi import multiprocess
 from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
 from .utils import merge_datasets
+from .utils import resolve_date
+from .utils import TODAY
 
 
 logger = logging.getLogger(__name__)
-
 
 # constants
 USGS_OUTPUT_OF_INTEREST = ("elevation", "flow rate")
@@ -277,7 +279,7 @@ def normalize_usgs_station_data(df: pd.DataFrame, truncate_seconds: bool) -> pd.
 
 def get_usgs_station_data(
     usgs_code: str,
-    endtime: Union[str, datetime.date] = datetime.date.today(),
+    endtime: DateLike = TODAY,
     period: float = 30,
     truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = RateLimit(),
@@ -285,7 +287,7 @@ def get_usgs_station_data(
     """Retrieve the TimeSeries of a single USGS station.
 
     :param usgs_code: USGS station code a.k.a. "site number"
-    :param endtime: The end date for the measurement data for fetch
+    :param endtime: The end date for the measurement data for fetch. Defaults to `datetime.date.today()`
     :param period: Number of date for which to fetch station data
     :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
@@ -296,8 +298,7 @@ def get_usgs_station_data(
         while rate_limit.reached(identifier="USGS"):
             wait()
 
-    if isinstance(endtime, str):
-        endtime = datetime.date.fromisoformat(endtime)
+    endtime = resolve_date(endtime)
     starttime = endtime - datetime.timedelta(days=period)
     df_iv, _ = nwis.get_iv(sites=[usgs_code], start=starttime.isoformat(), end=endtime.isoformat())
     df_iv = normalize_usgs_station_data(df=df_iv, truncate_seconds=truncate_seconds)
@@ -332,7 +333,7 @@ def _get_dataset_from_query_results(
 
 def get_usgs_data(
     usgs_metadata: pd.DataFrame,
-    endtime: Union[str, datetime.date] = datetime.date.today(),
+    endtime: DateLike = TODAY,
     period: float = 1,  # one day
     truncate_seconds: bool = True,
     rate_limit: RateLimit = RateLimit(),
@@ -365,7 +366,7 @@ def get_usgs_data(
     will retrieve the full data.
 
     :param usgs_metadata: A ``pd.DataFrame`` returned by ``get_usgs_stations``.
-    :param endtime: The date of the "end" of the data.
+    :param endtime: The date of the "end" of the data. Defaults to `datetime.date.today()`
     :param period: The number of days to be requested. USGS does not support values greater than 30
     :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
@@ -376,8 +377,7 @@ def get_usgs_data(
         while rate_limit.reached(identifier="USGS"):
             wait()
 
-    if isinstance(endtime, str):
-        endtime = datetime.date.fromisoformat(endtime)
+    endtime = resolve_date(endtime)
     starttime = endtime - datetime.timedelta(days=period)
 
     func_kwargs = []

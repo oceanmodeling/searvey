@@ -1,7 +1,11 @@
+from __future__ import annotations
+
+import datetime
 from typing import Any
 
 import numpy as np
 import numpy.typing as npt
+import pandas as pd
 import pytest
 import shapely.geometry
 
@@ -67,6 +71,30 @@ def test_lon1_to_lon3_roundtrip(lon1: float) -> None:
 @pytest.mark.parametrize("lon3", [0.01, 45.23, 163.2, 181.1, 273.2, 332.1])
 def test_lon3_to_lon1_roundtrip(lon3: float) -> None:
     assert lon3 == pytest.approx(utils.lon1_to_lon3(utils.lon3_to_lon1(lon3)))
+
+
+@pytest.mark.parametrize(
+    "arg",
+    [
+        "2001-12-28",
+        pd.Timestamp("2001-12-28"),
+        datetime.date(2001, 12, 28),
+        datetime.datetime(2001, 12, 28, 12, 12, 12),
+    ],
+)
+def test_resolve_date(arg) -> None:
+    resolved = utils.resolve_date(arg)
+    assert isinstance(resolved, datetime.date)
+    assert resolved == datetime.date(2001, 12, 28)
+
+
+def test_resolve_date_default_value() -> None:
+    resolved = utils.resolve_date(utils.TODAY)
+    assert isinstance(resolved, datetime.date)
+    # There is a very small chance that this test may fail
+    # More specifically, if the following line gets executed exactly after midnight
+    # Then the dates might be different, but the chances for that are very small.
+    assert resolved == datetime.date.today()
 
 
 @pytest.mark.parametrize("symmetric", [True, False])

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import datetime
 import itertools
 from typing import Dict
+from typing import Final
 from typing import Iterable
 from typing import Iterator
 from typing import List
@@ -9,16 +11,20 @@ from typing import Tuple
 from typing import TypeVar
 from typing import Union
 
+import pandas as pd
 import xarray as xr
 from shapely.geometry import box
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
 from . import models
+from .custom_types import DateLike
 from .custom_types import ScalarOrArray
 
 _T = TypeVar("_T")
 _U = TypeVar("_U")
+
+TODAY: Final = "TODAY"
 
 
 # https://gis.stackexchange.com/questions/201789/verifying-formula-that-will-convert-longitude-0-360-to-180-to-180
@@ -32,6 +38,14 @@ def lon1_to_lon3(lon1: ScalarOrArray) -> ScalarOrArray:
 
 def lon3_to_lon1(lon3: ScalarOrArray) -> ScalarOrArray:
     return ((lon3 + 180) % 360) - 180
+
+
+def resolve_date(date: DateLike) -> datetime.date:
+    if date == TODAY:
+        date = datetime.date.today()
+    else:
+        date = pd.Timestamp(date).date()
+    return date
 
 
 def get_region_from_bbox_corners(
