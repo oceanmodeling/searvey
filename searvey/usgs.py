@@ -31,10 +31,8 @@ import xarray as xr
 from dataretrieval import nwis
 from dataretrieval.codes import state_codes
 from dataretrieval.utils import Metadata
-from shapely.geometry import mapping
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
-from shapely.geometry import shape
 
 from .custom_types import DateLike
 from .multi import multiprocess
@@ -147,40 +145,6 @@ def _get_all_usgs_stations() -> gpd.GeoDataFrame:
     return usgs_stations
 
 
-@functools.lru_cache(maxsize=None)
-def _get_usgs_stations_by_region(**region_json: Any) -> gpd.GeoDataFrame:
-    """
-    Return USGS station metadata for all stations in the specified region
-
-    :return: ``geopandas.GeoDataFrame`` with the station metadata
-    """
-
-    region = shape(region_json)
-
-    bbox = list(region.bounds)
-    if (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]) > 25:
-        raise ValueError("Product of lat range and lon range cannot exceed 25!")
-
-    usgs_stations_results = multiprocess(
-        func=_get_usgs_stations_by_output,
-        func_kwargs=[
-            {"bBox": bbox, "output": out, "hasDataType": dtp}
-            for out, dtp in product(_get_usgs_output_codes().values(), USGS_OUTPUT_TYPE)
-        ],
-    )
-    # TODO: Guard for reduce on empty total list of stations
-    usgs_stations = functools.reduce(
-        # functools.partial(pd.merge, how='outer'),
-        lambda i, j: pd.concat([i, j], ignore_index=True),
-        (r.result for r in usgs_stations_results if r.result is not None and not r.result.empty),
-    )
-    usgs_stations = normalize_usgs_stations(usgs_stations)
-
-    usgs_stations = usgs_stations[usgs_stations.within(region)]
-
-    return usgs_stations
-
-
 def get_usgs_stations(
     region: Optional[Union[Polygon, MultiPolygon]] = None,
     lon_min: Optional[float] = None,
@@ -214,13 +178,9 @@ def get_usgs_stations(
         symmetric=True,
     )
 
+    usgs_stations = _get_all_usgs_stations()
     if region:
-        # NOTE: Polygon is unhashable and cannot be used for a
-        # cached function input
-        region_json = mapping(region)
-        usgs_stations = _get_usgs_stations_by_region(**region_json)
-    else:
-        usgs_stations = _get_all_usgs_stations()
+        usgs_stations = usgs_stations[usgs_stations.within(region)]
 
     return usgs_stations
 
