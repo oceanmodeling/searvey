@@ -9,15 +9,14 @@ from shapely import geometry
 from searvey import usgs
 
 
-def test_get_usgs_stations_raises_when_latlon_area_than_25():
-    with pytest.raises(ValueError) as exc:
-        usgs.get_usgs_stations(
-            lon_min=-80,
-            lat_min=30,
-            lon_max=-70,
-            lat_max=40,
-        )
-    assert "cannot exceed 25" in str(exc)
+def test_get_usgs_stations_works_when_latlon_area_larger_than_25():
+    sta = usgs.get_usgs_stations(
+        lon_min=-80,
+        lat_min=30,
+        lon_max=-70,
+        lat_max=40,
+    )
+    assert isinstance(sta, gpd.GeoDataFrame)
 
 
 def test_get_usgs_stations_raises_when_both_region_and_bbox_specified():
@@ -37,6 +36,18 @@ def test_get_usgs_stations_raises_when_both_region_and_bbox_specified():
         )
 
     assert "`region` or the `BBox` corners, not both" in str(exc)
+
+
+def test_get_usgs_stations_by_region_are_within_region():
+    lon_min = -76
+    lat_min = 39
+    lon_max = -70
+    lat_max = 43
+    geom = geometry.box(lon_min, lat_min, lon_max, lat_max)
+    sta = usgs.get_usgs_stations(
+        region=geom,
+    )
+    assert sta.within(geom).all()
 
 
 def test_get_usgs_stations_by_bbox_and_region_equivalence():
