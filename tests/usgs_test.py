@@ -79,6 +79,11 @@ def test_get_usgs_stations():
     assert set(stations.columns).issuperset(usgs.USGS_STATIONS_COLUMN_NAMES)
 
 
+def test_usgs_metadata_has_state_info():
+    stations = usgs.get_usgs_stations()
+    assert "us_state" in stations.columns
+
+
 @pytest.mark.parametrize(
     "truncate_seconds,no_records",
     [
