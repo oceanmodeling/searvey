@@ -11,6 +11,7 @@ from shapely.geometry import Polygon
 
 from . import coops
 from . import ioc
+from . import usgs
 
 
 STATIONS_COLUMNS: list[str] = [
@@ -31,6 +32,7 @@ class Provider(str, Enum):
     ALL: str = "ALL"
     COOPS: str = "COOPS"
     IOC: str = "IOC"
+    USGS: str = "USGS"
 
 
 def _get_ioc_stations(
@@ -102,6 +104,40 @@ def _get_coops_stations(
     return coops_gdf
 
 
+def _get_usgs_stations(
+    activity_threshold: datetime.timedelta,
+    region: Polygon | MultiPolygon | None = None,
+) -> gpd.GeoDataFrame:
+    # Convert activity threshold to a Timezone Aware Datetime object
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
+    activity_threshold_ts = now_utc - activity_threshold
+
+    # Get full metadata
+    usgs_gdf = usgs.get_usgs_stations(region=region)
+
+    # Normalize USGS
+    # Calculate the timestamp of the last observation
+    usgs_gdf = usgs_gdf.assign(
+        last_observation=usgs_gdf.end_date.dt.tz_localize("UTC"),
+    )
+
+    usgs_gdf = usgs_gdf.assign(
+        country="USA",
+        location=usgs_gdf.station_nm,
+        lon=usgs_gdf.dec_long_va,
+        lat=usgs_gdf.dec_lat_va,
+        provider=Provider.USGS.value,
+        provider_id=usgs_gdf.site_no,
+        start_date=usgs_gdf.begin_date.dt.tz_localize("UTC"),
+        is_active=usgs_gdf.last_observation > activity_threshold_ts,
+    )
+
+    # Filter out columns
+    usgs_gdf = usgs_gdf[STATIONS_COLUMNS]
+
+    return usgs_gdf
+
+
 def get_stations(
     activity_threshold: datetime.timedelta = datetime.timedelta(days=3),
     providers: list[Provider] = Provider.ALL,
@@ -112,5 +148,7 @@ def get_stations(
         dataframes.append(_get_ioc_stations(activity_threshold=activity_threshold, region=region))
     if Provider.ALL in providers or Provider.COOPS in providers:
         dataframes.append(_get_coops_stations(region=region))
+    if Provider.ALL in providers or Provider.USGS in providers:
+        dataframes.append(_get_usgs_stations(activity_threshold=activity_threshold, region=region))
     df = pd.concat(dataframes).reset_index(drop=True)
     return df
