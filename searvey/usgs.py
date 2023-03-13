@@ -48,7 +48,16 @@ from .utils import TODAY
 logger = logging.getLogger(__name__)
 
 # constants
-USGS_OUTPUT_OF_INTEREST = ("elevation", "flow rate")
+USGS_OUTPUT_OF_INTEREST = (
+    "elevation",  # Overlaps some of the specific codes below
+    "flow rate",  # Overlaps some of the specific codes below
+    "00065",  # Gage height, feet
+    "62614",  # Lake or reservoir water surface elevation above NGVD 1929, feet
+    "62615",  # Lake or reservoir water surface elevation above NAVD 1988, feet
+    "62620",  # Estuary or ocean water surface elevation above NAVD 1988, feet
+    "63158",  # Stream water level elevation above NGVD 1929, in feet
+    "63160",  # Stream water level elevation above NAVD 1988, in feet
+)
 USGS_OUTPUT_TYPE = ("iv",)
 USGS_RATE_LIMIT = limits.parse("5/second")
 # TODO: Should qualifier be a part of the index?
@@ -82,6 +91,7 @@ def _get_usgs_output_info() -> pd.DataFrame:
         df_param_cd["output_cat"] = var
         output_info.append(df_param_cd)
     df_param_info = pd.concat(output_info, axis="index", join="outer", ignore_index=True)
+    df_param_info = df_param_info.drop_duplicates(subset="parameter_cd")
     return df_param_info
 
 
@@ -133,10 +143,13 @@ def _get_all_usgs_stations() -> gpd.GeoDataFrame:
     usgs_stations_results = multiprocess(
         func=_get_usgs_stations_by_state,
         func_kwargs=[
-            {"stateCd": st, "output": out, "hasDataType": dtp}
-            for st, out, dtp in product(
+            {
+                "stateCd": st,
+                "output": set(j for i in _get_usgs_output_codes().values() for j in i),
+                "hasDataType": dtp,
+            }
+            for st, dtp in product(
                 state_codes,
-                _get_usgs_output_codes().values(),
                 USGS_OUTPUT_TYPE,
             )
         ],

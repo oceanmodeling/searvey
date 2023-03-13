@@ -87,8 +87,8 @@ def test_usgs_metadata_has_state_info():
 @pytest.mark.parametrize(
     "truncate_seconds,no_records",
     [
-        pytest.param(True, 4, id="truncate_seconds=True"),
-        pytest.param(False, 4, id="truncate_seconds=False"),
+        pytest.param(True, 11, id="truncate_seconds=True"),
+        pytest.param(False, 11, id="truncate_seconds=False"),
     ],
 )
 def test_get_usgs_station_data(truncate_seconds, no_records):
@@ -139,7 +139,7 @@ def test_get_usgs_data(truncate_seconds):
     )
     assert isinstance(ds, xr.Dataset)
     # TODO: Check if truncate_seconds does work
-    assert len(ds.datetime) == 27
+    assert len(ds.datetime) == 222
     assert len(ds.site_no) == len(usgs_metadata)
     # Check that usgs_code, lon, lat, country and location are not modified
     assert set(ds.site_no.values).issubset(usgs_metadata.site_no.values)
@@ -148,8 +148,8 @@ def test_get_usgs_data(truncate_seconds):
     # assert set(ds.country.values).issubset(usgs_metadata.country.values)
     # assert set(ds.location.values).issubset(usgs_metadata.location.values)
     # Check that actual data has been retrieved
-    assert ds.sel(site_no="15056500").value.mean() == pytest.approx(109.94, rel=1e-3)
-    assert ds.sel(site_no="15484000").value.mean() == pytest.approx(637.84, rel=1e-3)
+    assert ds.sel(site_no="15056500", code="72330").value.mean() == pytest.approx(109.94, rel=1e-3)
+    assert ds.sel(site_no="15484000", code="72330").value.mean() == pytest.approx(637.84, rel=1e-3)
 
 
 def test_get_usgs_station_data_by_string_enddate():
@@ -160,13 +160,13 @@ def test_get_usgs_station_data_by_string_enddate():
         truncate_seconds=False,
     )
 
-    assert len(df) == 4
+    assert len(df) == 17
 
     dates = pd.to_datetime(df.index.get_level_values("datetime").to_series().dt.date.unique())
-    assert len(dates) == 2
-    assert dates.day.tolist() == [29, 30]
-    assert dates.month.tolist() == [9, 9]
-    assert dates.year.tolist() == [2022, 2022]
+    assert len(dates) == 4
+    assert dates.day.tolist() == [29, 30, 1, 2]  # Why does it get the 2nd? timezone?
+    assert dates.month.tolist() == [9, 9, 10, 10]
+    assert dates.year.tolist() == [2022, 2022, 2022, 2022]
 
 
 def test_normalize_empty_stations_df():
