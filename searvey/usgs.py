@@ -95,10 +95,16 @@ def _get_usgs_output_codes() -> Dict[str, pd.DataFrame]:
     return output_codes
 
 
-def _get_usgs_stations_by_output(output: List[str], **kwargs: Dict[str, Any]) -> pd.DataFrame:
+def _get_usgs_stations_by_output(output: List[str], **kwargs: Any) -> pd.DataFrame:
     # NOTE: Why do we have so many combinations in df for a single station?
     sites, sites_md = nwis.get_info(seriesCatalogOutput=True, parameterCd=output, **kwargs)
     # NOTE metadata object cannot be pickled due to lambda func
+    return sites
+
+
+def _get_usgs_stations_by_state(output: List[str], stateCd: str, **kwargs: Any) -> pd.DataFrame:
+    sites = _get_usgs_stations_by_output(output=output, stateCd=stateCd, **kwargs)
+    sites["us_state"] = stateCd
     return sites
 
 
@@ -123,8 +129,9 @@ def _get_all_usgs_stations() -> gpd.GeoDataFrame:
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
 
+    # NOTE: multiprocess does NOT keep order
     usgs_stations_results = multiprocess(
-        func=_get_usgs_stations_by_output,
+        func=_get_usgs_stations_by_state,
         func_kwargs=[
             {"stateCd": st, "output": out, "hasDataType": dtp}
             for st, out, dtp in product(
