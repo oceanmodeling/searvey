@@ -74,7 +74,7 @@ def test_get_usgs_stations():
     stations = usgs.get_usgs_stations()
     assert isinstance(stations, pd.DataFrame)
     assert isinstance(stations, gpd.GeoDataFrame)
-    assert len(stations) > 242000
+    assert 40000 > len(stations) > 35000
     # check that the DataFrame has the right columns
     assert set(stations.columns).issuperset(usgs.USGS_STATIONS_COLUMN_NAMES)
 

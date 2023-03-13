@@ -106,7 +106,9 @@ def _get_usgs_output_codes() -> Dict[str, pd.DataFrame]:
 
 
 def _get_usgs_stations_by_output(output: List[str], **kwargs: Any) -> pd.DataFrame:
-    # NOTE: Why do we have so many combinations in df for a single station?
+    # NOTE: There are many combinations in df for a single station
+    # if `seriesCatalogOutput` is `True`. This is due to different
+    # begin and end date for each output
     sites, sites_md = nwis.get_info(seriesCatalogOutput=True, parameterCd=output, **kwargs)
     # NOTE metadata object cannot be pickled due to lambda func
     return sites
@@ -122,8 +124,14 @@ def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
     if df.empty:
         return gpd.GeoDataFrame()
 
+    param_dict = _get_usgs_output_info().set_index("parameter_cd").to_dict()
+
     df.end_date = pd.to_datetime(df.end_date, errors="coerce")
     df.begin_date = pd.to_datetime(df.begin_date, errors="coerce")
+    df["parm_nm"] = [param_dict["parm_nm"].get(i) for i in df.parm_cd.values]
+    df["parm_unit"] = [param_dict["parm_unit"].get(i) for i in df.parm_cd.values]
+    df = df.dropna(subset="parm_nm")
+    # TODO: Should station duplicates (by site_no) be removed?
     gdf = gpd.GeoDataFrame(
         data=df,
         geometry=gpd.points_from_xy(df.dec_long_va, df.dec_lat_va, crs="EPSG:4326"),
