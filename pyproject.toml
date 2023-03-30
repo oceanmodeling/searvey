@@ -29,7 +29,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.8, <3.12"
 beautifulsoup4 = "*"
-dataretrieval = "*"
+dataretrieval = ">=1"
 erddapy = "*"
 geopandas = "*"
 html5lib = "*"
@@ -41,6 +41,7 @@ pydantic = "*"
 requests = "*"
 Shapely = "*"
 tqdm = "*"
+typing-extensions = "*"
 xarray = "*"
 
 [tool.poetry.group.dev.dependencies]
@@ -55,7 +56,7 @@ types-requests = "*"
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
-m2r2 = "*"
+m2r2 = ">=0.3.3"
 sphinx = '*'
 sphinx-rtd-theme = '*'
 toml = "*"
