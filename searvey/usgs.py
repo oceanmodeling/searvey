@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import datetime
 import functools
+import importlib.metadata
 import logging
 import warnings
 from itertools import product
@@ -46,6 +47,9 @@ from .utils import TODAY
 
 
 logger = logging.getLogger(__name__)
+
+# This will stop working if pandas switches its versioning scheme to CalVer or something...
+_PANDAS_MAJOR_VERSION = int(importlib.metadata.version("pandas").split(".")[0])
 
 # constants
 USGS_OUTPUT_OF_INTEREST = (
@@ -126,8 +130,11 @@ def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
 
     param_dict = _get_usgs_output_info().set_index("parameter_cd").to_dict()
 
-    df.end_date = pd.to_datetime(df.end_date, errors="coerce")
-    df.begin_date = pd.to_datetime(df.begin_date, errors="coerce")
+    to_datetime_kwargs = dict(errors="coerce")
+    if _PANDAS_MAJOR_VERSION >= 2:
+        to_datetime_kwargs["format"] = "mixed"
+    df.end_date = pd.to_datetime(df.end_date, **to_datetime_kwargs)
+    df.begin_date = pd.to_datetime(df.begin_date, **to_datetime_kwargs)
     df["parm_nm"] = [param_dict["parm_nm"].get(i) for i in df.parm_cd.values]
     df["parm_unit"] = [param_dict["parm_unit"].get(i) for i in df.parm_cd.values]
     df = df.dropna(subset="parm_nm")
