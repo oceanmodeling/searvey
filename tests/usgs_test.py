@@ -77,6 +77,9 @@ def test_get_usgs_stations():
     assert 40000 > len(stations) > 35000
     # check that the DataFrame has the right columns
     assert set(stations.columns).issuperset(usgs.USGS_STATIONS_COLUMN_NAMES)
+    # Check that the parsing of the dates has been done correctly
+    assert stations.begin_date.dtype == "<M8[ns]"
+    assert stations.end_date.dtype == "<M8[ns]"
 
 
 def test_usgs_metadata_has_state_info():
