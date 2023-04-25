@@ -23,6 +23,12 @@ cov:
 	coverage erase
 	python -m pytest --cov=searvey --cov-report term-missing -n auto --durations=10 --record-mode=none
 
+clean_notebooks:
+	pre-commit run nbstripout -a
+
+exec_notebooks:
+	python -m nbconvert --to notebook --execute  --ExecutePreprocessor.kernel_name=python3 --stdout examples/* >/dev/null
+
 docs:
 	make -C docs html
 
