@@ -53,6 +53,7 @@ pytest-cov = ">=3.0"
 pytest-recording = "*"
 pytest-xdist = "*"
 types-requests = "*"
+nbconvert = "*"
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"

@@ -7,14 +7,14 @@ on:
       - master
     paths:
       - '**.py'
-      - '.github/workflows/test*.yml'
+      - '.github/workflows/*test*.yml'
       - 'pyproject.toml'
       - 'poetry.lock'
       - 'requirements/requirements*.txt'
   pull_request:
     paths:
       - '**.py'
-      - '.github/workflows/test*.yml'
+      - '.github/workflows/*test*.yml'
       - 'pyproject.toml'
       - 'poetry.lock'
       - 'requirements/requirements*.txt'
@@ -38,12 +38,16 @@ jobs:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements/*') }}
       - run: pip install -r requirements/requirements-dev.txt
+      - run: pip install ./
       - run: python --version
       - run: python -m pip --version
       - run: pytest --version
       - run: python -m pip cache info
       - run: mypy searvey
       - run: make cov
+      # We only run on a single matrix case in order to speed up CI runtime
+      - run: make exec_notebooks
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python == '3.10' }}
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
