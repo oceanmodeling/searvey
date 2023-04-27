@@ -147,7 +147,7 @@ def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
 
 
 @functools.lru_cache(maxsize=None)
-def _get_all_usgs_stations() -> gpd.GeoDataFrame:
+def _get_all_usgs_stations(normalize: bool = True) -> gpd.GeoDataFrame:
     """
     Return USGS station metadata for all stations in all the states
 
@@ -175,7 +175,8 @@ def _get_all_usgs_stations() -> gpd.GeoDataFrame:
         lambda i, j: pd.concat([i, j], ignore_index=True),
         (r.result for r in usgs_stations_results if r.result is not None and not r.result.empty),
     )
-    usgs_stations = normalize_usgs_stations(usgs_stations)
+    if normalize:
+        usgs_stations = normalize_usgs_stations(usgs_stations)
 
     return usgs_stations
 
@@ -213,7 +214,7 @@ def get_usgs_stations(
         symmetric=True,
     )
 
-    usgs_stations = _get_all_usgs_stations()
+    usgs_stations = _get_all_usgs_stations(normalize=True)
     if region:
         usgs_stations = usgs_stations[usgs_stations.within(region)]
 
