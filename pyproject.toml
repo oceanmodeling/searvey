@@ -57,9 +57,9 @@ nbconvert = "*"
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
-m2r2 = ">=0.3.3"
-sphinx = '*'
-sphinx-rtd-theme = '*'
+m2r2 = "*"
+sphinx = "*"
+furo = "*"
 toml = "*"
 
 [tool.poetry.group.jupyter.dependencies]
