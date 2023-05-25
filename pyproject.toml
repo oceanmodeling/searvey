@@ -61,6 +61,7 @@ m2r2 = "*"
 sphinx = "*"
 furo = "*"
 toml = "*"
+sphinxext-opengraph = "^0.8.2"
 
 [tool.poetry.group.jupyter.dependencies]
 ipykernel = "*"
