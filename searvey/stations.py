@@ -29,6 +29,10 @@ STATIONS_COLUMNS: list[str] = [
 
 
 class Provider(str, Enum):
+    """
+    An enumeration for ``searvey`` providers.
+    """
+
     ALL: str = "ALL"
     COOPS: str = "COOPS"
     IOC: str = "IOC"
@@ -143,6 +147,9 @@ def get_stations(
     providers: list[Provider] = Provider.ALL,
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
+    """
+    Return a ``geopandas.GeoDataFrame`` with metadata from ``providers``.
+    """
     dataframes = []
     if Provider.ALL in providers or Provider.IOC in providers:
         dataframes.append(_get_ioc_stations(activity_threshold=activity_threshold, region=region))

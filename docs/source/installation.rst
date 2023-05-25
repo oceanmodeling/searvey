@@ -16,7 +16,8 @@ or using conda:
 
 	conda install -c conda-forge searvey
 
-Installation of development version
+Development version
+-------------------
 
 If you need to install the latest development version you can use:
 
