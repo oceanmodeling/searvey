@@ -54,6 +54,7 @@ pytest-recording = "*"
 pytest-xdist = "*"
 types-requests = "*"
 nbconvert = "*"
+urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
