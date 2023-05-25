@@ -73,6 +73,7 @@ extensions = [
     "sphinx.ext.autosummary",
     # The Napoleon extension allows for nicer argument formatting.
     "sphinx.ext.napoleon",
+    "sphinxext.opengraph",
     "m2r2",
 ]
 

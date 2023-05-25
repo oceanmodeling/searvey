@@ -2871,6 +2871,21 @@ lint = ["docutils-stubs", "flake8", "mypy"]
 test = ["pytest"]
 
 [[package]]
+name = "sphinxext-opengraph"
+version = "0.8.2"
+description = "Sphinx Extension to enable OGP support"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "sphinxext-opengraph-0.8.2.tar.gz", hash = "sha256:45a693b6704052c426576f0a1f630649c55b4188bc49eb63e9587e24a923db39"},
+    {file = "sphinxext_opengraph-0.8.2-py3-none-any.whl", hash = "sha256:6a05bdfe5176d9dd0a1d58a504f17118362ab976631213cd36fb44c4c40544c9"},
+]
+
+[package.dependencies]
+matplotlib = "*"
+sphinx = ">=4.0"
+
+[[package]]
 name = "stack-data"
 version = "0.6.2"
 description = "Extract data from python stack frames and tracebacks for informative displays"
@@ -3300,4 +3315,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8, <3.12"
-content-hash = "511c618094e5cb401faf51689064007cb63e9a6a3fe8392d303cb043bcd40a3e"
+content-hash = "fa42a3fadb5adb708fe83b656c19fb30d69e6e0dbbd8465824b8fad4ac7a3614"
