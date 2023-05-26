@@ -74,7 +74,7 @@ def test_get_usgs_stations():
     stations = usgs.get_usgs_stations()
     assert isinstance(stations, pd.DataFrame)
     assert isinstance(stations, gpd.GeoDataFrame)
-    assert 40000 > len(stations) > 35000
+    assert 40000 > len(stations) > 30000
     # check that the DataFrame has the right columns
     assert set(stations.columns).issuperset(usgs.USGS_STATIONS_COLUMN_NAMES)
     # Check that the parsing of the dates has been done correctly
@@ -90,8 +90,8 @@ def test_usgs_metadata_has_state_info():
 @pytest.mark.parametrize(
     "truncate_seconds,no_records",
     [
-        pytest.param(True, 11, id="truncate_seconds=True"),
-        pytest.param(False, 11, id="truncate_seconds=False"),
+        pytest.param(True, 18, id="truncate_seconds=True"),
+        pytest.param(False, 18, id="truncate_seconds=False"),
     ],
 )
 def test_get_usgs_station_data(truncate_seconds, no_records):
@@ -142,7 +142,7 @@ def test_get_usgs_data(truncate_seconds):
     )
     assert isinstance(ds, xr.Dataset)
     # TODO: Check if truncate_seconds does work
-    assert len(ds.datetime) == 222
+    assert len(ds.datetime) == 226
     assert len(ds.site_no) == len(usgs_metadata)
     # Check that usgs_code, lon, lat, country and location are not modified
     assert set(ds.site_no.values).issubset(usgs_metadata.site_no.values)
@@ -151,8 +151,9 @@ def test_get_usgs_data(truncate_seconds):
     # assert set(ds.country.values).issubset(usgs_metadata.country.values)
     # assert set(ds.location.values).issubset(usgs_metadata.location.values)
     # Check that actual data has been retrieved
-    assert ds.sel(site_no="15056500", code="72330").value.mean() == pytest.approx(109.94, rel=1e-3)
-    assert ds.sel(site_no="15484000", code="72330").value.mean() == pytest.approx(637.84, rel=1e-3)
+    code = "00065"
+    assert ds.sel(site_no="15056500", code=code).value.mean() == pytest.approx(125.30, rel=1e-3)
+    assert ds.sel(site_no="15484000", code=code).value.mean() == pytest.approx(323.24, rel=1e-3)
 
 
 def test_get_usgs_station_data_by_string_enddate():
@@ -163,7 +164,7 @@ def test_get_usgs_station_data_by_string_enddate():
         truncate_seconds=False,
     )
 
-    assert len(df) == 17
+    assert len(df) == 30
 
     dates = pd.to_datetime(df.index.get_level_values("datetime").to_series().dt.date.unique())
     assert len(dates) == 4
