@@ -87,22 +87,14 @@ def test_usgs_metadata_has_state_info():
     assert "us_state" in stations.columns
 
 
-@pytest.mark.parametrize(
-    "truncate_seconds,no_records",
-    [
-        pytest.param(True, 18, id="truncate_seconds=True"),
-        pytest.param(False, 18, id="truncate_seconds=False"),
-    ],
-)
-def test_get_usgs_station_data(truncate_seconds, no_records):
+def test_get_usgs_station_data():
     """Truncate_seconds=False returns more datapoints compared to `=True`"""
     df = usgs.get_usgs_station_data(
         usgs_code="15484000",
         endtime=datetime.date(2022, 10, 1),
         period=1,
-        truncate_seconds=truncate_seconds,
     )
-    assert len(df) == no_records
+    assert len(df) == 18
 
 
 _USGS_METADATA_MINIMAL = pd.DataFrame.from_dict(
@@ -122,14 +114,7 @@ _USGS_METADATA_MINIMAL = pd.DataFrame.from_dict(
 )
 
 
-@pytest.mark.parametrize(
-    "truncate_seconds",
-    [
-        pytest.param(True, id="truncate_seconds=True"),
-        pytest.param(False, id="truncate_seconds=False"),
-    ],
-)
-def test_get_usgs_data(truncate_seconds):
+def test_get_usgs_data():
     # in order to speed up the execution time of the test,
     # we don't retrieve the USGS metadata from the internet,
     # but we use a hardcoded dict instead
@@ -138,10 +123,8 @@ def test_get_usgs_data(truncate_seconds):
         usgs_metadata=usgs_metadata,
         endtime="2022-09-29",
         period=2,
-        truncate_seconds=truncate_seconds,
     )
     assert isinstance(ds, xr.Dataset)
-    # TODO: Check if truncate_seconds does work
     assert len(ds.datetime) == 226
     assert len(ds.site_no) == len(usgs_metadata)
     # Check that usgs_code, lon, lat, country and location are not modified
@@ -161,7 +144,6 @@ def test_get_usgs_station_data_by_string_enddate():
         usgs_code="15484000",
         endtime="2022-10-01",
         period=2,
-        truncate_seconds=False,
     )
 
     assert len(df) == 30
@@ -183,7 +165,7 @@ def test_normalize_empty_stations_df():
 
 def test_normalize_empty_data_df():
     df = pd.DataFrame()
-    df2 = usgs.normalize_usgs_station_data(df, truncate_seconds=False)
+    df2 = usgs.normalize_usgs_station_data(df)
 
     assert df2.empty
     assert isinstance(df2, pd.DataFrame)

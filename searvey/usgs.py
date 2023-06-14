@@ -15,7 +15,6 @@ import datetime
 import functools
 import importlib.metadata
 import logging
-import warnings
 from itertools import product
 from typing import Any
 from typing import Dict
@@ -221,9 +220,7 @@ def get_usgs_stations(
     return usgs_stations
 
 
-def normalize_usgs_station_data(df: pd.DataFrame, truncate_seconds: bool) -> pd.DataFrame:
-    # TODO: Does truncate seconds make sense for USGS?
-
+def normalize_usgs_station_data(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
 
@@ -258,16 +255,6 @@ def normalize_usgs_station_data(df: pd.DataFrame, truncate_seconds: bool) -> pd.
     df["unit"] = df_parm.parm_unit[df.code.values].values
     df["name"] = df_parm.parm_nm[df.code.values].values
 
-    if truncate_seconds:
-        # Truncate seconds from timestamps: https://stackoverflow.com/a/28783971/592289
-        # WARNING: This can potentially lead to duplicates!
-        df = df.assign(datetime=df.datetime.dt.floor("min"))
-        if df.duplicated(subset=list(USGS_DATA_MULTIIDX)).any():
-            # There are duplicates. Keep the first datapoint per minute.
-            msg = "Duplicate timestamps have been detected after the truncation of seconds. Keeping the first datapoint per minute"
-            warnings.warn(msg)
-            df = df.drop_duplicates(subset=list(USGS_DATA_MULTIIDX)).reset_index(drop=True)
-
     df = df.set_index(list(USGS_DATA_MULTIIDX))
 
     return df
@@ -277,7 +264,6 @@ def get_usgs_station_data(
     usgs_code: str,
     endtime: DateLike = TODAY,
     period: float = 30,
-    truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = RateLimit(),
 ) -> pd.DataFrame:
     """Retrieve the TimeSeries of a single USGS station.
@@ -285,7 +271,6 @@ def get_usgs_station_data(
     :param usgs_code: USGS station code a.k.a. "site number"
     :param endtime: The end date for the measurement data for fetch. Defaults to `datetime.date.today()`
     :param period: Number of date for which to fetch station data
-    :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
     :return: ``pandas.DataFrame`` with the a single station measurements
     """
@@ -297,19 +282,20 @@ def get_usgs_station_data(
     endtime = resolve_date(endtime)
     starttime = endtime - datetime.timedelta(days=period)
     df_iv, _ = nwis.get_iv(sites=[usgs_code], start=starttime.isoformat(), end=endtime.isoformat())
-    df_iv = normalize_usgs_station_data(df=df_iv, truncate_seconds=truncate_seconds)
+    df_iv = normalize_usgs_station_data(df=df_iv)
     return df_iv
 
 
 def _get_dataset_from_query_results(
-    query_result: Tuple[pd.DataFrame, Metadata], usgs_metadata: pd.DataFrame, truncate_seconds: bool
+    query_result: Tuple[pd.DataFrame, Metadata],
+    usgs_metadata: pd.DataFrame,
 ) -> xr.Dataset:
     df_iv, _ = query_result
     if len(df_iv) == 0:
         return xr.Dataset()
 
     df_iv = df_iv.reset_index()
-    df_iv = normalize_usgs_station_data(df=df_iv, truncate_seconds=truncate_seconds)
+    df_iv = normalize_usgs_station_data(df=df_iv)
     st_meta = (
         usgs_metadata.set_index("site_no")
         .loc[df_iv.reset_index().site_no.unique()]
@@ -334,40 +320,15 @@ def get_usgs_data(
     usgs_metadata: pd.DataFrame,
     endtime: DateLike = TODAY,
     period: float = 1,  # one day
-    truncate_seconds: bool = True,
     rate_limit: RateLimit = RateLimit(),
     disable_progress_bar: bool = False,
 ) -> xr.Dataset:
     """
     Return the data of the stations specified in ``usgs_metadata`` as an ``xr.Dataset``.
 
-    ``truncate_seconds`` needs some explaining. USGS has more than 1000 stations.
-    When you retrieve data from all (or at least most of) these stations, you
-    end up with thousands of timestamps that only contain a single datapoint.
-    This means that the returned ``xr.Dataset`` will contain a huge number of ``NaN``
-    which means that you will need a huge amount of RAM.
-
-    In order to reduce the amount of the required RAM we reduce the number of timestamps
-    by truncating the seconds. This is how this works:
-
-        2014-01-03 14:53:02 -> 2014-01-03 14:53:00
-        2014-01-03 14:53:32 -> 2014-01-03 14:53:00
-        2014-01-03 14:53:48 -> 2014-01-03 14:53:00
-        2014-01-03 14:54:09 -> 2014-01-03 14:54:00
-        2014-01-03 14:54:48 -> 2014-01-03 14:54:00
-
-    Nevertheless this approach has a downside. If a station returns multiple datapoints
-    within the same minute, then we end up with duplicate timestamps. When this happens
-    we only keep the first datapoint and drop the subsequent ones. So potentially you
-    may not retrieve all of the available data.
-
-    If you don't want this behavior, set ``truncate_seconds`` to ``False`` and you
-    will retrieve the full data.
-
     :param usgs_metadata: A ``pd.DataFrame`` returned by ``get_usgs_stations``.
     :param endtime: The date of the "end" of the data. Defaults to `datetime.date.today()`
     :param period: The number of days to be requested. USGS does not support values greater than 30
-    :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
     :param disable_progress_bar: If ``True`` then the progress bar is not displayed.
     :return: ``xr.Dataset`` of station measurements
@@ -403,7 +364,7 @@ def get_usgs_data(
             # in `data_retrieval` due to non-existant data
             continue
 
-        ds = _get_dataset_from_query_results(result.result, usgs_metadata, truncate_seconds)
+        ds = _get_dataset_from_query_results(result.result, usgs_metadata)
         if len(ds) > 0:
             datasets.append(ds)
 
