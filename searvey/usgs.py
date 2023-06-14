@@ -305,6 +305,9 @@ def _get_dataset_from_query_results(
     query_result: Tuple[pd.DataFrame, Metadata], usgs_metadata: pd.DataFrame, truncate_seconds: bool
 ) -> xr.Dataset:
     df_iv, _ = query_result
+    if len(df_iv) == 0:
+        return xr.Dataset()
+
     df_iv = df_iv.reset_index()
     df_iv = normalize_usgs_station_data(df=df_iv, truncate_seconds=truncate_seconds)
     st_meta = (
@@ -401,7 +404,8 @@ def get_usgs_data(
             continue
 
         ds = _get_dataset_from_query_results(result.result, usgs_metadata, truncate_seconds)
-        datasets.append(ds)
+        if len(ds) > 0:
+            datasets.append(ds)
 
     # in order to keep memory consumption low, let's group the datasets
     # and merge them in batches
