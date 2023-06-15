@@ -191,3 +191,22 @@ def test_normalize_empty_data_df():
 
     assert df2.empty
     assert isinstance(df2, pd.DataFrame)
+
+
+def test_request_nonexistant_data():
+    sta = usgs.get_usgs_stations()
+    sta = sta[
+        sta.site_no.isin(
+            [
+                "373707086300703",
+                "373707086300801",
+                "373707086300802",
+            ]
+        )
+    ]
+    ds = usgs.get_usgs_data(
+        usgs_metadata=sta,
+        endtime="2015-07-04",
+        period=1,
+    )
+    assert len(ds) == 0
