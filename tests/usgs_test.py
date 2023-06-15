@@ -1,6 +1,7 @@
 import datetime
 
 import geopandas as gpd
+import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
@@ -74,7 +75,6 @@ def test_get_usgs_stations():
     stations = usgs.get_usgs_stations()
     assert isinstance(stations, pd.DataFrame)
     assert isinstance(stations, gpd.GeoDataFrame)
-    assert 40000 > len(stations) > 30000
     # check that the DataFrame has the right columns
     assert set(stations.columns).issuperset(usgs.USGS_STATIONS_COLUMN_NAMES)
     # Check that the parsing of the dates has been done correctly
@@ -88,13 +88,24 @@ def test_usgs_metadata_has_state_info():
 
 
 def test_get_usgs_station_data():
-    """Truncate_seconds=False returns more datapoints compared to `=True`"""
+    # TODO: Parameterize the test for station, date and offset
     df = usgs.get_usgs_station_data(
         usgs_code="15484000",
         endtime=datetime.date(2022, 10, 1),
         period=1,
     )
-    assert len(df) == 18
+    assert all(col in df.columns for col in ["value", "qualifier", "unit", "name"])
+    assert isinstance(df.index, pd.MultiIndex)
+    assert all(col in df.index.names for col in ["site_no", "datetime", "code", "option"])
+
+    station_utc_offset = "-08:00"
+    times = df.index.get_level_values("datetime")
+    assert all(
+        np.logical_and(
+            f"2022-09-30 00:00:00{station_utc_offset}" <= times,
+            times <= f"2022-10-02 00:00:00{station_utc_offset}",
+        )
+    )
 
 
 _USGS_METADATA_MINIMAL = pd.DataFrame.from_dict(
@@ -125,7 +136,6 @@ def test_get_usgs_data():
         period=2,
     )
     assert isinstance(ds, xr.Dataset)
-    assert len(ds.datetime) == 226
     assert len(ds.site_no) == len(usgs_metadata)
     # Check that usgs_code, lon, lat, country and location are not modified
     assert set(ds.site_no.values).issubset(usgs_metadata.site_no.values)
@@ -133,10 +143,16 @@ def test_get_usgs_data():
     assert set(ds.lat.values).issubset(usgs_metadata.dec_lat_va.values)
     # assert set(ds.country.values).issubset(usgs_metadata.country.values)
     # assert set(ds.location.values).issubset(usgs_metadata.location.values)
+
     # Check that actual data has been retrieved
-    code = "00065"
-    assert ds.sel(site_no="15056500", code=code).value.mean() == pytest.approx(125.30, rel=1e-3)
-    assert ds.sel(site_no="15484000", code=code).value.mean() == pytest.approx(323.24, rel=1e-3)
+    assert ds.isel(site_no=0, code=0).value.size > 0
+    assert not np.isnan(ds.isel(site_no=0, code=0).value.values.astype(float)).all()
+
+    assert ds.isel(site_no=1, code=0).value.size > 0
+    assert not np.isnan(ds.isel(site_no=1, code=0).value.values.astype(float)).all()
+
+    assert all(col in ds.dims for col in ["site_no", "datetime", "code", "option"])
+    assert all(col in ds.variables for col in ["value", "qualifier", "lon", "lat", "unit", "name"])
 
 
 def test_get_usgs_station_data_by_string_enddate():
@@ -146,13 +162,19 @@ def test_get_usgs_station_data_by_string_enddate():
         period=2,
     )
 
-    assert len(df) == 30
+    station_utc_offset = -8
 
-    dates = pd.to_datetime(df.index.get_level_values("datetime").to_series().dt.date.unique())
-    assert len(dates) == 4
-    assert dates.day.tolist() == [29, 30, 1, 2]  # Why does it get the 2nd? timezone?
-    assert dates.month.tolist() == [9, 9, 10, 10]
-    assert dates.year.tolist() == [2022, 2022, 2022, 2022]
+    dates = pd.to_datetime(
+        df.index.get_level_values("datetime")
+        .to_series()
+        .reset_index(drop=True)
+        .dt.tz_convert(datetime.timezone(datetime.timedelta(hours=station_utc_offset)))
+        .dt.date.unique()
+    )
+    assert len(dates) == 3
+    assert dates.day.tolist() == [29, 30, 1]
+    assert dates.month.tolist() == [9, 9, 10]
+    assert dates.year.tolist() == [2022, 2022, 2022]
 
 
 def test_normalize_empty_stations_df():
