@@ -146,10 +146,10 @@ def test_get_usgs_data():
 
     # Check that actual data has been retrieved
     assert ds.isel(site_no=0, code=0).value.size > 0
-    assert not np.isnan(ds.isel(site_no=0, code=0).value.values.astype(float)).all()
+    assert ds.isel(site_no=0, code=0).value.notnull().any()
 
     assert ds.isel(site_no=1, code=0).value.size > 0
-    assert not np.isnan(ds.isel(site_no=1, code=0).value.values.astype(float)).all()
+    assert ds.isel(site_no=1, code=0).value.notnull().any()
 
     assert all(col in ds.dims for col in ["site_no", "datetime", "code", "option"])
     assert all(col in ds.variables for col in ["value", "qualifier", "lon", "lat", "unit", "name"])
