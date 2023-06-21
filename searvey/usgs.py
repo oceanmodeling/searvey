@@ -365,7 +365,7 @@ def get_usgs_data(
             continue
 
         ds = _get_dataset_from_query_results(result.result, usgs_metadata)
-        if len(ds) > 0:
+        if any((ds.count(ds.dims) > 0)[v] for v in ds.data_vars):
             datasets.append(ds)
 
     # in order to keep memory consumption low, let's group the datasets

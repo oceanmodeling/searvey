@@ -209,4 +209,4 @@ def test_request_nonexistant_data():
         endtime="2015-07-04",
         period=1,
     )
-    assert len(ds) == 0
+    assert all((ds.count(ds.dims) == 0)[v] for v in ds.data_vars)
