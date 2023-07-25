@@ -7,25 +7,25 @@ from searvey import uhslc
 def test_that_negative_longitude_raises() -> None:
     with pytest.raises(ValueError) as exc:
         uhslc.get_uhslc_data(start_date=pd.to_datetime("2000-01-01 00:00:00"), lon_min=-1000)
-    assert "ensure this value is greater than or equal to 0" in str(exc)
+    assert "greater than or equal to 0" in str(exc)
 
 
 def test_that_longitude_greater_than_360_raises() -> None:
     with pytest.raises(ValueError) as exc:
         uhslc.get_uhslc_data(start_date=pd.to_datetime("2000-01-01 00:00:00"), lon_min=1000)
-    assert "ensure this value is less than or equal to 360" in str(exc)
+    assert "less than or equal to 360" in str(exc)
 
 
 def test_that_latitude_less_than_minus_90_raises() -> None:
     with pytest.raises(ValueError) as exc:
         uhslc.get_uhslc_data(start_date=pd.to_datetime("2000-01-01 00:00:00"), lat_min=-1000)
-    assert "ensure this value is greater than or equal to -90" in str(exc)
+    assert "greater than or equal to -90" in str(exc)
 
 
 def test_that_latitude_greater_than_90_raises() -> None:
     with pytest.raises(ValueError) as exc:
         uhslc.get_uhslc_data(start_date=pd.to_datetime("2000-01-01 00:00:00"), lat_min=1000)
-    assert "ensure this value is less than or equal to 90" in str(exc)
+    assert "less than or equal to 90" in str(exc)
 
 
 @pytest.mark.vcr

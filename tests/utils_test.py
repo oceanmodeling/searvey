@@ -129,10 +129,10 @@ def test_get_region_raises_when_both_region_and_bbox_are_specified():
 def test_get_region_symmetric_raises_for_longitude_over_180():
     with pytest.raises(ValueError) as exc:
         utils.get_region(lon_max=300, symmetric=True)
-    assert "ensure this value is less than or equal to 180" in str(exc.value)
+    assert "less than or equal to 180" in str(exc.value)
 
 
 def test_get_region_asymmetric_raises_for_longitude_less_than_0():
     with pytest.raises(ValueError) as exc:
         utils.get_region(lon_min=-100, symmetric=False)
-    assert "ensure this value is greater than or equal to 0" in str(exc.value)
+    assert "greater than or equal to 0" in str(exc.value)
