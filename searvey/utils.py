@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import datetime
 import itertools
 from typing import Dict
 from typing import Final
@@ -18,14 +17,13 @@ from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
 from . import models
-from .custom_types import DateLike
+from .custom_types import DateTimeLike
 from .custom_types import ScalarOrArray
 
 _T = TypeVar("_T")
 _U = TypeVar("_U")
 
-TODAY: Final = "TODAY"
-
+NOW: Final = "now"
 
 # https://gis.stackexchange.com/questions/201789/verifying-formula-that-will-convert-longitude-0-360-to-180-to-180
 # lon1 is the longitude varying from -180 to 180 or 180W-180E
@@ -40,12 +38,55 @@ def lon3_to_lon1(lon3: ScalarOrArray) -> ScalarOrArray:
     return ((lon3 + 180) % 360) - 180
 
 
-def resolve_date(date: DateLike) -> datetime.date:
-    if date == TODAY:
-        date = datetime.date.today()
+def resolve_timestamp(
+    timestamp: DateTimeLike, timezone: str = "utc", timezone_aware: bool = True
+) -> pd.Timestamp:
+    """
+    Parse the provided timestamp and return a ``pd.Timestamp`` at the specified ``timezone``.
+
+    If ``"now"`` is passed for the ``timestamp``, then the current timestamp is being returned.
+
+    If ``timezone_aware`` is True, then a timezone-aware Timestamp is returned.
+    If not, the function returns a naive Timestamp.
+
+    If ``timestamp`` contains timezone information (e.g. ``2023-05-01T12:12:12+03:30``) then the timestamp is
+    converted to ``timezone`` before being returned. Do notice that if ``timezone_aware`` is False,
+    the function still returns a naive Timestamp. Some examples will make this clearer:
+
+    A timezone-aware timestamp is converted to the default timezone, i.e. `UTC`:
+
+    >>> resolve_timestamp("2001-12-28T12:12:12+0100")
+    Timestamp('2001-12-28 11:12:12+0000', tz='UTC')
+
+    A timezone-aware timestamp is converted to the specified timezone:
+
+    >>> resolve_timestamp("2001-12-28T12:12:12+0100", timezone="Asia/Tehran")
+    Timestamp('2001-12-28 14:42:12+0330', tz='Asia/Tehran')
+
+    A timezone-aware timestamp is converted to the specified timezone but a naive Timestamp is being returned
+
+    >>> resolve_timestamp("2001-12-28T12:12:12+0100", timezone="Asia/Tehran", timezone_aware=False)
+    Timestamp('2001-12-28 14:42:12')
+
+    """
+    if str(timestamp).lower() == NOW:
+        ts = pd.Timestamp.now(tz=timezone)
     else:
-        date = pd.Timestamp(date).date()
-    return date
+        # We don't know if the passed argument is timezone aware or not. e.g.
+        #     2023-01-01T00:00:00
+        # vs
+        #     2023-01-01T00:00:00+00:00
+        # Therefore, if the passed argument is not timezone-aware we need to localize it
+        # while if it is already timezone-aware we need to convert it to the specified timezone.
+        ts = pd.to_datetime(timestamp)
+        if ts.tz:
+            ts = ts.tz_convert(tz=timezone)
+        else:
+            ts = ts.tz_localize(tz=timezone)
+    if not timezone_aware:
+        # Remove the timezone-awareness
+        ts = ts.tz_localize(tz=None)
+    return ts
 
 
 def get_region_from_bbox_corners(

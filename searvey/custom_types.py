@@ -12,6 +12,6 @@ from typing_extensions import TypeAlias  # "from typing" in Python 3.9+
 
 
 StrDict: TypeAlias = Dict[str, Any]
-DateLike: TypeAlias = Union[str, datetime.date, datetime.datetime, pd.Timestamp]
+DateTimeLike: TypeAlias = Union[str, datetime.date, datetime.datetime, pd.Timestamp]
 
 ScalarOrArray = TypeVar("ScalarOrArray", int, float, npt.NDArray[Any])

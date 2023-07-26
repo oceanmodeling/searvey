@@ -34,15 +34,15 @@ from dataretrieval.utils import Metadata
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
-from .custom_types import DateLike
+from .custom_types import DateTimeLike
 from .multi import multiprocess
 from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
 from .utils import merge_datasets
-from .utils import resolve_date
-from .utils import TODAY
+from .utils import NOW
+from .utils import resolve_timestamp
 
 
 logger = logging.getLogger(__name__)
@@ -262,7 +262,7 @@ def normalize_usgs_station_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def get_usgs_station_data(
     usgs_code: str,
-    endtime: DateLike = TODAY,
+    endtime: DateTimeLike = NOW,
     period: float = 30,
     rate_limit: Optional[RateLimit] = RateLimit(),
 ) -> pd.DataFrame:
@@ -279,7 +279,7 @@ def get_usgs_station_data(
         while rate_limit.reached(identifier="USGS"):
             wait()
 
-    endtime = resolve_date(endtime)
+    endtime = resolve_timestamp(endtime, timezone_aware=False).date()
     starttime = endtime - datetime.timedelta(days=period)
     df_iv, _ = nwis.get_iv(sites=[usgs_code], start=starttime.isoformat(), end=endtime.isoformat())
     df_iv = normalize_usgs_station_data(df=df_iv)
@@ -318,7 +318,7 @@ def _get_dataset_from_query_results(
 
 def get_usgs_data(
     usgs_metadata: pd.DataFrame,
-    endtime: DateLike = TODAY,
+    endtime: DateTimeLike = NOW,
     period: float = 1,  # one day
     rate_limit: RateLimit = RateLimit(),
     disable_progress_bar: bool = False,
@@ -337,7 +337,7 @@ def get_usgs_data(
         while rate_limit.reached(identifier="USGS"):
             wait()
 
-    endtime = resolve_date(endtime)
+    endtime = resolve_timestamp(endtime)
     starttime = endtime - datetime.timedelta(days=period)
 
     func_kwargs = []

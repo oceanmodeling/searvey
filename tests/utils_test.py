@@ -12,6 +12,9 @@ import shapely.geometry
 from searvey import utils
 
 
+CET = datetime.timezone(datetime.timedelta(hours=1))
+
+
 @pytest.mark.parametrize(
     "lon1,expected_lon3",
     [
@@ -76,25 +79,54 @@ def test_lon3_to_lon1_roundtrip(lon3: float) -> None:
 @pytest.mark.parametrize(
     "arg",
     [
-        "2001-12-28",
-        pd.Timestamp("2001-12-28"),
-        datetime.date(2001, 12, 28),
-        datetime.datetime(2001, 12, 28, 12, 12, 12),
+        pytest.param("2001-12-28", id="string"),
+        pytest.param(pd.Timestamp("2001-12-28"), id="pandas timestamp"),
+        pytest.param(datetime.date(2001, 12, 28), id="datetime.date"),
     ],
 )
-def test_resolve_date(arg) -> None:
-    resolved = utils.resolve_date(arg)
-    assert isinstance(resolved, datetime.date)
-    assert resolved == datetime.date(2001, 12, 28)
+def test_resolve_timestamp_dates(arg) -> None:
+    # fmt: off
+    assert utils.resolve_timestamp(arg) == pd.Timestamp("2001-12-28 00:00:00+0000", tz="UTC")
+    assert utils.resolve_timestamp(arg, timezone_aware=False) == pd.Timestamp("2001-12-28 00:00:00")
+    assert utils.resolve_timestamp(arg, timezone="Asia/Tehran") == pd.Timestamp("2001-12-28 00:00:00+0330", tz="Asia/Tehran")
+    assert utils.resolve_timestamp(arg, timezone="Asia/Tehran", timezone_aware=False) == pd.Timestamp("2001-12-28 00:00:00")
+    # fmt: on
 
 
-def test_resolve_date_default_value() -> None:
-    resolved = utils.resolve_date(utils.TODAY)
-    assert isinstance(resolved, datetime.date)
-    # There is a very small chance that this test may fail
-    # More specifically, if the following line gets executed exactly after midnight
-    # Then the dates might be different, but the chances for that are very small.
-    assert resolved == datetime.date.today()
+@pytest.mark.parametrize(
+    "arg",
+    [
+        pytest.param("2001-12-28T12:12:12", id="str"),
+        pytest.param(pd.Timestamp("2001-12-28T12:12:12"), id="pandas.Timestamp"),
+        pytest.param(datetime.datetime(2001, 12, 28, 12, 12, 12), id="datetime.datetime"),
+    ],
+)
+def test_resolve_timestamp_naive_timestamps(arg) -> None:
+    # fmt: off
+    assert utils.resolve_timestamp(arg) == pd.Timestamp("2001-12-28 12:12:12+0000", tz="UTC")
+    assert utils.resolve_timestamp(arg, timezone_aware=False) == pd.Timestamp("2001-12-28 12:12:12")
+    assert utils.resolve_timestamp(arg, timezone="Asia/Tehran") == pd.Timestamp("2001-12-28 12:12:12+0330", tz="Asia/Tehran")
+    assert utils.resolve_timestamp(arg, timezone="Asia/Tehran", timezone_aware=False) == pd.Timestamp("2001-12-28 12:12:12")
+    # fmt: on
+
+
+@pytest.mark.parametrize(
+    "arg",
+    [
+        # fmt: off
+        pytest.param("2001-12-28T12:12:12+0100", id="str"),
+        pytest.param(pd.Timestamp("2001-12-28T12:12:12+0100"), id="pandas.Timestamp"),
+        pytest.param(datetime.datetime(2001, 12, 28, 12, 12, 12, tzinfo=CET), id="datetime.datetime"),
+        # fmt: on
+    ],
+)
+def test_resolve_timestamp_timezone_aware_timestamps(arg) -> None:
+    # fmt: off
+    assert utils.resolve_timestamp(arg) == pd.Timestamp("2001-12-28 11:12:12+0000", tz="UTC")
+    assert utils.resolve_timestamp(arg, timezone_aware=False) == pd.Timestamp("2001-12-28 11:12:12")
+    assert utils.resolve_timestamp(arg, timezone="Asia/Tehran") == pd.Timestamp("2001-12-28 14:42:12+0330", tz="Asia/Tehran")
+    assert utils.resolve_timestamp(arg, timezone="Asia/Tehran", timezone_aware=False) == pd.Timestamp("2001-12-28 14:42:12")
+    # fmt: on
 
 
 @pytest.mark.parametrize("symmetric", [True, False])
@@ -129,10 +161,10 @@ def test_get_region_raises_when_both_region_and_bbox_are_specified():
 def test_get_region_symmetric_raises_for_longitude_over_180():
     with pytest.raises(ValueError) as exc:
         utils.get_region(lon_max=300, symmetric=True)
-    assert "ensure this value is less than or equal to 180" in str(exc.value)
+    assert "less than or equal to 180" in str(exc.value)
 
 
 def test_get_region_asymmetric_raises_for_longitude_less_than_0():
     with pytest.raises(ValueError) as exc:
         utils.get_region(lon_min=-100, symmetric=False)
-    assert "ensure this value is greater than or equal to 0" in str(exc.value)
+    assert "greater than or equal to 0" in str(exc.value)

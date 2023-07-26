@@ -9,7 +9,7 @@ interactions:
       User-Agent:
       - Python-urllib/3.9
     method: GET
-    uri: http://www.ioc-sealevelmonitoring.org/bgraph.php?code=vera&output=tab&period=0.1&endtime=2022-09-01
+    uri: http://www.ioc-sealevelmonitoring.org/bgraph.php?code=vera&output=tab&period=0.1&endtime=2022-09-01T00:00:00
   response:
     body:
       string: <div align=center><table border="1"><th colspan="2">Tide gauge at Veracruz,

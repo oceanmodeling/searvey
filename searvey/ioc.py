@@ -30,15 +30,15 @@ import xarray as xr
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
-from .custom_types import DateLike
+from .custom_types import DateTimeLike
 from .multi import multiprocess
 from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
 from .utils import merge_datasets
-from .utils import resolve_date
-from .utils import TODAY
+from .utils import NOW
+from .utils import resolve_timestamp
 
 
 logger = logging.getLogger(__name__)
@@ -251,7 +251,7 @@ def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame, truncate_seconds
 
 def get_ioc_station_data(
     ioc_code: str,
-    endtime: DateLike = TODAY,
+    endtime: DateTimeLike = NOW,
     period: float = IOC_MAX_DAYS_PER_REQUEST,
     truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = None,
@@ -262,7 +262,13 @@ def get_ioc_station_data(
         while rate_limit.reached(identifier="IOC"):
             wait()
 
-    endtime = resolve_date(endtime)
+    # IOC needs timestamps in UTC but they must be in non-timezone-aware
+    # I.e. it accepts `2023-05-02T12:00:00`
+    # but rejects     `2023-05-02T12:00:00T00:00`
+    # That's why we cast the endtime to a timezone-aware timestamp using UTC
+    # and then we remove the timezone with tz_localize
+    endtime = resolve_timestamp(endtime, timezone="UTC", timezone_aware=False).tz_localize(tz=None)
+
     url = IOC_BASE_URL.format(ioc_code=ioc_code, endtime=endtime.isoformat(), period=period)
     logger.info("%s: Retrieving data from: %s", ioc_code, url)
     try:
@@ -279,7 +285,7 @@ def get_ioc_station_data(
 
 def get_ioc_data(
     ioc_metadata: pd.DataFrame,
-    endtime: DateLike = TODAY,
+    endtime: DateTimeLike = NOW,
     period: float = 1,  # one day
     truncate_seconds: bool = True,
     rate_limit: RateLimit = RateLimit(),

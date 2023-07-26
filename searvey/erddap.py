@@ -48,7 +48,7 @@ def get_erddap_url(
     response: str = "csvp",
 ) -> str:
     erddap = erddapy.ERDDAP(
-        server=dataset.server_url,
+        server=str(dataset.server_url),
         protocol=dataset.protocol.value,
         response=response,
     )
