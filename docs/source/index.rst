@@ -6,6 +6,7 @@
    coops
    ioc
    usgs
+   utils
 
 `searvey`
 ~~~~~~~~~

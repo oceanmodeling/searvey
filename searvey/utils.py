@@ -42,23 +42,32 @@ def resolve_timestamp(
     timestamp: DateTimeLike, timezone: str = "utc", timezone_aware: bool = True
 ) -> pd.Timestamp:
     """
-    Parse the provided timestamp and return a `pd.Timestamp` at the specified `timezone`.
+    Parse the provided timestamp and return a ``pd.Timestamp`` at the specified ``timezone``.
 
-    If `timezone_aware` is True, then a timezone-aware Timestamp is returned.
+    If ``"now"`` is passed for the ``timestamp``, then the current timestamp is being returned.
+
+    If ``timezone_aware`` is True, then a timezone-aware Timestamp is returned.
     If not, the function returns a naive Timestamp.
 
-    If `timestamp` contains timezone information (e.g. `2023-05-01T12:12:12+03:30`) then the timestamp is
-    converted to `timezone` before being returned. Do notice that if `timezone_aware` is False,
-    the function still returns a naive Timestamp. For example:
+    If ``timestamp`` contains timezone information (e.g. ``2023-05-01T12:12:12+03:30``) then the timestamp is
+    converted to ``timezone`` before being returned. Do notice that if ``timezone_aware`` is False,
+    the function still returns a naive Timestamp. Some examples will make this clearer:
+
+    A timezone-aware timestamp is converted to the default timezone, i.e. `UTC`:
 
     >>> resolve_timestamp("2001-12-28T12:12:12+0100")
     Timestamp('2001-12-28 11:12:12+0000', tz='UTC')
+
+    A timezone-aware timestamp is converted to the specified timezone:
+
     >>> resolve_timestamp("2001-12-28T12:12:12+0100", timezone="Asia/Tehran")
     Timestamp('2001-12-28 14:42:12+0330', tz='Asia/Tehran')
+
+    A timezone-aware timestamp is converted to the specified timezone but a naive Timestamp is being returned
+
     >>> resolve_timestamp("2001-12-28T12:12:12+0100", timezone="Asia/Tehran", timezone_aware=False)
     Timestamp('2001-12-28 14:42:12')
 
-    If `"now"` is passed for the `timestamp`, then the current timestamp is being returned.
     """
     if str(timestamp).lower() == NOW:
         ts = pd.Timestamp.now(tz=timezone)
