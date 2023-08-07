@@ -102,43 +102,6 @@ IOC_STATIONS_COLUMN_NAMES = {
         "view",
     ],
 }
-IOC_STATIONS_COLUMN_NAMES_API = {
-    "general": [
-        "ioc_code",
-        "GlossID",
-        "country",
-        "Location",
-        "connect",
-        "DCP_ID",
-        "last_observation_level",
-        "last_observation_time",
-        "delay",
-        "interval",
-        "view",
-    ],
-    "contacts": [
-        "ioc_code",
-        "GlossID",
-        "lat",
-        "lon",
-        "country",
-        "Location",
-        "connect",
-        "contacts",
-    ],
-    "performance": [
-        "ioc_code",
-        "GlossID",
-        "country",
-        "Location",
-        "connect",
-        "added_to_system",
-        "observations",
-        "sample_interval",
-        "average_delay_per_day",
-        "transmit_interval",
-    ],
-}
 IOC_STATION_DATA_COLUMNS_TO_DROP = [
     "bat",
     "sw1",
@@ -190,13 +153,14 @@ def get_ioc_stations_by_output(output: str, skip_table_rows: int) -> pd.DataFram
 
 
 def get_ioc_stations_api_request() -> pd.DataFrame:
-    url = "http://www.ioc-sealevelmonitoring.org/service.php?query=stationlist"
+    url = "http://www.ioc-sealevelmonitoring.org/service.php?query=stationlist&showall=all"
     logger.debug("Downloading: %s", url)
     response = requests.get(url)
     assert response.ok, f"failed to download: {url}"
     logger.debug("Downloaded: %s", url)
-    di = json.loads(response.content)
-    df = pd.DataFrame(di).rename(columns={"Code": "ioc_code"})
+    df = pd.DataFrame(response.json())
+    df = df.drop(columns=["lon", "lat"])
+    df = df.rename(columns={"Lon": "lon", "Lat": "lat", "Code": "ioc_code", "GlossID": "gloss_id"})
     return df
 
 
@@ -217,12 +181,6 @@ def normalize_ioc_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
 
 
 def normalize_ioc_stations_api(df: pd.DataFrame) -> gpd.GeoDataFrame:
-    df = df.assign(
-        # fmt: off
-        GlossID=df.GlossID.astype(pd.Int64Dtype()),
-        observations_ratio_per_month=df.observations,
-        # fmt: on
-    )
     gdf = gpd.GeoDataFrame(
         data=df,
         geometry=gpd.points_from_xy(df.lon, df.lat, crs="EPSG:4326"),
@@ -343,38 +301,13 @@ def get_ioc_stations_api(
 def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame, truncate_seconds: bool) -> pd.DataFrame:
     # Each station may have more than one sensors.
     # Some of the sensors have nothing to do with sea level height. We drop these sensors
-    df = df.rename(columns=IOC_STATION_DATA_COLUMNS)
-    logger.debug("%s: df contains the following columns: %s", ioc_code, df.columns)
-    df = df.drop(columns=IOC_STATION_DATA_COLUMNS_TO_DROP, errors="ignore")
-    if len(df.columns) == 1:
-        # all the data columns have been dropped!
-        msg = f"{ioc_code}: The table does not contain any sensor data!"
-        logger.info(msg)
-        raise ValueError(msg)
-    df = df.assign(
-        ioc_code=ioc_code,
-        time=pd.to_datetime(df.time),
+    df = df.rename(columns=IOC_STATION_DATA_COLUMNS).rename(
+        columns={"stime": "time", "Code": "ioc_code", "Lon": "lon", "Lat": "lat"}
     )
-    if truncate_seconds:
-        # Truncate seconds from timestamps: https://stackoverflow.com/a/28783971/592289
-        # WARNING: This can potentially lead to duplicates!
-        df = df.assign(time=df.time.dt.floor("min"))
-        if df.time.duplicated().any():
-            # There are duplicates. Keep the first datapoint per minute.
-            msg = f"{ioc_code}: Duplicate timestamps have been detected after the truncation of seconds. Keeping the first datapoint per minute"
-            warnings.warn(msg)
-            df = df.iloc[df.time.drop_duplicates().index].reset_index(drop=True)
-    return df
-
-
-def normalize_ioc_station_data_api(ioc_code: str, df: pd.DataFrame, truncate_seconds: bool) -> pd.DataFrame:
-    # Each station may have more than one sensors.
-    # Some of the sensors have nothing to do with sea level height. We drop these sensors
-    df = df.rename(columns=IOC_STATION_DATA_COLUMNS)
     logger.debug("%s: df contains the following columns: %s", ioc_code, df.columns)
     df = df.drop(columns=IOC_STATION_DATA_COLUMNS_TO_DROP, errors="ignore")
-    if len(df.columns) == 1:
-        # all the data columns have been dropped!
+    if len(df.columns) <= 1:
+        # if empty or if all the data columns have been dropped!
         msg = f"{ioc_code}: The table does not contain any sensor data!"
         logger.info(msg)
         raise ValueError(msg)
@@ -441,8 +374,8 @@ def get_ioc_station_data_api(
         while rate_limit.reached(identifier="IOC"):
             wait()
 
-    endtime = resolve_timestamp(endtime)
-    starttime = resolve_start_date(endtime, period)
+    endtime = resolve_timestamp(endtime, timezone="UTC", timezone_aware=False).tz_localize(tz=None)
+    starttime = resolve_start_date(endtime, period).tz_localize(tz=None)
     url = IOC_BASE_URL_API.format(
         ioc_code=ioc_code, starttime=starttime.isoformat(), endtime=endtime.isoformat()
     )
@@ -452,14 +385,15 @@ def get_ioc_station_data_api(
         assert response.ok, f"failed to download: {url}"
         logger.debug("Downloaded: %s", url)
         di = json.loads(response.content)
-        df = pd.DataFrame(di).rename(columns={"stime": "time", "Code": "ioc_code"})
+        df = pd.DataFrame(di)
+        if len(df) > 0:
+            df = normalize_ioc_station_data(ioc_code=ioc_code, df=df, truncate_seconds=truncate_seconds)
     except ValueError as exc:
         if str(exc) == "No tables found":
             logger.info("%s: No data", ioc_code)
         else:
             logger.exception("%s: Something went wrong", ioc_code)
         raise
-    df = normalize_ioc_station_data_api(ioc_code=ioc_code, df=df, truncate_seconds=truncate_seconds)
     return df
 
 
