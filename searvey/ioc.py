@@ -131,6 +131,30 @@ IOC_STATION_DATA_COLUMNS = {
     "wls(m)": "wls",
 }
 
+VALID_SENSORS = {
+    "rad",
+    "prs",
+    "enc",
+    "pr1",
+    "PR2",
+    "pr2",
+    "ra2",
+    "bwl",
+    "wls",
+    "aqu",
+    "ras",
+    "pwl",
+    "bub",
+    "enb",
+    "atm",
+    "flt",
+    "ecs",
+    "stp",
+    "prte",
+    "prt",
+    "ra3",
+}
+
 
 def get_ioc_stations_by_output(output: str, skip_table_rows: int) -> pd.DataFrame:
     url = f"https://www.ioc-sealevelmonitoring.org/list.php?showall=all&output={output}#"
@@ -377,7 +401,9 @@ def get_ioc_station_data_api(
     endtime = resolve_timestamp(endtime, timezone="UTC", timezone_aware=False).tz_localize(tz=None)
     starttime = resolve_start_date(endtime, period).tz_localize(tz=None)
     url = IOC_BASE_URL_API.format(
-        ioc_code=ioc_code, starttime=starttime.isoformat(), endtime=endtime.isoformat()
+        ioc_code=ioc_code,
+        starttime=starttime.isoformat(timespec="seconds"),
+        endtime=endtime.isoformat(timespec="seconds"),
     )
     logger.info("%s: Retrieving data from: %s", ioc_code, url)
     try:
@@ -387,6 +413,10 @@ def get_ioc_station_data_api(
         di = json.loads(response.content)
         df = pd.DataFrame(di)
         if len(df) > 0:
+            df = df.pivot(index="stime", columns="sensor", values="slevel")
+            df["stime"] = df.index
+            df = df.reset_index(drop=True)
+            df._mgr.items.name = ""
             df = normalize_ioc_station_data(ioc_code=ioc_code, df=df, truncate_seconds=truncate_seconds)
     except ValueError as exc:
         if str(exc) == "No tables found":
