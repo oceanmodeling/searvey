@@ -96,3 +96,20 @@ def test_coops_station():
     assert station_2_data.sizes == {"nos_id": 1, "t": 2}
     assert len(station_3_data["t"]) == 0
     assert station_4_data.sizes == {"nos_id": 1, "t": 21}
+
+
+@pytest.mark.vcr
+def test_coops_predictions_product():
+    region = box(-83, 25, -75, 36)
+
+    start_date = datetime(2021, 1, 1)
+    end_date = datetime(2021, 1, 1, 0, 10)
+
+    data = coops_product_within_region(
+        "predictions",
+        region=region,
+        start_date=start_date,
+        end_date=end_date,
+    )
+
+    assert len(data["t"]) > 0
