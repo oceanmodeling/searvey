@@ -597,12 +597,15 @@ class COOPS_Query(StationQuery):  # noqa: N801
             response = requests.get(self.URL, params=self.query)
             data = response.json()
             fields = ["t", "v", "s", "f", "q"]
-            if "error" in data or "data" not in data:
+            if "error" in data or not ("data" in data or "predictions" in data):
                 if "error" in data:
                     self.__error = data["error"]["message"]
                 data = DataFrame(columns=fields)
             else:
-                data = DataFrame(data["data"], columns=fields)
+                key = "data"
+                if "predictions" in data:
+                    key = "predictions"
+                data = DataFrame(data[key], columns=fields)
                 data[data == ""] = numpy.nan
                 data = data.astype(
                     {"v": numpy.float32, "s": numpy.float32, "f": "string", "q": "string"},
