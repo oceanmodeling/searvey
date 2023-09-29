@@ -30,7 +30,7 @@ import pandas as pd
 import xarray as xr
 from dataretrieval import nwis
 from dataretrieval.codes import state_codes
-from dataretrieval.utils import Metadata
+from dataretrieval.utils import BaseMetadata
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
@@ -287,7 +287,7 @@ def get_usgs_station_data(
 
 
 def _get_dataset_from_query_results(
-    query_result: Tuple[pd.DataFrame, Metadata],
+    query_result: Tuple[pd.DataFrame, BaseMetadata],
     usgs_metadata: pd.DataFrame,
 ) -> xr.Dataset:
     df_iv, _ = query_result
