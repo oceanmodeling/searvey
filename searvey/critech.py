@@ -27,7 +27,7 @@ _CRITECH_NORMALIZED_NAMES = {
 
 
 EMODNET_CRITECH = ERDDAPDataset(
-    server_url=pydantic.parse_obj_as(pydantic.HttpUrl, "https://erddap.emodnet-physics.eu/erddap"),
+    server_url=pydantic.HttpUrl("https://erddap.emodnet-physics.eu/erddap"),
     dataset_id="TAD_Tsunami_Alert_Device",
     is_longitude_symmetric=True,
 )
