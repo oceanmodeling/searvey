@@ -89,6 +89,10 @@ def resolve_timestamp(
     return ts
 
 
+def resolve_start_date(enddate: DateTimeLike, period: float) -> pd.Timestamp:
+    return resolve_timestamp(enddate) - pd.Timedelta("30 days")
+
+
 def get_region_from_bbox_corners(
     lon_min: Union[float, None] = None,
     lon_max: Union[float, None] = None,
