@@ -27,7 +27,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8, <3.12"
+python = ">=3.9, <3.13"
 beautifulsoup4 = "*"
 dataretrieval = ">=1"
 erddapy = "*"
@@ -58,7 +58,7 @@ urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
-m2r2 = "*"
+m2r2 = ">=0.3.2"
 sphinx = "*"
 furo = "*"
 toml = "*"

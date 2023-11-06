@@ -14,6 +14,7 @@ We parse all 3 of them and we merge them.
 from __future__ import annotations
 
 import functools
+import io
 import logging
 import warnings
 from typing import Optional
@@ -144,7 +145,7 @@ def get_ioc_stations_by_output(output: str, skip_table_rows: int) -> pd.DataFram
     table_contents = "\n".join(str(tr) for tr in trs[skip_table_rows:])
     html = f"<table>{table_contents}</table>"
     logger.debug("Created table: %s", url)
-    df = pd.read_html(html)[0]
+    df = pd.read_html(io.StringIO(html))[0]
     logger.debug("Parsed table: %s", url)
     df.columns = IOC_STATIONS_COLUMN_NAMES[output]
     df = df.drop(columns="view")

@@ -24,7 +24,7 @@ _UHSLC_NORMALIZED_NAMES = {
 }
 
 SOEST_UHSLC = ERDDAPDataset(
-    server_url=pydantic.parse_obj_as(pydantic.HttpUrl, "https://uhslc.soest.hawaii.edu/erddap"),
+    server_url=pydantic.HttpUrl("https://uhslc.soest.hawaii.edu/erddap"),
     dataset_id="global_hourly_fast",
     is_longitude_symmetric=False,
 )
