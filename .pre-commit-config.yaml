@@ -34,6 +34,17 @@ repos:
       - id: "python-check-blanket-type-ignore"
       - id: "python-use-type-annotations"
 
+  - repo: "https://github.com/shellcheck-py/shellcheck-py"
+    rev: "v0.9.0.6"
+    hooks:
+      - id: "shellcheck"
+
+  - repo: "https://github.com/python-jsonschema/check-jsonschema"
+    rev: "0.27.0"
+    hooks:
+      - id: "check-github-workflows"
+      - id: "check-readthedocs"
+
   - repo: "https://github.com/asottile/reorder_python_imports"
     rev: "v3.12.0"
     hooks:
