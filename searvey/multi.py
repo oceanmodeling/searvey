@@ -37,12 +37,11 @@ except AttributeError:
 
 
 class FutureResult(pydantic.BaseModel):
+    model_config = pydantic.ConfigDict(arbitrary_types_allowed=True)
+
     exception: Optional[Exception] = None
     kwargs: Optional[Dict[str, Any]] = None
     result: Any = None
-
-    class Config:
-        arbitrary_types_allowed: bool = True
 
     def __hash__(self) -> int:
         return hash((type(self),) + tuple(self.__dict__.values()))
