@@ -775,7 +775,7 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
 
     stations = pandas.concat(
         (
-            active_stations[~active_stations.index.isin(discontinued_stations.index)],
+            active_stations[~active_stations.index.isin(discontinued_stations.index)].drop(columns="removed"),  # fmt: skip
             discontinued_stations,
         )
     )
