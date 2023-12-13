@@ -21,7 +21,7 @@ test:
 
 cov:
 	coverage erase
-	python -m pytest --cov=searvey --cov-report term-missing -n auto --durations=10 --record-mode=none
+	python -m pytest --cov=searvey --cov-report term-missing --durations=10 --record-mode=none
 
 clean_notebooks:
 	pre-commit run nbstripout -a

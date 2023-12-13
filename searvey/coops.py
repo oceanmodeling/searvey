@@ -775,7 +775,7 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
 
     stations = pandas.concat(
         (
-            active_stations[~active_stations.index.isin(discontinued_stations.index)],
+            active_stations[~active_stations.index.isin(discontinued_stations.index)].drop(columns="removed"),  # fmt: skip
             discontinued_stations,
         )
     )
@@ -789,7 +789,7 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
 
     return GeoDataFrame(
         stations[["nws_id", "name", "state", "status", "removed"]],
-        geometry=geopandas.points_from_xy(stations["x"], stations["y"]),
+        geometry=geopandas.points_from_xy(stations["x"], stations["y"], crs="EPSG:4326"),
     )
 
 

@@ -14,13 +14,12 @@ class ERDDAPProtocol(str, enum.Enum):
 
 
 class BBox(pydantic.BaseModel):
+    model_config = pydantic.ConfigDict(extra="forbid")
+
     lon_min: float
     lon_max: float
     lat_min: float = pydantic.Field(default=-90, ge=-90, le=90)
     lat_max: float = pydantic.Field(default=90, ge=-90, le=90)
-
-    class Config:
-        extra = "forbid"
 
 
 class SymmetricBBox(BBox):

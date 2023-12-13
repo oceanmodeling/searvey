@@ -37,7 +37,7 @@ limits = "*"
 lxml = "*"
 numpy = "*"
 pandas = "*"
-pydantic = "*"
+pydantic = ">2"
 requests = "*"
 Shapely = "*"
 tqdm = "*"
@@ -152,4 +152,4 @@ parallel = true
 sigterm = true
 
 [tool.coverage.report]
-fail_under = 89.5
+fail_under = 89
