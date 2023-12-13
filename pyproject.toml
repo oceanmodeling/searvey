@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "searvey"
 version = "0.0.0" # overwritten by poetry-dynamic-versioning plugin
-description = ""
+description = "Sea state observational data retrieval"
 authors = [
     "Panos Mavrogiorgos <pmav99@gmail.com>",
     "Zachary Burnett <zachary.r.burnett@gmail.com>",
+    "Soroosh Mani <soroosh.mani@noaa.gov>",
 ]
 license = 'GPL-3.0-or-later'
 readme = "README.md"
@@ -20,10 +21,10 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Atmospheric Science",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 [tool.poetry.dependencies]
