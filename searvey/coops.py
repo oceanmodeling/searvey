@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import logging
+import warnings
 from abc import ABC
 from abc import abstractmethod
 from datetime import datetime
@@ -14,6 +15,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 from typing import Dict
+from typing import Optional
 from typing import Union
 
 import geopandas
@@ -31,6 +33,8 @@ from shapely.geometry import MultiPolygon
 from shapely.geometry import Point
 from shapely.geometry import Polygon
 from xarray import Dataset
+
+from .utils import get_region
 
 
 logger = logging.getLogger(__name__)
@@ -51,6 +55,11 @@ class StationDatum(Enum):
 class StationStatus(Enum):
     ACTIVE = "active"
     DISCONTINUED = "discontinued"
+
+
+class StationMetadataSource(Enum):
+    MAIN = "main"
+    NWS = "nws"
 
 
 class Station(ABC):
@@ -695,6 +704,7 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
     [71 rows x 6 columns]
     """
 
+    warnings.warn("Using older API, will be removed in the future!", DeprecationWarning)
     tables = __coops_stations_html_tables()
 
     status_tables = {
@@ -775,7 +785,9 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
 
     stations = pandas.concat(
         (
-            active_stations[~active_stations.index.isin(discontinued_stations.index)].drop(columns="removed"),  # fmt: skip
+            active_stations[~active_stations.index.isin(discontinued_stations.index)].drop(
+                columns='removed'
+            ),  # fmt: skip
             discontinued_stations,
         )
     )
@@ -897,4 +909,89 @@ def coops_product_within_region(
     return xarray.combine_nested(station_data, concat_dim="nos_id")
 
 
-get_coops_stations = coops_stations_within_region
+def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
+    df = (
+        df.rename(
+            columns={
+                "id": "nos_id",
+                "shefcode": "nws_id",
+                "lat": "lat",
+                "lng": "lon",
+                "details.removed": "removed",
+            },
+        )
+        .astype(
+            {
+                "nos_id": numpy.int32,
+                "nws_id": "string",
+                "lon": numpy.float32,
+                "lat": numpy.float32,
+                "state": "string",
+                "name": "string",
+                "removed": "datetime64[ns]",
+            },
+        )
+        .set_index("nos_id")[
+            [
+                "nws_id",
+                "name",
+                "state",
+                "lon",
+                "lat",
+                "removed",
+            ]
+        ]
+    )
+    gdf = geopandas.GeoDataFrame(
+        data=df,
+        geometry=geopandas.points_from_xy(df.lon, df.lat, crs="EPSG:4326"),
+    )
+    return gdf
+
+
+@lru_cache(maxsize=1)
+def _get_coops_stations() -> geopandas.GeoDataFrame:
+    """
+    Return COOPS station metadata from: COOPS main API
+
+    :return: ``geopandas.GeoDataFrame`` with the station metadata
+    """
+
+    url = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?expand=details"
+
+    df = pandas.read_json(url)
+    df = pandas.json_normalize(df["stations"])
+
+    coops_stations = normalize_coops_stations(df)
+    return coops_stations
+
+
+def get_coops_stations(
+    region: Optional[Union[Polygon, MultiPolygon]] = None,
+    lon_min: Optional[float] = None,
+    lon_max: Optional[float] = None,
+    lat_min: Optional[float] = None,
+    lat_max: Optional[float] = None,
+    metadata_source: StationMetadataSource = "nws",
+) -> geopandas.GeoDataFrame:
+    md_src = StationMetadataSource(metadata_source)
+
+    region = get_region(
+        region=region,
+        lon_min=lon_min,
+        lon_max=lon_max,
+        lat_min=lat_min,
+        lat_max=lat_max,
+        symmetric=True,
+    )
+
+    if md_src == StationMetadataSource.MAIN:
+        coops_stations = _get_coops_stations()
+        if region:
+            coops_stations = coops_stations[coops_stations.within(region)]
+    elif md_src == StationMetadataSource.NWS:
+        coops_stations = coops_stations_within_region(region)
+    else:
+        raise ValueError("Unknown metadata source specified!")
+
+    return coops_stations
