@@ -44,10 +44,10 @@ def test_coops_stations_within_region_old_api():
 
 @pytest.mark.vcr
 def test_coops_stations_new_api():
-    stations = get_coops_stations(metadata_source="main")
+    stations_new_api = get_coops_stations(metadata_source="main")
 
-    assert len(stations) > 0
-    assert list(stations.columns) == [
+    assert len(stations_new_api) > 0
+    assert list(stations_new_api.columns) == [
         "nws_id",
         "name",
         "state",
@@ -57,6 +57,21 @@ def test_coops_stations_new_api():
         "status",
         "geometry",
     ]
+
+    stations_old_api = get_coops_stations(metadata_source="nws")
+    assert len(stations_old_api) > 0
+    assert list(stations_old_api.columns) == [
+        "nws_id",
+        "name",
+        "state",
+        "status",
+        "removed",
+        "geometry",
+    ]
+
+    with pytest.raises(ValueError) as excinfo:
+        get_coops_stations(metadata_source="someothersource")
+    assert "not a valid stationmetadatasource" in str(excinfo.value).lower()
 
 
 @pytest.mark.vcr
