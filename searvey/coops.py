@@ -942,6 +942,8 @@ def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
             ]
         ]
     )
+    df["status"] = StationStatus.ACTIVE.value
+    df.loc[~df.removed.isna(), "status"] = StationStatus.DISCONTINUED.value
     gdf = geopandas.GeoDataFrame(
         data=df,
         geometry=geopandas.points_from_xy(df.lon, df.lat, crs="EPSG:4326"),
