@@ -7,10 +7,11 @@ from searvey.coops import coops_product_within_region
 from searvey.coops import COOPS_Station
 from searvey.coops import coops_stations
 from searvey.coops import coops_stations_within_region
+from searvey.coops import get_coops_stations
 
 
 @pytest.mark.vcr
-def test_coops_stations():
+def test_coops_stations_old_api():
     stations = coops_stations()
 
     assert len(stations) > 0
@@ -25,7 +26,7 @@ def test_coops_stations():
 
 
 @pytest.mark.vcr
-def test_coops_stations_within_region():
+def test_coops_stations_within_region_old_api():
     region = box(-83, 25, -75, 36)
 
     stations = coops_stations_within_region(region=region)
@@ -37,6 +38,42 @@ def test_coops_stations_within_region():
         "state",
         "status",
         "removed",
+        "geometry",
+    ]
+
+
+@pytest.mark.vcr
+def test_coops_stations_new_api():
+    stations = get_coops_stations(metadata_source="main")
+
+    assert len(stations) > 0
+    assert list(stations.columns) == [
+        "nws_id",
+        "name",
+        "state",
+        "lon",
+        "lat",
+        "removed",
+        "status",
+        "geometry",
+    ]
+
+
+@pytest.mark.vcr
+def test_coops_stations_within_region_new_api():
+    region = box(-83, 25, -75, 36)
+
+    stations = get_coops_stations(region=region, metadata_source="main")
+
+    assert len(stations) > 0
+    assert list(stations.columns) == [
+        "nws_id",
+        "name",
+        "state",
+        "lon",
+        "lat",
+        "removed",
+        "status",
         "geometry",
     ]
 
