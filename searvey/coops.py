@@ -959,10 +959,17 @@ def _get_coops_stations() -> geopandas.GeoDataFrame:
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
 
-    url = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?expand=details"
+    url_active = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?expand=details"
+    url_historic = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=historicwl&expand=details"
 
-    df = pandas.read_json(url)
-    df = pandas.json_normalize(df["stations"])
+    df_active = pandas.read_json(url_active)
+    df_active = pandas.json_normalize(df_active["stations"])
+
+    df_historic = pandas.read_json(url_historic)
+    df_historic = pandas.json_normalize(df_historic["stations"])
+    df_historic = df_historic[~df_historic.id.isin(df_active.id)]
+
+    df = pandas.concat((df_active, df_historic))
 
     coops_stations = normalize_coops_stations(df)
     return coops_stations
