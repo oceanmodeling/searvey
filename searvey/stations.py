@@ -4,7 +4,6 @@ import datetime
 from enum import Enum
 
 import geopandas as gpd
-import numpy as np
 import pandas as pd
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
@@ -92,20 +91,17 @@ def _get_ioc_stations(
 def _get_coops_stations(
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
-    coops_gdf = coops.coops_stations_within_region(region=region)
+    coops_gdf = coops.get_coops_stations(region=region, metadata_source="main")
     coops_gdf = coops_gdf.assign(
         provider=Provider.COOPS.value,
         provider_id=coops_gdf.index,
-        country=np.where(coops_gdf.state.str.len() > 0, "USA", None),  # type: ignore[call-overload]
+        country=coops_gdf.state.where(coops_gdf.state.str.len() != 2, "USA"),
         location=coops_gdf[["name", "state"]].agg(", ".join, axis=1),
         lon=coops_gdf.geometry.x,
         lat=coops_gdf.geometry.y,
         is_active=coops_gdf.status == "active",
         start_date=pd.NaT,
-        last_observation=coops_gdf[coops_gdf.status == "discontinued"]
-        .removed.str[:18]
-        .apply(pd.to_datetime)
-        .dt.tz_localize("UTC"),
+        last_observation=coops_gdf[coops_gdf.status == "discontinued"].removed.dt.tz_localize("UTC"),
     )[STATIONS_COLUMNS]
     return coops_gdf
 
