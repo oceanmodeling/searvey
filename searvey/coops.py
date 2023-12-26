@@ -981,7 +981,7 @@ def get_coops_stations(
     lon_max: Optional[float] = None,
     lat_min: Optional[float] = None,
     lat_max: Optional[float] = None,
-    metadata_source: StationMetadataSource = "nws",
+    metadata_source: Union[StationMetadataSource, str] = "nws",
 ) -> geopandas.GeoDataFrame:
     md_src = StationMetadataSource(metadata_source)
 
