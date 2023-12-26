@@ -11,7 +11,7 @@ from searvey.coops import get_coops_stations
 
 
 @pytest.mark.vcr
-def test_coops_stations_old_api():
+def test_coops_stations_nws_api():
     stations = coops_stations()
 
     assert len(stations) > 0
@@ -26,7 +26,7 @@ def test_coops_stations_old_api():
 
 
 @pytest.mark.vcr
-def test_coops_stations_within_region_old_api():
+def test_coops_stations_within_region_nws_api():
     region = box(-83, 25, -75, 36)
 
     stations = coops_stations_within_region(region=region)
@@ -43,11 +43,11 @@ def test_coops_stations_within_region_old_api():
 
 
 @pytest.mark.vcr
-def test_coops_stations_new_api():
-    stations_new_api = get_coops_stations(metadata_source="main")
+def test_coops_stations_main_api():
+    stations_main_api = get_coops_stations(metadata_source="main")
 
-    assert len(stations_new_api) > 0
-    assert list(stations_new_api.columns) == [
+    assert len(stations_main_api) > 0
+    assert list(stations_main_api.columns) == [
         "nws_id",
         "name",
         "state",
@@ -58,9 +58,9 @@ def test_coops_stations_new_api():
         "geometry",
     ]
 
-    stations_old_api = get_coops_stations(metadata_source="nws")
-    assert len(stations_old_api) > 0
-    assert list(stations_old_api.columns) == [
+    stations_nws_api = get_coops_stations(metadata_source="nws")
+    assert len(stations_nws_api) > 0
+    assert list(stations_nws_api.columns) == [
         "nws_id",
         "name",
         "state",
@@ -75,7 +75,7 @@ def test_coops_stations_new_api():
 
 
 @pytest.mark.vcr
-def test_coops_stations_within_region_new_api():
+def test_coops_stations_within_region_main_api():
     region = box(-83, 25, -75, 36)
 
     stations = get_coops_stations(region=region, metadata_source="main")
