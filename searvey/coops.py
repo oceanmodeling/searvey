@@ -870,7 +870,7 @@ def coops_product_within_region(
     :param region: polygon or multipolygon denoting region of interest
     :param start_date: start date of CO-OPS query
     :param end_date: start date of CO-OPS query
-    :param datum: tidal datum
+    :param datum: tidal datum, one of ``STND``, ``MSL``, ``MHHW``, ``MHW``, ``MTL``, ``MLW``, ``MLLW``, ``NAVD``
     :param interval: data time interval
     :param station_status: either ``active`` or ``discontinued``
     :return: array of data within the specified region
@@ -878,7 +878,7 @@ def coops_product_within_region(
     >>> from datetime import datetime, timedelta
     >>> import shapely
     >>> east_coast = shapely.geometry.box(-85, 25, -65, 45)
-    >>> coops_product_within_region('water_level', region=east_coast, start_date=datetime(2022, 4, 2, 12), end_date=datetime(2022, 4, 2, 12, 30))
+    >>> coops_product_within_region('water_level', region=east_coast, datum='MSL', start_date=datetime(2022, 4, 2, 12), end_date=datetime(2022, 4, 2, 12, 30))
     <xarray.Dataset>
     Dimensions:  (t: 6, nos_id: 111)
     Coordinates:
@@ -893,6 +893,8 @@ def coops_product_within_region(
         f        (nos_id, t) object '0,0,0,0' '0,0,0,0' ... '1,0,0,0' '1,0,0,0'
         q        (nos_id, t) object 'p' 'p' 'p' 'p' 'p' 'p' ... 'p' 'p' 'p' 'p' 'p'
     """
+    if datum is None:
+        datum = 'MSL'  # change the default from STND to MSL 
 
     stations = coops_stations_within_region(region=region, station_status=station_status)
     station_data = [
