@@ -894,7 +894,7 @@ def coops_product_within_region(
         q        (nos_id, t) object 'p' 'p' 'p' 'p' 'p' 'p' ... 'p' 'p' 'p' 'p' 'p'
     """
     if datum is None:
-        datum = 'MSL'  # change the default from STND to MSL 
+        datum = "MSL"  # change the default from STND to MSL
 
     stations = coops_stations_within_region(region=region, station_status=station_status)
     station_data = [
