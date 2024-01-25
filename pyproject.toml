@@ -31,11 +31,13 @@ classifiers = [
 python = ">=3.9, <4.0"
 beautifulsoup4 = "*"
 dataretrieval = ">=1"
+deprecated = "*"
 erddapy = "*"
 geopandas = "*"
 html5lib = "*"
 limits = "*"
 lxml = "*"
+multifutures = {version = "*", allow-prereleases = true}
 numpy = "*"
 pandas = "*"
 pydantic = ">2"
