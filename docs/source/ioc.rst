@@ -13,3 +13,8 @@ A list of IOC stations is provided with the ``get_ioc_stations()`` function with
 The station data can be retrieved with
 
 .. autofunction:: searvey.ioc.get_ioc_data
+
+New API
+-------
+
+.. autofunction:: searvey.ioc.fetch_ioc_station
