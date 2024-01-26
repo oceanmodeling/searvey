@@ -521,7 +521,7 @@ def _normalize_df(df: pd.DataFrame) -> pd.DataFrame:
             "%s: Dropped duplicates: %d rows", normalized.attrs["station_id"], duplicated_timestamps.sum()
         )
     normalized = normalized.pivot(index="time", columns="sensor", values="slevel")
-    normalized._mgr.items.name = ""  # type: ignore[attr-defined]
+    normalized._mgr.items.name = ""
     return normalized
 
 
