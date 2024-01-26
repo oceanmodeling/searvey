@@ -35,6 +35,7 @@ deprecated = "*"
 erddapy = "*"
 geopandas = "*"
 html5lib = "*"
+httpx = "*"
 limits = "*"
 lxml = "*"
 multifutures = {version = "*", allow-prereleases = true}
@@ -51,13 +52,14 @@ xarray = "*"
 covdefaults = "*"
 coverage = {version = "*", extras = ["toml"]}
 mypy = ">=1"
+nbconvert = "*"
 pytest = "*"
 pytest-cov = ">=3.0"
 pytest-recording = "*"
 pytest-xdist = "*"
+types-deprecated = "*"
 types-requests = "*"
-nbconvert = "*"
-urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
+#urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
@@ -94,6 +96,7 @@ log_cli = true
 filterwarnings = [
     'ignore:distutils Version classes are deprecated. Use packaging.version instead:DeprecationWarning',
     'ignore:Deprecated call to `pkg_resources.declare_namespace:DeprecationWarning',
+    'ignore::DeprecationWarning',
 ]
 
 [tool.mypy]
