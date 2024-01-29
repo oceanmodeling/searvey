@@ -412,7 +412,7 @@ def _before_sleep(retry_state: T.Any) -> None:  # pragma: no cover
     )
 
 
-RETRY = tenacity.retry(
+RETRY: T.Callable[..., T.Any] = tenacity.retry(
     stop=(tenacity.stop_after_delay(90) | tenacity.stop_after_attempt(10)),
     wait=tenacity.wait_random(min=2, max=10),
     retry=tenacity.retry_if_exception_type(httpx.TransportError),
@@ -481,7 +481,7 @@ def _parse_ioc_responses(
 
 
 def _ioc_date(ts: pd.Timestamp) -> str:
-    formatted = ts.strftime(IOC_URL_TS_FORMAT)
+    formatted: str = ts.strftime(IOC_URL_TS_FORMAT)
     return formatted
 
 
