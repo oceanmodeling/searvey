@@ -16,7 +16,6 @@ from __future__ import annotations
 import collections
 import functools
 import io
-import itertools
 import logging
 import typing as T
 import warnings
@@ -48,6 +47,7 @@ from .rate_limit import wait
 from .utils import get_region
 from .utils import merge_datasets
 from .utils import NOW
+from .utils import pairwise
 from .utils import resolve_timestamp
 
 
@@ -498,7 +498,7 @@ def _generate_urls(
     periods = duration.days // 30 + 2
     urls = []
     date_range = pd.date_range(start_date, end_date, periods=periods, unit="us", inclusive="both")
-    for start, stop in itertools.pairwise(date_range):
+    for start, stop in pairwise(date_range):
         timestart = _ioc_date(start)
         timestop = _ioc_date(stop)
         url = BASE_URL.format(ioc_code=station_id, timestart=timestart, timestop=timestop)
