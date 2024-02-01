@@ -55,3 +55,9 @@ CO-OPS query class
 The ``COOPS_Query`` class lets you send an individual query to the CO-OPS API by specifying a station, data product, and time interval.
 
 .. autoclass:: searvey.coops.COOPS_Query
+
+New API
+-------
+
+.. autofunction:: searvey.coops.get_coops_stations
+.. autofunction:: searvey.coops.fetch_coops_station

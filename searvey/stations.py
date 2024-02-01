@@ -94,11 +94,14 @@ def _get_coops_stations(
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
     coops_gdf = coops.get_coops_stations(region=region, metadata_source="main")
+    # TODO: We don't have station type info in station API
+    #    coops_gdf = coops_gdf.set_index("station_type", append=True)
+    coops_gdf = coops_gdf[~coops_gdf.index.duplicated()]
     coops_gdf = coops_gdf.assign(
         provider=Provider.COOPS.value,
-        provider_id=coops_gdf.index,
+        provider_id=coops_gdf.index.get_level_values("nos_id"),
         country=coops_gdf.state.where(coops_gdf.state.str.len() != 2, "USA"),
-        location=coops_gdf[["name", "state"]].agg(", ".join, axis=1),
+        location=coops_gdf[["name", "state"]].fillna("").agg(", ".join, axis=1).str.strip(", "),
         lon=coops_gdf.geometry.x,
         lat=coops_gdf.geometry.y,
         is_active=coops_gdf.status == "active",
