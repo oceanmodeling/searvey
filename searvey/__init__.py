@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from searvey.coops import fetch_coops_station
 from searvey.coops import get_coops_stations
 from searvey.ioc import fetch_ioc_station
 from searvey.ioc import get_ioc_data
@@ -10,6 +11,7 @@ from searvey.usgs import get_usgs_stations
 
 
 __all__: list[str] = [
+    "fetch_coops_station",
     "fetch_ioc_station",
     "get_coops_stations",
     "get_ioc_data",
