@@ -12,6 +12,7 @@ import typing as T
 import warnings
 from collections import abc
 from datetime import datetime
+from datetime import timedelta
 from enum import Enum
 from functools import lru_cache
 from pathlib import Path
@@ -50,7 +51,6 @@ logger = logging.getLogger(__name__)
 # constants
 COOPS_URL_TS_FORMAT = "%Y%m%d %H:%M"
 COOPS_BASE_URL = "https://tidesandcurrents.noaa.gov/api/datagetter?"
-MAX_COOPS_ITERVAL = 30  # TODO: It should depend on interval chosen
 
 
 class COOPS_StationStatus(Enum):
@@ -201,6 +201,7 @@ COOPS_ProductFieldTypes = {
 class COOPS_Interval(Enum):  # noqa: N801
     H = "h"  # Hourly Met data and harmonic predictions will be returned
     HILO = "hilo"  # High/Low tide predictions for all stations.
+    MAX_SLACK = "max_slack"  # Max flood/ebb currents (time and speed) and slack water (times)
     ONE = 1
     FIVE = 5
     SIX = 6
@@ -208,6 +209,81 @@ class COOPS_Interval(Enum):  # noqa: N801
     FIFTEEN = 15
     THIRTY = 30
     SIXTY = 60
+    NONE = None
+
+
+COOPS_ProductIntervalMap = {
+    # Verified water level height data cannot be retrieved using the
+    # Interval parameter. Each available interval for verified
+    # water level data is a separate data product and must be
+    # retrieved using the appropriate product type.
+    **{
+        COOPS_Product(product): [COOPS_Interval.NONE]
+        for product in [
+            "one_minute_water_level",
+            "water_level",
+            "hourly_height",
+            "high_low",
+            "daily_mean",
+            "monthly_mean",
+            "datums",
+        ]
+    },
+    # Subordinate tide prediction stations can only provide tide
+    # predictions on a high / low interval.
+    COOPS_Product.PREDICTIONS: [COOPS_Interval(i) for i in ("h", "hilo", 1, 5, 6, 10, 15, 30, 60, None)],
+    COOPS_Product.CURRENTS: [COOPS_Interval(i) for i in ("h", 6, None)],
+    # Subordinate current prediction stations can only provide tidal current predictions on a max/slack interval.
+    COOPS_Product.CURRENTS_PREDICTIONS: [
+        COOPS_Interval(i) for i in ("h", "max_slack", 1, 6, 10, 30, 60, None)
+    ],
+    **{
+        COOPS_Product(product): [COOPS_Interval(i) for i in (6, "h", None)]
+        for product in [
+            "air_temperature",
+            "water_temperature",
+            "wind",
+            "air_pressure",
+            "air_gap",
+            "conductivity",
+            "visibility",
+            "humidity",
+            "salinity",
+        ]
+    },
+}
+
+
+_COOPS_DEFAULT_DATA_LENGTH = {
+    COOPS_Interval.ONE: timedelta(days=4),
+    COOPS_Interval.FIVE: timedelta(days=30),  # Assuming
+    COOPS_Interval.SIX: timedelta(days=30),
+    COOPS_Interval.TEN: timedelta(days=30),  # Assuming
+    COOPS_Interval.FIFTEEN: timedelta(days=365),  # Assuming
+    COOPS_Interval.THIRTY: timedelta(days=365),  # Assuming
+    COOPS_Interval.H: timedelta(days=365),
+    COOPS_Interval.SIXTY: timedelta(days=365),
+    COOPS_Interval.HILO: timedelta(days=365),
+    COOPS_Interval.NONE: timedelta(days=30),  # Is it a good default?
+}
+COOPS_MaxInterval = {product: _COOPS_DEFAULT_DATA_LENGTH for product in COOPS_Product}
+COOPS_MaxInterval[COOPS_Product.ONE_MINUTE_WATER_LEVEL] = {COOPS_Interval.NONE: timedelta(days=4)}
+COOPS_MaxInterval[COOPS_Product.WATER_LEVEL] = {COOPS_Interval.NONE: timedelta(days=30)}  # 6 min
+COOPS_MaxInterval[COOPS_Product.HOURLY_HEIGHT] = {COOPS_Interval.NONE: timedelta(days=365)}
+COOPS_MaxInterval[COOPS_Product.HIGH_LOW] = {COOPS_Interval.NONE: timedelta(days=365)}
+COOPS_MaxInterval[COOPS_Product.DAILY_MEAN] = {COOPS_Interval.NONE: 10 * timedelta(days=365)}
+COOPS_MaxInterval[COOPS_Product.MONTHLY_MEAN] = {COOPS_Interval.NONE: 200 * timedelta(days=365)}
+COOPS_MaxInterval[COOPS_Product.PREDICTIONS] = {
+    COOPS_Interval.HILO: 10 * timedelta(days=365),
+    **{interval: timedelta(days=365) for interval in COOPS_ProductIntervalMap[COOPS_Product.PREDICTIONS]},
+}
+COOPS_MaxInterval[COOPS_Product.CURRENTS_PREDICTIONS] = {
+    COOPS_Interval.MAX_SLACK: timedelta(days=365),
+    **{
+        interval: timedelta(days=30)
+        for interval in COOPS_ProductIntervalMap[COOPS_Product.CURRENTS_PREDICTIONS]
+    },
+}
 
 
 class COOPS_TidalDatum(Enum):  # noqa: N801
@@ -1143,15 +1219,15 @@ def _generate_urls(
     product: COOPS_Product = COOPS_Product.WATER_LEVEL,
     datum: COOPS_TidalDatum = COOPS_TidalDatum.MSL,
     units: COOPS_Units = COOPS_Units.METRIC,
-    interval: COOPS_Interval = COOPS_Interval.H,
-    bin_no: int = 0,
+    interval: COOPS_Interval = COOPS_Interval.NONE,
+    **aux_params: Any,
 ) -> list[str]:
     if end_date < start_date:
         raise ValueError(f"'end_date' must be after 'start_date': {end_date} vs {start_date}")
     if end_date == start_date:
         return []
     duration = end_date - start_date
-    periods = duration.days // MAX_COOPS_ITERVAL + 2
+    periods = duration.days // COOPS_MaxInterval[product][interval].days + 2
     urls = []
     date_range = pd.date_range(start_date, end_date, periods=periods, unit="us", inclusive="both")
     params = {
@@ -1160,17 +1236,19 @@ def _generate_urls(
         "datum": datum.value,
         "units": units.value,
         "time_zone": "gmt",  # We always work with UTC/GMT
-        "interval": interval.value,
         "format": "json",
         "application": "oceanmodeling/stormevents",
     }
-    if product in [COOPS_Product.CURRENTS, COOPS_Product.CURRENTS_PREDICTIONS]:
-        params["bin"] = bin_no
+    if interval.value is not None:
+        params["interval"] = interval.value
+    params.update(**aux_params)
     for start, stop in itertools.pairwise(date_range):
         params["begin_date"] = _coops_date(start)
         params["end_date"] = _coops_date(stop)
+        # TODO Use httpx
         req = requests.Request("GET", COOPS_BASE_URL, params=params)
         urls.append(str(req.prepare().url))
+        print(urls[-1])
     return urls
 
 
@@ -1243,12 +1321,19 @@ def _retrieve_coops_data(
     datum: COOPS_TidalDatum,
     units: COOPS_Units,
     interval: COOPS_Interval,
-    bin_no: int,
     rate_limit: multifutures.RateLimit,
     http_client: httpx.Client,
     executor: multifutures.ExecutorProtocol | None,
+    **aux_params: Any,
 ) -> list[multifutures.FutureResult]:
     kwargs = []
+
+    valid_intervals = COOPS_ProductIntervalMap[product]
+    if interval not in valid_intervals:
+        raise ValueError(
+            "interval must be one of '{}'".format("', '".join(str(v.value) for v in valid_intervals))
+        )
+
     for station_id, start_date, end_date in zip(station_ids, start_dates, end_dates):
         url_kwargs = {
             "station_id": station_id,
@@ -1258,7 +1343,7 @@ def _retrieve_coops_data(
             "datum": datum,
             "units": units,
             "interval": interval,
-            "bin_no": bin_no,
+            **aux_params,
         }
         for url in _generate_urls(**url_kwargs):
             if url:
@@ -1302,21 +1387,22 @@ def _fetch_coops(
     product: COOPS_Product | str,
     datum: COOPS_TidalDatum | str,
     units: COOPS_Units | str,
-    interval: COOPS_Interval | str,
-    bin_no: int,
+    interval: COOPS_Interval | int | str | None,
     rate_limit: multifutures.RateLimit | None,
     http_client: httpx.Client | None,
     multiprocessing_executor: multifutures.ExecutorProtocol | None,
     multithreading_executor: multifutures.ExecutorProtocol | None,
+    **aux_params: Any,
 ) -> dict[str, pd.DataFrame]:
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
     start_dates = _to_utc(start_dates)
     end_dates = _to_utc(end_dates)
-    # Fetch json files from the IOC website
+    # Fetch json files from the COOPS website
     # We use multithreading in order to be able to use RateLimit + to take advantage of higher performance
 
     # TODO: Process datetimes for GMT, etc?
+
     coops_responses: list[multifutures.FutureResult] = _retrieve_coops_data(
         station_ids=station_ids,
         start_dates=start_dates,
@@ -1325,10 +1411,10 @@ def _fetch_coops(
         datum=COOPS_TidalDatum(datum),
         units=COOPS_Units(units),
         interval=COOPS_Interval(interval),
-        bin_no=bin_no,
         rate_limit=rate_limit,
         http_client=http_client,
         executor=multithreading_executor,
+        **aux_params,
     )
     # Parse the json files using pandas
     # This is a CPU heavy process, so we are using multiprocessing here
@@ -1384,18 +1470,18 @@ def fetch_coops_station(
     product: COOPS_Product | str = COOPS_Product.WATER_LEVEL,
     datum: COOPS_TidalDatum | str = COOPS_TidalDatum.MSL,
     units: COOPS_Units | str = COOPS_Units.METRIC,
-    interval: COOPS_Interval | str = COOPS_Interval.H,
-    bin_no: int = 0,
+    interval: COOPS_Interval | str | int | None = COOPS_Interval.NONE,
+    **aux_params: Any,
 ) -> pd.DataFrame:
     """
-    Make a query to the IOC API for tide gauge data for ``station_id``
+    Make a query to the COOPS API for tide gauge data for ``station_id``
     and return the results as a ``pandas.Dataframe``.
 
     ``start_date`` and ``end_date`` can be of any type that is valid for ``pandas.to_datetime()``.
     If ``start_date`` or ``end_date`` are timezone-aware timestamps they are coersed to UTC.
     The returned data are always in UTC.
 
-    Each query to the IOC API can request up to 30 days of data.
+    Each query to the COOPS API can request up to 30 days of data.
     When we request data for larger time spans, multiple requests are made.
     This is where ``rate_limit``, ``multiprocessing_executor`` and ``multithreading_executor``
     come into play.
@@ -1412,15 +1498,15 @@ def fetch_coops_station(
         executor = concurrent.futures.ProcessPoolExecutor(max_workers=4)
         df = fetch_coops_station("acap", multiprocessing_executor=executor)
 
-    :param station_id: The station identifier. In IOC terminology, this is called ``coops_code``.
+    :param station_id: The station identifier. In COOPS terminology, this is called ``coops_code``.
     :param start_date: The starting date of the query. Defaults to 7 days ago.
     :param end_date: The finishing date of the query. Defaults to "now".
-    :param rate_limit: The rate limit for making requests to the IOC servers. Defaults to 5 requests/second.
+    :param rate_limit: The rate limit for making requests to the COOPS servers. Defaults to 5 requests/second.
     :param http_client: The ``httpx.Client``.
     :param multiprocessing_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
     :param multithreading_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
     """
-    logger.info("IOC-%s: Starting scraping: %s - %s", station_id, start_date, end_date)
+    logger.info("COOPS-%s: Starting scraping: %s - %s", station_id, start_date, end_date)
     now = pd.Timestamp.now("utc")
     df = _fetch_coops(
         station_ids=[station_id],
@@ -1430,11 +1516,11 @@ def fetch_coops_station(
         datum=COOPS_TidalDatum(datum),
         units=COOPS_Units(units),
         interval=COOPS_Interval(interval),
-        bin_no=bin_no,
+        **aux_params,
         rate_limit=rate_limit,
         http_client=http_client,
         multiprocessing_executor=multiprocessing_executor,
         multithreading_executor=multithreading_executor,
     )[station_id]
-    logger.info("IOC-%s: Finished scraping: %s - %s", station_id, start_date, end_date)
+    logger.info("COOPS-%s: Finished scraping: %s - %s", station_id, start_date, end_date)
     return df
