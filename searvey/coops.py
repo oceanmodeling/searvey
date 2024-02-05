@@ -213,75 +213,208 @@ class COOPS_Interval(Enum):  # noqa: N801
 
 
 COOPS_ProductIntervalMap = {
-    # Verified water level height data cannot be retrieved using the
-    # Interval parameter. Each available interval for verified
-    # water level data is a separate data product and must be
-    # retrieved using the appropriate product type.
-    **{
-        COOPS_Product(product): [COOPS_Interval.NONE]
-        for product in [
-            "one_minute_water_level",
-            "water_level",
-            "hourly_height",
-            "high_low",
-            "daily_mean",
-            "monthly_mean",
-            "datums",
-        ]
-    },
-    # Subordinate tide prediction stations can only provide tide
-    # predictions on a high / low interval.
-    COOPS_Product.PREDICTIONS: [COOPS_Interval(i) for i in ("h", "hilo", 1, 5, 6, 10, 15, 30, 60, None)],
-    COOPS_Product.CURRENTS: [COOPS_Interval(i) for i in ("h", 6, None)],
-    # Subordinate current prediction stations can only provide tidal current predictions on a max/slack interval.
-    COOPS_Product.CURRENTS_PREDICTIONS: [
-        COOPS_Interval(i) for i in ("h", "max_slack", 1, 6, 10, 30, 60, None)
+    COOPS_Product.AIR_TEMPERATURE: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.WIND: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.WATER_TEMPERATURE: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.DAILY_MEAN: [COOPS_Interval.NONE],
+    COOPS_Product.MONTHLY_MEAN: [COOPS_Interval.NONE],
+    COOPS_Product.CURRENTS: [COOPS_Interval.H, COOPS_Interval.SIX, COOPS_Interval.NONE],
+    COOPS_Product.ONE_MINUTE_WATER_LEVEL: [COOPS_Interval.NONE],
+    COOPS_Product.AIR_PRESSURE: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.AIR_GAP: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.DATUMS: [COOPS_Interval.NONE],
+    COOPS_Product.PREDICTIONS: [
+        COOPS_Interval.H,
+        COOPS_Interval.HILO,
+        COOPS_Interval.ONE,
+        COOPS_Interval.FIVE,
+        COOPS_Interval.SIX,
+        COOPS_Interval.TEN,
+        COOPS_Interval.FIFTEEN,
+        COOPS_Interval.THIRTY,
+        COOPS_Interval.SIXTY,
+        COOPS_Interval.NONE,
     ],
-    **{
-        COOPS_Product(product): [COOPS_Interval(i) for i in (6, "h", None)]
-        for product in [
-            "air_temperature",
-            "water_temperature",
-            "wind",
-            "air_pressure",
-            "air_gap",
-            "conductivity",
-            "visibility",
-            "humidity",
-            "salinity",
-        ]
+    COOPS_Product.HOURLY_HEIGHT: [COOPS_Interval.NONE],
+    COOPS_Product.HIGH_LOW: [COOPS_Interval.NONE],
+    COOPS_Product.SALINITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.HUMIDITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.VISIBILITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.CONDUCTIVITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    COOPS_Product.WATER_LEVEL: [COOPS_Interval.NONE],
+    COOPS_Product.CURRENTS_PREDICTIONS: [
+        COOPS_Interval.H,
+        COOPS_Interval.MAX_SLACK,
+        COOPS_Interval.ONE,
+        COOPS_Interval.SIX,
+        COOPS_Interval.TEN,
+        COOPS_Interval.THIRTY,
+        COOPS_Interval.SIXTY,
+        COOPS_Interval.NONE,
+    ],
+}
+
+
+COOPS_MaxInterval = {
+    COOPS_Product.AIR_TEMPERATURE: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
     },
-}
-
-
-_COOPS_DEFAULT_DATA_LENGTH = {
-    COOPS_Interval.ONE: timedelta(days=4),
-    COOPS_Interval.FIVE: timedelta(days=30),  # Assuming
-    COOPS_Interval.SIX: timedelta(days=30),
-    COOPS_Interval.TEN: timedelta(days=30),  # Assuming
-    COOPS_Interval.FIFTEEN: timedelta(days=365),  # Assuming
-    COOPS_Interval.THIRTY: timedelta(days=365),  # Assuming
-    COOPS_Interval.H: timedelta(days=365),
-    COOPS_Interval.SIXTY: timedelta(days=365),
-    COOPS_Interval.HILO: timedelta(days=365),
-    COOPS_Interval.NONE: timedelta(days=30),  # Is it a good default?
-}
-COOPS_MaxInterval = {product: _COOPS_DEFAULT_DATA_LENGTH for product in COOPS_Product}
-COOPS_MaxInterval[COOPS_Product.ONE_MINUTE_WATER_LEVEL] = {COOPS_Interval.NONE: timedelta(days=4)}
-COOPS_MaxInterval[COOPS_Product.WATER_LEVEL] = {COOPS_Interval.NONE: timedelta(days=30)}  # 6 min
-COOPS_MaxInterval[COOPS_Product.HOURLY_HEIGHT] = {COOPS_Interval.NONE: timedelta(days=365)}
-COOPS_MaxInterval[COOPS_Product.HIGH_LOW] = {COOPS_Interval.NONE: timedelta(days=365)}
-COOPS_MaxInterval[COOPS_Product.DAILY_MEAN] = {COOPS_Interval.NONE: 10 * timedelta(days=365)}
-COOPS_MaxInterval[COOPS_Product.MONTHLY_MEAN] = {COOPS_Interval.NONE: 200 * timedelta(days=365)}
-COOPS_MaxInterval[COOPS_Product.PREDICTIONS] = {
-    COOPS_Interval.HILO: 10 * timedelta(days=365),
-    **{interval: timedelta(days=365) for interval in COOPS_ProductIntervalMap[COOPS_Product.PREDICTIONS]},
-}
-COOPS_MaxInterval[COOPS_Product.CURRENTS_PREDICTIONS] = {
-    COOPS_Interval.MAX_SLACK: timedelta(days=365),
-    **{
-        interval: timedelta(days=30)
-        for interval in COOPS_ProductIntervalMap[COOPS_Product.CURRENTS_PREDICTIONS]
+    COOPS_Product.WIND: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.WATER_TEMPERATURE: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.DAILY_MEAN: {COOPS_Interval.NONE: timedelta(days=3650)},
+    COOPS_Product.MONTHLY_MEAN: {COOPS_Interval.NONE: timedelta(days=73000)},
+    COOPS_Product.CURRENTS: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.ONE_MINUTE_WATER_LEVEL: {COOPS_Interval.NONE: timedelta(days=4)},
+    COOPS_Product.AIR_PRESSURE: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.AIR_GAP: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.DATUMS: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.PREDICTIONS: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=365),
+        COOPS_Interval.FIVE: timedelta(days=365),
+        COOPS_Interval.SIX: timedelta(days=365),
+        COOPS_Interval.TEN: timedelta(days=365),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=365),
+    },
+    COOPS_Product.HOURLY_HEIGHT: {COOPS_Interval.NONE: timedelta(days=365)},
+    COOPS_Product.HIGH_LOW: {COOPS_Interval.NONE: timedelta(days=365)},
+    COOPS_Product.SALINITY: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.HUMIDITY: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.VISIBILITY: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.CONDUCTIVITY: {
+        COOPS_Interval.H: timedelta(days=365),
+        COOPS_Interval.HILO: timedelta(days=365),
+        COOPS_Interval.ONE: timedelta(days=4),
+        COOPS_Interval.FIVE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.FIFTEEN: timedelta(days=365),
+        COOPS_Interval.THIRTY: timedelta(days=365),
+        COOPS_Interval.SIXTY: timedelta(days=365),
+        COOPS_Interval.NONE: timedelta(days=30),
+    },
+    COOPS_Product.WATER_LEVEL: {COOPS_Interval.NONE: timedelta(days=30)},
+    COOPS_Product.CURRENTS_PREDICTIONS: {
+        COOPS_Interval.H: timedelta(days=30),
+        COOPS_Interval.MAX_SLACK: timedelta(days=30),
+        COOPS_Interval.ONE: timedelta(days=30),
+        COOPS_Interval.SIX: timedelta(days=30),
+        COOPS_Interval.TEN: timedelta(days=30),
+        COOPS_Interval.THIRTY: timedelta(days=30),
+        COOPS_Interval.SIXTY: timedelta(days=30),
+        COOPS_Interval.NONE: timedelta(days=30),
     },
 }
 
