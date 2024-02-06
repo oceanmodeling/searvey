@@ -23,14 +23,12 @@ from typing import Union
 
 import geopandas
 import httpx
-import limits
 import multifutures
 import numpy
 import pandas
 import pandas as pd
 import requests
 import shapely
-import tenacity
 import xarray
 from bs4 import BeautifulSoup
 from bs4 import element
@@ -43,6 +41,12 @@ from shapely.geometry import Polygon
 from xarray import Dataset
 
 from .custom_types import DatetimeLike
+from .ioc import _resolve_end_date
+from .ioc import _resolve_http_client
+from .ioc import _resolve_rate_limit
+from .ioc import _resolve_start_date
+from .ioc import _to_utc
+from .ioc import fetch_url
 from .utils import get_region
 
 
@@ -69,6 +73,9 @@ class COOPS_StationMetadataSource(Enum):
 StationMetadataSource = COOPS_StationMetadataSource
 
 
+# NOTE:
+# DAILY_MEAN is only available for Great Lakes stations and at LST
+# for SALINITY couldn't find a station that provides data!
 class COOPS_Product(Enum):  # noqa: N801
     WATER_LEVEL = (
         "water_level"
@@ -84,10 +91,10 @@ class COOPS_Product(Enum):  # noqa: N801
         "visibility"  # Visibility from the station's visibility sensor. A measure of atmospheric clarity.
     )
     HUMIDITY = "humidity"  # Relative humidity as measured at the station.
-    SALINITY = "salinity"  # Salinity and specific gravity data for the station.
+    #    SALINITY = "salinity"  # Salinity and specific gravity data for the station.
     HOURLY_HEIGHT = "hourly_height"  # Verified hourly height water level data for the station.
     HIGH_LOW = "high_low"  # Verified high/low water level data for the station.
-    DAILY_MEAN = "daily_mean"  # Verified daily mean water level data for the station.
+    #    DAILY_MEAN = "daily_mean"  # Verified daily mean water level data for the station.
     MONTHLY_MEAN = "monthly_mean"  # Verified monthly mean water level data for the station.
     ONE_MINUTE_WATER_LEVEL = (
         "one_minute_water_level"
@@ -106,7 +113,7 @@ COOPS_ProductFieldsNameMap = {
     COOPS_Product.WATER_LEVEL: {"t": "time", "v": "value", "s": "sigma", "f": "flags", "q": "quality"},
     COOPS_Product.HOURLY_HEIGHT: {"t": "time", "v": "value", "s": "sigma", "f": "flags"},
     COOPS_Product.HIGH_LOW: {"t": "time", "v": "value", "ty": "type", "f": "flags"},
-    COOPS_Product.DAILY_MEAN: {"t": "time", "v": "value", "f": "flags"},
+    #    COOPS_Product.DAILY_MEAN: {"t": "time", "v": "value", "f": "flags"},
     COOPS_Product.MONTHLY_MEAN: {
         "year": "year",
         "month": "month",
@@ -144,7 +151,7 @@ COOPS_ProductFieldsNameMap = {
     COOPS_Product.HUMIDITY: {"t": "time", "v": "value", "f": "flags"},
     COOPS_Product.WATER_TEMPERATURE: {"t": "time", "v": "value", "f": "flags"},
     COOPS_Product.CONDUCTIVITY: {"t": "time", "v": "value", "f": "flags"},
-    COOPS_Product.SALINITY: {"t": "time", "s": "salinity", "g": "specific_gravity"},
+    #    COOPS_Product.SALINITY: {"t": "time", "s": "salinity", "g": "specific_gravity"},
     COOPS_Product.CURRENTS: {"t": "time", "s": "speed", "d": "direction", "b": "bin"},
     COOPS_Product.CURRENTS_PREDICTIONS: {
         "Time": "time",
@@ -156,6 +163,7 @@ COOPS_ProductFieldsNameMap = {
         "Speed": "speed",
         "Direction": "direction",
     },
+    COOPS_Product.DATUMS: {},  # No info in documentation
 }
 
 
@@ -182,7 +190,7 @@ COOPS_ProductFieldTypes = {
     "flood_dir": float,
     "gust": float,
     "highest": float,
-    "inferred": lambda x: bool(int(x)),
+    "inferred": bool,
     "lowest": float,
     "month": int,
     "quality": str,
@@ -216,7 +224,7 @@ COOPS_ProductIntervalMap = {
     COOPS_Product.WATER_LEVEL: [COOPS_Interval.NONE],
     COOPS_Product.HOURLY_HEIGHT: [COOPS_Interval.NONE],
     COOPS_Product.HIGH_LOW: [COOPS_Interval.NONE],
-    COOPS_Product.DAILY_MEAN: [COOPS_Interval.NONE],
+    #    COOPS_Product.DAILY_MEAN: [COOPS_Interval.NONE],
     COOPS_Product.MONTHLY_MEAN: [COOPS_Interval.NONE],
     COOPS_Product.ONE_MINUTE_WATER_LEVEL: [COOPS_Interval.NONE],
     COOPS_Product.PREDICTIONS: [
@@ -250,7 +258,7 @@ COOPS_ProductIntervalMap = {
     COOPS_Product.HUMIDITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
     COOPS_Product.WATER_TEMPERATURE: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
     COOPS_Product.CONDUCTIVITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
-    COOPS_Product.SALINITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    #    COOPS_Product.SALINITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
     COOPS_Product.DATUMS: [COOPS_Interval.NONE],
 }
 
@@ -259,7 +267,7 @@ COOPS_MaxInterval = {
     COOPS_Product.WATER_LEVEL: {COOPS_Interval.NONE: timedelta(days=30)},
     COOPS_Product.HOURLY_HEIGHT: {COOPS_Interval.NONE: timedelta(days=365)},
     COOPS_Product.HIGH_LOW: {COOPS_Interval.NONE: timedelta(days=365)},
-    COOPS_Product.DAILY_MEAN: {COOPS_Interval.NONE: timedelta(days=3650)},
+    #    COOPS_Product.DAILY_MEAN: {COOPS_Interval.NONE: timedelta(days=3650)},
     COOPS_Product.MONTHLY_MEAN: {COOPS_Interval.NONE: timedelta(days=73000)},
     COOPS_Product.ONE_MINUTE_WATER_LEVEL: {COOPS_Interval.NONE: timedelta(days=4)},
     COOPS_Product.PREDICTIONS: {
@@ -329,11 +337,11 @@ COOPS_MaxInterval = {
         COOPS_Interval.SIX: timedelta(days=30),
         COOPS_Interval.NONE: timedelta(days=30),
     },
-    COOPS_Product.SALINITY: {
-        COOPS_Interval.H: timedelta(days=365),
-        COOPS_Interval.SIX: timedelta(days=30),
-        COOPS_Interval.NONE: timedelta(days=30),
-    },
+    #    COOPS_Product.SALINITY: {
+    #        COOPS_Interval.H: timedelta(days=365),
+    #        COOPS_Interval.SIX: timedelta(days=30),
+    #        COOPS_Interval.NONE: timedelta(days=30),
+    #    },
     COOPS_Product.DATUMS: {COOPS_Interval.NONE: timedelta(days=30)},
 }
 
@@ -1199,43 +1207,6 @@ def _before_sleep(retry_state: T.Any) -> None:  # pragma: no cover
     )
 
 
-RETRY: T.Callable[..., T.Any] = tenacity.retry(
-    stop=(tenacity.stop_after_delay(90) | tenacity.stop_after_attempt(10)),
-    wait=tenacity.wait_random(min=2, max=10),
-    retry=tenacity.retry_if_exception_type(httpx.TransportError),
-    before_sleep=_before_sleep,
-)
-
-
-def _fetch_url(
-    url: str,
-    client: httpx.Client,
-) -> str:
-    try:
-        response = client.get(url)
-    except Exception:
-        logger.warning("Failed to retrieve: %s", url)
-        raise
-    data = response.text
-    return data
-
-
-@RETRY
-def fetch_url(
-    url: str,
-    client: httpx.Client,
-    rate_limit: multifutures.RateLimit | None = None,
-    **kwargs: T.Any,
-) -> str:
-    if rate_limit is not None:  # pragma: no cover
-        while rate_limit.reached():
-            multifutures.wait()  # pragma: no cover
-    return _fetch_url(
-        url=url,
-        client=client,
-    )
-
-
 def _parse_coops_responses(
     coops_responses: list[multifutures.FutureResult],
     executor: multifutures.ExecutorProtocol | None,
@@ -1248,8 +1219,9 @@ def _parse_coops_responses(
         station_id = result.kwargs["station_id"]  # type: ignore[index]
         product = result.kwargs["product"]  # type: ignore[index]
         if "error" in result.result:
-            logger.error(json.loads(result.result)["error"]["message"])
-            continue
+            msg = json.loads(result.result)["error"]["message"]
+            logger.error("Encountered an error response!")
+            raise ValueError(msg)
         else:
             kwargs.append(dict(station_id=station_id, product=product, content=result.result))
     logger.debug("Starting JSON parsing")
@@ -1273,7 +1245,7 @@ def _generate_urls(
     units: COOPS_Units = COOPS_Units.METRIC,
     interval: COOPS_Interval = COOPS_Interval.NONE,
     **aux_params: Any,
-) -> list[str]:
+) -> list[httpx.URL]:
     if end_date < start_date:
         raise ValueError(f"'end_date' must be after 'start_date': {end_date} vs {start_date}")
     if end_date == start_date:
@@ -1297,10 +1269,8 @@ def _generate_urls(
     for start, stop in itertools.pairwise(date_range):
         params["begin_date"] = _coops_date(start)
         params["end_date"] = _coops_date(stop)
-        # TODO Use httpx
-        req = requests.Request("GET", COOPS_BASE_URL, params=params)
-        urls.append(str(req.prepare().url))
-        print(urls[-1])
+        url = httpx.Request("GET", COOPS_BASE_URL, params=params).url
+        urls.append(url)
     return urls
 
 
@@ -1315,17 +1285,30 @@ def _normalize_df(df: pd.DataFrame, product: COOPS_Product) -> pd.DataFrame:
     normalized = normalized.astype(
         {k: v for k, v in COOPS_ProductFieldTypes.items() if k in df.columns}, errors="ignore"
     )
-    normalized["time"] = pandas.to_datetime(normalized["time"])
-    normalized.set_index("time", inplace=True)
+    # NOTE: Datum and mean products doesn't have time!
+    if "time" in normalized.columns:
+        # TODO: Create time for -mean products
+        normalized["time"] = pandas.to_datetime(normalized["time"])
+        normalized.set_index("time", inplace=True)
 
     return normalized
 
 
 def _parse_json(content: str, station_id: str, product: COOPS_Product) -> pd.DataFrame:
     content_json = json.loads(content)
+    if not content_json:
+        msg = f"{station_id}: The station does not contain any data for product.value!"
+        logger.error(msg)
+        raise ValueError(msg)
+    #        return
+
     data = []
     if product == COOPS_Product.CURRENTS_PREDICTIONS:
         data = content_json["current_predictions"]["cp"]
+    elif product == COOPS_Product.PREDICTIONS:
+        data = content_json["predictions"]
+    elif product == COOPS_Product.DATUMS:
+        data = content_json["datums"]
     else:
         data = content_json["data"]
 
@@ -1344,6 +1327,7 @@ def _group_results(
     for item in parsed_responses:
         df_groups[item.kwargs["station_id"]].append(item.result)  # type: ignore[index]
 
+    # TODO: Is it needed?
     # Concatenate dataframes and remove duplicates
     dataframes: dict[str, pd.DataFrame] = {}
     for station_id in station_ids:
@@ -1406,6 +1390,7 @@ def _retrieve_coops_data(
                         client=http_client,
                         rate_limit=rate_limit,
                         product=product,
+                        redirect=True,
                     ),
                 )
     with http_client:
@@ -1416,19 +1401,6 @@ def _retrieve_coops_data(
         logger.debug("Finished data retrieval")
     multifutures.check_results(results)
     return results
-
-
-def _resolve_rate_limit(rate_limit: multifutures.RateLimit | None) -> multifutures.RateLimit:
-    if rate_limit is None:
-        rate_limit = multifutures.RateLimit(rate_limit=limits.parse("5/second"))
-    return rate_limit
-
-
-def _resolve_http_client(http_client: httpx.Client | None) -> httpx.Client:
-    if http_client is None:
-        timeout = httpx.Timeout(timeout=10, read=30)
-        http_client = httpx.Client(timeout=timeout, follow_redirects=True)
-    return http_client
 
 
 def _fetch_coops(
@@ -1477,37 +1449,6 @@ def _fetch_coops(
     # OK, now we have a list of dataframes. We need to group them per coops_code, concatenate them and remove duplicates
     dataframes = _group_results(station_ids=station_ids, parsed_responses=parsed_responses)
     return dataframes
-
-
-def _to_utc(index: pd.DatetimeIndex) -> pd.DatetimeIndex:
-    if index.tz:
-        index = index.tz_convert("utc")
-    else:
-        index = index.tz_localize("utc")
-    return index
-
-
-def _to_datetime_index(ts: pd.Timestamp) -> pd.DatetimeIndex:
-    index = pd.DatetimeIndex([ts])
-    return index
-
-
-def _resolve_start_date(now: pd.Timestamp, start_date: DatetimeLike | None) -> pd.DatetimeIndex:
-    if start_date is None:
-        resolved_start_date = T.cast(pd.Timestamp, now - pd.Timedelta(days=7))
-    else:
-        resolved_start_date = pd.to_datetime(start_date)
-    index = _to_datetime_index(resolved_start_date)
-    return index
-
-
-def _resolve_end_date(now: pd.Timestamp, end_date: DatetimeLike | None) -> pd.DatetimeIndex:
-    if end_date is None:
-        resolved_end_date = now
-    else:
-        resolved_end_date = pd.to_datetime(end_date)
-    index = _to_datetime_index(resolved_end_date)
-    return index
 
 
 def fetch_coops_station(

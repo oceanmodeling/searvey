@@ -1,8 +1,14 @@
 from datetime import datetime
+from urllib.parse import quote
 
+import httpx
+import pandas as pd
 import pytest
 from shapely.geometry import box
 
+from searvey import fetch_coops_station
+from searvey.coops import _coops_date
+from searvey.coops import _generate_urls
 from searvey.coops import coops_product_within_region
 from searvey.coops import COOPS_Station
 from searvey.coops import coops_stations
@@ -71,7 +77,7 @@ def test_coops_stations_main_api():
 
     with pytest.raises(ValueError) as excinfo:
         get_coops_stations(metadata_source="someothersource")
-    assert "not a valid stationmetadatasource" in str(excinfo.value).lower()
+    assert "not a valid coops_stationmetadatasource" in str(excinfo.value).lower()
 
 
 @pytest.mark.vcr
@@ -165,3 +171,79 @@ def test_coops_predictions_product():
     )
 
     assert len(data["t"]) > 0
+
+
+def test_generate_urls():
+    station_id = "AAA"
+    start_date = pd.Timestamp("2023-01-01")
+    end_date = pd.Timestamp("2023-06-01")
+    urls = _generate_urls(
+        station_id=station_id,
+        start_date=start_date,
+        end_date=end_date,
+    )
+    assert len(urls) == 6
+    assert all(isinstance(url, httpx.URL) for url in urls)
+    assert all(station_id in str(url) for url in urls)
+    assert quote(_coops_date(start_date)) in str(urls[0])
+    assert quote(_coops_date(end_date)) in str(urls[-1])
+
+
+def test_generate_urls_raises_common_start_date_and_end_date():
+    station_id = "AAA"
+    date = pd.Timestamp("2023-01-01")
+    date = pd.Timestamp("2023-06-01")
+    urls = _generate_urls(
+        station_id=station_id,
+        start_date=date,
+        end_date=date,
+    )
+    assert len(urls) == 0
+    assert not urls
+    assert urls == []
+
+
+def test_generate_urls_raises_when_end_date_before_start_date():
+    start_date = pd.Timestamp("2023-01-01")
+    end_date = pd.Timestamp("2022-01-01")
+    with pytest.raises(ValueError) as exc:
+        _generate_urls(
+            station_id="aaaa",
+            start_date=start_date,
+            end_date=end_date,
+        )
+    assert str(exc.value) == f"'end_date' must be after 'start_date': {end_date} vs {start_date}"
+
+
+@pytest.mark.parametrize(
+    "start, end, station_id, product",
+    [
+        (None, None, 8654467, "water_level"),
+        ("2020-01-01", "2020-02-01", 8636580, "hourly_height"),
+        ("2020-01-01", "2020-02-01", 8636580, "high_low"),
+        ("2020-01-01", "2020-02-01", 8518750, "monthly_mean"),
+        ("2020-01-01", "2020-02-01", 8636580, "one_minute_water_level"),
+        (None, None, 8654467, "predictions"),
+        (None, None, 8574730, "air_gap"),
+        (None, None, 8654467, "wind"),
+        (None, None, 8654467, "air_pressure"),
+        (None, None, 8654467, "air_temperature"),
+        (None, None, 8575437, "visibility"),
+        (None, None, 8720233, "humidity"),
+        (None, None, 8654467, "water_temperature"),
+        (None, None, 8737048, "conductivity"),
+        (None, None, "cb1101", "currents"),
+        (None, None, "cb1101", "currents_predictions"),
+        (None, None, 8654467, "datums"),
+        #        (None, None, 8720233, "salinity"),
+        #        ("2020-01-01", "2020-02-01", 8636580, "daily_mean"),
+    ],
+)
+def test_coops_data_products(start, end, station_id, product):
+    kwargs = {}
+    if start is not None:
+        kwargs["start_date"] = datetime.fromisoformat(start)
+    if end is not None:
+        kwargs["end_date"] = datetime.fromisoformat(end)
+
+    fetch_coops_station(station_id, product=product, **kwargs)

@@ -420,12 +420,9 @@ RETRY: T.Callable[..., T.Any] = tenacity.retry(
 )
 
 
-def _fetch_url(
-    url: str,
-    client: httpx.Client,
-) -> str:
+def _fetch_url(url: str, client: httpx.Client, redirect: bool = False) -> str:
     try:
-        response = client.get(url)
+        response = client.get(url, follow_redirects=redirect)
     except Exception:
         logger.warning("Failed to retrieve: %s", url)
         raise
@@ -438,6 +435,7 @@ def fetch_url(
     url: str,
     client: httpx.Client,
     rate_limit: multifutures.RateLimit | None = None,
+    redirect: bool = False,
     **kwargs: T.Any,
 ) -> str:
     if rate_limit is not None:  # pragma: no cover
@@ -446,6 +444,7 @@ def fetch_url(
     return _fetch_url(
         url=url,
         client=client,
+        redirect=redirect,
     )
 
 
