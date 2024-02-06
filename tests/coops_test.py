@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timedelta
 from urllib.parse import quote
 
 import httpx
@@ -247,3 +248,22 @@ def test_coops_data_products(start, end, station_id, product):
         kwargs["end_date"] = datetime.fromisoformat(end)
 
     fetch_coops_station(station_id, product=product, **kwargs)
+    assert False
+
+
+def test_coops_warn_utc():
+    fetch_coops_station(
+        8654467,
+        product="water_level",
+        start_date=pd.Timestamp.now("est") - timedelta(days=7),
+        end_date=pd.Timestamp.now("est"),
+    )
+
+    fetch_coops_station(
+        8654467,
+        product="water_level",
+        start_date=pd.Timestamp.now() - timedelta(days=7),
+        end_date=pd.Timestamp.now(),
+    )
+
+    assert False

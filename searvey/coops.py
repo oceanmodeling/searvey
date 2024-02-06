@@ -1425,8 +1425,6 @@ def _fetch_coops(
     # Fetch json files from the COOPS website
     # We use multithreading in order to be able to use RateLimit + to take advantage of higher performance
 
-    # TODO: Process datetimes for GMT, etc?
-
     coops_responses: list[multifutures.FutureResult] = _retrieve_coops_data(
         station_ids=station_ids,
         start_dates=start_dates,

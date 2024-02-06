@@ -641,8 +641,11 @@ def _fetch_ioc(
 
 def _to_utc(index: pd.DatetimeIndex) -> pd.DatetimeIndex:
     if index.tz:
+        if index.tz.zone.lower() != "utc":
+            logger.warn("Converting to UTC!\nData is retrieved and stonred in UTC time")
         index = index.tz_convert("utc")
     else:
+        logger.warn("Assuming UTC!\nData is retrieved and stonred in UTC time")
         index = index.tz_localize("utc")
     return index
 
