@@ -10,7 +10,9 @@ from shapely.geometry import box
 from searvey import fetch_coops_station
 from searvey.coops import _coops_date
 from searvey.coops import _generate_urls
+from searvey.coops import COOPS_Product
 from searvey.coops import coops_product_within_region
+from searvey.coops import COOPS_ProductFieldsNameMap
 from searvey.coops import COOPS_Station
 from searvey.coops import coops_stations
 from searvey.coops import coops_stations_within_region
@@ -192,7 +194,6 @@ def test_generate_urls():
 
 def test_generate_urls_raises_common_start_date_and_end_date():
     station_id = "AAA"
-    date = pd.Timestamp("2023-01-01")
     date = pd.Timestamp("2023-06-01")
     urls = _generate_urls(
         station_id=station_id,
@@ -217,38 +218,82 @@ def test_generate_urls_raises_when_end_date_before_start_date():
 
 
 @pytest.mark.parametrize(
-    "start, end, station_id, product",
+    "station_id, product",
     [
-        (None, None, 8654467, "water_level"),
-        ("2020-01-01", "2020-02-01", 8636580, "hourly_height"),
-        ("2020-01-01", "2020-02-01", 8636580, "high_low"),
-        ("2020-01-01", "2020-02-01", 8518750, "monthly_mean"),
-        ("2020-01-01", "2020-02-01", 8636580, "one_minute_water_level"),
-        (None, None, 8654467, "predictions"),
-        (None, None, 8574730, "air_gap"),
-        (None, None, 8654467, "wind"),
-        (None, None, 8654467, "air_pressure"),
-        (None, None, 8654467, "air_temperature"),
-        (None, None, 8575437, "visibility"),
-        (None, None, 8720233, "humidity"),
-        (None, None, 8654467, "water_temperature"),
-        (None, None, 8737048, "conductivity"),
-        (None, None, "cb1101", "currents"),
-        (None, None, "cb1101", "currents_predictions"),
-        (None, None, 8654467, "datums"),
-        #        (None, None, 8720233, "salinity"),
-        #        ("2020-01-01", "2020-02-01", 8636580, "daily_mean"),
+        (8654467, "water_level"),
+        (8636580, "one_minute_water_level"),
+        (8654467, "predictions"),
+        (8574730, "air_gap"),
+        (8654467, "wind"),
+        (8654467, "air_pressure"),
+        (8654467, "air_temperature"),
+        (8575437, "visibility"),
+        (8720233, "humidity"),
+        (8654467, "water_temperature"),
+        (8737048, "conductivity"),
+        ("cb1101", "currents"),
+        ("cb1101", "currents_predictions"),
+        (8654467, "datums"),
+        # (8636580, "hourly_height"),  # Default dates won't work!
+        # (8636580, "high_low"),  # Default dates won't work!
+        # (8518750, "monthly_mean"),  # Default dates won't work!
+        # (8720233, "salinity"),  # Can't find stations with this data!
+        # (8636580, "daily_mean"),  # Not supported by searvey
     ],
 )
-def test_coops_data_products(start, end, station_id, product):
-    kwargs = {}
-    if start is not None:
-        kwargs["start_date"] = datetime.fromisoformat(start)
-    if end is not None:
-        kwargs["end_date"] = datetime.fromisoformat(end)
+def test_coops_data_products_default_args(station_id, product):
+    df = fetch_coops_station(station_id, product=product)
+    assert all(col in COOPS_ProductFieldsNameMap[COOPS_Product(product)].values() for col in df.columns)
 
-    fetch_coops_station(station_id, product=product, **kwargs)
-    assert False
+
+@pytest.fixture
+def now():
+    # Seconds are truncated for COOPS query url
+    return pd.Timestamp(datetime.now()).floor("min")
+
+
+@pytest.mark.parametrize(
+    "days_before_now, station_id, product",
+    [
+        (7, 8654467, "water_level"),
+        (60, 8636580, "hourly_height"),
+        (60, 8636580, "high_low"),
+        (60, 8518750, "monthly_mean"),
+        (7, 8636580, "one_minute_water_level"),
+        (7, 8654467, "predictions"),
+        (7, 8574730, "air_gap"),
+        (7, 8654467, "wind"),
+        (7, 8654467, "air_pressure"),
+        (7, 8654467, "air_temperature"),
+        (7, 8575437, "visibility"),
+        (7, 8720233, "humidity"),
+        (7, 8654467, "water_temperature"),
+        (7, 8737048, "conductivity"),
+        (7, "cb1101", "currents"),
+        (7, "cb1101", "currents_predictions"),
+        (7, 8654467, "datums"),
+        # (7, 8720233, "salinity"),
+        # (30, 8636580, "daily_mean"),
+    ],
+)
+def test_coops_data_products_w_date_input(now, days_before_now, station_id, product):
+    start_date = now - timedelta(days=days_before_now)
+    end_date = now
+    # Warn for no tzinfo
+    with pytest.warns():
+        df = fetch_coops_station(
+            station_id,
+            product=product,
+            start_date=start_date,
+            end_date=end_date,
+        )
+
+    assert all(col in COOPS_ProductFieldsNameMap[COOPS_Product(product)].values() for col in df.columns)
+
+    if df.index.name == "time":
+        # When selecting between intervals one time prior to the first
+        # is also included (at most 1 out of range)
+        assert (~((start_date <= df.index) & (df.index <= end_date))).sum() <= 1
 
 
 def test_coops_warn_utc():

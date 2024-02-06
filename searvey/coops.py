@@ -91,10 +91,10 @@ class COOPS_Product(Enum):  # noqa: N801
         "visibility"  # Visibility from the station's visibility sensor. A measure of atmospheric clarity.
     )
     HUMIDITY = "humidity"  # Relative humidity as measured at the station.
-    #    SALINITY = "salinity"  # Salinity and specific gravity data for the station.
+    # SALINITY = "salinity"  # Salinity and specific gravity data for the station.
     HOURLY_HEIGHT = "hourly_height"  # Verified hourly height water level data for the station.
     HIGH_LOW = "high_low"  # Verified high/low water level data for the station.
-    #    DAILY_MEAN = "daily_mean"  # Verified daily mean water level data for the station.
+    # DAILY_MEAN = "daily_mean"  # Verified daily mean water level data for the station.
     MONTHLY_MEAN = "monthly_mean"  # Verified monthly mean water level data for the station.
     ONE_MINUTE_WATER_LEVEL = (
         "one_minute_water_level"
@@ -113,7 +113,7 @@ COOPS_ProductFieldsNameMap = {
     COOPS_Product.WATER_LEVEL: {"t": "time", "v": "value", "s": "sigma", "f": "flags", "q": "quality"},
     COOPS_Product.HOURLY_HEIGHT: {"t": "time", "v": "value", "s": "sigma", "f": "flags"},
     COOPS_Product.HIGH_LOW: {"t": "time", "v": "value", "ty": "type", "f": "flags"},
-    #    COOPS_Product.DAILY_MEAN: {"t": "time", "v": "value", "f": "flags"},
+    # COOPS_Product.DAILY_MEAN: {"t": "time", "v": "value", "f": "flags"},
     COOPS_Product.MONTHLY_MEAN: {
         "year": "year",
         "month": "month",
@@ -151,7 +151,7 @@ COOPS_ProductFieldsNameMap = {
     COOPS_Product.HUMIDITY: {"t": "time", "v": "value", "f": "flags"},
     COOPS_Product.WATER_TEMPERATURE: {"t": "time", "v": "value", "f": "flags"},
     COOPS_Product.CONDUCTIVITY: {"t": "time", "v": "value", "f": "flags"},
-    #    COOPS_Product.SALINITY: {"t": "time", "s": "salinity", "g": "specific_gravity"},
+    # COOPS_Product.SALINITY: {"t": "time", "s": "salinity", "g": "specific_gravity"},
     COOPS_Product.CURRENTS: {"t": "time", "s": "speed", "d": "direction", "b": "bin"},
     COOPS_Product.CURRENTS_PREDICTIONS: {
         "Time": "time",
@@ -163,7 +163,7 @@ COOPS_ProductFieldsNameMap = {
         "Speed": "speed",
         "Direction": "direction",
     },
-    COOPS_Product.DATUMS: {},  # No info in documentation
+    COOPS_Product.DATUMS: {"n": "datum", "v": "value"},
 }
 
 
@@ -224,7 +224,7 @@ COOPS_ProductIntervalMap = {
     COOPS_Product.WATER_LEVEL: [COOPS_Interval.NONE],
     COOPS_Product.HOURLY_HEIGHT: [COOPS_Interval.NONE],
     COOPS_Product.HIGH_LOW: [COOPS_Interval.NONE],
-    #    COOPS_Product.DAILY_MEAN: [COOPS_Interval.NONE],
+    # COOPS_Product.DAILY_MEAN: [COOPS_Interval.NONE],
     COOPS_Product.MONTHLY_MEAN: [COOPS_Interval.NONE],
     COOPS_Product.ONE_MINUTE_WATER_LEVEL: [COOPS_Interval.NONE],
     COOPS_Product.PREDICTIONS: [
@@ -258,7 +258,7 @@ COOPS_ProductIntervalMap = {
     COOPS_Product.HUMIDITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
     COOPS_Product.WATER_TEMPERATURE: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
     COOPS_Product.CONDUCTIVITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
-    #    COOPS_Product.SALINITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
+    # COOPS_Product.SALINITY: [COOPS_Interval.SIX, COOPS_Interval.H, COOPS_Interval.NONE],
     COOPS_Product.DATUMS: [COOPS_Interval.NONE],
 }
 
@@ -267,7 +267,7 @@ COOPS_MaxInterval = {
     COOPS_Product.WATER_LEVEL: {COOPS_Interval.NONE: timedelta(days=30)},
     COOPS_Product.HOURLY_HEIGHT: {COOPS_Interval.NONE: timedelta(days=365)},
     COOPS_Product.HIGH_LOW: {COOPS_Interval.NONE: timedelta(days=365)},
-    #    COOPS_Product.DAILY_MEAN: {COOPS_Interval.NONE: timedelta(days=3650)},
+    # COOPS_Product.DAILY_MEAN: {COOPS_Interval.NONE: timedelta(days=3650)},
     COOPS_Product.MONTHLY_MEAN: {COOPS_Interval.NONE: timedelta(days=73000)},
     COOPS_Product.ONE_MINUTE_WATER_LEVEL: {COOPS_Interval.NONE: timedelta(days=4)},
     COOPS_Product.PREDICTIONS: {
@@ -337,11 +337,11 @@ COOPS_MaxInterval = {
         COOPS_Interval.SIX: timedelta(days=30),
         COOPS_Interval.NONE: timedelta(days=30),
     },
-    #    COOPS_Product.SALINITY: {
-    #        COOPS_Interval.H: timedelta(days=365),
-    #        COOPS_Interval.SIX: timedelta(days=30),
-    #        COOPS_Interval.NONE: timedelta(days=30),
-    #    },
+    # COOPS_Product.SALINITY: {
+    #     COOPS_Interval.H: timedelta(days=365),
+    #     COOPS_Interval.SIX: timedelta(days=30),
+    #     COOPS_Interval.NONE: timedelta(days=30),
+    # },
     COOPS_Product.DATUMS: {COOPS_Interval.NONE: timedelta(days=30)},
 }
 
@@ -1196,15 +1196,6 @@ def get_coops_stations(
         raise ValueError("Unknown metadata source specified!")
 
     return coops_stations
-
-
-def _before_sleep(retry_state: T.Any) -> None:  # pragma: no cover
-    logger.warning(
-        "Retrying %s: attempt %s ended with: %s",
-        retry_state.fn,
-        retry_state.attempt_number,
-        retry_state.outcome,
-    )
 
 
 def _parse_coops_responses(
