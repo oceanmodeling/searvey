@@ -3,6 +3,7 @@ from datetime import timedelta
 from urllib.parse import quote
 
 import httpx
+import numpy as np
 import pandas as pd
 import pytest
 from shapely.geometry import box
@@ -13,6 +14,7 @@ from searvey.coops import _generate_urls
 from searvey.coops import COOPS_Product
 from searvey.coops import coops_product_within_region
 from searvey.coops import COOPS_ProductFieldsNameMap
+from searvey.coops import COOPS_ProductFieldTypes
 from searvey.coops import COOPS_Station
 from searvey.coops import coops_stations
 from searvey.coops import coops_stations_within_region
@@ -244,6 +246,11 @@ def test_generate_urls_raises_when_end_date_before_start_date():
 def test_coops_data_products_default_args(station_id, product):
     df = fetch_coops_station(station_id, product=product)
     assert all(col in COOPS_ProductFieldsNameMap[COOPS_Product(product)].values() for col in df.columns)
+    assert all(
+        df.dtypes[col] == COOPS_ProductFieldTypes[col]
+        for col in df.columns
+        if df.dtypes[col] != np.dtype("O")
+    )
 
 
 @pytest.fixture
@@ -289,6 +296,11 @@ def test_coops_data_products_w_date_input(now, days_before_now, station_id, prod
         )
 
     assert all(col in COOPS_ProductFieldsNameMap[COOPS_Product(product)].values() for col in df.columns)
+    assert all(
+        df.dtypes[col] == COOPS_ProductFieldTypes[col]
+        for col in df.columns
+        if df.dtypes[col] != np.dtype("O")
+    )
 
     if df.index.name == "time":
         # When selecting between intervals one time prior to the first

@@ -168,19 +168,6 @@ COOPS_ProductFieldsNameMap = {
 
 
 COOPS_ProductFieldTypes = {
-    "DHQ": float,
-    "DLQ": float,
-    "DTL": float,
-    "GT": float,
-    "HWI": int,
-    "LWI": int,
-    "MHHW": float,
-    "MHW": float,
-    "MLLW": float,
-    "MLW": float,
-    "MN": float,
-    "MSL": float,
-    "MTL": float,
     "bin": int,
     "degree": float,
     "depth": float,
@@ -198,11 +185,12 @@ COOPS_ProductFieldTypes = {
     "sigma": float,
     "specific_gravity": float,
     "speed": float,
-    "time": float,
+    "time": "datetime64[ns]",
     "type": str,
     "value": float,
     "velocity": float,
     "year": int,
+    "datum": str,
 }
 
 
@@ -1274,7 +1262,7 @@ def _normalize_df(df: pd.DataFrame, product: COOPS_Product) -> pd.DataFrame:
 
     normalized[normalized == ""] = numpy.nan
     normalized = normalized.astype(
-        {k: v for k, v in COOPS_ProductFieldTypes.items() if k in df.columns}, errors="ignore"
+        {k: v for k, v in COOPS_ProductFieldTypes.items() if k in normalized.columns}, errors="ignore"
     )
     # NOTE: Datum and mean products doesn't have time!
     if "time" in normalized.columns:
