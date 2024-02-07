@@ -5,7 +5,6 @@ https://api.tidesandcurrents.noaa.gov/api/prod/
 from __future__ import annotations
 
 import collections
-import itertools
 import json
 import logging
 import typing as T
@@ -48,6 +47,7 @@ from .ioc import _resolve_start_date
 from .ioc import _to_utc
 from .ioc import fetch_url
 from .utils import get_region
+from .utils import pairwise
 
 
 logger = logging.getLogger(__name__)
@@ -1245,7 +1245,7 @@ def _generate_urls(
     if interval.value is not None:
         params["interval"] = interval.value
     params.update(**aux_params)
-    for start, stop in itertools.pairwise(date_range):
+    for start, stop in pairwise(date_range):
         params["begin_date"] = _coops_date(start)
         params["end_date"] = _coops_date(stop)
         url = httpx.Request("GET", COOPS_BASE_URL, params=params).url
@@ -1279,7 +1279,6 @@ def _parse_json(content: str, station_id: str, product: COOPS_Product) -> pd.Dat
         msg = f"{station_id}: The station does not contain any data for product.value!"
         logger.error(msg)
         raise ValueError(msg)
-    #        return
 
     data = []
     if product == COOPS_Product.CURRENTS_PREDICTIONS:
