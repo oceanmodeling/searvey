@@ -1305,17 +1305,14 @@ def _group_results(
     for item in parsed_responses:
         df_groups[item.kwargs["station_id"]].append(item.result)  # type: ignore[index]
 
-    # TODO: Is it needed?
-    # Concatenate dataframes and remove duplicates
+    # Concatenate dataframes
     dataframes: dict[str, pd.DataFrame] = {}
     for station_id in station_ids:
         if station_id in df_groups:
             df_group = df_groups[station_id]
             df = pd.concat(df_group)
             df = df.sort_index()
-            logger.debug("COOPS-%s: Total timestamps : %d", station_id, len(df))
-            df = df[~df.index.duplicated()]
-            logger.debug("COOPS-%s: Unique timestamps: %d", station_id, len(df))
+            logger.debug("COOPS-%s: Timestamps: %d", station_id, len(df))
         else:
             logger.warning("COOPS-%s: No data. Creating a dummy dataframe", station_id)
             df = T.cast(
