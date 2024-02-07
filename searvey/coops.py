@@ -1199,8 +1199,9 @@ def _parse_coops_responses(
         product = result.kwargs["product"]  # type: ignore[index]
         if "error" in result.result:
             msg = json.loads(result.result)["error"]["message"]
-            logger.error("Encountered an error response!")
-            raise ValueError(msg)
+            logger.error(f"{station_id}: Encountered an error response for {result.kwargs}!")
+            logger.error(f"--> {msg}")
+            continue
         else:
             kwargs.append(dict(station_id=station_id, product=product, content=result.result))
     logger.debug("Starting JSON parsing")
@@ -1273,11 +1274,18 @@ def _normalize_df(df: pd.DataFrame, product: COOPS_Product) -> pd.DataFrame:
 
 
 def _parse_json(content: str, station_id: str, product: COOPS_Product) -> pd.DataFrame:
-    content_json = json.loads(content)
-    if not content_json:
-        msg = f"{station_id}: The station does not contain any data for product.value!"
-        logger.error(msg)
-        raise ValueError(msg)
+    err_msg = ""
+    content_json = {}
+    try:
+        content_json = json.loads(content)
+        if not content_json:
+            err_msg = f"{station_id}: The station does not contain any data for product.value!"
+    except json.JSONDecodeError as e:
+        err_msg = f"{station_id}: Error decoding JSON {str(e)}"
+
+    if err_msg:
+        logger.error(err_msg)
+        return pd.DataFrame()
 
     data = []
     if product == COOPS_Product.CURRENTS_PREDICTIONS:
