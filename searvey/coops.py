@@ -1266,7 +1266,6 @@ def _normalize_df(df: pd.DataFrame, product: COOPS_Product) -> pd.DataFrame:
     )
     # NOTE: Datum and mean products doesn't have time!
     if "time" in normalized.columns:
-        # TODO: Create time for -mean products
         normalized["time"] = pandas.to_datetime(normalized["time"], utc=True)
         normalized.set_index("time", inplace=True)
 
