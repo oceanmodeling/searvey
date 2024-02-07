@@ -6,6 +6,7 @@ import httpx
 import numpy as np
 import pandas as pd
 import pytest
+import pytz
 from shapely.geometry import box
 
 from searvey import fetch_coops_station
@@ -254,9 +255,9 @@ def test_coops_data_products_default_args(station_id, product):
 
 
 @pytest.fixture
-def now():
+def now_utc():
     # Seconds are truncated for COOPS query url
-    return pd.Timestamp(datetime.now()).floor("min")
+    return pd.Timestamp.now("utc").floor("min")
 
 
 @pytest.mark.parametrize(
@@ -283,17 +284,16 @@ def now():
         # (30, 8636580, "daily_mean"),
     ],
 )
-def test_coops_data_products_w_date_input(now, days_before_now, station_id, product):
-    start_date = now - timedelta(days=days_before_now)
-    end_date = now
-    # Warn for no tzinfo
-    with pytest.warns():
-        df = fetch_coops_station(
-            station_id,
-            product=product,
-            start_date=start_date,
-            end_date=end_date,
-        )
+def test_coops_data_products_w_date_input(now_utc, days_before_now, station_id, product):
+    start_date = now_utc - timedelta(days=days_before_now)
+    end_date = now_utc
+
+    df = fetch_coops_station(
+        station_id,
+        product=product,
+        start_date=start_date,
+        end_date=end_date,
+    )
 
     assert all(col in COOPS_ProductFieldsNameMap[COOPS_Product(product)].values() for col in df.columns)
     assert all(
@@ -306,21 +306,42 @@ def test_coops_data_products_w_date_input(now, days_before_now, station_id, prod
         # When selecting between intervals one time prior to the first
         # is also included (at most 1 out of range)
         assert (~((start_date <= df.index) & (df.index <= end_date))).sum() <= 1
+        assert df.index.tz is not None
+        assert df.index.tz.utcoffset(df.index[0]) == timedelta()
 
 
-def test_coops_warn_utc():
-    fetch_coops_station(
-        8654467,
-        product="water_level",
-        start_date=pd.Timestamp.now("est") - timedelta(days=7),
-        end_date=pd.Timestamp.now("est"),
-    )
+@pytest.mark.parametrize(
+    "msg_idx, date",
+    [
+        (None, pd.Timestamp.now("utc")),
+        (None, pd.Timestamp.now("gmt")),
+        (None, pd.Timestamp.now(pytz.FixedOffset(0))),
+        (0, pd.Timestamp.now("est")),
+        (0, pd.Timestamp.now(pytz.FixedOffset(4))),
+        (0, pd.Timestamp.now(pytz.FixedOffset(-4))),
+        (1, pd.Timestamp.now()),
+        (1, datetime.now()),
+    ],
+)
+def test_coops_warn_utc(msg_idx, date):
+    msgs = ["Converting to UTC", "Assuming UTC"]
 
-    fetch_coops_station(
-        8654467,
-        product="water_level",
-        start_date=pd.Timestamp.now() - timedelta(days=7),
-        end_date=pd.Timestamp.now(),
-    )
+    warn_type = None
+    warn_count = 0
+    warn_msg = ""
+    if msg_idx is not None:
+        warn_type = UserWarning
+        warn_count = 2  # One for start one for end!
+        warn_msg = msgs[msg_idx]
 
-    assert False
+    with pytest.warns(warn_type, match=warn_msg) as record:
+        fetch_coops_station(
+            8654467,
+            product="water_level",
+            start_date=date - timedelta(days=7),
+            end_date=date,
+        )
+
+    assert len(record) == warn_count
+    if warn_count:
+        assert [warn_msg in r.message.args[0] for r in record]

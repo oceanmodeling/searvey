@@ -20,6 +20,7 @@ import logging
 import typing as T
 import warnings
 from collections import abc
+from datetime import timedelta
 from typing import Optional
 from typing import Union
 
@@ -641,7 +642,7 @@ def _fetch_ioc(
 
 def _to_utc(index: pd.DatetimeIndex) -> pd.DatetimeIndex:
     if index.tz:
-        if str(index.tz).lower() != "utc":
+        if index.tz.utcoffset(index[0]) != timedelta():
             warnings.warn("Converting to UTC!\nData is retrieved and stored in UTC time")
         index = index.tz_convert("utc")
     else:
