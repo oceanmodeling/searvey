@@ -28,7 +28,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9, <4.0"
+python = ">=3.9"
 beautifulsoup4 = "*"
 dataretrieval = ">=1"
 erddapy = "*"
