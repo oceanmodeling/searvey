@@ -230,6 +230,8 @@ def normalize_usgs_station_data(df: pd.DataFrame) -> pd.DataFrame:
     df["output_id"] = df.output_id.str.removesuffix("_cd")
     df = df.set_index(list(USGS_DATA_MULTIIDX))
 
+    # Drop should happen based on time and station as well, not
+    # just based on 'value' and 'qualifier'
     df = (
         pd.merge(
             df.drop(columns="qualifier")[~df.isqual],
@@ -238,10 +240,10 @@ def normalize_usgs_station_data(df: pd.DataFrame) -> pd.DataFrame:
             right_index=True,
             how="left",
         )
-        .drop_duplicates()
         .drop(columns=["output_id", "isqual"])
+        .reset_index()
+        .drop_duplicates(subset=["site_no", "datetime", "code", "option", "qualifier"])
     )
-    df = df.reset_index()
 
     df_parm = _get_usgs_output_info().set_index("parameter_cd")
     df = df[df.code.isin(df_parm.index)]
