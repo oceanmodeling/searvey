@@ -1,14 +1,7 @@
-"""
-_`dataretrieval` package developed by USGS is used for the USGS stations
-
-:: _`dataretrieval`: https://usgs-python.github.io/dataretrieval/
-
-This pacakge is a think wrapper around NWIS _REST API:
-
-:: _REST: https://waterservices.usgs.gov/rest/
-
-We take the return values from `dataretrieval` to be the original data
-"""
+# `dataretrieval` package developed by USGS is used for the USGS stations: https://usgs-python.github.io/dataretrieval/
+#
+# This pacakge is a thin wrapper around NWIS _REST API: https://waterservices.usgs.gov/rest/
+# We take the return values from `dataretrieval` to be the original data
 from __future__ import annotations
 
 import datetime

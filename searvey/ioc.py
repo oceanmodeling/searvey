@@ -1,16 +1,12 @@
-"""
-For the IOC stations we parse their website_.
-
-:: _website: http://www.ioc-sealevelmonitoring.org/list.php?showall=all
-
-This page contains 3 tables:
-
-- ``general``
-- ``contacts``
-- ``performance``
-
-We parse all 3 of them and we merge them.
-"""
+# For the IOC stations we parse their website: http://www.ioc-sealevelmonitoring.org/list.php?showall=all
+#
+# This page contains 3 tables:
+#
+# - ``general``
+# - ``contacts``
+# - ``performance``
+#
+# We parse all 3 of them and we merge them.
 from __future__ import annotations
 
 import functools
