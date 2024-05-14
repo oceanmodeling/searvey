@@ -35,7 +35,7 @@ erddapy = "*"
 geopandas = "*"
 html5lib = "*"
 limits = "*"
-lxml = "*"
+lxml = {version = "*", extras = ["html_clean"]}
 numpy = "*"
 pandas = "*"
 pydantic = ">2"
@@ -49,21 +49,22 @@ xarray = "*"
 covdefaults = "*"
 coverage = {version = "*", extras = ["toml"]}
 mypy = ">=1"
+nbconvert = "*"
 pytest = "*"
 pytest-cov = ">=3.0"
 pytest-recording = "*"
 pytest-xdist = "*"
 types-requests = "*"
-nbconvert = "*"
 urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
-m2r2 = ">=0.3.2"
-sphinx = "*"
 furo = "*"
+m2r2 = ">=0.3.2"
+setuptools = "*"
+sphinx = "*"
+sphinxext-opengraph = "*"
 toml = "*"
-sphinxext-opengraph = "^0.8.2"
 
 [tool.poetry.group.jupyter.dependencies]
 ipykernel = "*"
@@ -83,7 +84,7 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.black]
 line-length = 108
-target-version = ['py38']
+target-version = ['py39']
 
 [tool.pytest.ini_options]
 addopts = "-ra --verbose --showlocals --tb=short"
@@ -131,7 +132,7 @@ warn_required_dynamic_aliases = true
 warn_untyped_fields = true
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py39"
 line-length = 108
 select = [
     "E",  # pycodestyle
