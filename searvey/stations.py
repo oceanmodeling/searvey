@@ -52,6 +52,8 @@ def _get_ioc_stations(
     # Normalize IOC
     # Drop delay `NA'` : https://github.com/oceanmodeling/searvey/issues/91
     ioc_gdf = ioc_gdf[ioc_gdf.delay != "NA'"]
+    ioc_gdf = ioc_gdf[~ioc_gdf.delay.isna()]
+
     # Convert delay to minutes
     ioc_gdf = ioc_gdf.assign(
         delay=pd.concat(
