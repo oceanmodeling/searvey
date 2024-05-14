@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from searvey.coops import fetch_coops_station
+from searvey._coops_api import fetch_coops_station
+from searvey._ioc_api import fetch_ioc_station
 from searvey.coops import get_coops_stations
-from searvey.ioc import fetch_ioc_station
 from searvey.ioc import get_ioc_data
 from searvey.ioc import get_ioc_stations
 from searvey.stations import get_stations
