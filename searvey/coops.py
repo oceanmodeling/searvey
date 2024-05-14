@@ -1,7 +1,5 @@
-"""
-interface with the U.S. National Oceanic and Atmospheric Administration (NOAA) Center for Operational Oceanographic Products and Services (CO-OPS) API
-https://api.tidesandcurrents.noaa.gov/api/prod/
-"""
+# Interface with the U.S. National Oceanic and Atmospheric Administration (NOAA) Center for Operational Oceanographic Products and Services (CO-OPS) API
+# https://api.tidesandcurrents.noaa.gov/api/prod/
 from __future__ import annotations
 
 import json
@@ -779,9 +777,9 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
 
     active_stations = dataframes[StationStatus.ACTIVE]
     discontinued_stations = dataframes[StationStatus.DISCONTINUED]
-    discontinued_stations.loc[
-        discontinued_stations.index.isin(active_stations.index), "status"
-    ] = StationStatus.ACTIVE.value
+    discontinued_stations.loc[discontinued_stations.index.isin(active_stations.index), "status"] = (
+        StationStatus.ACTIVE.value
+    )
 
     stations = pandas.concat(
         (

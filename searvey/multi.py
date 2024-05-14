@@ -1,6 +1,3 @@
-"""
-Helpers for multi processing/threading
-"""
 from __future__ import annotations
 
 import logging

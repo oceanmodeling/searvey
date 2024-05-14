@@ -1,7 +1,5 @@
-"""
-interface with the University of Hawai'i at Manoa School of Ocean and Earth Science and Technology (SOEST) Sea Level Center (UHSLC) API
-https://uhslc.soest.hawaii.edu/erddap
-"""
+# Interface with the University of Hawai'i at Manoa School of Ocean and Earth Science and Technology (SOEST) Sea Level Center (UHSLC) API
+# https://uhslc.soest.hawaii.edu/erddap
 import datetime
 from typing import Optional
 
