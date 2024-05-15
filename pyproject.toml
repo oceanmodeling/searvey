@@ -31,16 +31,20 @@ classifiers = [
 python = ">=3.9, <4.0"
 beautifulsoup4 = "*"
 dataretrieval = ">=1"
+deprecated = "*"
 erddapy = "*"
 geopandas = "*"
 html5lib = "*"
+httpx = "*"
 limits = "*"
 lxml = {version = "*", extras = ["html_clean"]}
+multifutures = {version = "*"}
 numpy = "*"
 pandas = "*"
 pydantic = ">2"
 requests = "*"
 Shapely = "*"
+tenacity = "*"
 tqdm = "*"
 typing-extensions = "*"
 xarray = "*"
@@ -54,6 +58,7 @@ pytest = "*"
 pytest-cov = ">=3.0"
 pytest-recording = "*"
 pytest-xdist = "*"
+types-deprecated = "*"
 types-requests = "*"
 urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 
@@ -93,10 +98,11 @@ log_cli = true
 filterwarnings = [
     'ignore:distutils Version classes are deprecated. Use packaging.version instead:DeprecationWarning',
     'ignore:Deprecated call to `pkg_resources.declare_namespace:DeprecationWarning',
+    'ignore::DeprecationWarning',
 ]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 plugins = ["pydantic.mypy"]
 show_error_codes = true
 show_column_numbers = true
