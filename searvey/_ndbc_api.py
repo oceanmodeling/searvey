@@ -3,7 +3,6 @@ from __future__ import annotations
 import functools
 import logging
 from typing import List
-from typing import Optional
 
 import geopandas as gpd
 import numpy as np
@@ -13,7 +12,6 @@ from shapely.geometry import Polygon
 
 from searvey._common import _resolve_end_date
 from searvey._common import _resolve_start_date
-from searvey._common import _to_utc
 from searvey.custom_types import DatetimeLike
 from searvey.utils import get_region
 import multifutures
@@ -51,11 +49,11 @@ def _get_ndbc_stations() -> gpd.GeoDataFrame:
 
 
 def get_ndbc_stations(
-    region: Optional[MultiPolygon | Polygon] = None,
-    lon_min: Optional[float] = None,
-    lon_max: Optional[float] = None,
-    lat_min: Optional[float] = None,
-    lat_max: Optional[float] = None,
+    region: MultiPolygon | Polygon | None = None,
+    lon_min: float | None = None,
+    lon_max: float | None = None,
+    lat_min: float | None = None,
+    lat_max: float | None = None,
 ) -> gpd.GeoDataFrame:
     """
     Return NDBC station metadata.
@@ -91,7 +89,7 @@ def _fetch_ndbc_station_data(
     mode: str,
     start_time: pd.Timestamp,
     end_time: pd.Timestamp,
-    columns: Optional[list[str]] = None,
+    columns: list[str] | None = None,
 ) -> pd.DataFrame:
     """Retrieve the TimeSeries of a single NDBC station."""
     try:
@@ -115,7 +113,7 @@ def fetch_ndbc_stations_data(
     mode: str,
     start_date: DatetimeLike | None = None,
     end_date: DatetimeLike | None = None,
-    columns: Optional[list[str]] = None,
+    columns: list[str] | None = None,
     multithreading_executor: multifutures.ExecutorProtocol | None = None,
 ) -> dict[str, pd.DataFrame]:
     """
