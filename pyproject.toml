@@ -44,7 +44,7 @@ pandas = "*"
 pydantic = ">2"
 requests = "*"
 Shapely = "*"
-tenacity = "*"
+tenacity = "*, !=8.4.0"  # https://github.com/jd/tenacity/issues/471
 tqdm = "*"
 typing-extensions = "*"
 xarray = "*"
@@ -53,7 +53,7 @@ xarray = "*"
 covdefaults = "*"
 coverage = {version = "*", extras = ["toml"]}
 mypy = ">=1"
-nbconvert = "*"
+nbmake = "*"
 pytest = "*"
 pytest-cov = ">=3.0"
 pytest-recording = "*"
@@ -75,6 +75,7 @@ toml = "*"
 ipykernel = "*"
 matplotlib = "*"
 scipy = "*"
+tqdm = {version = "*", extras = ["notebook"]}
 
 [tool.poetry-dynamic-versioning]
 enable = true
