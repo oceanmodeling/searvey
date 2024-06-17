@@ -83,3 +83,81 @@ def get_ndbc_stations(
     if region:
         ndbc_stations = ndbc_stations[ndbc_stations.within(region)]
     return ndbc_stations
+
+
+
+def _fetch_ndbc_station_data(
+    station_id: str,
+    mode: str,
+    start_time: pd.Timestamp,
+    end_time: pd.Timestamp,
+    columns: Optional[list[str]] = None,
+) -> pd.DataFrame:
+    """Retrieve the TimeSeries of a single NDBC station."""
+    try:
+        df = ndbc_api.get_data(
+            station_id=station_id,
+            mode=mode,
+            start_time=start_time,
+            end_time=end_time,
+            as_df=True,
+            cols=columns,
+        )
+        if df.empty:
+            logger.warnings(f"No data avaliable for station {station_id}")
+        return df
+    except Exception as e:
+        logger.error(f"Error fetching data for station {station_id}: {str(e)}")
+        return pd.DataFrame()
+
+def fetch_ndbc_stations_data(
+    station_ids: List[str],
+    mode: str,
+    start_date: DatetimeLike | None = None,
+    end_date: DatetimeLike | None = None,
+    columns: Optional[list[str]] = None,
+    multithreading_executor: multifutures.ExecutorProtocol | None = None,
+) -> dict[str, pd.DataFrame]:
+    """
+    Retrieve the TimeSeries for multiple stations using multithreading.
+
+    :param station_ids: A list of station identifiers.
+    :param mode: Data mode. One of  ``'txt'``, ``'json'``, ``'spec'``.
+    :param start_date: The starting date of the query. Defaults to 7 days ago.
+    :param end_date: The finishing date of the query. Defaults to "now".
+    :param columns:
+    :param multithreading_executor: A multithreading executor.
+    :return: A dictionary mapping station identifiers to their respective
+        TimeSeries.
+    """
+    now = pd.Timestamp.now("utc")
+    start_date = _resolve_start_date(now, start_date)
+    end_date = _resolve_end_date(now, end_date)
+
+    # Prepare arguments for each function call
+    func_kwargs = [
+        {
+            "station_id": station_id,
+            "mode": mode,
+            "start_time": start_date[0],
+            "end_time": end_date[0],
+            "columns": columns,
+        }
+        for station_id in station_ids
+    ]
+
+    # Fetch data concurrently using multithreading
+    results: list[multifutures.FutureResult] = multifutures.multithread(
+        func=_fetch_ndbc_station_data,
+        func_kwargs=func_kwargs,
+        executor=multithreading_executor,
+    )
+
+    # Check for errors and collect results
+    multifutures.check_results(results)
+    dataframes = {
+        result.kwargs["station_id"]: result.result
+        for result in results
+        if result.exception is None
+    }
+    return dataframes
