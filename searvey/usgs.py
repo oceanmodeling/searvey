@@ -1,6 +1,6 @@
 # `dataretrieval` package developed by USGS is used for the USGS stations: https://usgs-python.github.io/dataretrieval/
 #
-# This pacakge is a thin wrapper around NWIS _REST API: https://waterservices.usgs.gov/rest/
+# This package is a thin wrapper around NWIS _REST API: https://waterservices.usgs.gov/rest/
 # We take the return values from `dataretrieval` to be the original data
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from dataretrieval import nwis
-from dataretrieval.codes import state_codes
+from dataretrieval.codes import state_codes as _DATARETRIEVAL_STATE_CODES
 from dataretrieval.utils import BaseMetadata
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
@@ -42,6 +42,12 @@ logger = logging.getLogger(__name__)
 
 # This will stop working if pandas switches its versioning scheme to CalVer or something...
 _PANDAS_MAJOR_VERSION = int(importlib.metadata.version("pandas").split(".")[0])
+
+# https://github.com/DOI-USGS/dataretrieval-python/compare/v1.0.8...v1.0.9
+if isinstance(_DATARETRIEVAL_STATE_CODES, list):
+    STATE_CODES = sorted(_DATARETRIEVAL_STATE_CODES)
+else:
+    STATE_CODES = sorted(_DATARETRIEVAL_STATE_CODES.values())
 
 # constants
 USGS_OUTPUT_OF_INTEREST = (
@@ -156,7 +162,7 @@ def _get_all_usgs_stations(normalize: bool = True) -> gpd.GeoDataFrame:
                 "hasDataType": dtp,
             }
             for st, dtp in product(
-                state_codes,
+                STATE_CODES,
                 USGS_OUTPUT_TYPE,
             )
         ],
