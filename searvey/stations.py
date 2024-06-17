@@ -152,7 +152,7 @@ def _get_ndbc_stations(
 
     ndbc_gdf = ndbc_gdf.assign(
         provider=Provider.NDBC.value,
-        provider_id=ndbc_gdf.station_id,
+        provider_id=ndbc_gdf.Station,
         country="USA",
         location=pd.NaT,
         lon=ndbc_gdf.lon,
