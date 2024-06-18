@@ -48,6 +48,7 @@ tenacity = "*, !=8.4.0"  # https://github.com/jd/tenacity/issues/471
 tqdm = "*"
 typing-extensions = "*"
 xarray = "*"
+ndbc-api = "0.24.1.6.1"
 
 [tool.poetry.group.dev.dependencies]
 covdefaults = "*"
