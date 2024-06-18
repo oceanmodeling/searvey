@@ -262,7 +262,12 @@ def get_ioc_station_data(
     truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = None,
 ) -> pd.DataFrame:
-    """Retrieve the TimeSeries of a single IOC station."""
+    """
+    .. deprecated:: 0.4.0
+       Use :func:`fetch_ioc_station` instead.
+
+    Retrieve the TimeSeries of a single IOC station.
+    """
 
     if rate_limit:
         while rate_limit.reached(identifier="IOC"):
@@ -302,6 +307,9 @@ def get_ioc_data(
     disable_progress_bar: bool = False,
 ) -> xr.Dataset:
     """
+    .. deprecated:: 0.4.0
+       Use :func:`fetch_ioc_station` instead.
+
     Return the data of the stations specified in ``ioc_metadata`` as an ``xr.Dataset``.
 
     ``truncate_seconds`` needs some explaining. IOC has more than 1000 stations.

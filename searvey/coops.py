@@ -619,6 +619,9 @@ def __coops_stations_html_tables() -> element.ResultSet:
 @lru_cache(maxsize=1)
 def coops_stations(station_status: COOPS_StationStatus | None = None) -> GeoDataFrame:
     """
+    .. deprecated:: 0.4.0
+       Use :func:`get_coops_stations` instead.
+
     retrieve a list of CO-OPS stations with associated metadata
 
     :param station_status: one of ``active`` or ``discontinued``
@@ -781,7 +784,10 @@ def coops_stations_within_region(
     station_status: COOPS_StationStatus | None = None,
 ) -> GeoDataFrame:
     """
-    retrieve all stations within the specified region of interest
+    .. deprecated:: 0.4.0
+       Use :func:`get_coops_stations` instead.
+
+    Retrieve all stations within the specified region of interest
 
     :param region: polygon or multipolygon denoting region of interest
     :param station_status: one of ``active`` or ``discontinued``
@@ -844,7 +850,10 @@ def coops_product_within_region(
     station_status: COOPS_StationStatus | None = None,
 ) -> Dataset:
     """
-    retrieve CO-OPS data from within the specified region of interest
+    .. deprecated:: 0.4.0
+       Use :func:`fetch_coops_station` instead.
+
+    Retrieve CO-OPS data from within the specified region of interest
 
     :param product: CO-OPS product; one of ``water_level``, ``air_temperature``, ``water_temperature``, ``wind``, ``air_pressure``, ``air_gap``, ``conductivity``, ``visibility``, ``humidity``, ``salinity``, ``hourly_height``, ``high_low``, ``daily_mean``, ``monthly_mean``, ``one_minute_water_level``, ``predictions``, ``datums``, ``currents``, ``currents_predictions``
     :param region: polygon or multipolygon denoting region of interest
