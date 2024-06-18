@@ -613,7 +613,7 @@ def __coops_stations_html_tables() -> element.ResultSet:
 
 
 @deprecated(
-    version="0.3.11",
+    version="0.4.0",
     reason="This function is deprecated and will be removed in the future. Replace it with `get_coops_stations`.",
 )
 @lru_cache(maxsize=1)
@@ -773,7 +773,7 @@ def coops_stations(station_status: COOPS_StationStatus | None = None) -> GeoData
 
 
 @deprecated(
-    version="0.3.11",
+    version="0.4.0",
     reason="This function is deprecated and will be removed in the future. Replace it with `get_coops_stations`.",
 )
 def coops_stations_within_region(
@@ -814,7 +814,7 @@ def coops_stations_within_region(
 
 
 @deprecated(
-    version="0.3.11",
+    version="0.4.0",
     reason="This function is deprecated and will be removed in the future. Replace it with `get_coops_stations`.",
 )
 def coops_stations_within_bounds(
@@ -831,7 +831,7 @@ def coops_stations_within_bounds(
 
 
 @deprecated(
-    version="0.3.11",
+    version="0.4.0",
     reason="This function is deprecated and will be removed in the future. Replace it with `fetch_coops_station`.",
 )
 def coops_product_within_region(

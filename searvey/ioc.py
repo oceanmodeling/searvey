@@ -252,7 +252,7 @@ def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame, truncate_seconds
 
 
 @deprecated(
-    version="0.3.11",
+    version="0.4.0",
     reason="This function is deprecated and will be removed in the future. Replace it with `fetch_ioc_station`.",
 )
 def get_ioc_station_data(
@@ -290,7 +290,7 @@ def get_ioc_station_data(
 
 
 @deprecated(
-    version="0.3.11",
+    version="0.4.0",
     reason="This function is deprecated and will be removed in the future. Replace it with `fetch_ioc_station`.",
 )
 def get_ioc_data(
