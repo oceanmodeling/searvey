@@ -33,6 +33,7 @@ IOC_JSON_TS_FORMAT = "%Y-%m-%d %H:%M:%S"
 def _parse_ioc_responses(
     ioc_responses: list[multifutures.FutureResult],
     executor: multifutures.ExecutorProtocol | None,
+    progress_bar: bool,
 ) -> list[multifutures.FutureResult]:
     # Parse the json files using pandas
     # This is a CPU heavy process, so let's use multiprocess
@@ -55,7 +56,9 @@ def _parse_ioc_responses(
         else:
             kwargs.append(dict(station_id=station_id, content=io.StringIO(result.result)))
     logger.debug("Starting JSON parsing")
-    results = multifutures.multiprocess(_parse_json, func_kwargs=kwargs, check=False, executor=executor)
+    results = multifutures.multiprocess(
+        _parse_json, func_kwargs=kwargs, check=False, executor=executor, progress_bar=progress_bar
+    )
     multifutures.check_results(results)
     logger.debug("Finished JSON parsing")
     return results
@@ -150,6 +153,7 @@ def _retrieve_ioc_data(
     rate_limit: multifutures.RateLimit,
     http_client: httpx.Client,
     executor: multifutures.ExecutorProtocol | None,
+    progress_bar: bool,
 ) -> list[multifutures.FutureResult]:
     kwargs = []
     for station_id, start_date, end_date in zip(station_ids, start_dates, end_dates):
@@ -166,7 +170,11 @@ def _retrieve_ioc_data(
     with http_client:
         logger.debug("Starting data retrieval")
         results = multifutures.multithread(
-            func=_fetch_url, func_kwargs=kwargs, check=False, executor=executor
+            func=_fetch_url,
+            func_kwargs=kwargs,
+            check=False,
+            executor=executor,
+            progress_bar=progress_bar,
         )
         logger.debug("Finished data retrieval")
     multifutures.check_results(results)
@@ -182,6 +190,7 @@ def _fetch_ioc(
     http_client: httpx.Client | None,
     multiprocessing_executor: multifutures.ExecutorProtocol | None,
     multithreading_executor: multifutures.ExecutorProtocol | None,
+    progress_bar: bool,
 ) -> dict[str, pd.DataFrame]:
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
@@ -196,12 +205,14 @@ def _fetch_ioc(
         rate_limit=rate_limit,
         http_client=http_client,
         executor=multithreading_executor,
+        progress_bar=progress_bar,
     )
     # Parse the json files using pandas
     # This is a CPU heavy process, so we are using multiprocessing here
     parsed_responses: list[multifutures.FutureResult] = _parse_ioc_responses(
         ioc_responses=ioc_responses,
         executor=multiprocessing_executor,
+        progress_bar=progress_bar,
     )
     # OK, now we have a list of dataframes. We need to group them per ioc_code, concatenate them and remove duplicates
     dataframes = _group_results(station_ids=station_ids, parsed_responses=parsed_responses)
@@ -217,6 +228,7 @@ def fetch_ioc_station(
     http_client: httpx.Client | None = None,
     multiprocessing_executor: multifutures.ExecutorProtocol | None = None,
     multithreading_executor: multifutures.ExecutorProtocol | None = None,
+    progress_bar: bool = False,
 ) -> pd.DataFrame:
     """
     Make a query to the IOC API for tide gauge data for ``station_id``
@@ -250,6 +262,7 @@ def fetch_ioc_station(
     :param http_client: The ``httpx.Client``.
     :param multiprocessing_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
     :param multithreading_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
+    :param progress_bar: If ``True`` then a progress bar is displayed for monitoring the progress of the outgoing requests.
     """
     logger.info("IOC-%s: Starting scraping: %s - %s", station_id, start_date, end_date)
     now = pd.Timestamp.now("utc")
@@ -261,6 +274,7 @@ def fetch_ioc_station(
         http_client=http_client,
         multiprocessing_executor=multiprocessing_executor,
         multithreading_executor=multithreading_executor,
+        progress_bar=progress_bar,
     )[station_id]
     logger.info("IOC-%s: Finished scraping: %s - %s", station_id, start_date, end_date)
     return df
