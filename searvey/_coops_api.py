@@ -461,8 +461,8 @@ def _fetch_coops(
 ) -> dict[str, pd.DataFrame]:
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
-    start_dates = _to_utc(start_dates)
-    end_dates = _to_utc(end_dates)
+    start_dates = _to_utc(start_dates, warn=True)
+    end_dates = _to_utc(end_dates, warn=True)
     # Fetch json files from the COOPS website
     # We use multithreading in order to be able to use RateLimit + to take advantage of higher performance
 

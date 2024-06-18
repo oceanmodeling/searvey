@@ -16,16 +16,21 @@ from .custom_types import DatetimeLike
 logger = logging.getLogger(__name__)
 
 
-def _to_utc(index: pd.DatetimeIndex | pd.Timestamp) -> pd.DatetimeIndex:
+def _to_utc(
+    index: pd.DatetimeIndex | pd.Timestamp,
+    *,
+    warn: bool = False,
+) -> pd.DatetimeIndex:
     if index.tz:
         ref = index
         if isinstance(ref, pd.Timestamp):
             ref = pd.DatetimeIndex([ref])
-        if index.tz.utcoffset(ref[0]) != timedelta():
+        if warn and index.tz.utcoffset(ref[0]) != timedelta():
             warnings.warn("Converting to UTC!\nData is retrieved and stored in UTC time")
         index = index.tz_convert("utc")
     else:
-        warnings.warn("Assuming UTC!\nData is retrieved and stored in UTC time")
+        if warn:
+            warnings.warn("Assuming UTC!\nData is retrieved and stored in UTC time")
         index = index.tz_localize("utc")
     return index
 
