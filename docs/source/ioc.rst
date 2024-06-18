@@ -6,15 +6,15 @@ website is focused on operational monitoring of sea level measuring stations acr
 `Intergovernmental Oceanographic Commission (IOC) <https://ioc.unesco.org>`_ aggregating data from more than 170 providers.
 
 
-A list of IOC stations is provided with the ``get_ioc_stations()`` function with various subsetting options.
+A DataFrame with the IOC station metadata can be retrieved with ``get_ioc_stations()``
+while the station data can be fetched with ``fetch_ioc_station()``:
 
-.. autofunction:: searvey.ioc.get_ioc_stations
+.. autofunction:: searvey.get_ioc_stations
 
-The station data can be retrieved with
 
-.. autofunction:: searvey.ioc.get_ioc_data
+.. autofunction:: searvey.fetch_ioc_station
 
-New API
--------
+Deprecated API
+``````````````
 
-.. autofunction:: searvey.ioc.fetch_ioc_station
+.. autofunction:: searvey.get_ioc_data

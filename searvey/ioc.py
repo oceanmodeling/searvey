@@ -202,12 +202,12 @@ def get_ioc_stations(
 
     Note: The longitudes of the IOC stations are in the [-180, 180] range.
 
-    :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest
+    :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest.
     :param lon_min: The minimum Longitude of the Bounding Box.
     :param lon_max: The maximum Longitude of the Bounding Box.
     :param lat_min: The minimum Latitude of the Bounding Box.
     :param lat_max: The maximum Latitude of the Bounding Box.
-    :return: ``pandas.DataFrame`` with the station metadata
+    :return: ``pandas.DataFrame`` with the station metadata.
     """
     region = get_region(
         region=region,
@@ -341,6 +341,7 @@ def get_ioc_data(
     :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
     :param disable_progress_bar: If ``True`` then the progress bar is not displayed.
+    :returns: An ``xr.Dataset`` with the station data.
 
     """
     if period > IOC_MAX_DAYS_PER_REQUEST:

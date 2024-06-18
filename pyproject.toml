@@ -70,6 +70,7 @@ setuptools = "*"
 sphinx = "*"
 sphinxext-opengraph = "*"
 toml = "*"
+sphinx-autodoc-typehints = "*"
 
 [tool.poetry.group.jupyter.dependencies]
 ipykernel = "*"

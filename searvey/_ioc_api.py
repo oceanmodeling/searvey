@@ -234,6 +234,11 @@ def fetch_ioc_station(
     Make a query to the IOC API for tide gauge data for ``station_id``
     and return the results as a ``pandas.Dataframe``.
 
+    .. code-block:: python
+
+        fetch_ioc_station("acap2")
+        fetch_ioc_station("acap2", start_date="2023-01-01", end_date="2023-01-02")
+
     ``start_date`` and ``end_date`` can be of any type that is valid for ``pandas.to_datetime()``.
     If ``start_date`` or ``end_date`` are timezone-aware timestamps they are coersed to UTC.
     The returned data are always in UTC.
@@ -259,10 +264,11 @@ def fetch_ioc_station(
     :param start_date: The starting date of the query. Defaults to 7 days ago.
     :param end_date: The finishing date of the query. Defaults to "now".
     :param rate_limit: The rate limit for making requests to the IOC servers. Defaults to 5 requests/second.
-    :param http_client: The ``httpx.Client``.
+    :param http_client: The ``httpx.Client``. Can be used to setup e.g. an HTTP proxy.
     :param multiprocessing_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
     :param multithreading_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
     :param progress_bar: If ``True`` then a progress bar is displayed for monitoring the progress of the outgoing requests.
+    :return: ``pandas.DataFrame`` with the station data.
     """
     logger.info("IOC-%s: Starting scraping: %s - %s", station_id, start_date, end_date)
     now = pd.Timestamp.now("utc")

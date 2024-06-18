@@ -73,9 +73,16 @@ extensions = [
     "sphinx.ext.autosummary",
     # The Napoleon extension allows for nicer argument formatting.
     "sphinx.ext.napoleon",
+    "sphinx_autodoc_typehints",
     "sphinxext.opengraph",
     "m2r2",
 ]
+
+# sphinx_autodoc_typehints settings
+always_use_bars_union = True
+typehints_use_rtype = False
+typehints_use_signature = False
+typehints_use_signature_return = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

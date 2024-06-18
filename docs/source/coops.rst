@@ -59,5 +59,5 @@ The ``COOPS_Query`` class lets you send an individual query to the CO-OPS API by
 New API
 -------
 
-.. autofunction:: searvey.coops.get_coops_stations
-.. autofunction:: searvey.coops.fetch_coops_station
+.. autofunction:: searvey.get_coops_stations
+.. autofunction:: searvey.fetch_coops_station
