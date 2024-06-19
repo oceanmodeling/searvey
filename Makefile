@@ -27,7 +27,7 @@ clean_notebooks:
 	pre-commit run nbstripout -a
 
 exec_notebooks:
-	pytest --nbmake --nbmake-timeout=60 --nbmake-kernel=python3 $$(git ls-files | grep ipynb)
+	pytest --ff --nbmake --nbmake-timeout=90 --nbmake-kernel=python3 $$(git ls-files | grep ipynb)
 
 docs:
 	make -C docs html

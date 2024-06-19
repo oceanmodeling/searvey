@@ -73,6 +73,7 @@ toml = "*"
 sphinx-autodoc-typehints = "*"
 
 [tool.poetry.group.jupyter.dependencies]
+hvplot = {version = "*", extras = ["geo"]}
 ipykernel = "*"
 matplotlib = "*"
 scipy = "*"
