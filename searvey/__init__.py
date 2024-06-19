@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import importlib.metadata
+
 from searvey._coops_api import fetch_coops_station
 from searvey._ioc_api import fetch_ioc_station
 from searvey.coops import get_coops_stations
@@ -8,6 +10,8 @@ from searvey.ioc import get_ioc_stations
 from searvey.stations import get_stations
 from searvey.stations import Provider
 from searvey.usgs import get_usgs_stations
+
+__version__ = importlib.metadata.version(__name__)
 
 
 __all__: list[str] = [
@@ -19,4 +23,5 @@ __all__: list[str] = [
     "get_stations",
     "get_usgs_stations",
     "Provider",
+    "__version__",
 ]
