@@ -1,0 +1,35 @@
+name: "Test installation from PyPI"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "* * */1 * *" # once per day
+
+jobs:
+  test_pypi_installation:
+    name: test PyPI installation
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: "ubuntu-latest"
+            python: "3.12"
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-python@main
+        with:
+          python-version: ${{ matrix.python }}
+      # Install the package from pypi
+      - run: python --version
+      - run: python -m pip --version
+      - run: python -m pip cache info
+      - run: pip install searvey
+      # Checkout the version of code that got installed from PyPI
+      - run: git checkout v$(python -c 'import importlib.metadata; print(importlib.metadata.version("searvey"))')
+      # Install test dependencies
+      - run: pip install -U $(cat requirements/requirements-dev.txt| ag 'pytest=|pytest-recording=|urllib3=' | cut -d ';' -f1)
+      # Remove the source code (just to be sure that it is not being used)
+      - run: rm -rf searvey
+      # Run the tests
+      - run: make cov
+      - run: make exec_notebooks
