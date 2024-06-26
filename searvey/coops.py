@@ -5,8 +5,6 @@ from __future__ import annotations
 import json
 import logging
 import warnings
-from abc import ABC
-from abc import abstractmethod
 from datetime import datetime
 from enum import Enum
 from functools import lru_cache
@@ -17,18 +15,20 @@ from typing import Optional
 from typing import Union
 
 import geopandas
+import multifutures
 import numpy
 import pandas
+import pandas as pd
 import requests
 import shapely
 import xarray
 from bs4 import BeautifulSoup
 from bs4 import element
+from deprecated import deprecated
 from geopandas import GeoDataFrame
 from pandas import DataFrame
 from pandas import Series
 from shapely.geometry import MultiPolygon
-from shapely.geometry import Point
 from shapely.geometry import Polygon
 from xarray import Dataset
 
@@ -38,111 +38,57 @@ from .utils import get_region
 logger = logging.getLogger(__name__)
 
 
-class StationDataProduct(Enum):
-    pass
-
-
-class StationDataInterval(Enum):
-    pass
-
-
-class StationDatum(Enum):
-    pass
-
-
-class StationStatus(Enum):
+class COOPS_StationStatus(Enum):
     ACTIVE = "active"
     DISCONTINUED = "discontinued"
 
 
-class StationMetadataSource(Enum):
+StationStatus = COOPS_StationStatus
+
+
+class COOPS_StationMetadataSource(Enum):
     MAIN = "main"
     NWS = "nws"
 
 
-class Station(ABC):
-    """
-    abstraction of a specific data station
-    """
+StationMetadataSource = COOPS_StationMetadataSource
 
-    id: str
-    location: Point
-
-    def __init__(self, id: str, location: Point):
-        self.id = id
-        self.location = location
-
-    @abstractmethod
-    def product(
-        self,
-        product: StationDataProduct,
-        start_date: datetime,
-        end_date: datetime | None = None,
-        interval: StationDataInterval | None = None,
-        datum: StationDatum | None = None,
-    ) -> Dataset:
-        """
-        retrieve data for the current station within the specified parameters
-
-        :param product: name of data product
-        :param start_date: start date
-        :param end_date: end date
-        :param interval: time interval of data
-        :param datum: vertical datum
-        :return: data for the current station within the specified parameters
-        """
-        raise NotImplementedError()
-
-    def __str__(self) -> str:
-        return f'{self.__class__.__name__} - "{self.id}" {self.location}'
+StationTypes = [
+    "waterlevels",
+    "waterlevelsandmet",
+    "airgap",
+    "datums",
+    "supersededdatums",
+    "benchmarks",
+    "supersededbenchmarks",
+    "historicwl",
+    "met",
+    "harcon",
+    "tidepredictions",
+    "currentpredictions",
+    "currents",
+    "historiccurrents",
+    "surveycurrents",
+    "cond",
+    "watertemp",
+    "physocean",
+    "tcoon",
+    "visibility",
+    "1minute",
+    "historicmet",
+    "historicphysocean",
+    "highwater",
+    "lowwater",
+    "hightideflooding",
+    "ofs",
+    "partnerstations",
+]
 
 
-class StationQuery(ABC):
-    """
-    abstraction of an individual station data query
-    """
-
-    station_id: str
-    product: StationDataProduct
-    start_date: datetime
-    end_date: datetime
-    interval: StationDataInterval
-    datum: StationDatum
-
-    def __init__(
-        self,
-        station_id: str,
-        product: StationDataProduct,
-        start_date: datetime,
-        end_date: datetime | None = None,
-        interval: StationDataInterval | None = None,
-        datum: StationDatum | None = None,
-    ):
-        self.station_id = station_id
-        self.product = product
-        self.start_date = start_date
-        self.end_date = end_date
-        self.interval = interval
-        self.datum = datum
-
-    @property
-    @abstractmethod
-    def query(self) -> Dict[str, Any]:
-        raise NotImplementedError()
-
-    @property
-    @abstractmethod
-    def data(self) -> DataFrame:
-        """
-        :return: data for the current query parameters
-        """
-        raise NotImplementedError()
-
-    def __str__(self) -> str:
-        return f'{self.__class__.__name__} - {self.product} at station "{self.station_id}" between {self.start_date} and {self.end_date} over {self.interval} in {self.datum}'
-
-
-class COOPS_Product(StationDataProduct):  # noqa: N801
+# NOTE:
+# DAILY_MEAN is only available for Great Lakes stations and at LST
+# for SALINITY couldn't find a station that provides data!
+class COOPS_Product(Enum):  # noqa: N801
     WATER_LEVEL = (
         "water_level"
         # Preliminary or verified water levels, depending on availability.
@@ -157,10 +103,10 @@ class COOPS_Product(StationDataProduct):  # noqa: N801
         "visibility"  # Visibility from the station's visibility sensor. A measure of atmospheric clarity.
     )
     HUMIDITY = "humidity"  # Relative humidity as measured at the station.
-    SALINITY = "salinity"  # Salinity and specific gravity data for the station.
+    # SALINITY = "salinity"  # Salinity and specific gravity data for the station.
     HOURLY_HEIGHT = "hourly_height"  # Verified hourly height water level data for the station.
     HIGH_LOW = "high_low"  # Verified high/low water level data for the station.
-    DAILY_MEAN = "daily_mean"  # Verified daily mean water level data for the station.
+    # DAILY_MEAN = "daily_mean"  # Verified daily mean water level data for the station.
     MONTHLY_MEAN = "monthly_mean"  # Verified monthly mean water level data for the station.
     ONE_MINUTE_WATER_LEVEL = (
         "one_minute_water_level"
@@ -175,12 +121,29 @@ class COOPS_Product(StationDataProduct):  # noqa: N801
     )
 
 
-class COOPS_Interval(StationDataInterval):  # noqa: N801
+class COOPS_Interval(Enum):  # noqa: N801
     H = "h"  # Hourly Met data and harmonic predictions will be returned
     HILO = "hilo"  # High/Low tide predictions for all stations.
+    MAX_SLACK = "max_slack"  # Max flood/ebb currents (time and speed) and slack water (times)
+    ONE = 1
+    FIVE = 5
+    SIX = 6
+    TEN = 10
+    FIFTEEN = 15
+    THIRTY = 30
+    SIXTY = 60
+    NONE = None
 
 
-class COOPS_TidalDatum(StationDatum):  # noqa: N801
+class COOPS_TidalDatum(Enum):  # noqa: N801
+    """
+    CRD  Only some stations on the Columbia River, WA/OR
+    IGLD Only Great Lakes stations.
+    LWD  Only Great Lakes Stations
+    MLLW  Note! Subordinate tide prediction stations must use datum=MLLW
+    NAVD  This datum is not available for all stations.
+    """
+
     CRD = "CRD"  # Columbia River Datum
     IGLD = "IGLD"  # International Great Lakes Datum
     LWD = "LWD"  # Great Lakes Low Water Datum (Chart Datum)
@@ -195,22 +158,26 @@ class COOPS_TidalDatum(StationDatum):  # noqa: N801
 
 
 class COOPS_VelocityType(Enum):  # noqa: N801
-    SPEED_DIR = "speed_dir"  # Return results for speed and dirction
-    DEFAULT = "default"  # Return results for velocity major, mean flood direction and mean ebb dirction
+    SPEED_DIR = "speed_dir"  # Return results for speed and direction
+    DEFAULT = "default"  # Return results for velocity major, mean flood direction and mean ebb direction
 
 
 class COOPS_Units(Enum):  # noqa: N801
+    # Note!Visibility data is kilometers (km)
     METRIC = "metric"
+    # Note!Visibility data is Nautical Miles (nm)
     ENGLISH = "english"
 
 
 class COOPS_TimeZone(Enum):  # noqa: N801
+    # Does not apply to products of datums or
+    # monthly_mean; daily_mean (Great Lakes) must use time_zone=lst
     GMT = "gmt"  # Greenwich Mean Time
     LST = "lst"  # Local Standard Time. The time local to the requested station.
     LST_LDT = "lst_ldt"  # Local Standard/Local Daylight Time. The time local to the requested station.
 
 
-class COOPS_Station(Station):  # noqa: N801
+class COOPS_Station:
     """
     a specific CO-OPS station
     """
@@ -259,7 +226,9 @@ class COOPS_Station(Station):  # noqa: N801
         if isinstance(metadata, DataFrame):
             metadata = metadata.iloc[0]
 
-        Station.__init__(self, id=str(metadata.name), location=metadata.geometry)
+        # NOTE: .name is difference from ['name'] in this case!
+        self.id = str(metadata.name)
+        self.location = metadata["geometry"]
 
         self.nws_id = metadata["nws_id"]
         self.state = metadata["state"]
@@ -394,7 +363,7 @@ class COOPS_Station(Station):  # noqa: N801
         return f"{self.__class__.__name__}({self.id})"
 
 
-class COOPS_Query(StationQuery):  # noqa: N801
+class COOPS_Query:
     """
     abstraction of an individual query to the CO-OPS API
     https://api.tidesandcurrents.noaa.gov/api/prod/
@@ -442,10 +411,6 @@ class COOPS_Query(StationQuery):  # noqa: N801
             time_zone = COOPS_TimeZone.GMT
         if interval is None:
             interval = COOPS_Interval.H
-
-        StationQuery.__init__(
-            self, station_id=station, product=product, start_date=start_date, end_date=end_date  # type: ignore[arg-type]
-        )
 
         self.station_id = station
         self.product = product
@@ -647,9 +612,16 @@ def __coops_stations_html_tables() -> element.ResultSet:
     return soup.find_all("div", {"class": "table-responsive"})
 
 
+@deprecated(
+    version="0.4.0",
+    reason="This function is deprecated and will be removed in the future. Replace it with `get_coops_stations`.",
+)
 @lru_cache(maxsize=1)
-def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
+def coops_stations(station_status: COOPS_StationStatus | None = None) -> GeoDataFrame:
     """
+    .. deprecated:: 0.4.0
+       Use :func:`get_coops_stations` instead.
+
     retrieve a list of CO-OPS stations with associated metadata
 
     :param station_status: one of ``active`` or ``discontinued``
@@ -706,8 +678,8 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
     tables = __coops_stations_html_tables()
 
     status_tables = {
-        StationStatus.ACTIVE: (0, "NWSTable"),
-        StationStatus.DISCONTINUED: (1, "HistNWSTable"),
+        COOPS_StationStatus.ACTIVE: (0, "NWSTable"),
+        COOPS_StationStatus.DISCONTINUED: (1, "HistNWSTable"),
     }
 
     dataframes = {}
@@ -743,7 +715,7 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
         )
         stations.set_index("nos_id", inplace=True)
 
-        if status == StationStatus.DISCONTINUED:
+        if status == COOPS_StationStatus.DISCONTINUED:
             with (Path(__file__).parent / "us_states.json").open() as us_states_file:
                 us_states = json.load(us_states_file)
 
@@ -775,8 +747,8 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
         stations["status"] = status.value
         dataframes[status] = stations
 
-    active_stations = dataframes[StationStatus.ACTIVE]
-    discontinued_stations = dataframes[StationStatus.DISCONTINUED]
+    active_stations = dataframes[COOPS_StationStatus.ACTIVE]
+    discontinued_stations = dataframes[COOPS_StationStatus.DISCONTINUED]
     discontinued_stations.loc[discontinued_stations.index.isin(active_stations.index), "status"] = (
         StationStatus.ACTIVE.value
     )
@@ -789,11 +761,11 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
             discontinued_stations,
         )
     )
-    stations.loc[pandas.isna(stations["status"]), "status"] = StationStatus.ACTIVE.value
+    stations.loc[pandas.isna(stations["status"]), "status"] = COOPS_StationStatus.ACTIVE.value
     stations.sort_values(["status", "removed"], na_position="first", inplace=True)
 
     if station_status is not None:
-        if isinstance(station_status, StationStatus):
+        if isinstance(station_status, COOPS_StationStatus):
             station_status = station_status.value
         stations = stations[stations["status"] == station_status]
 
@@ -803,12 +775,19 @@ def coops_stations(station_status: StationStatus | None = None) -> GeoDataFrame:
     )
 
 
+@deprecated(
+    version="0.4.0",
+    reason="This function is deprecated and will be removed in the future. Replace it with `get_coops_stations`.",
+)
 def coops_stations_within_region(
     region: Polygon | None = None,
-    station_status: StationStatus | None = None,
+    station_status: COOPS_StationStatus | None = None,
 ) -> GeoDataFrame:
     """
-    retrieve all stations within the specified region of interest
+    .. deprecated:: 0.4.0
+       Use :func:`get_coops_stations` instead.
+
+    Retrieve all stations within the specified region of interest
 
     :param region: polygon or multipolygon denoting region of interest
     :param station_status: one of ``active`` or ``discontinued``
@@ -833,18 +812,23 @@ def coops_stations_within_region(
     [164 rows x 6 columns]
     """
 
+    warnings.warn("Using older API, will be removed in the future!", DeprecationWarning)
     stations = coops_stations(station_status=station_status)
     if region is not None:
         return stations[stations.within(region)]
     return stations
 
 
+@deprecated(
+    version="0.4.0",
+    reason="This function is deprecated and will be removed in the future. Replace it with `get_coops_stations`.",
+)
 def coops_stations_within_bounds(
     minx: float,
     miny: float,
     maxx: float,
     maxy: float,
-    station_status: StationStatus | None = None,
+    station_status: COOPS_StationStatus | None = None,
 ) -> GeoDataFrame:
     return coops_stations_within_region(
         region=shapely.geometry.box(minx=minx, miny=miny, maxx=maxx, maxy=maxy),
@@ -852,6 +836,10 @@ def coops_stations_within_bounds(
     )
 
 
+@deprecated(
+    version="0.4.0",
+    reason="This function is deprecated and will be removed in the future. Replace it with `fetch_coops_station`.",
+)
 def coops_product_within_region(
     product: COOPS_Product,
     region: Union[Polygon, MultiPolygon],
@@ -859,10 +847,13 @@ def coops_product_within_region(
     end_date: datetime | None = None,
     datum: COOPS_TidalDatum | None = None,
     interval: COOPS_Interval | None = None,
-    station_status: StationStatus | None = None,
+    station_status: COOPS_StationStatus | None = None,
 ) -> Dataset:
     """
-    retrieve CO-OPS data from within the specified region of interest
+    .. deprecated:: 0.4.0
+       Use :func:`fetch_coops_station` instead.
+
+    Retrieve CO-OPS data from within the specified region of interest
 
     :param product: CO-OPS product; one of ``water_level``, ``air_temperature``, ``water_temperature``, ``wind``, ``air_pressure``, ``air_gap``, ``conductivity``, ``visibility``, ``humidity``, ``salinity``, ``hourly_height``, ``high_low``, ``daily_mean``, ``monthly_mean``, ``one_minute_water_level``, ``predictions``, ``datums``, ``currents``, ``currents_predictions``
     :param region: polygon or multipolygon denoting region of interest
@@ -892,6 +883,7 @@ def coops_product_within_region(
         q        (nos_id, t) object 'p' 'p' 'p' 'p' 'p' 'p' ... 'p' 'p' 'p' 'p' 'p'
     """
 
+    warnings.warn("Using older API, will be removed in the future!", DeprecationWarning)
     stations = coops_stations_within_region(region=region, station_status=station_status)
     station_data = [
         COOPS_Station(station).product(
@@ -908,45 +900,56 @@ def coops_product_within_region(
 
 
 def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
-    df = (
-        df.rename(
-            columns={
-                "id": "nos_id",
-                "shefcode": "nws_id",
-                "lat": "lat",
-                "lng": "lon",
-                "details.removed": "removed",
-            },
-        )
-        .astype(
-            {
-                "nos_id": numpy.int32,
-                "nws_id": "string",
-                "lon": numpy.float32,
-                "lat": numpy.float32,
-                "state": "string",
-                "name": "string",
-                "removed": "datetime64[ns]",
-            },
-        )
-        .set_index("nos_id")[
-            [
-                "nws_id",
-                "name",
-                "state",
-                "lon",
-                "lat",
-                "removed",
-            ]
+    df = df.rename(
+        columns={
+            "id": "nos_id",
+            "shefcode": "nws_id",
+            "lat": "lat",
+            "lng": "lon",
+            "details.removed": "removed",
+        },
+    ).astype(
+        {
+            "nos_id": "string",
+            "nws_id": "string",
+            "lon": numpy.float32,
+            "lat": numpy.float32,
+            "state": "string",
+            "name": "string",
+            "removed": "datetime64[ns]",
+        },
+    )[
+        [
+            "nos_id",
+            "nws_id",
+            "station_type",
+            "name",
+            "state",
+            "lon",
+            "lat",
+            "removed",
         ]
+    ]
+    df["status"] = COOPS_StationStatus.ACTIVE.value
+    df.loc[~df.removed.isna(), "status"] = COOPS_StationStatus.DISCONTINUED.value
+    df = df.drop_duplicates(subset=["nos_id", "nws_id", "station_type", "status", "removed"]).set_index(
+        "nos_id"
     )
-    df["status"] = StationStatus.ACTIVE.value
-    df.loc[~df.removed.isna(), "status"] = StationStatus.DISCONTINUED.value
     gdf = geopandas.GeoDataFrame(
         data=df,
         geometry=geopandas.points_from_xy(df.lon, df.lat, crs="EPSG:4326"),
     )
     return gdf
+
+
+def _get_single_coops_station(station_type: str) -> pd.DataFrame:
+    url = f"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?expand=details&type={station_type}"
+
+    df_thistype = pandas.read_json(url)
+    df_thistype = pandas.json_normalize(df_thistype["stations"])
+    df_thistype["station_type"] = station_type
+
+    return df_thistype
 
 
 @lru_cache(maxsize=1)
@@ -957,19 +960,13 @@ def _get_coops_stations() -> geopandas.GeoDataFrame:
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
 
-    url_active = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?expand=details"
-    url_historic = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=historicwl&expand=details"
+    results = multifutures.multiprocess(
+        _get_single_coops_station, func_kwargs=[{"station_type": st_ty} for st_ty in StationTypes]
+    )
 
-    df_active = pandas.read_json(url_active)
-    df_active = pandas.json_normalize(df_active["stations"])
+    df_all = pandas.concat(r.result for r in results)
 
-    df_historic = pandas.read_json(url_historic)
-    df_historic = pandas.json_normalize(df_historic["stations"])
-    df_historic = df_historic[~df_historic.id.isin(df_active.id)]
-
-    df = pandas.concat((df_active, df_historic))
-
-    coops_stations = normalize_coops_stations(df)
+    coops_stations = normalize_coops_stations(df_all)
     return coops_stations
 
 
@@ -979,9 +976,30 @@ def get_coops_stations(
     lon_max: Optional[float] = None,
     lat_min: Optional[float] = None,
     lat_max: Optional[float] = None,
-    metadata_source: Union[StationMetadataSource, str] = "nws",
+    metadata_source: Union[COOPS_StationMetadataSource, str] = "nws",
 ) -> geopandas.GeoDataFrame:
-    md_src = StationMetadataSource(metadata_source)
+    """
+    Return COOPS station metadata from either COOPS metadata API at
+    https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi
+    or from the COOPS NWS product table at
+    https://access.co-ops.nos.noaa.gov/nwsproducts.html
+
+    If `region` is defined then the stations that are outside of the region are
+    filtered out.. If the coordinates of the Bounding Box are defined then
+    stations outside of the BBox are filtered out. If both ``region`` and the
+    Bounding Box are defined, then an exception is raised.
+
+    Note: The longitudes of the COOPS stations are in the [-180, 180] range.
+
+    :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest
+    :param lon_min: The minimum Longitude of the Bounding Box.
+    :param lon_max: The maximum Longitude of the Bounding Box.
+    :param lat_min: The minimum Latitude of the Bounding Box.
+    :param lat_max: The maximum Latitude of the Bounding Box.
+    :param metadata_source: Metadata API to be used: 'nws' or 'main'
+    :return: ``pandas.DataFrame`` with the station metadata
+    """
+    md_src = COOPS_StationMetadataSource(metadata_source)
 
     region = get_region(
         region=region,
@@ -992,11 +1010,11 @@ def get_coops_stations(
         symmetric=True,
     )
 
-    if md_src == StationMetadataSource.MAIN:
+    if md_src == COOPS_StationMetadataSource.MAIN:
         coops_stations = _get_coops_stations()
         if region:
             coops_stations = coops_stations[coops_stations.within(region)]
-    elif md_src == StationMetadataSource.NWS:
+    elif md_src == COOPS_StationMetadataSource.NWS:
         coops_stations = coops_stations_within_region(region)
     else:
         raise ValueError("Unknown metadata source specified!")

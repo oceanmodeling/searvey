@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import typing as T
 from typing import Dict
 from typing import Final
 from typing import Iterable
@@ -25,11 +26,20 @@ _U = TypeVar("_U")
 
 NOW: Final = "now"
 
+try:
+    from itertools import pairwise
+except ImportError:
+
+    def pairwise(iterable: T.Iterable[_T]) -> T.Iterator[tuple[_T, _T]]:
+        # pairwise('ABCDEFG') --> AB BC CD DE EF FG
+        a, b = itertools.tee(iterable)
+        next(b, None)
+        return zip(a, b)
+
+
 # https://gis.stackexchange.com/questions/201789/verifying-formula-that-will-convert-longitude-0-360-to-180-to-180
 # lon1 is the longitude varying from -180 to 180 or 180W-180E
 # lon3 is the longitude variable from 0 to 360 (all positive)
-
-
 def lon1_to_lon3(lon1: ScalarOrArray) -> ScalarOrArray:
     return lon1 % 360
 

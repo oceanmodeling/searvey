@@ -24,6 +24,7 @@ import lxml  # noqa: F401  # imported but unused
 import pandas as pd
 import requests
 import xarray as xr
+from deprecated import deprecated
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
@@ -201,12 +202,12 @@ def get_ioc_stations(
 
     Note: The longitudes of the IOC stations are in the [-180, 180] range.
 
-    :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest
+    :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest.
     :param lon_min: The minimum Longitude of the Bounding Box.
     :param lon_max: The maximum Longitude of the Bounding Box.
     :param lat_min: The minimum Latitude of the Bounding Box.
     :param lat_max: The maximum Latitude of the Bounding Box.
-    :return: ``pandas.DataFrame`` with the station metadata
+    :return: ``pandas.DataFrame`` with the station metadata.
     """
     region = get_region(
         region=region,
@@ -250,6 +251,10 @@ def normalize_ioc_station_data(ioc_code: str, df: pd.DataFrame, truncate_seconds
     return df
 
 
+@deprecated(
+    version="0.4.0",
+    reason="This function is deprecated and will be removed in the future. Replace it with `fetch_ioc_station`.",
+)
 def get_ioc_station_data(
     ioc_code: str,
     endtime: DateTimeLike = NOW,
@@ -257,7 +262,12 @@ def get_ioc_station_data(
     truncate_seconds: bool = True,
     rate_limit: Optional[RateLimit] = None,
 ) -> pd.DataFrame:
-    """Retrieve the TimeSeries of a single IOC station."""
+    """
+    .. deprecated:: 0.4.0
+       Use :func:`fetch_ioc_station` instead.
+
+    Retrieve the TimeSeries of a single IOC station.
+    """
 
     if rate_limit:
         while rate_limit.reached(identifier="IOC"):
@@ -284,6 +294,10 @@ def get_ioc_station_data(
     return df
 
 
+@deprecated(
+    version="0.4.0",
+    reason="This function is deprecated and will be removed in the future. Replace it with `fetch_ioc_station`.",
+)
 def get_ioc_data(
     ioc_metadata: pd.DataFrame,
     endtime: DateTimeLike = NOW,
@@ -293,6 +307,9 @@ def get_ioc_data(
     disable_progress_bar: bool = False,
 ) -> xr.Dataset:
     """
+    .. deprecated:: 0.4.0
+       Use :func:`fetch_ioc_station` instead.
+
     Return the data of the stations specified in ``ioc_metadata`` as an ``xr.Dataset``.
 
     ``truncate_seconds`` needs some explaining. IOC has more than 1000 stations.
@@ -324,6 +341,7 @@ def get_ioc_data(
     :param truncate_seconds: If ``True`` then timestamps are truncated to minutes (seconds are dropped)
     :param rate_limit: The default rate limit is 5 requests/second.
     :param disable_progress_bar: If ``True`` then the progress bar is not displayed.
+    :returns: An ``xr.Dataset`` with the station data.
 
     """
     if period > IOC_MAX_DAYS_PER_REQUEST:
