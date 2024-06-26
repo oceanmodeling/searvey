@@ -5,8 +5,10 @@ import logging
 from typing import List
 
 import geopandas as gpd
+import multifutures
 import numpy as np
 import pandas as pd
+from ndbc_api import NdbcApi
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
@@ -14,9 +16,6 @@ from searvey._common import _resolve_end_date
 from searvey._common import _resolve_start_date
 from searvey.custom_types import DatetimeLike
 from searvey.utils import get_region
-import multifutures
-
-from ndbc_api import NdbcApi
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +38,7 @@ def _get_ndbc_stations() -> gpd.GeoDataFrame:
     stations_df["lat"] = stations_df["lat"] * np.where(stations_df["ns"] == "S", -1, 1)
     stations_df["lon"] = stations_df["lon"] * np.where(stations_df["ew"] == "W", -1, 1)
     stations_df = stations_df.drop(columns=["Location Lat/Long"])
-    
-        
+
     stations_df = gpd.GeoDataFrame(
         data=stations_df,
         geometry=gpd.points_from_xy(stations_df.lon, stations_df.lat, crs="EPSG:4326"),
@@ -83,7 +81,6 @@ def get_ndbc_stations(
     return ndbc_stations
 
 
-
 def _fetch_ndbc_station_data(
     station_id: str,
     mode: str,
@@ -108,6 +105,7 @@ def _fetch_ndbc_station_data(
         logger.error(f"Error fetching data for station {station_id}: {str(e)}")
         return pd.DataFrame()
 
+
 def fetch_ndbc_stations_data(
     station_ids: List[str],
     mode: str,
@@ -129,16 +127,14 @@ def fetch_ndbc_stations_data(
         TimeSeries.
     """
     now = pd.Timestamp.now("utc")
-    start_date = _resolve_start_date(now, start_date)
-    end_date = _resolve_end_date(now, end_date)
 
     # Prepare arguments for each function call
     func_kwargs = [
         {
             "station_id": station_id,
             "mode": mode,
-            "start_time": start_date[0],
-            "end_time": end_date[0],
+            "start_time": _resolve_start_date(now, start_date)[0],
+            "end_time": _resolve_end_date(now, end_date)[0],
             "columns": columns,
         }
         for station_id in station_ids
@@ -154,8 +150,6 @@ def fetch_ndbc_stations_data(
     # Check for errors and collect results
     multifutures.check_results(results)
     dataframes = {
-        result.kwargs["station_id"]: result.result
-        for result in results
-        if result.exception is None
+        result.kwargs["station_id"]: result.result for result in results if result.exception is None  # type: ignore[index]
     }
     return dataframes
