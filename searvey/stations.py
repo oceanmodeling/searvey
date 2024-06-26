@@ -8,10 +8,10 @@ import pandas as pd
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
+from . import _ndbc_api
 from . import coops
 from . import ioc
 from . import usgs
-from . import _ndbc_api
 
 STATIONS_COLUMNS: list[str] = [
     "provider",
@@ -145,6 +145,7 @@ def _get_usgs_stations(
 
     return usgs_gdf
 
+
 def _get_ndbc_stations(
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
@@ -157,11 +158,11 @@ def _get_ndbc_stations(
         location=pd.NaT,
         lon=ndbc_gdf.lon,
         lat=ndbc_gdf.lat,
-        is_active=True,#assuming all NDBC stations are active
+        is_active=True,  # assuming all NDBC stations are active
         start_date=pd.NaT,
         last_observation=pd.NaT,
     )[STATIONS_COLUMNS]
-    
+
     return ndbc_gdf
 
 
