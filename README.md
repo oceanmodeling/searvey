@@ -16,6 +16,7 @@ Searvey aims to provide the following functionality:
     - U.S. Center for Operational Oceanographic Products and Services (CO-OPS)
     - Flanders Marine Institute (VLIZ); Intergovernmental Oceanographic Commission (IOC)
     - U.S. Geological Survey (USGS)
+    - National Data Buoy Center (NDBC)
 
 ## Installation
 

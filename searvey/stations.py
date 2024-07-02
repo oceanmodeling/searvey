@@ -8,10 +8,10 @@ import pandas as pd
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
+from . import _ndbc_api
 from . import coops
 from . import ioc
 from . import usgs
-
 
 STATIONS_COLUMNS: list[str] = [
     "provider",
@@ -36,6 +36,7 @@ class Provider(str, Enum):
     COOPS: str = "COOPS"
     IOC: str = "IOC"
     USGS: str = "USGS"
+    NDBC: str = "NDBC"
 
 
 def _get_ioc_stations(
@@ -145,6 +146,26 @@ def _get_usgs_stations(
     return usgs_gdf
 
 
+def _get_ndbc_stations(
+    region: Polygon | MultiPolygon | None = None,
+) -> gpd.GeoDataFrame:
+    ndbc_gdf = _ndbc_api.get_ndbc_stations(region=region)
+
+    ndbc_gdf = ndbc_gdf.assign(
+        provider=Provider.NDBC.value,
+        provider_id=ndbc_gdf.Station,
+        country="USA",
+        location=pd.NaT,
+        lon=ndbc_gdf.lon,
+        lat=ndbc_gdf.lat,
+        is_active=True,  # assuming all NDBC stations are active
+        start_date=pd.NaT,
+        last_observation=pd.NaT,
+    )[STATIONS_COLUMNS]
+
+    return ndbc_gdf
+
+
 def get_stations(
     activity_threshold: datetime.timedelta = datetime.timedelta(days=3),
     providers: list[Provider] = Provider.ALL,
@@ -160,5 +181,7 @@ def get_stations(
         dataframes.append(_get_coops_stations(region=region))
     if Provider.ALL in providers or Provider.USGS in providers:
         dataframes.append(_get_usgs_stations(activity_threshold=activity_threshold, region=region))
+    if Provider.ALL in providers or Provider.NDBC in providers:
+        dataframes.append(_get_ndbc_stations(region=region))
     df = pd.concat(dataframes).reset_index(drop=True)
     return df
