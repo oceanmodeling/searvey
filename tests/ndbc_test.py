@@ -34,7 +34,7 @@ def test_fetch_ndbc_stations_data():
     """
     This test will attempt to get data for a single station.
     """
-    dataframes = ndbc.fetch_ndbc_stations_data(
+    dataframes = ndbc.fetch_ndbc_station(
         station_ids=["SRST2"],
         mode="stdmet",
         # test that both formats work
@@ -75,7 +75,7 @@ def test_fetch_ndbc_stations_data_multiple():
     This test will attempt to get data for multiple stations.
     """
 
-    dataframes = ndbc.fetch_ndbc_stations_data(
+    dataframes = ndbc.fetch_ndbc_station(
         station_ids=["STDM4", "TPLM2"],
         mode="stdmet",
         # test that both formats work
@@ -137,7 +137,7 @@ def test_fetch_ndbc_stations_data_multiple_unavaliable_avaliable_data():
     """
     This is a test that makes sure that the function can handle when some stations have data and some don't.
     """
-    dataframes = ndbc.fetch_ndbc_stations_data(
+    dataframes = ndbc.fetch_ndbc_station(
         station_ids=["41001", "STDM4"],
         mode="stdmet",
         # test that both formats work

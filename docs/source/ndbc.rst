@@ -20,5 +20,5 @@ NDBC's different modes:
 A list of NDBC stations is provided with the ``get_ndbc_stations`` functions
 .. autofunction:: searvey._ndbc_api.get_ndbc_stations
 
-The data from a specific station/stations can be retrieved with the ``fetch_ndbc_stations_data`` function
-.. autofunction:: searvey._ndbc_api.fetch_ndbc_stations_data
+The data from a specific station/stations can be retrieved with the ``fetch_ndbc_station`` function
+.. autofunction:: searvey._ndbc_api.fetch_ndbc_station

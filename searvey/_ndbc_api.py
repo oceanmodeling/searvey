@@ -81,7 +81,7 @@ def get_ndbc_stations(
     return ndbc_stations
 
 
-def _fetch_ndbc_station_data(
+def _fetch_ndbc(
     station_id: str,
     mode: str,
     start_time: pd.Timestamp,
@@ -106,7 +106,7 @@ def _fetch_ndbc_station_data(
         return pd.DataFrame()
 
 
-def fetch_ndbc_stations_data(
+def fetch_ndbc_station(
     station_ids: List[str],
     mode: str,
     start_date: DatetimeLike | None = None,
@@ -142,7 +142,7 @@ def fetch_ndbc_stations_data(
 
     # Fetch data concurrently using multithreading
     results: list[multifutures.FutureResult] = multifutures.multithread(
-        func=_fetch_ndbc_station_data,
+        func=_fetch_ndbc,
         func_kwargs=func_kwargs,
         executor=multithreading_executor,
     )
