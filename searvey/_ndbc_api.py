@@ -82,31 +82,6 @@ def get_ndbc_stations(
 
 
 def _fetch_ndbc(
-    station_id: str,
-    mode: str,
-    start_time: pd.Timestamp,
-    end_time: pd.Timestamp,
-    columns: list[str] | None = None,
-) -> pd.DataFrame:
-    """Retrieve the TimeSeries of a single NDBC station."""
-    try:
-        df = ndbc_api.get_data(
-            station_id=station_id,
-            mode=mode,
-            start_time=start_time,
-            end_time=end_time,
-            as_df=True,
-            cols=columns,
-        )
-        if df.empty:
-            logger.warnings(f"No data avaliable for station {station_id}")
-        return df
-    except Exception as e:
-        logger.error(f"Error fetching data for station {station_id}: {str(e)}")
-        return pd.DataFrame()
-
-
-def fetch_ndbc_station(
     station_ids: List[str],
     mode: str,
     start_date: DatetimeLike | None = None,
@@ -142,7 +117,7 @@ def fetch_ndbc_station(
 
     # Fetch data concurrently using multithreading
     results: list[multifutures.FutureResult] = multifutures.multithread(
-        func=_fetch_ndbc,
+        func=fetch_ndbc_station,
         func_kwargs=func_kwargs,
         executor=multithreading_executor,
     )
@@ -153,3 +128,31 @@ def fetch_ndbc_station(
         result.kwargs["station_id"]: result.result for result in results if result.exception is None  # type: ignore[index]
     }
     return dataframes
+
+
+def fetch_ndbc_station(
+    station_id: str,
+    mode: str,
+    start_time: pd.Timestamp,
+    end_time: pd.Timestamp,
+    columns: list[str] | None = None,
+) -> pd.DataFrame:
+    """Retrieve the TimeSeries of a single NDBC station."""
+    try:
+        df = ndbc_api.get_data(
+            station_id=station_id,
+            mode=mode,
+            start_time=start_time,
+            end_time=end_time,
+            as_df=True,
+            cols=columns,
+        )
+
+        if df.empty:
+            logger.warnings(f"No data avaliable for station {station_id}")
+        return df
+    
+    except Exception as e:
+        logger.error(f"Error fetching data for station {station_id}: {str(e)}")
+        return pd.DataFrame()
+
