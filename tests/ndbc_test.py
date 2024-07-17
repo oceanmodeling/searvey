@@ -30,12 +30,12 @@ def test_get_ndbc_stations_within_box():
     ).all()
 
 
-def test_fetch_ndbc_stations_data():
+def test_fetch_ndbc_station_data():
     """
     This test will attempt to get data for a single station.
     """
     dataframes = ndbc.fetch_ndbc_station(
-        station_ids=["SRST2"],
+        station_ids="SRST2",
         mode="stdmet",
         # test that both formats work
         start_date=datetime.date(2023, 1, 1),
@@ -70,12 +70,12 @@ def test_fetch_ndbc_stations_data():
     assert df.index[-1] == pd.to_datetime("2023-01-10 00:00:00")
 
 
-def test_fetch_ndbc_stations_data_multiple():
+def test__fetch_ndbc_data_multiple():
     """
     This test will attempt to get data for multiple stations.
     """
 
-    dataframes = ndbc.fetch_ndbc_station(
+    dataframes = ndbc._fetch_ndbc(
         station_ids=["STDM4", "TPLM2"],
         mode="stdmet",
         # test that both formats work
@@ -133,11 +133,11 @@ def test_fetch_ndbc_stations_data_multiple():
     assert df1.index[0] == pd.to_datetime("2023-01-01 00:00:00")
 
 
-def test_fetch_ndbc_stations_data_multiple_unavaliable_avaliable_data():
+def test__fetch_ndbc_data_multiple_unavaliable_avaliable_data():
     """
     This is a test that makes sure that the function can handle when some stations have data and some don't.
     """
-    dataframes = ndbc.fetch_ndbc_station(
+    dataframes = ndbc._fetch_ndbc(
         station_ids=["41001", "STDM4"],
         mode="stdmet",
         # test that both formats work
