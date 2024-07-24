@@ -149,7 +149,7 @@ def fetch_ndbc_station(
         )
 
         if df.empty:
-            logger.warnings(f"No data avaliable for station {station_id}")
+            logger.warning(f"No data available for station {station_id}")
         return df
     
     except Exception as e:
