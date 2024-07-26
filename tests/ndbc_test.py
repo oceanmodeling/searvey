@@ -35,7 +35,7 @@ def test_fetch_ndbc_station_data():
     This test will attempt to get data for a single station.
     """
     dataframes = ndbc.fetch_ndbc_station(
-        station_ids="SRST2",
+        station_id="SRST2",
         mode="stdmet",
         # test that both formats work
         start_date=datetime.date(2023, 1, 1),
