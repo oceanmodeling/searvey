@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import functools
 import logging
-from typing import List
+from typing import List, Union
 
 import geopandas as gpd
 import multifutures
@@ -84,8 +84,8 @@ def get_ndbc_stations(
 def _fetch_ndbc(
     station_ids: List[str],
     mode: str,
-    start_date: DatetimeLike | None = None,
-    end_date: DatetimeLike | None = None,
+    start_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
+    end_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
     columns: list[str] | None = None,
     multithreading_executor: multifutures.ExecutorProtocol | None = None,
 ) -> dict[str, pd.DataFrame]:
@@ -94,8 +94,8 @@ def _fetch_ndbc(
 
     :param station_ids: A list of station identifiers.
     :param mode: Data mode. One of  ``'txt'``, ``'json'``, ``'spec'``.
-    :param start_date: The starting date of the query. Defaults to 7 days ago.
-    :param end_date: The finishing date of the query. Defaults to "now".
+    :param start_dates: The starting date of the query. Defaults to 7 days ago.
+    :param end_dates: The finishing date of the query. Defaults to "now".
     :param columns:
     :param multithreading_executor: A multithreading executor.
     :return: A dictionary mapping station identifiers to their respective
@@ -103,16 +103,26 @@ def _fetch_ndbc(
     """
     now = pd.Timestamp.now("utc")
 
+    # Ensure start_dates and end_dates are lists
+    if not isinstance(start_dates, list):
+        start_dates = [start_dates] * len(station_ids)
+    if not isinstance(end_dates, list):
+        end_dates = [end_dates] * len(station_ids)
+
+    # Ensure that each station has a start_date and end_date
+    if len(start_dates) != len(station_ids) or len(end_dates) != len(station_ids):
+        raise ValueError("Each station must have a start_date and end_date")
+
     # Prepare arguments for each function call
     func_kwargs = [
         {
             "station_id": station_id,
             "mode": mode,
-            "start_time": _resolve_start_date(now, start_date)[0],
-            "end_time": _resolve_end_date(now, end_date)[0],
+            "start_date": _resolve_start_date(now, start_dates)[0],
+            "end_date": _resolve_end_date(now, end_dates)[0],
             "columns": columns,
         }
-        for station_id in station_ids
+        for station_id, start_dates, end_dates in zip(station_ids, start_dates, end_dates)
     ]
 
     # Fetch data concurrently using multithreading
@@ -124,8 +134,10 @@ def _fetch_ndbc(
 
     # Check for errors and collect results
     multifutures.check_results(results)
+
     dataframes = {
         result.kwargs["station_id"]: result.result for result in results if result.exception is None  # type: ignore[index]
+
     }
     return dataframes
 
@@ -133,26 +145,40 @@ def _fetch_ndbc(
 def fetch_ndbc_station(
     station_id: str,
     mode: str,
-    start_time: pd.Timestamp,
-    end_time: pd.Timestamp,
+    start_date: pd.Timestamp,
+    end_date: pd.Timestamp,
     columns: list[str] | None = None,
 ) -> pd.DataFrame:
-    """Retrieve the TimeSeries of a single NDBC station."""
+    """
+    Retrieve the TimeSeries of a single NDBC station.
+    Make a query to the NDBC API for data for ``station_id``
+    and return the results as a pandas dataframe.
+
+    :param station_id: The station identifier.
+    :param mode: Data mode. Read the example ndbc file for more info.
+    :param start_date: The starting date of the query.
+    :param end_date: The finishing date of the query.
+    :param columns: List of columns to retrieve.
+    :return: ``pandas.DataFrame`` with the station data.
+    """
+    logger.info("NDBC-%s: Starting data retrieval: %s - %s", station_id, start_date, end_date)
     try:
         df = ndbc_api.get_data(
             station_id=station_id,
             mode=mode,
-            start_time=start_time,
-            end_time=end_time,
+            start_time=start_date,
+            end_time=end_date,
             as_df=True,
             cols=columns,
         )
 
         if df.empty:
             logger.warning(f"No data available for station {station_id}")
+
+        logger.info("NDBC-%s: Finished data retrieval: %s - %s", station_id, start_date, end_date)
+
         return df
-    
+
     except Exception as e:
         logger.error(f"Error fetching data for station {station_id}: {str(e)}")
         return pd.DataFrame()
-

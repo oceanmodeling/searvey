@@ -38,8 +38,8 @@ def test_fetch_ndbc_station_data():
         station_id="SRST2",
         mode="stdmet",
         # test that both formats work
-        start_date=datetime.date(2023, 1, 1),
-        end_date="2023-01-10",
+        start_dates=datetime.date(2023, 1, 1),
+        end_dates="2023-01-10"
     )
 
     assert isinstance(dataframes, dict)
@@ -70,7 +70,7 @@ def test_fetch_ndbc_station_data():
     assert df.index[-1] == pd.to_datetime("2023-01-10 00:00:00")
 
 
-def test__fetch_ndbc_data_multiple():
+def test_fetch_ndbc_data_multiple():
     """
     This test will attempt to get data for multiple stations.
     """
@@ -79,8 +79,8 @@ def test__fetch_ndbc_data_multiple():
         station_ids=["STDM4", "TPLM2"],
         mode="stdmet",
         # test that both formats work
-        start_date=datetime.date(2023, 1, 1),
-        end_date="2023-01-10",
+        start_dates=[datetime.date(2023, 1, 1),"2023-01-01"],
+        end_dates=["2023-01-10","2023-01-20"]
     )
 
     assert isinstance(dataframes, dict)
@@ -133,7 +133,7 @@ def test__fetch_ndbc_data_multiple():
     assert df1.index[0] == pd.to_datetime("2023-01-01 00:00:00")
 
 
-def test__fetch_ndbc_data_multiple_unavaliable_avaliable_data():
+def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
     """
     This is a test that makes sure that the function can handle when some stations have data and some don't.
     """
@@ -141,8 +141,8 @@ def test__fetch_ndbc_data_multiple_unavaliable_avaliable_data():
         station_ids=["41001", "STDM4"],
         mode="stdmet",
         # test that both formats work
-        start_date=datetime.date(2023, 1, 1),
-        end_date="2023-01-10",
+        start_dates=[datetime.date(2023, 1, 1),"2023-01-01"],
+        end_dates=["2023-01-10","2023-01-20"]
     )
 
     assert isinstance(dataframes, dict)
