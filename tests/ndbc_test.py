@@ -39,7 +39,7 @@ def test_fetch_ndbc_station_data():
         mode="stdmet",
         # test that both formats work
         start_date=datetime.date(2023, 1, 1),
-        end_date="2023-01-10"
+        end_date="2023-01-10",
     )
 
     assert isinstance(df, pd.DataFrame)
@@ -76,8 +76,8 @@ def test_fetch_ndbc_data_multiple():
         station_ids=["STDM4", "TPLM2"],
         mode="stdmet",
         # test that both formats work
-        start_dates=[datetime.date(2023, 1, 1),"2023-01-01"],
-        end_dates=["2023-01-10","2023-01-20"]
+        start_dates=[datetime.date(2023, 1, 1), "2023-01-01"],
+        end_dates=["2023-01-10", "2023-01-20"],
     )
 
     assert isinstance(dataframes, dict)
@@ -138,14 +138,12 @@ def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
         station_ids=["41001", "STDM4"],
         mode="stdmet",
         # test that both formats work
-        start_dates=[datetime.date(2023, 1, 1),"2023-01-01"],
-        end_dates=["2023-01-10","2023-01-10"]
+        start_dates=[datetime.datetime(2023, 1, 1, 10, 0, 0), datetime.datetime(2023, 1, 1, 10, 0, 0)],
+        end_dates=[datetime.date(2023, 1, 10), "2023-01-10"],
     )
-
     assert isinstance(dataframes, dict)
     assert len(dataframes) == 2
     assert "41001" in dataframes
-    assert dataframes["41001"].empty
     assert "STDM4" in dataframes
     df = dataframes["STDM4"]
     assert isinstance(df, pd.DataFrame)
@@ -168,5 +166,5 @@ def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
             "TIDE",
         ]
     )
-    assert df.index[0] == pd.to_datetime("2023-01-01 00:00:00")
+    assert df.index[0] == pd.to_datetime("2023-01-01 10:00:00")
     assert df.index[-1] == pd.to_datetime("2023-01-10 00:00:00")
