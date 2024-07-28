@@ -118,16 +118,15 @@ def _fetch_ndbc(
         {
             "station_id": station_id,
             "mode": mode,
-            "start_date": _resolve_start_date(now, start_dates)[0],
-            "end_date": _resolve_end_date(now, end_dates)[0],
+            "start_time": _resolve_start_date(now, start_dates)[0],
+            "end_time": _resolve_end_date(now, end_dates)[0],
             "columns": columns,
         }
         for station_id, start_dates, end_dates in zip(station_ids, start_dates, end_dates)
     ]
-
     # Fetch data concurrently using multithreading
     results: list[multifutures.FutureResult] = multifutures.multithread(
-        func=fetch_ndbc_station,
+        func=ndbc_api.get_data,
         func_kwargs=func_kwargs,
         executor=multithreading_executor,
     )
@@ -163,14 +162,14 @@ def fetch_ndbc_station(
     """
     logger.info("NDBC-%s: Starting data retrieval: %s - %s", station_id, start_date, end_date)
     try:
-        df = ndbc_api.get_data(
-            station_id=station_id,
+
+        df = _fetch_ndbc(
+            station_ids=[station_id],
             mode=mode,
-            start_time=start_date,
-            end_time=end_date,
-            as_df=True,
-            cols=columns,
-        )
+            start_dates=start_date,
+            end_dates=end_date,
+            columns=columns,
+        )[station_id]
 
         if df.empty:
             logger.warning(f"No data available for station {station_id}")
