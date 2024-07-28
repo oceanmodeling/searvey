@@ -34,7 +34,7 @@ def test_fetch_ndbc_station_data():
     """
     This test will attempt to get data for a single station.
     """
-    dataframes = ndbc.fetch_ndbc_station(
+    df = ndbc.fetch_ndbc_station(
         station_id="SRST2",
         mode="stdmet",
         # test that both formats work
@@ -42,11 +42,8 @@ def test_fetch_ndbc_station_data():
         end_date="2023-01-10"
     )
 
-    assert isinstance(dataframes, dict)
-    assert len(dataframes) == 1
-    assert "SRST2" in dataframes
-    df = dataframes["SRST2"]
     assert isinstance(df, pd.DataFrame)
+
     assert df.index.name == "timestamp"
     assert all(
         col in df.columns
