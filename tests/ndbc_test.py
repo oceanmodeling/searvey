@@ -38,8 +38,8 @@ def test_fetch_ndbc_station_data():
         station_id="SRST2",
         mode="stdmet",
         # test that both formats work
-        start_dates=datetime.date(2023, 1, 1),
-        end_dates="2023-01-10"
+        start_date=datetime.date(2023, 1, 1),
+        end_date="2023-01-10"
     )
 
     assert isinstance(dataframes, dict)
@@ -142,7 +142,7 @@ def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
         mode="stdmet",
         # test that both formats work
         start_dates=[datetime.date(2023, 1, 1),"2023-01-01"],
-        end_dates=["2023-01-10","2023-01-20"]
+        end_dates=["2023-01-10","2023-01-10"]
     )
 
     assert isinstance(dataframes, dict)
