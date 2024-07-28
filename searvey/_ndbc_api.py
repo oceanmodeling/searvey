@@ -120,7 +120,7 @@ def _fetch_ndbc(
             "mode": mode,
             "start_time": _resolve_start_date(now, start_dates)[0],
             "end_time": _resolve_end_date(now, end_dates)[0],
-            "columns": columns,
+            "cols": columns,
         }
         for station_id, start_dates, end_dates in zip(station_ids, start_dates, end_dates)
     ]
