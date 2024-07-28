@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import functools
 import logging
-from typing import List, Union
+from typing import List
+from typing import Union
 
 import geopandas as gpd
 import multifutures
@@ -96,7 +97,7 @@ def _fetch_ndbc(
     :param mode: Data mode. One of  ``'txt'``, ``'json'``, ``'spec'``.
     :param start_dates: The starting date of the query. Defaults to 7 days ago.
     :param end_dates: The finishing date of the query. Defaults to "now".
-    :param columns:
+    :param columns: Optional list of columns to retrieve.
     :param multithreading_executor: A multithreading executor.
     :return: A dictionary mapping station identifiers to their respective
         TimeSeries.
@@ -131,13 +132,7 @@ def _fetch_ndbc(
         executor=multithreading_executor,
     )
 
-    # Check for errors and collect results
-    multifutures.check_results(results)
-
-    dataframes = {
-        result.kwargs["station_id"]: result.result for result in results if result.exception is None  # type: ignore[index]
-
-    }
+    dataframes = {result.kwargs["station_id"]: result.result for result in results}
     return dataframes
 
 
@@ -157,7 +152,7 @@ def fetch_ndbc_station(
     :param mode: Data mode. Read the example ndbc file for more info.
     :param start_date: The starting date of the query.
     :param end_date: The finishing date of the query.
-    :param columns: List of columns to retrieve.
+    :param columns: Optional list of columns to retrieve.
     :return: ``pandas.DataFrame`` with the station data.
     """
     logger.info("NDBC-%s: Starting data retrieval: %s - %s", station_id, start_date, end_date)
