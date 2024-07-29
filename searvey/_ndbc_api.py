@@ -132,7 +132,11 @@ def _fetch_ndbc(
         executor=multithreading_executor,
     )
 
-    dataframes = {result.kwargs["station_id"]: pd.DataFrame(result.result) for result in results if result.kwargs is not None}
+    dataframes = {
+        result.kwargs["station_id"]: pd.DataFrame(result.result)
+        for result in results
+        if result.kwargs is not None
+    }
     return dataframes
 
 
