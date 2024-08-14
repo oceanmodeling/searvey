@@ -1,24 +1,31 @@
 from __future__ import annotations
 
+import functools
+import json
 import logging
 import typing as T
-from typing import List, Union
-import functools
+from typing import List
+from typing import Union
+
 import geopandas as gpd
+import httpx
 import multifutures
 import pandas as pd
-import httpx
-from shapely.geometry import MultiPolygon, Polygon
+from shapely.geometry import MultiPolygon
+from shapely.geometry import Polygon
 
-from searvey._common import _resolve_end_date, _resolve_start_date, _resolve_http_client, _resolve_rate_limit
-import json
 from searvey._common import _fetch_url
+from searvey._common import _resolve_end_date
+from searvey._common import _resolve_http_client
+from searvey._common import _resolve_rate_limit
+from searvey._common import _resolve_start_date
 from searvey.custom_types import DatetimeLike
 from searvey.utils import get_region
 
 logger = logging.getLogger(__name__)
 
 CHS_BASE_URL = "https://api-iwls.dfo-mpo.gc.ca/api/v1"
+
 
 @functools.lru_cache
 def get_chs_stations(
@@ -58,3 +65,128 @@ def get_chs_stations(
         stations_df = stations_df[stations_df.within(region)]
 
     return stations_df
+
+
+def _fetch_chs(
+    station_ids: List[str],
+    time_series_code: str,
+    start_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
+    end_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
+    rate_limit: multifutures.RateLimit | None = None,
+    http_client: httpx.Client | None = None,
+    multithreading_executor: multifutures.ExecutorProtocol | None = None,
+) -> dict[str, pd.DataFrame]:
+    """
+    Retrieve the TimeSeries for multiple CHS stations using multithreading.
+    """
+    now = pd.Timestamp.now("utc")
+    rate_limit = _resolve_rate_limit(rate_limit)
+    http_client = _resolve_http_client(http_client)
+
+    # Ensure start_dates and end_dates are lists
+    if not isinstance(start_dates, list):
+        start_dates = [start_dates] * len(station_ids)
+    if not isinstance(end_dates, list):
+        end_dates = [end_dates] * len(station_ids)
+
+    # Ensure that each station has a start_date and end_date
+    if len(start_dates) != len(station_ids) or len(end_dates) != len(station_ids):
+        raise ValueError("Each station must have a start_date and end_date")
+
+    # Prepare arguments for each function call
+    func_kwargs = [
+        {
+            "station_id": station_id,
+            "time_series_code": time_series_code,
+            "start_time": _resolve_start_date(now, start_date)[0],
+            "end_time": _resolve_end_date(now, end_date)[0],
+            "client": http_client,
+            "rate_limit": rate_limit,
+        }
+        for station_id, start_date, end_date in zip(station_ids, start_dates, end_dates)
+    ]
+    # Fetch data concurrently using multithreading
+    results: list[multifutures.FutureResult] = multifutures.multithread(
+        func=_fetch_chs_station_data,
+        func_kwargs=func_kwargs,
+        executor=multithreading_executor,
+    )
+
+    dataframes = {
+        result.kwargs["station_id"]: pd.DataFrame(result.result)
+        for result in results
+        if result.kwargs is not None and result.result is not None
+    }
+    return dataframes
+
+def _fetch_chs_station_data(
+    station_id: str,
+    time_series_code: str,
+    start_time: pd.Timestamp,
+    end_time: pd.Timestamp,
+    client: httpx.Client,
+    rate_limit: multifutures.RateLimit,
+) -> List[dict]:
+    """
+    Fetch data for a single CHS station.
+    Should not be called directly, this is a method used by other methods to generate a url and fetch data.
+    """
+    # Check if the data interval is more than 7 days
+    if (end_time - start_time) > pd.Timedelta(days=7):
+        raise ValueError("Data interval cannot be more than 7 days")
+
+    if end_time < start_time:
+        raise ValueError(f"'end_date' must be after 'start_date': {end_time} vs {start_time}")
+    if start_time == end_time:
+        return []
+
+    url = f"{CHS_BASE_URL}/stations/{station_id}/data?"
+    # Include time-series code directly in the URL
+    url += f"time-series-code={time_series_code}"
+    # Use ISO formatted strings for timestamps
+    url += f"&from={start_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+    url += f"&to={end_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
+    data = _fetch_url(
+        url=url,
+        client=client,
+        rate_limit=rate_limit,
+        redirect=False
+    )
+    data = json.loads(data)
+    return data
+
+
+def fetch_chs_station(
+    station_id: str,
+    time_series_code: str,
+    start_date: DatetimeLike,
+    end_date: DatetimeLike,
+    rate_limit: multifutures.RateLimit | None = None,
+    http_client: httpx.Client | None = None,
+) -> pd.DataFrame:
+    """
+    Retrieve the TimeSeries of a single CHS station.
+    Make a query to the CHS API for data for `station_id`
+    and return the results as a pandas dataframe.
+    """
+    logger.info("CHS-%s: Starting data retrieval: %s - %s", station_id, start_date, end_date)
+    try:
+        df = _fetch_chs(
+            station_ids=[station_id],
+            time_series_code=time_series_code,
+            start_dates=[start_date],
+            end_dates=[end_date],
+            rate_limit=rate_limit,
+            http_client=http_client,
+        )[station_id]
+
+        if df.empty:
+            logger.warning(f"No data available for station {station_id}")
+        #write an example df with a row of fake data
+        logger.info("CHS-%s: Finished data retrieval: %s - %s", station_id, start_date, end_date)
+
+        return df
+
+    except Exception as e:
+        logger.error(f"Error fetching data for station {station_id}: {str(e)}")
+        return pd.DataFrame()
