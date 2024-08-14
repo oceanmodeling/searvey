@@ -119,6 +119,7 @@ def _fetch_chs(
     }
     return dataframes
 
+
 def _fetch_chs_station_data(
     station_id: str,
     time_series_code: str,
@@ -146,12 +147,7 @@ def _fetch_chs_station_data(
     # Use ISO formatted strings for timestamps
     url += f"&from={start_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
     url += f"&to={end_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
-    data = _fetch_url(
-        url=url,
-        client=client,
-        rate_limit=rate_limit,
-        redirect=False
-    )
+    data = _fetch_url(url=url, client=client, rate_limit=rate_limit, redirect=False)
     data = json.loads(data)
     return data
 
@@ -182,7 +178,7 @@ def fetch_chs_station(
 
         if df.empty:
             logger.warning(f"No data available for station {station_id}")
-        #write an example df with a row of fake data
+        # write an example df with a row of fake data
         logger.info("CHS-%s: Finished data retrieval: %s - %s", station_id, start_date, end_date)
 
         return df
