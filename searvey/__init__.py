@@ -10,6 +10,8 @@ from searvey.ioc import get_ioc_stations
 from searvey.stations import get_stations
 from searvey.stations import Provider
 from searvey.usgs import get_usgs_stations
+from searvey._chs_api import get_chs_stations
+from searvey._chs_api import _fetch_chs
 
 __version__ = importlib.metadata.version(__name__)
 
@@ -22,6 +24,8 @@ __all__: list[str] = [
     "get_ioc_stations",
     "get_stations",
     "get_usgs_stations",
+    "get_chs_stations",
+    "fetch_chs",
     "Provider",
     "__version__",
 ]
