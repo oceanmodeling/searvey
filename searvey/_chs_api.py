@@ -70,8 +70,8 @@ def get_chs_stations(
 def _fetch_chs(
     station_ids: List[str],
     time_series_code: str,
-    start_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
-    end_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
+    start_dates: Union[DatetimeLike, List[DatetimeLike]],
+    end_dates: Union[DatetimeLike, List[DatetimeLike]],
     rate_limit: multifutures.RateLimit | None = None,
     http_client: httpx.Client | None = None,
     multithreading_executor: multifutures.ExecutorProtocol | None = None,
@@ -82,6 +82,7 @@ def _fetch_chs(
     now = pd.Timestamp.now("utc")
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
+
 
     # Ensure start_dates and end_dates are lists
     if not isinstance(start_dates, list):
