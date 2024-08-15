@@ -83,7 +83,6 @@ def _fetch_chs(
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
 
-
     # Ensure start_dates and end_dates are lists
     if not isinstance(start_dates, list):
         start_dates = [start_dates] * len(station_ids)
