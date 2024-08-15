@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.metadata
 
+from searvey._chs_api import fetch_chs_station
+from searvey._chs_api import get_chs_stations
 from searvey._coops_api import fetch_coops_station
 from searvey._ioc_api import fetch_ioc_station
 from searvey.coops import get_coops_stations
@@ -22,6 +24,8 @@ __all__: list[str] = [
     "get_ioc_stations",
     "get_stations",
     "get_usgs_stations",
+    "get_chs_stations",
+    "fetch_chs_station",
     "Provider",
     "__version__",
 ]
