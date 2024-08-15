@@ -1,14 +1,16 @@
 import datetime
-import pandas as pd
+
 import geopandas as gpd
-from shapely.geometry import Polygon
+import pandas as pd
 
 import searvey._chs_api as chs
+
 
 def test_get_chs_stations():
     stations = chs.get_chs_stations()
     assert isinstance(stations, gpd.GeoDataFrame)
     assert not stations.empty
+
 
 def test_get_chs_stations_within_box():
     """
@@ -27,6 +29,7 @@ def test_get_chs_stations_within_box():
         gpd.GeoSeries.from_wkt(["POLYGON((-150 40, -150 60, -110 60, -110 40, -150 40))"])[0]
     ).all()
 
+
 def test_fetch_chs_station_data():
     """
     This test will attempt to get data for a single station.
@@ -42,6 +45,7 @@ def test_fetch_chs_station_data():
 
     assert "value" in df.columns
     assert df.eventDate[0] == "2023-01-01T00:00:00Z"
+
 
 def test_fetch_chs_data_multiple():
     """
@@ -63,6 +67,7 @@ def test_fetch_chs_data_multiple():
         assert isinstance(df, pd.DataFrame)
         assert "value" in df.columns
         assert df.eventDate[0] == "2023-01-01T00:00:00Z"
+
 
 def test_fetch_chs_data_unavailable_available_data():
     """

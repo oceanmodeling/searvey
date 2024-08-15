@@ -3,7 +3,8 @@ from __future__ import annotations
 import functools
 import json
 import logging
-import typing as T
+from typing import Any
+from typing import Dict
 from typing import List
 from typing import Union
 
@@ -127,7 +128,7 @@ def _fetch_chs_station_data(
     end_time: pd.Timestamp,
     client: httpx.Client,
     rate_limit: multifutures.RateLimit,
-) -> List[dict]:
+) -> List[Dict[str, Any]]:
     """
     Fetch data for a single CHS station.
     Should not be called directly, this is a method used by other methods to generate a url and fetch data.
