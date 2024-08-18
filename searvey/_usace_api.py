@@ -14,6 +14,44 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "https://rivergages.mvr.usace.army.mil/watercontrol/webservices/rest/webserviceWaterML.cfc?method=RGWML&meth=getValues&location={location}&site={site}&variable={variable}&beginDate={begin_date}&endDate={end_date}&authToken=RiverGages"
 
+def _fetch_usace(
+    station_ids: abc.Collection[str],
+    start_dates: pd.DatetimeIndex,
+    end_dates: pd.DatetimeIndex,
+    *,
+    rate_limit: multifutures.RateLimit | None,
+    http_client: httpx.Client | None,
+    multiprocessing_executor: multifutures.ExecutorProtocol | None,
+    multithreading_executor: multifutures.ExecutorProtocol | None,
+) -> dict[str, pd.DataFrame]:
+    rate_limit = _resolve_rate_limit(rate_limit)
+    http_client = _resolve_http_client(http_client)
+    start_dates = _to_utc(start_dates)
+    end_dates = _to_utc(end_dates)
+
+    usace_responses = _retrieve_usace_data(
+        station_ids=station_ids,
+        start_dates=start_dates,
+        end_dates=end_dates,
+        rate_limit=rate_limit,
+        http_client=http_client,
+        executor=multithreading_executor,
+    )
+
+    dataframes = {}
+    for response in usace_responses:
+        station_id = response.kwargs["station_id"]
+        if response.exception:
+            logger.error(f"USACE-{station_id}: Failed to retrieve data. Error: {response.exception}")
+            continue
+        df = _parse_xml_data(response.result, station_id)
+        if not df.empty:
+            dataframes[station_id] = df
+        else:
+            logger.warning(f"USACE-{station_id}: No data retrieved or parsed.")
+
+    return dataframes
+
 def fetch_usace_station(
     station_id: str,
     start_date: DatetimeLike | None = None,
