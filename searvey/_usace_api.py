@@ -14,6 +14,31 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "https://rivergages.mvr.usace.army.mil/watercontrol/webservices/rest/webserviceWaterML.cfc?method=RGWML&meth=getValues&location={location}&site={site}&variable={variable}&beginDate={begin_date}&endDate={end_date}&authToken=RiverGages"
 
+def _parse_xml_data(content: str, station_id: str) -> pd.DataFrame:
+    try:
+        namespace = {'wml': 'http://www.cuahsi.org/waterML/1.0/'}
+        root = ET.fromstring(content)
+        values_element = root.find(".//wml:values", namespaces=namespace)
+
+        if values_element is None:
+            logger.warning(f"{station_id}: No 'values' element found in the XML.")
+            return pd.DataFrame()
+
+        data = []
+        for value_element in values_element.findall("wml:value", namespaces=namespace):
+            date_time = value_element.get("dateTime")
+            value = value_element.text
+            date_time_obj = datetime.strptime(date_time, "%Y-%m-%dT%H:%M:%S")
+            data.append({'time': date_time_obj, 'value': float(value)})
+
+        df = pd.DataFrame(data)
+        df.set_index('time', inplace=True)
+        df.index = pd.to_datetime(df.index, utc=True)
+        df.attrs["station_id"] = f"USACE-{station_id}"
+        return df
+    except ET.ParseError:
+        logger.error(f"{station_id}: Failed to parse XML data.")
+        return pd.DataFrame()
 
 def _generate_urls(
     station_id: str,
