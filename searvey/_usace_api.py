@@ -14,6 +14,56 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "https://rivergages.mvr.usace.army.mil/watercontrol/webservices/rest/webserviceWaterML.cfc?method=RGWML&meth=getValues&location={location}&site={site}&variable={variable}&beginDate={begin_date}&endDate={end_date}&authToken=RiverGages"
 
+
+def _generate_urls(
+    station_id: str,
+    start_date: pd.Timestamp,
+    end_date: pd.Timestamp,
+) -> list[str]:
+    if end_date < start_date:
+        raise ValueError(f"'end_date' must be after 'start_date': {end_date} vs {start_date}")
+    if end_date == start_date:
+        return []
+
+    url = BASE_URL.format(
+        location=station_id,
+        site=station_id,
+        variable="HG",
+        begin_date=start_date.strftime("%Y-%m-%dT%H:%M"),
+        end_date=end_date.strftime("%Y-%m-%dT%H:%M")
+    )
+    print(url)
+    return [url]
+
+def _retrieve_usace_data(
+    station_ids: abc.Collection[str],
+    start_dates: abc.Collection[pd.Timestamp],
+    end_dates: abc.Collection[pd.Timestamp],
+    rate_limit: multifutures.RateLimit,
+    http_client: httpx.Client,
+    executor: multifutures.ExecutorProtocol | None,
+) -> list[multifutures.FutureResult]:
+    kwargs = []
+    for station_id, start_date, end_date in zip(station_ids, start_dates, end_dates):
+        for url in _generate_urls(station_id=station_id, start_date=start_date, end_date=end_date):
+            if url:
+                kwargs.append(
+                    dict(
+                        station_id=station_id,
+                        url=url,
+                        client=http_client,
+                        rate_limit=rate_limit,
+                    ),
+                )
+    with http_client:
+        logger.debug("Starting data retrieval")
+        results = multifutures.multithread(
+            func=_fetch_url, func_kwargs=kwargs, check=False, executor=executor
+        )
+        logger.debug("Finished data retrieval")
+    return results
+
+
 def _fetch_usace(
     station_ids: abc.Collection[str],
     start_dates: pd.DatetimeIndex,
