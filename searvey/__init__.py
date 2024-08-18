@@ -10,7 +10,7 @@ from searvey.ioc import get_ioc_stations
 from searvey.stations import get_stations
 from searvey.stations import Provider
 from searvey.usgs import get_usgs_stations
-
+from searvey._usace_api import fetch_usace_station
 __version__ = importlib.metadata.version(__name__)
 
 
@@ -24,4 +24,5 @@ __all__: list[str] = [
     "get_usgs_stations",
     "Provider",
     "__version__",
+    "fetch_usace_station",
 ]
