@@ -1,24 +1,29 @@
 import logging
 import xml.etree.ElementTree as ET
-from datetime import datetime
 from collections import abc
+from datetime import datetime
 from typing import List
 from typing import Union
-from searvey.custom_types import DatetimeLike
+
 import httpx
 import multifutures
 import pandas as pd
 
-from ._common import _fetch_url, _resolve_end_date, _resolve_http_client, _resolve_rate_limit, _resolve_start_date, _to_utc
+from ._common import _fetch_url
+from ._common import _resolve_end_date
+from ._common import _resolve_http_client
+from ._common import _resolve_rate_limit
+from ._common import _resolve_start_date
 from .custom_types import DatetimeLike
 
 logger = logging.getLogger(__name__)
 
 BASE_URL = "https://rivergages.mvr.usace.army.mil/watercontrol/webservices/rest/webserviceWaterML.cfc?method=RGWML&meth=getValues&location={location}&site={site}&variable={variable}&beginDate={begin_date}&endDate={end_date}&authToken=RiverGages"
 
+
 def _parse_xml_data(content: str, station_id: str) -> pd.DataFrame:
     try:
-        namespace = {'wml': 'http://www.cuahsi.org/waterML/1.0/'}
+        namespace = {"wml": "http://www.cuahsi.org/waterML/1.0/"}
         root = ET.fromstring(content)
         values_element = root.find(".//wml:values", namespaces=namespace)
 
@@ -31,16 +36,17 @@ def _parse_xml_data(content: str, station_id: str) -> pd.DataFrame:
             date_time = value_element.get("dateTime")
             value = value_element.text
             date_time_obj = datetime.strptime(date_time, "%Y-%m-%dT%H:%M:%S")
-            data.append({'time': date_time_obj, 'value': float(value)})
+            data.append({"time": date_time_obj, "value": float(value)})
 
         df = pd.DataFrame(data)
-        df.set_index('time', inplace=True)
+        df.set_index("time", inplace=True)
         df.index = pd.to_datetime(df.index, utc=True)
         df.attrs["station_id"] = f"USACE-{station_id}"
         return df
     except ET.ParseError:
         logger.error(f"{station_id}: Failed to parse XML data.")
         return pd.DataFrame()
+
 
 def _generate_urls(
     station_id: str,
@@ -57,9 +63,10 @@ def _generate_urls(
         site=station_id,
         variable="HG",
         begin_date=start_date.strftime("%Y-%m-%dT%H:%M"),
-        end_date=end_date.strftime("%Y-%m-%dT%H:%M")
+        end_date=end_date.strftime("%Y-%m-%dT%H:%M"),
     )
     return [url]
+
 
 def _retrieve_usace_data(
     station_ids: abc.Collection[str],
@@ -109,7 +116,7 @@ def _fetch_usace(
     start_dates = [start_dates] if not isinstance(start_dates, list) else start_dates
     end_dates = [end_dates] if not isinstance(end_dates, list) else end_dates
 
-    #we get the first index because the output is (DatetimeIndex(['2020-04-05'], dtype='datetime64[ns]', freq=None)
+    # we get the first index because the output is (DatetimeIndex(['2020-04-05'], dtype='datetime64[ns]', freq=None)
     start_dates = [_resolve_start_date(now, date)[0] for date in start_dates]
     end_dates = [_resolve_end_date(now, date)[0] for date in end_dates]
 
@@ -135,6 +142,7 @@ def _fetch_usace(
             logger.warning(f"USACE-{station_id}: No data retrieved or parsed.")
 
     return dataframes
+
 
 def fetch_usace_station(
     station_id: str,
