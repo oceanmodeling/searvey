@@ -2,7 +2,9 @@ import logging
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from collections import abc
-
+from typing import List
+from typing import Union
+from searvey.custom_types import DatetimeLike
 import httpx
 import multifutures
 import pandas as pd
@@ -57,7 +59,6 @@ def _generate_urls(
         begin_date=start_date.strftime("%Y-%m-%dT%H:%M"),
         end_date=end_date.strftime("%Y-%m-%dT%H:%M")
     )
-    print(url)
     return [url]
 
 def _retrieve_usace_data(
@@ -71,6 +72,7 @@ def _retrieve_usace_data(
     kwargs = []
     for station_id, start_date, end_date in zip(station_ids, start_dates, end_dates):
         for url in _generate_urls(station_id=station_id, start_date=start_date, end_date=end_date):
+            logger.info("USACE-%s: Starting scraping: %s - %s", station_id, start_date, end_date)
             if url:
                 kwargs.append(
                     dict(
@@ -91,8 +93,8 @@ def _retrieve_usace_data(
 
 def _fetch_usace(
     station_ids: abc.Collection[str],
-    start_dates: pd.DatetimeIndex,
-    end_dates: pd.DatetimeIndex,
+    start_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
+    end_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
     *,
     rate_limit: multifutures.RateLimit | None,
     http_client: httpx.Client | None,
@@ -101,8 +103,15 @@ def _fetch_usace(
 ) -> dict[str, pd.DataFrame]:
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
-    start_dates = _to_utc(start_dates)
-    end_dates = _to_utc(end_dates)
+
+    now = pd.Timestamp.now("utc")
+
+    start_dates = [start_dates] if not isinstance(start_dates, list) else start_dates
+    end_dates = [end_dates] if not isinstance(end_dates, list) else end_dates
+
+    #we get the first index because the output is (DatetimeIndex(['2020-04-05'], dtype='datetime64[ns]', freq=None)
+    start_dates = [_resolve_start_date(now, date)[0] for date in start_dates]
+    end_dates = [_resolve_end_date(now, date)[0] for date in end_dates]
 
     usace_responses = _retrieve_usace_data(
         station_ids=station_ids,
@@ -142,21 +151,19 @@ def fetch_usace_station(
     and return the results as a ``pandas.DataFrame``.
 
     :param station_id: The station identifier.
-    :param start_date: The starting date of the query. Defaults to 7 days ago.
-    :param end_date: The finishing date of the query. Defaults to "now".
-    :param variable: The variable to fetch. Defaults to "HG" (gauge height).
+    :param start_date: The starting date of the query.
+    :param end_date: The finishing date of the query.
     :param rate_limit: The rate limit for making requests to the USACE servers.
-    :param http_client: The ``httpx.Client``.
-    :param multiprocessing_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
-    :param multithreading_executor: An instance of a class implementing the ``concurrent.futures.Executor`` API.
+    :param http_client: The ``httpx.Client``, this should have the parameter verify=False.
+    :param multiprocessing_executor
+    :param multithreading_executor
     """
     logger.info("USACE-%s: Starting scraping: %s - %s", station_id, start_date, end_date)
-    now = pd.Timestamp.now("utc")
     try:
         df = _fetch_usace(
             station_ids=[station_id],
-            start_dates=_resolve_start_date(now, start_date),
-            end_dates=_resolve_end_date(now, end_date),
+            start_dates=start_date,
+            end_dates=end_date,
             rate_limit=rate_limit,
             http_client=http_client,
             multiprocessing_executor=multiprocessing_executor,
