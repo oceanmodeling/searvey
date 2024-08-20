@@ -4,6 +4,7 @@ import importlib.metadata
 
 from searvey._coops_api import fetch_coops_station
 from searvey._ioc_api import fetch_ioc_station
+from searvey._usace_api import fetch_usace_station
 from searvey.coops import get_coops_stations
 from searvey.ioc import get_ioc_data
 from searvey.ioc import get_ioc_stations
@@ -24,4 +25,5 @@ __all__: list[str] = [
     "get_usgs_stations",
     "Provider",
     "__version__",
+    "fetch_usace_station",
 ]
