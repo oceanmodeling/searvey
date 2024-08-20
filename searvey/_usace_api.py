@@ -4,6 +4,7 @@ from collections import abc
 from datetime import datetime
 from typing import List
 from typing import Union
+from typing import Optional
 
 import httpx
 import multifutures
@@ -74,7 +75,7 @@ def _retrieve_usace_data(
     end_dates: abc.Collection[pd.Timestamp],
     rate_limit: multifutures.RateLimit,
     http_client: httpx.Client,
-    executor: multifutures.ExecutorProtocol | None,
+    executor: Optional[multifutures.ExecutorProtocol] = None,
 ) -> list[multifutures.FutureResult]:
     kwargs = []
     for station_id, start_date, end_date in zip(station_ids, start_dates, end_dates):
@@ -103,10 +104,10 @@ def _fetch_usace(
     start_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
     end_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
     *,
-    rate_limit: multifutures.RateLimit | None,
-    http_client: httpx.Client | None,
-    multiprocessing_executor: multifutures.ExecutorProtocol | None,
-    multithreading_executor: multifutures.ExecutorProtocol | None,
+    rate_limit: Optional[multifutures.RateLimit] = None,
+    http_client: Optional[httpx.Client] = None,
+    multiprocessing_executor: Optional[multifutures.ExecutorProtocol] = None,
+    multithreading_executor: Optional[multifutures.ExecutorProtocol] = None,
 ) -> dict[str, pd.DataFrame]:
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
@@ -146,13 +147,13 @@ def _fetch_usace(
 
 def fetch_usace_station(
     station_id: str,
-    start_date: DatetimeLike | None = None,
-    end_date: DatetimeLike | None = None,
+    start_date: Optional[DatetimeLike] = None,
+    end_date: Optional[DatetimeLike] = None,
     *,
-    rate_limit: multifutures.RateLimit | None = None,
-    http_client: httpx.Client | None = None,
-    multiprocessing_executor: multifutures.ExecutorProtocol | None = None,
-    multithreading_executor: multifutures.ExecutorProtocol | None = None,
+    rate_limit: Optional[multifutures.RateLimit] = None,
+    http_client: Optional[httpx.Client] = None,
+    multiprocessing_executor: Optional[multifutures.ExecutorProtocol] = None,
+    multithreading_executor: Optional[multifutures.ExecutorProtocol] = None,
 ) -> pd.DataFrame:
     """
     Make a query to the USACE API for river gauge data for ``station_id``
