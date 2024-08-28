@@ -20,17 +20,22 @@ from searvey.utils import get_region
 
 logger = logging.getLogger(__name__)
 
-# Create an instance of NdbcApi
-ndbc_api = NdbcApi()
+
 
 
 @functools.lru_cache
-def _get_ndbc_stations() -> gpd.GeoDataFrame:
+def _get_ndbc_stations(
+    ndbc_api_client: NdbcApi | None = None,
+) -> gpd.GeoDataFrame:
     """
     Return NDBC station metadata.
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
-    stations_df = ndbc_api.stations()
+    if ndbc_api_client is None:
+        ndbc_api_client = NdbcApi()
+
+
+    stations_df = ndbc_api_client.stations()
     stations_df[["lat", "ns", "lon", "ew"]] = stations_df["Location Lat/Long"].str.extract(
         r"(\d+\.\d+)([N|S]) (\d+\.\d+)([E|W])"
     )
@@ -53,6 +58,7 @@ def get_ndbc_stations(
     lon_max: float | None = None,
     lat_min: float | None = None,
     lat_max: float | None = None,
+    ndbc_api_client: NdbcApi | None = None,
 ) -> gpd.GeoDataFrame:
     """
     Return NDBC station metadata.
@@ -67,6 +73,7 @@ def get_ndbc_stations(
     :param lat_max: The maximum Latitude of the Bounding Box.
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
+
     region = get_region(
         region=region,
         lon_min=lon_min,
@@ -76,7 +83,7 @@ def get_ndbc_stations(
         symmetric=True,
     )
 
-    ndbc_stations = _get_ndbc_stations()
+    ndbc_stations = _get_ndbc_stations(ndbc_api_client=ndbc_api_client)
     if region:
         ndbc_stations = ndbc_stations[ndbc_stations.within(region)]
     return ndbc_stations
@@ -89,6 +96,7 @@ def _fetch_ndbc(
     end_dates: Union[DatetimeLike, List[DatetimeLike]] = None,
     columns: list[str] | None = None,
     multithreading_executor: multifutures.ExecutorProtocol | None = None,
+    ndbc_api_client: NdbcApi | None = None,
 ) -> dict[str, pd.DataFrame]:
     """
     Retrieve the TimeSeries for multiple stations using multithreading.
@@ -103,6 +111,8 @@ def _fetch_ndbc(
         TimeSeries.
     """
     now = pd.Timestamp.now("utc")
+    if ndbc_api_client is None:
+        ndbc_api_client = NdbcApi()
 
     # Ensure start_dates and end_dates are lists
     if not isinstance(start_dates, list):
@@ -127,7 +137,7 @@ def _fetch_ndbc(
     ]
     # Fetch data concurrently using multithreading
     results: list[multifutures.FutureResult] = multifutures.multithread(
-        func=ndbc_api.get_data,
+        func=ndbc_api_client.get_data,
         func_kwargs=func_kwargs,
         executor=multithreading_executor,
     )
@@ -146,6 +156,7 @@ def fetch_ndbc_station(
     start_date: pd.Timestamp,
     end_date: pd.Timestamp,
     columns: list[str] | None = None,
+    ndbc_api_client: NdbcApi | None = None,
 ) -> pd.DataFrame:
     """
     Retrieve the TimeSeries of a single NDBC station.
@@ -160,6 +171,7 @@ def fetch_ndbc_station(
     :return: ``pandas.DataFrame`` with the station data.
     """
     logger.info("NDBC-%s: Starting data retrieval: %s - %s", station_id, start_date, end_date)
+
     try:
 
         df = _fetch_ndbc(
@@ -168,6 +180,7 @@ def fetch_ndbc_station(
             start_dates=start_date,
             end_dates=end_date,
             columns=columns,
+            ndbc_api_client=ndbc_api_client,
         )[station_id]
 
         if df.empty:
