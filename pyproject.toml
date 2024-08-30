@@ -65,7 +65,7 @@ urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
 furo = "*"
-m2r2 = ">=0.3.2"
+sphinx-mdinclude = "*"
 setuptools = "*"
 sphinx = "*"
 sphinxext-opengraph = "*"

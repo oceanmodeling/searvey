@@ -172,6 +172,8 @@ def test_coops_predictions_product():
     start_date = datetime(2021, 1, 1)
     end_date = datetime(2021, 1, 1, 0, 10)
 
+    # NOTE: No-data results are due to inactive stations or stations
+    # that don't provide water level predictions
     data = coops_product_within_region(
         "predictions",
         region=region,
