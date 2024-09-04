@@ -64156,4 +64156,2705 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8679598&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:03 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6RGHRoAMEvEQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:03 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 48e0f6b6-1dd0-410b-a135-dc13fc2d9c6b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726679&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:03 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6SFjSoAMEfog=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:03 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 8d760524-baa3-4639-88dd-9976c26226d9
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726694&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6TGIZoAMEvEQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - fe4d8fd3-6171-4c2a-85c6-5226e915430d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720228&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6UG1YIAMEBSg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 638b4e98-7346-4870-b3d6-9021aeda2a62
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720030&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWOMQ7CMAxFd04ReW4jJ22T0pGBSyAGiwRRiQYBUZeod8emAwwge3n/W08uMMVM
+        gTLBUGAMMEDvLWKDUEGiKXKwj49EKYyJ1C7S6cLNlTIXDWrnTSt8S8x1b3Truh6WSsHqVIcCcmrR
+        mhplFeKAbFcwc250573AkwE1rs1ZoHqP4J1xZulPlfuonNl+qeSxf6rjsnkBW81+yfoAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '167'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6VFvzIAMEiVQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '250'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - e113c526-f131-4216-bfc8-b1175542831c
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726384&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQrCMBCGd58i3JyGa6pJzDsI7uJw0AiCTVFDl9B39y4uHZS75fv4+SpMqdBI
+        hSBWuI8QIXjrhrAHDZmmxOI8v4o6UaaSEtsHFZbWG1554Tkzd8Gag7M9rFrBt6cuFdoUbd+hvEKM
+        iMCLhT0adxwE3g0QvcBNQLcTfDIuHP2ZctuU26bc/9R13X0AQDK3F/YAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6WEHaIAMEXeA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '246'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 73de2be5-d031-47a2-85a6-20c42cad50c2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8725520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMTQrCMBBG954ifOs0TIL5oQdw5wnERaARBNtiGwoSencn7aYLZWbz3gyvoE85
+        djFHtAXPDi2CN9YagsQQ+8TiMk5ZXD9pmtm9YmZlnHJnHyqPA3MTtApea6xSYK+JW8H2SkY3VFcQ
+        tcRdgYW9Vt76CjMDKdovjwpym4pvxoWjP1PumArHlP2fuq+nL/vq5/v0AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6XGEOoAMEVRg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '244'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 13f1c78e-649f-4c9b-aa68-6b18b9058fd9
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726671&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6YEqWoAMEOQg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - fa1e09e7-5ad6-4b8e-92e8-2faa30b58e9a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726524&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6ZHjHIAMEaHw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 91af96ac-658b-410d-83c9-fc68febca1ac
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720215&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6aFlMoAMEDRg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:04 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 1d667983-5ebc-4272-a9ef-fd9908463083
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8721604&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMQQrCMBBF954izDoNk7SNMVsv0IU7cTHQCIU2xRi6Kb27k4rgQpmBz/t83gpT
+        yNRTJvArDD14cEejLTYgIdIUuLikoQ8xi24ISYpuTlmcKdISEo28GinzyDjV6NYVniNz5VC1p1rD
+        JgW8/eK6wj5FoyssLxA9IvBi4d4qU5sCT4aSd06U+xV8MC7s+2mxXxbbfiyoUOv/qtt2eAF3JwL8
+        AQEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '175'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6bHtzoAMEhKA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '257'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - c18d1a5c-fa99-4878-90b5-98e720705175
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720226&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAI2NPQ6CQBCFe08xmXrZDIuLwBEspTQWa8BAgCXKigXh7s5IY2FhZprv5f0sONTB
+        VS44LBZsKywwOxgyJkWF3g01C+X4DM3V+Q5O7Vw/Xq7vFJQBjmPjp01jc+8CexPSiSESHj1zlMU6
+        tVmCqwLcZuC8oFh5JY5IHogKyQDOEiFtbC40MZEmsgI3AfU5wTvjzK0/u9Lvrr39s+uy7t6xHyPS
+        DwEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '175'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6eEBmIAMEonw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '271'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 634ab829-dd95-4da2-8796-1ba103c43b94
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720357&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6fHQ-IAMESKg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - d329ce67-0e42-452e-a09b-09a29dc44b12
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726412&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6gHhwIAMEHcw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - b49f3537-6c6e-42e2-8f33-504552b3bf7c
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726607&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAI2MsQrCMBCGd58i3JyGMyXJmZfQwU0cDlJBaFqroUvpu3upi4OD3C3fx8+3QO4K
+        Jy4McYF7gggUrPcYQMPAuRNx7JM6jc+izpwfLL7nItoGQy5Q5XEQbsga5yzBqhV8iuqywDZFu2+w
+        vkKMiCCLWfzBtC1VeAmgQXQVbhX0dhUnwVmiP1P+O+X/TF3X3RtJPS/Z+AAAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '160'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6hE3zoAMEv4w=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '248'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - e9f4d3d7-2d51-44cf-91ab-4b0d037786bf
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726674&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMwQrCMAyG7z5FybkrWVbarUfBpxAPgU0Q3ERWBlL27ib16kgu38fPV2CeMo+c
+        GVKBxwgJ+kghRA8WFp4nERdesznzR8yTswiKbqCuVX4twk1PzlPrYbcGfi1zLVCnSG2D+gYxIYIs
+        NvHo4kAKawXETuGuYOspvgU3if5NhcOUP07d9tMXWBWg+vIAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '152'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6iEXioAMEcIw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '242'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 07f1d7eb-9d0e-48cc-a17a-9065e5258add
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726520&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXMsQ6CMBDG8d2naG4uzdHAtfQpTByNQw3VmAgGqCyEd/cOFwZNu/y+XP4LdCnH
+        NuYIYYFHCwG8s1RbBA197BIPp2zUMeU0Ttf3eOf9GTPP1hlHSOJXzy68NWSpgVUr+BbVeYHtFG1Z
+        oHyFGJDbCmbeS0NNJZgYaBBrwU2gtyccmDNHf6Zol/Jun6r+py7r4QPJxqWZ+AAAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '163'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6jGeqoAMEjaw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '248'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 13949282-173f-414c-9a5b-7774617af1df
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8661070&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMwQ6CMAyG7z7F0jMs7SYb8BQmHo2HJZtmCaAi4UJ4d1u8cNC0l+/v32+BPk0h
+        hilAu0CO0ELtHKFHKGAIfeLg/BzzcO9DjuqU08iHLkycW6tdVUmxewzMpa91Q7WFtVDwVarLAlI1
+        aKhEWYXYIv8omDkn1GQ3ejOhxoYEbgLFNoIvxpmtP11u7zq6ncub/67revgAs6S47PsAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '167'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6kFWNIAMEg_w=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '251'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - e34ffdd8-a1de-463f-a585-33aa4c0c4f0d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8656483&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQ6CMBBAd7+iubk0R8EWGI2jfoFxOENJiFAiFhbCv3vFhUFzt7zLu7dA7wLV
+        FAiqBdoaKijM0eRFBhI89Y4PJ0dTM4xBivP0dOJKY+uduNCDlY4CG1mubGrjSzd45sQaZSxaWKWA
+        b1zcFoiqRp0mGFcgVojAxsz3VGmdR3gzoELcoIkgt4n4Ypw5+jNl9qlynzL/U/f18AGn8dEmAwEA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '172'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6mG2GIAMEeJQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '259'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:05 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - cda23602-2054-4249-b5ce-12499e584304
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8665530&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQ7CIBCGd5+C3EzJAZYCq49hHEiK0aStsSVdSN/du7p00Nwt35c/X4Uxl9Sn
+        kiBWePYQwTvXthZBwpTGTOLySPOQl/KayA2pkLJGdR49M9kITRdUMNbBJgV8a+JagacGjW6QXyBG
+        pK6Alb3SboeFABXqM8OdQe7H+CZcKfoz5Q4p7w4pDP9Tt+30Aaun+zb0AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6nGsFIAMEoIA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '244'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 2ab5185b-bd15-4ab3-b03d-6ad89112c03f
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8652587&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMQQrCMBBF954izLoNk+g0tTdwIR5AXAw0SqFNsYZuSu/ujG4UlJnN+//zFhhi
+        5pYzQ7NA10IDdUWe6gAFJB6iBKcp3sZkDqmP2Rx56hJL2XOWbks27EnH/ZiEy0CWdrWHtTDw1prz
+        Ajr16F2J+gaxQQRZzJI7i0gKDwEU8ApXheJ1infBWaQ/VdWHyn2p3H/VZd08AUAEtqv9AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '168'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6oGYzIAMEaNg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '253'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - c41174c3-d8f3-4ec2-afd3-fa839dc28cf0
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8658120&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMzQrDIBAG730K2bORVetPfZEeSg9C0iJES4nkInn3ruklh5bdywwf0yBPNY6x
+        RggN0ggBvDVeKgQOJeaJxDXNOZVnfRVyc6yk9Fko5UxnsgEG58TFaAsbZ/CtsVuDPlWo5ID9GWJA
+        6jJYyUuhteqwEKBAucOjA9+v45twpejPlD2kvD+k0P1P3bfTByr97KX0AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '159'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6pGhioAMEFMA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '244'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - ed93b6db-04b9-4214-a047-1df271e879e3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8658163&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQ6CMBCGd5+iuRmaa4EWGX0JB+PQSBWSAlGaLg3v7p0uDJq75fv/P1+GyUfX
+        u+igyzD20EFrmlaZCgqY3eQpOL/GxxDXNIbgxcm720BdcJGqqpZaVbwNy0xcWittayxshYCvVVwy
+        8FSjViXyC8QOEWiRKDfSNEeGlQAl6obhzlB8jvFJmEj6U2V2Kqv2qvq/6rod3uy/EHX8AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '168'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6qEJjoAMEr9A=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '252'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 0d9725c0-b26b-48db-9c0e-aef02adda580
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8654467&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNsQ6CQAyGd5/i0hku5bg7LqwOuhMn49AETEgEojQshHe31YVB0y5f/z9fVxg6
+        ppaYoF6hb6GGFIP3sYIMRho6OVya48k0TNxPozkTc/eiWeIHsaRlsA5TVJ5G4bwKtkLvYMsMfMXm
+        uoJWHboiR12DWCOCNBb9aH0qFGYBtIilwl0h+4ziU3AR6U9V3KvSXhX+q27b4Q0fg+3e/wAAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '169'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6rEa-oAMERVg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '255'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - dc548314-6864-426f-b9a2-d8c44628b833
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8670870&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXMvQ6CMBSG4d2raM4MzUdLWuACnN2NQxMwIfITobI03Lvn6KCDpl2eLydvorGL
+        oQ0xUJOob6mhynlUHpTRFMaOh+O8RHV6DGG99bwOIfJojYYtvXie2HkFXcOC9kzRu6fOieTUwBQ5
+        5CugAZcVbbJr561gZUCjMIKrIHs94Z25cfRnyn1SvjTfqfp/6rIfnrRfNLT2AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '162'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6sELEoAMEr9A=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '246'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - e3ef130e-a4a0-496b-b7b6-054282f0c597
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8725114&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6tEydIAMEq5g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 5ea4e4f8-e8ad-49c7-aa15-68a801c3afee
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8722670&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNMQ+CMBCFd3/F5ebSHAVKZXM30c3BODRQIxFKxIaF8N+94sKguVu+l5fvzdi7
+        YBsbLFYztg1WaEqldEko0NvecXC0TweXYQwPOLduFHAInfWhreFUO+u52NnAPaWlTpWJPHjmxJCk
+        LFe4CMDvBFxnXKuk0oTiA1FFPAY4cb6XJssivBlIpoWOcI8g1ov4YpxY+lOlN6qctqriv+q27D7N
+        tK1oCQEAAA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '178'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6vH5PIAMEipg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '265'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - a277bd80-0f0e-4f93-bba7-f8830adf9c5a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8722956&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMuwrDMAxF936F0ZwY2RC/9u6FjqWDIO4D8qCJ6yXk3yunFDq0SMu5VzoL9DFR
+        S4kgLHBvIYCzWvvGQAUD9ZGD4/hMN3EYpyT2OU7Xjto4c91R4lYbiU7ZwuPAXDuUShkLayXgLRan
+        BbZT1KrGsgIxIAJfZM6t9NYXmBlQIm5wKVBtU/DBmFn6U2U+KsffzZdK6f+q87p7AfT8blf/AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '171'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6wELPIAMEvYw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '255'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:06 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - f249aa29-c7ff-4a90-91c4-4922a6cabbff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720245&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6xE63IAMEQdQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - afbf44c5-784f-4a00-9eb2-e4747d90508d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720219&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMMQrDMAwA977CaHaMHNeK47kP6F46GJJCoHEoMVlM/l6pXTK0SCDuEFdhHksa
+        UkkQK0wDRAhdi63tQUNO88jiwmdV12XKheUzFXYOjQvUCS+ZuQnWeB8c7FrBN6duFeRVag3KKsSI
+        CPyxsbeGHAmsDGgQvcBDQH9G8MW4cfRnig4p8sfU+X/qvp/eow3lo/UAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6yFUeoAMEdag=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '245'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - be7ecab7-ddeb-4691-b7fb-b6cd1877db9a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8723214&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMsQrDIBCG9z6F3Gzk1GiCr9C9S+kgxBYhsbSVQJG8e0+7ZGi5W76Pn6/AErKf
+        fPbgCsQJHIyD0kr2wCH5JZA4xectpujZMbzJzj6TVEYMuq3meyLuRhTSyhE2zuDbY+cCbYpKdlif
+        ITpEoMVKXgvTmwovAhRYawyuFXi7ig/ClaI/U3aXsrhP6f+py3b4ANPNUk32AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '162'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6zEjroAMEfoQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '246'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 22e72094-a2a7-41f8-aad3-f499586a0b67
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726724&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWMMQ7CMAxFd04ReW4jx2mT0BGOgRgsGgRSW0SJylD17jhl6QCyl/f/15uhj4lb
+        TgzNDPcWGgienKcKChi4jxIcu8jjm1Mc1SHy5SZNx0kK8nrvg838GITLQDpY42EpFHyd6jTDOkUy
+        JeZXiA0iyGKS3Ggil+ElgBpdleGaoVgv41NwEulPlduoartR1fhfdV52H7MuHTn6AAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '165'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld60Fy_oAMElVA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '250'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - ac3b129b-3042-4217-ab08-2c58b671ba05
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720233&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld61ENDoAMEivg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 99de6eb5-ed6f-40e0-a27a-28fe26b2f106
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720218&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXMQQuCQBCG4Xu/YplTgS3jKu7qMboG3aPDkAaSuqWLEOJ/b8YuHordyzt8PBO0
+        VaCSAkExQV1CAc4aNLGDCDpqKz6c6P30fVDbA/XqXDc+DOrob48dTxoKvEhQJ7kz0r7j3rtYp8bm
+        MEcKvri6TCBTsfcoXyEWiMCLUQidpVZi4ECNuMRdIlqe5ItzZPQnla0oi2sq+09d580HrKNj4QMB
+        AAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '173'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld62GPLIAMEp1Q=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '259'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - e754e35e-dbfd-4d7f-9075-2a3cb989f842
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720242&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld64FwYoAMEoWQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 336460de-70bc-487a-b160-ed7a89e31b50
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8664941&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld65EJMIAMEt0w=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:07 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - cf59ff55-6fd9-4049-9d8f-4958e834be59
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8668498&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld66EPyoAMEPPw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - b64cb2d4-e668-4b13-a1ef-01d089d9215d
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8659897&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld67GkjIAMEhFg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - a63da8fa-948f-4964-9f1f-3a0fd5077829
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720767&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld69ElcoAMEHwQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 3c3e0ce0-90b9-44c8-b253-fde4d5f9fae3
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720774&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6-H3doAMEdFg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - e0b6e5eb-01b6-4782-beb3-ac659163529f
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720145&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld6_HlWoAMEP7g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 4b9d730e-3e5d-42d1-9277-0017978edcf5
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726413&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7AGyooAMEctw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - fbdd737c-d42b-42c1-a146-e4aa7042cb3c
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726669&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7BHkSoAMEq1A=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 12027418-5f3c-4155-921d-36ad2f0eda31
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726673&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7CFPloAMEjcg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - a07d40ad-896c-424d-87a8-4a46f4587253
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720503&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7EH4PoAMEHng=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:08 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 46b65ffe-5454-4e4c-8983-2cf33d466e6b
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8654400&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7FHSwoAMEXPA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 285dc940-57dc-4afa-9e38-d846c9e03d04
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8720625&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7GGiiIAMEK7g=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 09728acf-bb19-4e27-a86e-a764cc33711a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8726667&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7HF57IAMEjOA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 615fe81e-fd7b-40b4-836c-8721dde1771e
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=8725110&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHWNTQqDQAxG9z1FyHockhEdnQt01V6gdDHUEQR/WrRSEO/ejC7aRUuyed8XXhbs
+        wuQrP3l0CzYVOiysyZgJFfa+CxKc/b0No4Ljs61hqOEUXs1tkL71k9Qm15yyjTz0wknBuiCb4aoA
+        dzNcFtxOyXBCcYHIkfwAnCVnnZoNRgHStDd1BLVNxIfgLNKfqvyjMrb8UqXlf9V1PbwBcjQvzAAB
+        AAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '173'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7IEePoAMEXvw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '256'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 297dc7c0-5acd-4762-8bec-b654d0b29820
+    status:
+      code: 200
+      message: OK
 version: 1
