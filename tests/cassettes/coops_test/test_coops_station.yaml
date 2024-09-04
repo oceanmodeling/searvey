@@ -32653,4 +32653,743 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - api.tidesandcurrents.noaa.gov
+      User-Agent:
+      - Python-urllib/3.10
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612480/harcon.json
+  response:
+    body:
+      string: "{\n  \"units\": \"feet\",\n  \"HarmonicConstituents\": [\n    {\n      \"number\":
+        1,\n      \"name\": \"M2\",\n      \"description\": \"Principal lunar semidiurnal
+        constituent\",\n      \"amplitude\": 0.52,\n      \"phase_GMT\": 13.2,\n      \"phase_local\":
+        83.3,\n      \"speed\": 28.984104\n    },\n    {\n      \"number\": 2,\n      \"name\":
+        \"S2\",\n      \"description\": \"Principal solar semidiurnal constituent\",\n
+        \     \"amplitude\": 0.26,\n      \"phase_GMT\": 14.0,\n      \"phase_local\":
+        74.0,\n      \"speed\": 30.0\n    },\n    {\n      \"number\": 3,\n      \"name\":
+        \"N2\",\n      \"description\": \"Larger lunar elliptic semidiurnal constituent\",\n
+        \     \"amplitude\": 0.11,\n      \"phase_GMT\": 7.8,\n      \"phase_local\":
+        83.4,\n      \"speed\": 28.43973\n    },\n    {\n      \"number\": 4,\n      \"name\":
+        \"K1\",\n      \"description\": \"Lunar diurnal constituent\",\n      \"amplitude\":
+        0.58,\n      \"phase_GMT\": 236.2,\n      \"phase_local\": 85.8,\n      \"speed\":
+        15.041069\n    },\n    {\n      \"number\": 5,\n      \"name\": \"M4\",\n
+        \     \"description\": \"Shallow water overtides of principal lunar constituent\",\n
+        \     \"amplitude\": 0.01,\n      \"phase_GMT\": 178.8,\n      \"phase_local\":
+        319.1,\n      \"speed\": 57.96821\n    },\n    {\n      \"number\": 6,\n      \"name\":
+        \"O1\",\n      \"description\": \"Lunar diurnal constituent\",\n      \"amplitude\":
+        0.32,\n      \"phase_GMT\": 227.3,\n      \"phase_local\": 87.8,\n      \"speed\":
+        13.943035\n    },\n    {\n      \"number\": 7,\n      \"name\": \"M6\",\n
+        \     \"description\": \"Shallow water overtides of principal lunar constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\":
+        0.0,\n      \"speed\": 86.95232\n    },\n    {\n      \"number\": 8,\n      \"name\":
+        \"MK3\",\n      \"description\": \"Shallow water terdiurnal\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 221.3,\n      \"phase_local\": 141.0,\n      \"speed\":
+        44.025173\n    },\n    {\n      \"number\": 9,\n      \"name\": \"S4\",\n
+        \     \"description\": \"Shallow water overtides of principal solar constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 102.0,\n      \"phase_local\":
+        222.0,\n      \"speed\": 60.0\n    },\n    {\n      \"number\": 10,\n      \"name\":
+        \"MN4\",\n      \"description\": \"Shallow water quarter diurnal constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 114.0,\n      \"phase_local\":
+        259.7,\n      \"speed\": 57.423832\n    },\n    {\n      \"number\": 11,\n
+        \     \"name\": \"NU2\",\n      \"description\": \"Larger lunar evectional
+        constituent\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\": 10.6,\n      \"phase_local\":
+        85.5,\n      \"speed\": 28.512583\n    },\n    {\n      \"number\": 12,\n
+        \     \"name\": \"S6\",\n      \"description\": \"Shallow water overtides
+        of principal solar constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        0.0,\n      \"phase_local\": 0.0,\n      \"speed\": 90.0\n    },\n    {\n
+        \     \"number\": 13,\n      \"name\": \"MU2\",\n      \"description\": \"Variational
+        constituent\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\": 337.1,\n
+        \     \"phase_local\": 57.4,\n      \"speed\": 27.968208\n    },\n    {\n
+        \     \"number\": 14,\n      \"name\": \"2N2\",\n      \"description\": \"Lunar
+        elliptical semidiurnal second-order constituent\",\n      \"amplitude\": 0.02,\n
+        \     \"phase_GMT\": 0.2,\n      \"phase_local\": 81.2,\n      \"speed\":
+        27.895355\n    },\n    {\n      \"number\": 15,\n      \"name\": \"OO1\",\n
+        \     \"description\": \"Lunar diurnal\",\n      \"amplitude\": 0.03,\n      \"phase_GMT\":
+        260.7,\n      \"phase_local\": 99.2,\n      \"speed\": 16.139101\n    },\n
+        \   {\n      \"number\": 16,\n      \"name\": \"LAM2\",\n      \"description\":
+        \"Smaller lunar evectional constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        324.2,\n      \"phase_local\": 29.5,\n      \"speed\": 29.455626\n    },\n
+        \   {\n      \"number\": 17,\n      \"name\": \"S1\",\n      \"description\":
+        \"Solar diurnal constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        351.4,\n      \"phase_local\": 201.3,\n      \"speed\": 15.0\n    },\n    {\n
+        \     \"number\": 18,\n      \"name\": \"M1\",\n      \"description\": \"Smaller
+        lunar elliptic diurnal constituent\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\":
+        249.5,\n      \"phase_local\": 104.5,\n      \"speed\": 14.496694\n    },\n
+        \   {\n      \"number\": 19,\n      \"name\": \"J1\",\n      \"description\":
+        \"Smaller lunar elliptic diurnal constituent\",\n      \"amplitude\": 0.04,\n
+        \     \"phase_GMT\": 248.7,\n      \"phase_local\": 92.8,\n      \"speed\":
+        15.5854435\n    },\n    {\n      \"number\": 20,\n      \"name\": \"MM\",\n
+        \     \"description\": \"Lunar monthly constituent\",\n      \"amplitude\":
+        0.02,\n      \"phase_GMT\": 43.1,\n      \"phase_local\": 37.6,\n      \"speed\":
+        0.5443747\n    },\n    {\n      \"number\": 21,\n      \"name\": \"SSA\",\n
+        \     \"description\": \"Solar semiannual constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        0.0821373\n    },\n    {\n      \"number\": 22,\n      \"name\": \"SA\",\n
+        \     \"description\": \"Solar annual constituent\",\n      \"amplitude\":
+        0.16,\n      \"phase_GMT\": 184.6,\n      \"phase_local\": 184.1,\n      \"speed\":
+        0.0410686\n    },\n    {\n      \"number\": 23,\n      \"name\": \"MSF\",\n
+        \     \"description\": \"Lunisolar synodic fortnightly constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        1.0158958\n    },\n    {\n      \"number\": 24,\n      \"name\": \"MF\",\n
+        \     \"description\": \"Lunisolar fortnightly constituent\",\n      \"amplitude\":
+        0.02,\n      \"phase_GMT\": 43.6,\n      \"phase_local\": 32.6,\n      \"speed\":
+        1.0980331\n    },\n    {\n      \"number\": 25,\n      \"name\": \"RHO\",\n
+        \     \"description\": \"Larger lunar evectional diurnal constituent\",\n
+        \     \"amplitude\": 0.01,\n      \"phase_GMT\": 224.0,\n      \"phase_local\":
+        89.2,\n      \"speed\": 13.471515\n    },\n    {\n      \"number\": 26,\n
+        \     \"name\": \"Q1\",\n      \"description\": \"Larger lunar elliptic diurnal
+        constituent\",\n      \"amplitude\": 0.06,\n      \"phase_GMT\": 220.0,\n
+        \     \"phase_local\": 86.0,\n      \"speed\": 13.398661\n    },\n    {\n
+        \     \"number\": 27,\n      \"name\": \"T2\",\n      \"description\": \"Larger
+        solar elliptic constituent\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\":
+        7.4,\n      \"phase_local\": 67.8,\n      \"speed\": 29.958933\n    },\n    {\n
+        \     \"number\": 28,\n      \"name\": \"R2\",\n      \"description\": \"Smaller
+        solar elliptic constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        315.5,\n      \"phase_local\": 15.1,\n      \"speed\": 30.041067\n    },\n
+        \   {\n      \"number\": 29,\n      \"name\": \"2Q1\",\n      \"description\":
+        \"Larger elliptic diurnal\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        220.4,\n      \"phase_local\": 91.8,\n      \"speed\": 12.854286\n    },\n
+        \   {\n      \"number\": 30,\n      \"name\": \"P1\",\n      \"description\":
+        \"Solar diurnal constituent\",\n      \"amplitude\": 0.18,\n      \"phase_GMT\":
+        234.7,\n      \"phase_local\": 85.1,\n      \"speed\": 14.958931\n    },\n
+        \   {\n      \"number\": 31,\n      \"name\": \"2SM2\",\n      \"description\":
+        \"Shallow water semidiurnal constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        238.4,\n      \"phase_local\": 288.1,\n      \"speed\": 31.015896\n    },\n
+        \   {\n      \"number\": 32,\n      \"name\": \"M3\",\n      \"description\":
+        \"Lunar terdiurnal constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        153.1,\n      \"phase_local\": 78.3,\n      \"speed\": 43.47616\n    },\n
+        \   {\n      \"number\": 33,\n      \"name\": \"L2\",\n      \"description\":
+        \"Smaller lunar elliptic semidiurnal constituent\",\n      \"amplitude\":
+        0.01,\n      \"phase_GMT\": 3.5,\n      \"phase_local\": 68.2,\n      \"speed\":
+        29.528479\n    },\n    {\n      \"number\": 34,\n      \"name\": \"2MK3\",\n
+        \     \"description\": \"Shallow water terdiurnal constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 189.7,\n      \"phase_local\": 120.4,\n      \"speed\":
+        42.92714\n    },\n    {\n      \"number\": 35,\n      \"name\": \"K2\",\n
+        \     \"description\": \"Lunisolar semidiurnal constituent\",\n      \"amplitude\":
+        0.08,\n      \"phase_GMT\": 11.1,\n      \"phase_local\": 70.3,\n      \"speed\":
+        30.082138\n    },\n    {\n      \"number\": 36,\n      \"name\": \"M8\",\n
+        \     \"description\": \"Shallow water eighth diurnal constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        115.93642\n    },\n    {\n      \"number\": 37,\n      \"name\": \"MS4\",\n
+        \     \"description\": \"Shallow water quarter diurnal constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 121.4,\n      \"phase_local\": 251.5,\n      \"speed\":
+        58.984104\n    }\n  ],\n  \"self\": \"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612480/harcon.json\"\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - close
+      Content-Length:
+      - '8135'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amz-apigw-id:
+      - dld7MG9LoAMEO2Q=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '8135'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 898412b7-3d1a-40fb-a7bb-55f616333abc
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - api.tidesandcurrents.noaa.gov
+      User-Agent:
+      - Python-urllib/3.10
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612340/harcon.json
+  response:
+    body:
+      string: "{\n  \"units\": \"feet\",\n  \"HarmonicConstituents\": [\n    {\n      \"number\":
+        1,\n      \"name\": \"M2\",\n      \"description\": \"Principal lunar semidiurnal
+        constituent\",\n      \"amplitude\": 0.56,\n      \"phase_GMT\": 59.4,\n      \"phase_local\":
+        129.5,\n      \"speed\": 28.984104\n    },\n    {\n      \"number\": 2,\n
+        \     \"name\": \"S2\",\n      \"description\": \"Principal solar semidiurnal
+        constituent\",\n      \"amplitude\": 0.18,\n      \"phase_GMT\": 54.7,\n      \"phase_local\":
+        114.7,\n      \"speed\": 30.0\n    },\n    {\n      \"number\": 3,\n      \"name\":
+        \"N2\",\n      \"description\": \"Larger lunar elliptic semidiurnal constituent\",\n
+        \     \"amplitude\": 0.11,\n      \"phase_GMT\": 48.8,\n      \"phase_local\":
+        124.4,\n      \"speed\": 28.43973\n    },\n    {\n      \"number\": 4,\n      \"name\":
+        \"K1\",\n      \"description\": \"Lunar diurnal constituent\",\n      \"amplitude\":
+        0.49,\n      \"phase_GMT\": 226.8,\n      \"phase_local\": 76.3,\n      \"speed\":
+        15.041069\n    },\n    {\n      \"number\": 5,\n      \"name\": \"M4\",\n
+        \     \"description\": \"Shallow water overtides of principal lunar constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 195.3,\n      \"phase_local\":
+        335.6,\n      \"speed\": 57.96821\n    },\n    {\n      \"number\": 6,\n      \"name\":
+        \"O1\",\n      \"description\": \"Lunar diurnal constituent\",\n      \"amplitude\":
+        0.27,\n      \"phase_GMT\": 215.9,\n      \"phase_local\": 76.4,\n      \"speed\":
+        13.943035\n    },\n    {\n      \"number\": 7,\n      \"name\": \"M6\",\n
+        \     \"description\": \"Shallow water overtides of principal lunar constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 229.7,\n      \"phase_local\":
+        80.1,\n      \"speed\": 86.95232\n    },\n    {\n      \"number\": 8,\n      \"name\":
+        \"MK3\",\n      \"description\": \"Shallow water terdiurnal\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 342.6,\n      \"phase_local\": 262.3,\n      \"speed\":
+        44.025173\n    },\n    {\n      \"number\": 9,\n      \"name\": \"S4\",\n
+        \     \"description\": \"Shallow water overtides of principal solar constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\":
+        0.0,\n      \"speed\": 60.0\n    },\n    {\n      \"number\": 10,\n      \"name\":
+        \"MN4\",\n      \"description\": \"Shallow water quarter diurnal constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 92.9,\n      \"phase_local\":
+        238.6,\n      \"speed\": 57.423832\n    },\n    {\n      \"number\": 11,\n
+        \     \"name\": \"NU2\",\n      \"description\": \"Larger lunar evectional
+        constituent\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\": 56.0,\n      \"phase_local\":
+        130.8,\n      \"speed\": 28.512583\n    },\n    {\n      \"number\": 12,\n
+        \     \"name\": \"S6\",\n      \"description\": \"Shallow water overtides
+        of principal solar constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        0.0,\n      \"phase_local\": 0.0,\n      \"speed\": 90.0\n    },\n    {\n
+        \     \"number\": 13,\n      \"name\": \"MU2\",\n      \"description\": \"Variational
+        constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\": 7.8,\n      \"phase_local\":
+        88.1,\n      \"speed\": 27.968208\n    },\n    {\n      \"number\": 14,\n
+        \     \"name\": \"2N2\",\n      \"description\": \"Lunar elliptical semidiurnal
+        second-order constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        39.9,\n      \"phase_local\": 120.9,\n      \"speed\": 27.895355\n    },\n
+        \   {\n      \"number\": 15,\n      \"name\": \"OO1\",\n      \"description\":
+        \"Lunar diurnal\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\": 251.7,\n
+        \     \"phase_local\": 90.3,\n      \"speed\": 16.139101\n    },\n    {\n
+        \     \"number\": 16,\n      \"name\": \"LAM2\",\n      \"description\": \"Smaller
+        lunar evectional constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        76.2,\n      \"phase_local\": 141.6,\n      \"speed\": 29.455626\n    },\n
+        \   {\n      \"number\": 17,\n      \"name\": \"S1\",\n      \"description\":
+        \"Solar diurnal constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        210.0,\n      \"phase_local\": 59.9,\n      \"speed\": 15.0\n    },\n    {\n
+        \     \"number\": 18,\n      \"name\": \"M1\",\n      \"description\": \"Smaller
+        lunar elliptic diurnal constituent\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\":
+        232.5,\n      \"phase_local\": 87.5,\n      \"speed\": 14.496694\n    },\n
+        \   {\n      \"number\": 19,\n      \"name\": \"J1\",\n      \"description\":
+        \"Smaller lunar elliptic diurnal constituent\",\n      \"amplitude\": 0.03,\n
+        \     \"phase_GMT\": 238.3,\n      \"phase_local\": 82.3,\n      \"speed\":
+        15.5854435\n    },\n    {\n      \"number\": 20,\n      \"name\": \"MM\",\n
+        \     \"description\": \"Lunar monthly constituent\",\n      \"amplitude\":
+        0.02,\n      \"phase_GMT\": 43.4,\n      \"phase_local\": 37.9,\n      \"speed\":
+        0.5443747\n    },\n    {\n      \"number\": 21,\n      \"name\": \"SSA\",\n
+        \     \"description\": \"Solar semiannual constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        0.0821373\n    },\n    {\n      \"number\": 22,\n      \"name\": \"SA\",\n
+        \     \"description\": \"Solar annual constituent\",\n      \"amplitude\":
+        0.16,\n      \"phase_GMT\": 177.7,\n      \"phase_local\": 177.2,\n      \"speed\":
+        0.0410686\n    },\n    {\n      \"number\": 23,\n      \"name\": \"MSF\",\n
+        \     \"description\": \"Lunisolar synodic fortnightly constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        1.0158958\n    },\n    {\n      \"number\": 24,\n      \"name\": \"MF\",\n
+        \     \"description\": \"Lunisolar fortnightly constituent\",\n      \"amplitude\":
+        0.02,\n      \"phase_GMT\": 44.3,\n      \"phase_local\": 33.3,\n      \"speed\":
+        1.0980331\n    },\n    {\n      \"number\": 25,\n      \"name\": \"RHO\",\n
+        \     \"description\": \"Larger lunar evectional diurnal constituent\",\n
+        \     \"amplitude\": 0.01,\n      \"phase_GMT\": 195.4,\n      \"phase_local\":
+        60.7,\n      \"speed\": 13.471515\n    },\n    {\n      \"number\": 26,\n
+        \     \"name\": \"Q1\",\n      \"description\": \"Larger lunar elliptic diurnal
+        constituent\",\n      \"amplitude\": 0.05,\n      \"phase_GMT\": 209.6,\n
+        \     \"phase_local\": 75.6,\n      \"speed\": 13.398661\n    },\n    {\n
+        \     \"number\": 27,\n      \"name\": \"T2\",\n      \"description\": \"Larger
+        solar elliptic constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        43.6,\n      \"phase_local\": 103.9,\n      \"speed\": 29.958933\n    },\n
+        \   {\n      \"number\": 28,\n      \"name\": \"R2\",\n      \"description\":
+        \"Smaller solar elliptic constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        357.3,\n      \"phase_local\": 56.8,\n      \"speed\": 30.041067\n    },\n
+        \   {\n      \"number\": 29,\n      \"name\": \"2Q1\",\n      \"description\":
+        \"Larger elliptic diurnal\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        231.0,\n      \"phase_local\": 102.5,\n      \"speed\": 12.854286\n    },\n
+        \   {\n      \"number\": 30,\n      \"name\": \"P1\",\n      \"description\":
+        \"Solar diurnal constituent\",\n      \"amplitude\": 0.15,\n      \"phase_GMT\":
+        224.9,\n      \"phase_local\": 75.3,\n      \"speed\": 14.958931\n    },\n
+        \   {\n      \"number\": 31,\n      \"name\": \"2SM2\",\n      \"description\":
+        \"Shallow water semidiurnal constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        199.8,\n      \"phase_local\": 249.6,\n      \"speed\": 31.015896\n    },\n
+        \   {\n      \"number\": 32,\n      \"name\": \"M3\",\n      \"description\":
+        \"Lunar terdiurnal constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        164.1,\n      \"phase_local\": 89.3,\n      \"speed\": 43.47616\n    },\n
+        \   {\n      \"number\": 33,\n      \"name\": \"L2\",\n      \"description\":
+        \"Smaller lunar elliptic semidiurnal constituent\",\n      \"amplitude\":
+        0.01,\n      \"phase_GMT\": 49.3,\n      \"phase_local\": 114.0,\n      \"speed\":
+        29.528479\n    },\n    {\n      \"number\": 34,\n      \"name\": \"2MK3\",\n
+        \     \"description\": \"Shallow water terdiurnal constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        42.92714\n    },\n    {\n      \"number\": 35,\n      \"name\": \"K2\",\n
+        \     \"description\": \"Lunisolar semidiurnal constituent\",\n      \"amplitude\":
+        0.05,\n      \"phase_GMT\": 45.7,\n      \"phase_local\": 104.8,\n      \"speed\":
+        30.082138\n    },\n    {\n      \"number\": 36,\n      \"name\": \"M8\",\n
+        \     \"description\": \"Shallow water eighth diurnal constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        115.93642\n    },\n    {\n      \"number\": 37,\n      \"name\": \"MS4\",\n
+        \     \"description\": \"Shallow water quarter diurnal constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 104.0,\n      \"phase_local\": 234.1,\n      \"speed\":
+        58.984104\n    }\n  ],\n  \"self\": \"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612340/harcon.json\"\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - close
+      Content-Length:
+      - '8134'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amz-apigw-id:
+      - dld7OHf2oAMEiqQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '8134'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:09 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 378c0e00-fabe-4ca7-8468-81151c4e09e2
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - api.tidesandcurrents.noaa.gov
+      User-Agent:
+      - Python-urllib/3.10
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9999531/harcon.json
+  response:
+    body:
+      string: "{\n  \"units\": \"feet\",\n  \"HarmonicConstituents\": [],\n  \"self\":
+        \"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9999531/harcon.json\"\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - close
+      Content-Length:
+      - '149'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amz-apigw-id:
+      - dld7PGApIAMElVA=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '149'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 92d6aa16-1db2-48d0-b495-824f358922fe
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - api.tidesandcurrents.noaa.gov
+      User-Agent:
+      - Python-urllib/3.10
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9414458/harcon.json
+  response:
+    body:
+      string: "{\n  \"units\": \"feet\",\n  \"HarmonicConstituents\": [\n    {\n      \"number\":
+        1,\n      \"name\": \"M2\",\n      \"description\": \"Principal lunar semidiurnal
+        constituent\",\n      \"amplitude\": 2.71,\n      \"phase_GMT\": 238.0,\n
+        \     \"phase_local\": 6.1,\n      \"speed\": 28.984104\n    },\n    {\n      \"number\":
+        2,\n      \"name\": \"S2\",\n      \"description\": \"Principal solar semidiurnal
+        constituent\",\n      \"amplitude\": 0.6,\n      \"phase_GMT\": 253.3,\n      \"phase_local\":
+        13.3,\n      \"speed\": 30.0\n    },\n    {\n      \"number\": 3,\n      \"name\":
+        \"N2\",\n      \"description\": \"Larger lunar elliptic semidiurnal constituent\",\n
+        \     \"amplitude\": 0.54,\n      \"phase_GMT\": 216.0,\n      \"phase_local\":
+        348.4,\n      \"speed\": 28.43973\n    },\n    {\n      \"number\": 4,\n      \"name\":
+        \"K1\",\n      \"description\": \"Lunar diurnal constituent\",\n      \"amplitude\":
+        1.32,\n      \"phase_GMT\": 239.5,\n      \"phase_local\": 119.1,\n      \"speed\":
+        15.041069\n    },\n    {\n      \"number\": 5,\n      \"name\": \"M4\",\n
+        \     \"description\": \"Shallow water overtides of principal lunar constituent\",\n
+        \     \"amplitude\": 0.04,\n      \"phase_GMT\": 340.4,\n      \"phase_local\":
+        236.6,\n      \"speed\": 57.96821\n    },\n    {\n      \"number\": 6,\n      \"name\":
+        \"O1\",\n      \"description\": \"Lunar diurnal constituent\",\n      \"amplitude\":
+        0.79,\n      \"phase_GMT\": 223.9,\n      \"phase_local\": 112.3,\n      \"speed\":
+        13.943035\n    },\n    {\n      \"number\": 7,\n      \"name\": \"M6\",\n
+        \     \"description\": \"Shallow water overtides of principal lunar constituent\",\n
+        \     \"amplitude\": 0.03,\n      \"phase_GMT\": 48.2,\n      \"phase_local\":
+        72.5,\n      \"speed\": 86.95232\n    },\n    {\n      \"number\": 8,\n      \"name\":
+        \"MK3\",\n      \"description\": \"Shallow water terdiurnal\",\n      \"amplitude\":
+        0.07,\n      \"phase_GMT\": 83.0,\n      \"phase_local\": 90.7,\n      \"speed\":
+        44.025173\n    },\n    {\n      \"number\": 9,\n      \"name\": \"S4\",\n
+        \     \"description\": \"Shallow water overtides of principal solar constituent\",\n
+        \     \"amplitude\": 0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\":
+        0.0,\n      \"speed\": 60.0\n    },\n    {\n      \"number\": 10,\n      \"name\":
+        \"MN4\",\n      \"description\": \"Shallow water quarter diurnal constituent\",\n
+        \     \"amplitude\": 0.02,\n      \"phase_GMT\": 318.3,\n      \"phase_local\":
+        218.9,\n      \"speed\": 57.423832\n    },\n    {\n      \"number\": 11,\n
+        \     \"name\": \"NU2\",\n      \"description\": \"Larger lunar evectional
+        constituent\",\n      \"amplitude\": 0.13,\n      \"phase_GMT\": 216.5,\n
+        \     \"phase_local\": 348.3,\n      \"speed\": 28.512583\n    },\n    {\n
+        \     \"number\": 12,\n      \"name\": \"S6\",\n      \"description\": \"Shallow
+        water overtides of principal solar constituent\",\n      \"amplitude\": 0.0,\n
+        \     \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\": 90.0\n
+        \   },\n    {\n      \"number\": 13,\n      \"name\": \"MU2\",\n      \"description\":
+        \"Variational constituent\",\n      \"amplitude\": 0.06,\n      \"phase_GMT\":
+        9.0,\n      \"phase_local\": 145.2,\n      \"speed\": 27.968208\n    },\n
+        \   {\n      \"number\": 14,\n      \"name\": \"2N2\",\n      \"description\":
+        \"Lunar elliptical semidiurnal second-order constituent\",\n      \"amplitude\":
+        0.06,\n      \"phase_GMT\": 199.1,\n      \"phase_local\": 335.9,\n      \"speed\":
+        27.895355\n    },\n    {\n      \"number\": 15,\n      \"name\": \"OO1\",\n
+        \     \"description\": \"Lunar diurnal\",\n      \"amplitude\": 0.05,\n      \"phase_GMT\":
+        281.7,\n      \"phase_local\": 152.5,\n      \"speed\": 16.139101\n    },\n
+        \   {\n      \"number\": 16,\n      \"name\": \"LAM2\",\n      \"description\":
+        \"Smaller lunar evectional constituent\",\n      \"amplitude\": 0.06,\n      \"phase_GMT\":
+        218.6,\n      \"phase_local\": 342.9,\n      \"speed\": 29.455626\n    },\n
+        \   {\n      \"number\": 17,\n      \"name\": \"S1\",\n      \"description\":
+        \"Solar diurnal constituent\",\n      \"amplitude\": 0.04,\n      \"phase_GMT\":
+        229.0,\n      \"phase_local\": 109.0,\n      \"speed\": 15.0\n    },\n    {\n
+        \     \"number\": 18,\n      \"name\": \"M1\",\n      \"description\": \"Smaller
+        lunar elliptic diurnal constituent\",\n      \"amplitude\": 0.05,\n      \"phase_GMT\":
+        274.4,\n      \"phase_local\": 158.4,\n      \"speed\": 14.496694\n    },\n
+        \   {\n      \"number\": 19,\n      \"name\": \"J1\",\n      \"description\":
+        \"Smaller lunar elliptic diurnal constituent\",\n      \"amplitude\": 0.07,\n
+        \     \"phase_GMT\": 275.4,\n      \"phase_local\": 150.7,\n      \"speed\":
+        15.5854435\n    },\n    {\n      \"number\": 20,\n      \"name\": \"MM\",\n
+        \     \"description\": \"Lunar monthly constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        0.5443747\n    },\n    {\n      \"number\": 21,\n      \"name\": \"SSA\",\n
+        \     \"description\": \"Solar semiannual constituent\",\n      \"amplitude\":
+        0.13,\n      \"phase_GMT\": 286.9,\n      \"phase_local\": 286.2,\n      \"speed\":
+        0.0821373\n    },\n    {\n      \"number\": 22,\n      \"name\": \"SA\",\n
+        \     \"description\": \"Solar annual constituent\",\n      \"amplitude\":
+        0.12,\n      \"phase_GMT\": 221.4,\n      \"phase_local\": 221.0,\n      \"speed\":
+        0.0410686\n    },\n    {\n      \"number\": 23,\n      \"name\": \"MSF\",\n
+        \     \"description\": \"Lunisolar synodic fortnightly constituent\",\n      \"amplitude\":
+        0.0,\n      \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\":
+        1.0158958\n    },\n    {\n      \"number\": 24,\n      \"name\": \"MF\",\n
+        \     \"description\": \"Lunisolar fortnightly constituent\",\n      \"amplitude\":
+        0.04,\n      \"phase_GMT\": 139.6,\n      \"phase_local\": 130.8,\n      \"speed\":
+        1.0980331\n    },\n    {\n      \"number\": 25,\n      \"name\": \"RHO\",\n
+        \     \"description\": \"Larger lunar evectional diurnal constituent\",\n
+        \     \"amplitude\": 0.03,\n      \"phase_GMT\": 217.3,\n      \"phase_local\":
+        109.5,\n      \"speed\": 13.471515\n    },\n    {\n      \"number\": 26,\n
+        \     \"name\": \"Q1\",\n      \"description\": \"Larger lunar elliptic diurnal
+        constituent\",\n      \"amplitude\": 0.14,\n      \"phase_GMT\": 221.4,\n
+        \     \"phase_local\": 114.2,\n      \"speed\": 13.398661\n    },\n    {\n
+        \     \"number\": 27,\n      \"name\": \"T2\",\n      \"description\": \"Larger
+        solar elliptic constituent\",\n      \"amplitude\": 0.03,\n      \"phase_GMT\":
+        225.9,\n      \"phase_local\": 346.2,\n      \"speed\": 29.958933\n    },\n
+        \   {\n      \"number\": 28,\n      \"name\": \"R2\",\n      \"description\":
+        \"Smaller solar elliptic constituent\",\n      \"amplitude\": 0.01,\n      \"phase_GMT\":
+        47.5,\n      \"phase_local\": 167.1,\n      \"speed\": 30.041067\n    },\n
+        \   {\n      \"number\": 29,\n      \"name\": \"2Q1\",\n      \"description\":
+        \"Larger elliptic diurnal\",\n      \"amplitude\": 0.02,\n      \"phase_GMT\":
+        236.1,\n      \"phase_local\": 133.2,\n      \"speed\": 12.854286\n    },\n
+        \   {\n      \"number\": 30,\n      \"name\": \"P1\",\n      \"description\":
+        \"Solar diurnal constituent\",\n      \"amplitude\": 0.41,\n      \"phase_GMT\":
+        238.8,\n      \"phase_local\": 119.1,\n      \"speed\": 14.958931\n    },\n
+        \   {\n      \"number\": 31,\n      \"name\": \"2SM2\",\n      \"description\":
+        \"Shallow water semidiurnal constituent\",\n      \"amplitude\": 0.03,\n      \"phase_GMT\":
+        56.2,\n      \"phase_local\": 168.0,\n      \"speed\": 31.015896\n    },\n
+        \   {\n      \"number\": 32,\n      \"name\": \"M3\",\n      \"description\":
+        \"Lunar terdiurnal constituent\",\n      \"amplitude\": 0.0,\n      \"phase_GMT\":
+        0.0,\n      \"phase_local\": 0.0,\n      \"speed\": 43.47616\n    },\n    {\n
+        \     \"number\": 33,\n      \"name\": \"L2\",\n      \"description\": \"Smaller
+        lunar elliptic semidiurnal constituent\",\n      \"amplitude\": 0.12,\n      \"phase_GMT\":
+        233.2,\n      \"phase_local\": 356.9,\n      \"speed\": 29.528479\n    },\n
+        \   {\n      \"number\": 34,\n      \"name\": \"2MK3\",\n      \"description\":
+        \"Shallow water terdiurnal constituent\",\n      \"amplitude\": 0.11,\n      \"phase_GMT\":
+        65.7,\n      \"phase_local\": 82.2,\n      \"speed\": 42.92714\n    },\n    {\n
+        \     \"number\": 35,\n      \"name\": \"K2\",\n      \"description\": \"Lunisolar
+        semidiurnal constituent\",\n      \"amplitude\": 0.2,\n      \"phase_GMT\":
+        238.9,\n      \"phase_local\": 358.2,\n      \"speed\": 30.082138\n    },\n
+        \   {\n      \"number\": 36,\n      \"name\": \"M8\",\n      \"description\":
+        \"Shallow water eighth diurnal constituent\",\n      \"amplitude\": 0.0,\n
+        \     \"phase_GMT\": 0.0,\n      \"phase_local\": 0.0,\n      \"speed\": 115.93642\n
+        \   },\n    {\n      \"number\": 37,\n      \"name\": \"MS4\",\n      \"description\":
+        \"Shallow water quarter diurnal constituent\",\n      \"amplitude\": 0.03,\n
+        \     \"phase_GMT\": 3.0,\n      \"phase_local\": 251.1,\n      \"speed\":
+        58.984104\n    }\n  ],\n  \"self\": \"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9414458/harcon.json\"\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - close
+      Content-Length:
+      - '8156'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amz-apigw-id:
+      - dld7QGRxoAMENDg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '8156'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - b0b6ab1f-25d0-48cf-8480-9e500711a802
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=1612480&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAI2NMQ7CMAxFd04ReU4jOw0N5A6cADFEapAQbSNE6BL17thhYWBA/sv7+nquMKcS
+        x1gihAq3EQLQQNYdEDQscU5cnPL9laecuJli4cKScX1Pwnlh7mjvjT8iwqYVfGTqXKFt0VKHEoUY
+        eMKLVb4Y663AkwENYoOrgG4n+GBcWfpTNXyr3J+qy7Z7A1T6BInzAAAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '156'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7RG3ToAMEPzQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '243'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 61c4b1e8-6bfd-4e2e-977a-bbe81223b1b8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=1612340&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAHXNQQrDIBCF4X1PIbNOZHTUFk/QO5QuhKRQMEppko3k7p1JN1m06OZ7yG+DaZzT
+        kOYEscFzgAgmGEsOoYOSppGHay01L3nhJaeZB2s0IZG4FnZv/FlfgvOwdQq+MXVrsL9Fa3qUqxAj
+        clbBKr9oIi94M1CjIcFD0O1H+GKuHP2ZCoeUC8eU+5+6b6cP+kcBqvMAAAA=
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '158'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7SEORoAMEmVw=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '243'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 7605558b-d50d-4adb-960a-b44187b79bec
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9999531&product=water_level&begin_date=20210101+00%3A00&end_date=20210101+00%3A10&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAACXKwQ3CMAwF0DtTfHmADtAhOLGAIT+QQ2KwHSFUdXeoOD7pbUJ3c1mxSWeE3imr
+        nA1FU/HWQLU5yoLLowWebmXeEl0/GJa4ElYrnQWayKNEajYbfxPO12TkL2TrXGTfT19wnfUacwAA
+        AA==
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7TFIsoAMEahQ=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '115'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - 9293ee6d-2fd6-4296-b994-52dc347cee89
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.3
+    method: GET
+    uri: https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9414458&product=water_level&begin_date=20050330+00%3A00&end_date=20050330+02%3A00&datum=STND&units=metric&time_zone=gmt&interval=h&format=json&application=noaa%2Fnos%2Fcsdl%2Fstormevents
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAKWUPWvDMBCG9/4KcbMt7vRlyWP3Th1LB4HdEmgc0posJv+9p2bwBTqUHp5enf1g
+        v3rkDY7zWqe6Vhg3OEwwQgkUQszQwVKPMy8818U81XU+mcfPw/Q+8+Sjrjzwg40ZseXTwrkn56yL
+        HuHaGbhBzcsG7V6HGHv0vUeDOLaHDFx4PVlPqYUvDmjxNnlrofu5WjxzvDD0V1TaUa6oUOQEahhU
+        qCxQiTQoFwQqBA3Ki9qd06Fk7aj6wCBqp0G1g0HUTjFqUFHUTt79H0V3tmNRvBXd2Y6xaFDSdvSK
+        HSRhe7SlZA1qt51RSdXVbjujvFeh0o7KRfFnIGE7o5LiDJKwnVE6RaOofcgKr5ywnVHxr8f59frw
+        DeJH3pWMBgAA
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache,no-store,must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '294'
+      Content-Type:
+      - application/json;charset=ISO-8859-1
+      Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Pragma:
+      - no-cache
+      x-amz-apigw-id:
+      - dld7UEzhoAMEWfg=
+      x-amzn-Remapped-Connection:
+      - keep-alive
+      x-amzn-Remapped-Content-Length:
+      - '1676'
+      x-amzn-Remapped-Date:
+      - Wed, 04 Sep 2024 15:03:10 GMT
+      x-amzn-Remapped-Server:
+      - nginx
+      x-amzn-RequestId:
+      - f4d19785-5c54-4e5d-9998-159147015cde
+    status:
+      code: 200
+      message: OK
 version: 1
