@@ -25,7 +25,7 @@ def _to_utc(
         ref = index
         if isinstance(ref, pd.Timestamp):
             ref = pd.DatetimeIndex([ref])
-        if warn and index.tz.utcoffset(ref[0]) != timedelta():
+        if warn and ref[0].utcoffset() != timedelta():
             warnings.warn("Converting to UTC!\nData is retrieved and stored in UTC time")
         index = index.tz_convert("utc")
     else:
