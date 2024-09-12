@@ -52,7 +52,7 @@ def test_generate_urls_raises_when_end_date_before_start_date():
     assert str(exc.value) == f"'end_date' must be after 'start_date': {end_date} vs {start_date}"
 
 
-@unittest.mock.patch("searvey._common._fetch_url")
+@unittest.mock.patch("searvey._ioc_api._fetch_url")
 def test_fetch_ioc_station_empty_responses(mocked_fetch_url):
     station_id = "blri"
     start_date = "2023-09-01"
