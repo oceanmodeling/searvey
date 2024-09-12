@@ -21,8 +21,6 @@ from searvey.utils import get_region
 logger = logging.getLogger(__name__)
 
 
-
-
 @functools.lru_cache
 def _get_ndbc_stations(
     ndbc_api_client: NdbcApi | None = None,
@@ -33,7 +31,6 @@ def _get_ndbc_stations(
     """
     if ndbc_api_client is None:
         ndbc_api_client = NdbcApi()
-
 
     stations_df = ndbc_api_client.stations()
     stations_df[["lat", "ns", "lon", "ew"]] = stations_df["Location Lat/Long"].str.extract(
