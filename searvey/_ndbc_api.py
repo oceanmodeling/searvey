@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import functools
 import logging
 from typing import List
 from typing import Union
@@ -21,9 +20,9 @@ from searvey.utils import get_region
 logger = logging.getLogger(__name__)
 
 
-@functools.lru_cache
 def _get_ndbc_stations(
-    ndbc_api_client: NdbcApi | None = None,
+    ndbc_api_client: NdbcApi | None,
+    executor: multifutures.ExecutorProtocol | None,
 ) -> gpd.GeoDataFrame:
     """
     Return NDBC station metadata.
@@ -46,6 +45,23 @@ def _get_ndbc_stations(
         data=stations_df,
         geometry=gpd.points_from_xy(stations_df.lon, stations_df.lat, crs="EPSG:4326"),
     )
+
+    kwargs = [{"station_id": st} for st in stations_df.Station]
+    results = multifutures.multithread(
+        func=ndbc_api_client.station,
+        func_kwargs=kwargs,
+        check=False,
+        executor=executor,
+        progress_bar=False,
+    )
+    details_df = pd.DataFrame.from_dict(
+        {result.kwargs["station_id"]: result.result for result in results if result.kwargs is not None},
+        orient="index",
+    )
+    stations_df = pd.merge(stations_df, details_df, left_on="Station", right_index=True).reset_index(
+        drop=True
+    )
+
     return stations_df
 
 
@@ -56,6 +72,7 @@ def get_ndbc_stations(
     lat_min: float | None = None,
     lat_max: float | None = None,
     ndbc_api_client: NdbcApi | None = None,
+    multithreading_executor: multifutures.ExecutorProtocol | None = None,
 ) -> gpd.GeoDataFrame:
     """
     Return NDBC station metadata.
@@ -80,7 +97,10 @@ def get_ndbc_stations(
         symmetric=True,
     )
 
-    ndbc_stations = _get_ndbc_stations(ndbc_api_client=ndbc_api_client)
+    ndbc_stations = _get_ndbc_stations(
+        ndbc_api_client=ndbc_api_client,
+        executor=multithreading_executor,
+    )
     if region:
         ndbc_stations = ndbc_stations[ndbc_stations.within(region)]
     return ndbc_stations

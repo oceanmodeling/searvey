@@ -2,16 +2,19 @@ import datetime
 
 import geopandas as gpd
 import pandas as pd
+import pytest
 
 from searvey import _ndbc_api as ndbc
 
 
+@pytest.mark.vcr
 def test_get_ndbc_stations():
     stations = ndbc.get_ndbc_stations()
     assert isinstance(stations, gpd.GeoDataFrame)
     assert not stations.empty
 
 
+@pytest.mark.vcr
 def test_get_ndbc_stations_within_box():
     """
     Test that the stations are within the bounding box.
