@@ -259,14 +259,8 @@ def test_coops_data_products_default_args(station_id, product):
     )
 
 
-@pytest.fixture
-def now_utc():
-    # Seconds are truncated for COOPS query url
-    return pd.Timestamp.now("utc").floor("min")
-
-
 @pytest.mark.parametrize(
-    "days_before_now, station_id, product",
+    "days_before_end, station_id, product",
     [
         (7, 8654467, "water_level"),
         (60, 8636580, "hourly_height"),
@@ -289,9 +283,11 @@ def now_utc():
         # (30, 8636580, "daily_mean"),
     ],
 )
-def test_coops_data_products_w_date_input(now_utc, days_before_now, station_id, product):
-    start_date = now_utc - timedelta(days=days_before_now)
-    end_date = now_utc
+def test_coops_data_products_w_date_input(days_before_end, station_id, product):
+    # 2024-02-05 was the date when the test was added.
+    # This ensures that the test can continue to run in the future
+    end_date = pd.Timestamp("2024-02-05", tz="UTC")
+    start_date = end_date - timedelta(days=days_before_end)
 
     df = fetch_coops_station(
         station_id,
