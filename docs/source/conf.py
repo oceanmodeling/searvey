@@ -75,7 +75,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx_autodoc_typehints",
     "sphinxext.opengraph",
-    "m2r2",
+    "sphinx_mdinclude",
 ]
 
 # sphinx_autodoc_typehints settings

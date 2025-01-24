@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 # constants
 COOPS_URL_TS_FORMAT = "%Y%m%d %H:%M"
-COOPS_BASE_URL = "https://tidesandcurrents.noaa.gov/api/datagetter?"
+COOPS_BASE_URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?"
 
 COOPS_ProductFieldTypes = {
     "bin": int,

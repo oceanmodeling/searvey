@@ -48,6 +48,7 @@ tenacity = "*, !=8.4.0"  # https://github.com/jd/tenacity/issues/471
 tqdm = "*"
 typing-extensions = "*"
 xarray = "*"
+ndbc-api = "0.24.1.6.1"
 
 [tool.poetry.group.dev.dependencies]
 covdefaults = "*"
@@ -65,7 +66,7 @@ urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
 furo = "*"
-m2r2 = ">=0.3.2"
+sphinx-mdinclude = "*"
 setuptools = "*"
 sphinx = "*"
 sphinxext-opengraph = "*"

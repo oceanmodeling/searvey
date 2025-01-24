@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import warnings
+from collections import defaultdict
 from datetime import datetime
 from enum import Enum
 from functools import lru_cache
@@ -80,7 +81,7 @@ StationTypes = [
     "highwater",
     "lowwater",
     "hightideflooding",
-    "ofs",
+    "ofs",  # OFS is model, not actual obs!
     "partnerstations",
 ]
 
@@ -113,12 +114,24 @@ class COOPS_Product(Enum):  # noqa: N801
         # One minute water level data for the station.
     )
     PREDICTIONS = "predictions"  # 6 minute predictions water level data for the station.*
+    OFS_WATER_LEVEL = "ofs_water_level"  # Water level model guidance at 6-minute intervals based on NOS OFS models. Data available from 2020 to present.
     DATUMS = "datums"  # datums data for the stations.
     CURRENTS = "currents"  # Currents data for currents stations.
     CURRENTS_PREDICTIONS = (
         "currents_predictions"
         # Currents predictions data for currents predictions stations.
     )
+
+
+DATE_FMT: dict[Optional[COOPS_Product], "str"] = {COOPS_Product.PREDICTIONS: "%Y%m%d"}
+DATE_FMT = defaultdict(lambda: "%Y%m%d %H:%M", DATE_FMT)
+
+
+RSP_STN_LIST: dict["str", "str"] = {
+    "ofs": "OFSStationList",
+    "partnerstations": "PartnerStationList",
+}
+RSP_STN_LIST = defaultdict(lambda: "stations", RSP_STN_LIST)
 
 
 class COOPS_Interval(Enum):  # noqa: N801
@@ -251,26 +264,20 @@ class COOPS_Station:
         :return: table of tidal constituents for the current station
         """
 
-        url = f"https://tidesandcurrents.noaa.gov/harcon.html?id={self.id}"
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, features="html.parser")
-        table = soup.find_all("table", {"class": "table table-striped"})
-        if len(table) > 0:
-            table = table[0]
-            columns = [field.text for field in table.find("thead").find("tr").find_all("th")]
-            constituents = []
-            for row in table.find_all("tr")[1:]:
-                constituents.append([entry.text for entry in row.find_all("td")])
-            constituents = DataFrame(constituents, columns=columns)
-            constituents.rename(columns={"Constituent #": "#"}, inplace=True)
-            constituents = constituents.astype(
-                {
-                    "#": numpy.int32,
-                    "Amplitude": numpy.float64,
-                    "Phase": numpy.float64,
-                    "Speed": numpy.float64,
+        url = f"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/{self.id}/harcon.json"
+        df_harcon = pandas.read_json(url)
+        df_harcon = pandas.json_normalize(df_harcon["HarmonicConstituents"])
+
+        if len(df_harcon) > 0:
+            # TODO: Should local or GMT phase be used?
+            constituents = df_harcon.rename(
+                columns={
+                    "number": "#",
+                    "amplitude": "Amplitude",
+                    "phase_GMT": "Phase",
+                    "speed": "Speed",
                 }
-            )
+            )[["#", "Amplitude", "Phase", "Speed"]]
         else:
             constituents = DataFrame(columns=["#", "Amplitude", "Phase", "Speed"])
 
@@ -369,7 +376,7 @@ class COOPS_Query:
     https://api.tidesandcurrents.noaa.gov/api/prod/
     """
 
-    URL = "https://tidesandcurrents.noaa.gov/api/datagetter?"
+    URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?"
 
     def __init__(
         self,
@@ -513,9 +520,10 @@ class COOPS_Query:
         product = self.product
         if isinstance(product, Enum):
             product = product.value
+        date_fmt = DATE_FMT[COOPS_Product(product)]
         start_date = self.start_date
         if start_date is not None and not isinstance(start_date, str):
-            start_date = f"{self.start_date:%Y%m%d %H:%M}"
+            start_date = f"{self.start_date:{date_fmt}}"
         datum = self.datum
         if isinstance(datum, Enum):
             datum = datum.value
@@ -533,7 +541,7 @@ class COOPS_Query:
             "station": self.station_id,
             "product": product,
             "begin_date": start_date,
-            "end_date": f"{self.end_date:%Y%m%d %H:%M}",
+            "end_date": f"{self.end_date:{date_fmt}}",
             "datum": datum,
             "units": units,
             "time_zone": time_zone,
@@ -900,6 +908,12 @@ def coops_product_within_region(
 
 
 def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
+    # To avoid duplicate labels
+    if "lon" in df.columns:
+        df.loc[df.lon.notnull(), "lng"] = df.lon[df.lon.notnull()]
+    if "stationID" in df.columns:
+        df.loc[df.stationID.notnull(), "id"] = df.stationID[df.stationID.notnull()]
+    df = df.drop(columns=["lon", "stationID"])
     df = df.rename(
         columns={
             "id": "nos_id",
@@ -946,7 +960,9 @@ def _get_single_coops_station(station_type: str) -> pd.DataFrame:
     url = f"https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?expand=details&type={station_type}"
 
     df_thistype = pandas.read_json(url)
-    df_thistype = pandas.json_normalize(df_thistype["stations"])
+    data_col = RSP_STN_LIST[station_type]
+    df_thistype = pandas.json_normalize(df_thistype[data_col])
+
     df_thistype["station_type"] = station_type
 
     return df_thistype

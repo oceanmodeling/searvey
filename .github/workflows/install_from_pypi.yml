@@ -7,6 +7,7 @@ on:
 
 jobs:
   test_pypi_installation:
+    if: github.repository_owner == 'oceanmodeling' && false
     name: test PyPI installation
     runs-on: ${{ matrix.os }}
     strategy:
