@@ -54,8 +54,13 @@ def test_fetch_chs_data_multiple():
     dataframes = chs._fetch_chs(
         station_ids=["5cebf1de3d0f4a073c4bbad5", "5cebf1e33d0f4a073c4bc23e"],
         time_series_code="wlp",
-        start_dates=[datetime.date(2023, 1, 1), "2023-01-01"],
-        end_dates=["2023-01-07", "2023-01-07"],
+        start_dates=pd.DatetimeIndex([datetime.date(2023, 1, 1), pd.Timestamp("2023-01-01")]),
+        end_dates=pd.DatetimeIndex(
+            [
+                datetime.datetime.fromisoformat("2023-01-07"),
+                datetime.datetime.strptime("2023-01-07", "%Y-%m-%d"),
+            ]
+        ),
     )
 
     assert isinstance(dataframes, dict)
@@ -76,8 +81,8 @@ def test_fetch_chs_data_unavailable_available_data():
     dataframes = chs._fetch_chs(
         station_ids=["94323"],
         time_series_code="wlp",
-        start_dates=[datetime.datetime(2023, 1, 1, 10, 0, 0)],
-        end_dates=[datetime.date(2023, 1, 7)],
+        start_dates=pd.DatetimeIndex([datetime.datetime(2023, 1, 1, 10, 0, 0)]),
+        end_dates=pd.DatetimeIndex([datetime.date(2023, 1, 7)]),
     )
 
     assert isinstance(dataframes, dict)

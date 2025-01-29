@@ -6,7 +6,6 @@ import logging
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Union
 
 import geopandas as gpd
 import httpx
@@ -15,6 +14,7 @@ import pandas as pd
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
+from ._common import _to_utc
 from searvey._common import _fetch_url
 from searvey._common import _resolve_end_date
 from searvey._common import _resolve_http_client
@@ -71,8 +71,8 @@ def get_chs_stations(
 def _fetch_chs(
     station_ids: List[str],
     time_series_code: str,
-    start_dates: Union[DatetimeLike, List[DatetimeLike]],
-    end_dates: Union[DatetimeLike, List[DatetimeLike]],
+    start_dates: pd.DatetimeIndex,
+    end_dates: pd.DatetimeIndex,
     rate_limit: multifutures.RateLimit | None = None,
     http_client: httpx.Client | None = None,
     multithreading_executor: multifutures.ExecutorProtocol | None = None,
@@ -80,15 +80,11 @@ def _fetch_chs(
     """
     Retrieve the TimeSeries for multiple CHS stations using multithreading.
     """
-    now = pd.Timestamp.now("utc")
     rate_limit = _resolve_rate_limit(rate_limit)
     http_client = _resolve_http_client(http_client)
 
-    # Ensure start_dates and end_dates are lists
-    if not isinstance(start_dates, list):
-        start_dates = [start_dates] * len(station_ids)
-    if not isinstance(end_dates, list):
-        end_dates = [end_dates] * len(station_ids)
+    start_dates = _to_utc(start_dates, warn=True)
+    end_dates = _to_utc(end_dates, warn=True)
 
     # Ensure that each station has a start_date and end_date
     if len(start_dates) != len(station_ids) or len(end_dates) != len(station_ids):
@@ -99,8 +95,8 @@ def _fetch_chs(
         {
             "station_id": station_id,
             "time_series_code": time_series_code,
-            "start_time": _resolve_start_date(now, start_date)[0],
-            "end_time": _resolve_end_date(now, end_date)[0],
+            "start_time": start_date,
+            "end_time": end_date,
             "client": http_client,
             "rate_limit": rate_limit,
         }
@@ -168,11 +164,12 @@ def fetch_chs_station(
     """
     logger.info("CHS-%s: Starting data retrieval: %s - %s", station_id, start_date, end_date)
     try:
+        now = pd.Timestamp.now("utc")
         df = _fetch_chs(
             station_ids=[station_id],
             time_series_code=time_series_code,
-            start_dates=[start_date],
-            end_dates=[end_date],
+            start_dates=_resolve_start_date(now, start_date),
+            end_dates=_resolve_end_date(now, end_date),
             rate_limit=rate_limit,
             http_client=http_client,
         )[station_id]
