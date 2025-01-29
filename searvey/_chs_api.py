@@ -25,7 +25,7 @@ from searvey.utils import get_region
 
 logger = logging.getLogger(__name__)
 
-CHS_BASE_URL = "https://api-iwls.dfo-mpo.gc.ca/api/v1"
+CHS_BASE_URL = "https://api.iwls-sine.azure.cloud-nuage.dfo-mpo.gc.ca/api/v1"
 
 
 @functools.lru_cache
