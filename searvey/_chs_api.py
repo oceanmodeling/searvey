@@ -14,12 +14,12 @@ import pandas as pd
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
-from ._common import _to_utc
 from searvey._common import _fetch_url
 from searvey._common import _resolve_end_date
 from searvey._common import _resolve_http_client
 from searvey._common import _resolve_rate_limit
 from searvey._common import _resolve_start_date
+from searvey._common import _to_utc
 from searvey.custom_types import DatetimeLike
 from searvey.utils import get_region
 

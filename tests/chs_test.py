@@ -2,6 +2,7 @@ import datetime
 
 import geopandas as gpd
 import pandas as pd
+import pytest
 
 import searvey._chs_api as chs
 
@@ -92,3 +93,46 @@ def test_fetch_chs_data_unavailable_available_data():
     df = dataframes["94323"]
     assert isinstance(df, pd.DataFrame)
     assert df.status[0] == "NOT_FOUND"
+
+
+def test_error_on_invalid_datelist_input():
+
+    with pytest.raises(ValueError, match="Each station must have.*"):
+        chs._fetch_chs(
+            station_ids=["5cebf1de3d0f4a073c4bbad5", "5cebf1e33d0f4a073c4bc23e"],
+            time_series_code="wlp",
+            start_dates=pd.DatetimeIndex([datetime.datetime(2023, 1, 1, 10, 0, 0)]),
+            end_dates=pd.DatetimeIndex([datetime.date(2023, 1, 7)]),
+        )
+
+
+def test_skiperror_on_query_daterange(caplog):
+    df = chs.fetch_chs_station(
+        station_id="5cebf1e33d0f4a073c4bc23e",
+        time_series_code="wlp",  # Water level prediction
+        start_date=datetime.date(2023, 1, 1),
+        end_date="2023-01-10",
+    )
+    assert df.empty
+    assert "Error fetching data for" in caplog.record_tuples[0][2]
+
+
+def test_skiperror_on_start_after_end_date(caplog):
+    df = chs.fetch_chs_station(
+        station_id="5cebf1e33d0f4a073c4bc23e",
+        time_series_code="wlp",  # Water level prediction
+        start_date=datetime.date(2023, 1, 10),
+        end_date="2023-01-01",
+    )
+    assert df.empty
+    assert "Error fetching data for" in caplog.record_tuples[0][2]
+
+
+def test_empty_on_equal_dates():
+    df = chs.fetch_chs_station(
+        station_id="5cebf1e33d0f4a073c4bc23e",
+        time_series_code="wlp",  # Water level prediction
+        start_date=datetime.date(2023, 1, 1),
+        end_date="2023-01-01",
+    )
+    assert df.empty
