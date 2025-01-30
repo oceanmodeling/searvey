@@ -17,6 +17,8 @@ Searvey aims to provide the following functionality:
     - Flanders Marine Institute (VLIZ); Intergovernmental Oceanographic Commission (IOC)
     - U.S. Geological Survey (USGS)
     - National Data Buoy Center (NDBC)
+    - Canadian Hydrographic Service (CHS)
+
 
 ## Installation
 
