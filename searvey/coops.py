@@ -732,8 +732,11 @@ def coops_stations(station_status: COOPS_StationStatus | None = None) -> GeoData
 
             stations.rename(columns={"Removed Date/Time": "removed"}, inplace=True)
 
+            # Make sure there's not string None values
+            stations.loc[stations["removed"] == "None", "removed"] = pd.NA
             stations["removed"] = pandas.to_datetime(stations["removed"]).astype("string")
 
+            # Stations with NA removed value are filtered
             stations = (
                 stations[~pandas.isna(stations["removed"])]
                 .sort_values("removed", ascending=False)
