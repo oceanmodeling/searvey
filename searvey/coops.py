@@ -914,9 +914,10 @@ def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
     # To avoid duplicate labels
     if "lon" in df.columns:
         df.loc[df.lon.notnull(), "lng"] = df.lon[df.lon.notnull()]
+        df = df.drop(columns=["lon"])
     if "stationID" in df.columns:
         df.loc[df.stationID.notnull(), "id"] = df.stationID[df.stationID.notnull()]
-    df = df.drop(columns=["lon", "stationID"])
+        df = df.drop(columns=["stationID"])
     df = df.rename(
         columns={
             "id": "nos_id",
