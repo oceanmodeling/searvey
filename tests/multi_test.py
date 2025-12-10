@@ -92,11 +92,11 @@ def test_multiprocess_pool_size(n_workers) -> None:
             f"Skipping: Requested {n_workers} workers, but only {multiprocessing.cpu_count()} processes are available."
         )
     # --- FIX END ---
-    
+
     # The original CI-specific skip is kept for redundancy, but the dynamic check is preferred
     if n_workers == 4 and os.environ.get("CI", False):
         pytest.skip("Github actions only permits 2 concurrent processes")
-        
+
     # Test that the number of the used processes is equal to the specified number of workers
     results = multi.multiprocess(
         func=get_processname, func_kwargs=[{"arg": i} for i in range(4 * n_workers)], n_workers=n_workers
