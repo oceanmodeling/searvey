@@ -15,7 +15,7 @@ from searvey.stations import get_stations
 from searvey.stations import Provider
 from searvey.usgs import get_usgs_stations
 
-__version__ =importlib.metadata.version(__name__)
+__version__ = importlib.metadata.version(__name__)
 
 
 __all__: list[str] = [
