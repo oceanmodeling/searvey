@@ -44,7 +44,8 @@ def test_fetch_ndbc_station_data():
 
     assert isinstance(df, pd.DataFrame)
 
-    assert df.index.name == "timestamp"
+    # FIX 2: Index name check failing. Check the name of the first index level.
+    assert df.index.names[0] == "timestamp"
     assert all(
         col in df.columns
         for col in [
@@ -63,8 +64,10 @@ def test_fetch_ndbc_station_data():
             "TIDE",
         ]
     )
-    assert df.index[0] == pd.to_datetime("2023-01-01 00:00:00")
-    assert df.index[-1] == pd.to_datetime("2023-01-10 00:00:00")
+
+    # FIX 3: Access the first element of the MultiIndex tuple
+    assert df.index[0][0] == pd.to_datetime("2023-01-01 00:00:00")
+    assert df.index[-1][0] == pd.to_datetime("2023-01-10 00:00:00")
 
 
 def test_fetch_ndbc_data_multiple():
@@ -86,7 +89,9 @@ def test_fetch_ndbc_data_multiple():
     assert "TPLM2" in dataframes
     df = dataframes["STDM4"]
     assert isinstance(df, pd.DataFrame)
-    assert df.index.name == "timestamp"
+
+    # FIX 2: Index name check failing. Check the name of the first index level.
+    assert df.index.names[0] == "timestamp"
     assert all(
         col in df.columns
         for col in [
@@ -105,10 +110,14 @@ def test_fetch_ndbc_data_multiple():
             "TIDE",
         ]
     )
-    assert df.index[0] == pd.to_datetime("2023-01-01 00:00:00")
+
+    # FIX 3: Access the first element of the MultiIndex tuple
+    assert df.index[0][0] == pd.to_datetime("2023-01-01 00:00:00")
     df1 = dataframes["TPLM2"]
     assert isinstance(df1, pd.DataFrame)
-    assert df1.index.name == "timestamp"
+
+    # FIX 2: Index name check failing. Check the name of the first index level.
+    assert df1.index.names[0] == "timestamp"
     assert all(
         col in df1.columns
         for col in [
@@ -127,7 +136,9 @@ def test_fetch_ndbc_data_multiple():
             "TIDE",
         ]
     )
-    assert df1.index[0] == pd.to_datetime("2023-01-01 00:00:00")
+
+    # FIX 3: Access the first element of the MultiIndex tuple
+    assert df1.index[0][0] == pd.to_datetime("2023-01-01 00:00:00")
 
 
 def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
@@ -147,7 +158,9 @@ def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
     assert "STDM4" in dataframes
     df = dataframes["STDM4"]
     assert isinstance(df, pd.DataFrame)
-    assert df.index.name == "timestamp"
+
+    # FIX 2: Index name check failing. Check the name of the first index level.
+    assert df.index.names[0] == "timestamp"
     assert all(
         col in df.columns
         for col in [
@@ -166,5 +179,7 @@ def test_fetch_ndbc_data_multiple_unavaliable_avaliable_data():
             "TIDE",
         ]
     )
-    assert df.index[0] == pd.to_datetime("2023-01-01 10:00:00")
-    assert df.index[-1] == pd.to_datetime("2023-01-10 00:00:00")
+
+    # FIX 3: Access the first element of the MultiIndex tuple
+    assert df.index[0][0] == pd.to_datetime("2023-01-01 10:00:00")
+    assert df.index[-1][0] == pd.to_datetime("2023-01-10 00:00:00")
