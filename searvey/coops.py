@@ -933,7 +933,8 @@ def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
             "lat": numpy.float32,
             "state": "string",
             "name": "string",
-            "removed": "datetime64[ns]",
+            # Separate type case to avoid errors in earlier versions of pandas
+            # "removed": "datetime64[ns]",
         },
     )[
         [
@@ -947,6 +948,11 @@ def normalize_coops_stations(df: pandas.DataFrame) -> geopandas.GeoDataFrame:
             "removed",
         ]
     ]
+
+    if "removed" in df.columns:
+        df["removed"] = pd.to_datetime(df.removed, errors="coerce")
+    else:
+        df["removed"] = pd.NaT
     df["status"] = COOPS_StationStatus.ACTIVE.value
     df.loc[~df.removed.isna(), "status"] = COOPS_StationStatus.DISCONTINUED.value
     df = df.drop_duplicates(subset=["nos_id", "nws_id", "station_type", "status", "removed"]).set_index(

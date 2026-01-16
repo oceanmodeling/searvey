@@ -92,7 +92,7 @@ def test_fetch_chs_data_unavailable_available_data():
 
     df = dataframes["94323"]
     assert isinstance(df, pd.DataFrame)
-    assert df.status[0] == "NOT_FOUND"
+    assert df.status[0] == "BAD_REQUEST"
 
 
 def test_error_on_invalid_datelist_input():
