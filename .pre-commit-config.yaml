@@ -41,46 +41,76 @@ repos:
       - id: "shellcheck"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
-    rev: "0.28.6"
+    rev: "0.33.1"
     hooks:
       - id: "check-github-workflows"
       - id: "check-readthedocs"
 
   - repo: "https://github.com/asottile/reorder_python_imports"
-    rev: "v3.13.0"
+    rev: "v3.15.0"
     hooks:
       - id: "reorder-python-imports"
         args:
           - "--py38-plus"
 
   - repo: "https://github.com/psf/black"
-    rev: "24.4.2"
+    rev: "25.1.0"
     hooks:
       - id: "black"
 
-  - repo: "https://github.com/charliermarsh/ruff-pre-commit"
-    # Ruff version.
-    rev: 'v0.4.10'
+  - repo: "https://github.com/astral-sh/ruff-pre-commit"
+    rev: 'v0.12.0'
     hooks:
-      - id: "ruff"
+      # Run the linter.
+      - id: ruff-check
+      # Run the formatter.
+      #- id: ruff-format
 
   - repo: "https://github.com/kynan/nbstripout"
-    rev: "0.7.1"
+    rev: "0.8.1"
     hooks:
       - id: "nbstripout"
 
   - repo: "https://github.com/python-poetry/poetry"
-    rev: "1.8.0"
+    rev: "2.1.3"
     hooks:
       - id: "poetry-check"
+        name: "poetry check --lock"
+        args: ["--lock"]
       - id: "poetry-lock"
-        args: ["--check"]
+        name: "poetry lock"
+
+  - repo: "https://github.com/python-poetry/poetry-plugin-export"
+    rev: "1.9.0"
+    hooks:
       - id: "poetry-export"
-        name: 'poetry export main'
-        args: ["--without-hashes", "--only", "main", "-f", "requirements.txt", "-o", "requirements/requirements.txt"]
+        name: "poetry export main"
+        args:
+          [
+            "--only",
+            "main",
+            "--without-hashes",
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements/requirements.txt",
+          ]
       - id: "poetry-export"
-        name: 'poetry export dev'
-        args: ["--without-hashes", "--with", "dev", "--with", "docs", "--with", "jupyter", "-f", "requirements.txt", "-o", "requirements/requirements-dev.txt"]
+        name: "poetry export dev"
+        args:
+          [
+            "--without-hashes",
+            "--with",
+            "dev",
+            "--with",
+            "docs",
+            "--with",
+            "jupyter",
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements/requirements-dev.txt",
+          ]
 
   - repo: "local"
     hooks:

@@ -1,11 +1,11 @@
-[tool.poetry]
+[project]
 name = "searvey"
 version = "0.0.0" # overwritten by poetry-dynamic-versioning plugin
 description = "Sea state observational data retrieval"
 authors = [
-    "Panos Mavrogiorgos <pmav99@gmail.com>",
-    "Zachary Burnett <zachary.r.burnett@gmail.com>",
-    "Soroosh Mani <soroosh.mani@noaa.gov>",
+    { name = "Panos Mavrogiorgos", email = "pmav99@gmail.com" },
+    { name = "Zachary Burnett", email = "zachary.r.burnett@gmail.com" },
+    { name = "Soroosh Mani", email = "soroosh.mani@noaa.gov" },
 ]
 license = 'GPL-3.0-or-later'
 readme = "README.md"
@@ -25,30 +25,32 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
+requires-python = ">=3.9,<4"
 
-[tool.poetry.dependencies]
-python = ">=3.9, <4.0"
-beautifulsoup4 = "*"
-dataretrieval = ">=1"
-deprecated = "*"
-erddapy = "*"
-geopandas = "*"
-html5lib = "*"
-httpx = "*"
-limits = "*"
-lxml = {version = "*", extras = ["html_clean"]}
-multifutures = {version = "*"}
-numpy = "*"
-pandas = "*"
-pydantic = ">2"
-requests = "*"
-Shapely = "*"
-tenacity = "*, !=8.4.0"  # https://github.com/jd/tenacity/issues/471
-tqdm = "*"
-typing-extensions = "*"
-xarray = "*"
-ndbc-api = "0.24.1.6.1"
+dependencies = [
+    "Shapely",
+    "beautifulsoup4",
+    "dataretrieval",
+    "deprecated",
+    "erddapy",
+    "geopandas",
+    "html5lib",
+    "httpx",
+    "limits",
+    "lxml[html-clean]",
+    "multifutures",
+    "ndbc-api",
+    "numpy",
+    "pandas",
+    "pydantic (>2)",
+    "rasterio (>1.0)",
+    "requests",
+    "tenacity (!=8.4.0)",   # https://github.com/jd/tenacity/issues/471
+    "tqdm",
+    "xarray",
+]
 
 [tool.poetry.group.dev.dependencies]
 covdefaults = "*"
@@ -59,9 +61,16 @@ pytest = "*"
 pytest-cov = ">=3.0"
 pytest-recording = "*"
 pytest-xdist = "*"
+types-beautifulsoup4 = "*"
 types-deprecated = "*"
+#types-geopandas = "*"
+#types-lxml = "*"
 types-requests = "*"
-urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
+typing-extensions = "*"
+#types-shapely = "*"
+#types-tqdm = "*"
+#urllib3 = "<2"   # https://github.com/kevin1024/vcrpy/issues/688
+#urllib3 = { version = "*", python = ">3.10" }
 
 [tool.poetry.group.docs.dependencies]
 dunamai = "*"
@@ -79,6 +88,7 @@ ipykernel = "*"
 matplotlib = "*"
 scipy = "*"
 tqdm = {version = "*", extras = ["notebook"]}
+types-tqdm = "*"
 
 [tool.poetry-dynamic-versioning]
 enable = true
@@ -86,7 +96,7 @@ dirty = true
 
 [build-system]
 requires = [
-    "poetry-core>=1.0.0",
+    "poetry-core>=2.0.0,<3.0.0",
     "poetry-dynamic-versioning",
 ]
 build-backend = "poetry_dynamic_versioning.backend"
@@ -144,12 +154,12 @@ warn_untyped_fields = true
 [tool.ruff]
 target-version = "py39"
 line-length = 108
-select = [
+lint.select = [
     "E",  # pycodestyle
     "F",  # pyflakes
     "C90",  # mccabe
 ]
-ignore = [
+lint.ignore = [
     "E501", # line-too-long
 ]
 

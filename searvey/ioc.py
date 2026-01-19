@@ -138,7 +138,8 @@ def get_ioc_stations_by_output(output: str, skip_table_rows: int) -> pd.DataFram
     soup = bs4.BeautifulSoup(response.content, "html5lib")
     logger.debug("Created soup: %s", url)
     table = soup.find("table", {"class": "nice"})
-    trs = table.find_all("tr")
+    assert table is not None
+    trs = table.find_all("tr")  # type: ignore[union-attr]
     table_contents = "\n".join(str(tr) for tr in trs[skip_table_rows:])
     html = f"<table>{table_contents}</table>"
     logger.debug("Created table: %s", url)

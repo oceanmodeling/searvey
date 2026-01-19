@@ -32,11 +32,11 @@ class Provider(str, Enum):
     An enumeration for ``searvey`` providers.
     """
 
-    ALL: str = "ALL"
-    COOPS: str = "COOPS"
-    IOC: str = "IOC"
-    USGS: str = "USGS"
-    NDBC: str = "NDBC"
+    ALL = "ALL"
+    COOPS = "COOPS"
+    IOC = "IOC"
+    USGS = "USGS"
+    NDBC = "NDBC"
 
 
 def _get_ioc_stations(
@@ -174,7 +174,7 @@ def get_stations(
     """
     Return a ``geopandas.GeoDataFrame`` with metadata from ``providers``.
     """
-    dataframes = []
+    dataframes: list[gpd.GeoDataFrame] = []
     if Provider.ALL in providers or Provider.IOC in providers:
         dataframes.append(_get_ioc_stations(activity_threshold=activity_threshold, region=region))
     if Provider.ALL in providers or Provider.COOPS in providers:

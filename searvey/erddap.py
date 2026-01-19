@@ -36,7 +36,7 @@ def urlopen(
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as err:
-        raise requests.exceptions.HTTPError(f"{response.content.decode()}") from err  # type: ignore[call-arg]
+        raise requests.exceptions.HTTPError(f"{response.content.decode()}") from err
     data = io.BytesIO(response.content)
     data.seek(0)
     return data

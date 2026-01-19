@@ -11,7 +11,7 @@ style:
 	pre-commit run black -a
 
 lint:
-	pre-commit run ruff -a
+	pre-commit run ruff-check -a
 
 mypy:
 	dmypy run searvey
@@ -33,5 +33,7 @@ docs:
 	make -C docs html
 
 deps:
+	mkdir -p requirements
 	pre-commit run poetry-lock -a
+	pre-commit run poetry-check -a
 	pre-commit run poetry-export -a

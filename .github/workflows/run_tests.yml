@@ -26,12 +26,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python: ["3.9", "3.10", "3.11", "3.12"]
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         include:
           - os: "macos-latest"
             python: "3.9"
           - os: "macos-latest"
-            python: "3.12"
+            python: "3.13"
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-python@main
@@ -42,12 +42,12 @@ jobs:
         with:
           path: ${{ env.pythonLocation }}
           key: test-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements/*') }}
-      - run: pip install -r requirements/requirements-dev.txt
-      - run: pip install ./
       - run: python --version
-      - run: python -m pip --version
+      - run: python -mpip --version
+      - run: python -mpip install -r requirements/requirements-dev.txt
+      - run: python -mpip install ./
       - run: pytest --version
-      - run: python -m pip cache info
+      - run: python -mpip cache info
       - run: mypy searvey
       - run: make cov
       # We only run on a single matrix case in order to speed up CI runtime

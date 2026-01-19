@@ -254,7 +254,7 @@ class COOPS_Station:
         return self.__active
 
     @property
-    def removed(self) -> Series:
+    def removed(self) -> Series[float]:
         return self.__removed
 
     @property
@@ -612,7 +612,7 @@ class COOPS_Query:
 
 
 @lru_cache(maxsize=1)
-def __coops_stations_html_tables() -> element.ResultSet:
+def __coops_stations_html_tables() -> element.ResultSet[element.PageElement]:
     url = "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current"
     logger.debug("Downloading: %s", url)
     response = requests.get(url)
