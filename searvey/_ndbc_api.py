@@ -33,30 +33,36 @@ def _get_ndbc_stations(
 
     stations_df = ndbc_api_client.stations()
 
-    # --- FIX START: NDBC API Client now returns Lat/Lon in separate columns ---
-    # The original code relied on a column called 'Location Lat/Long' which no longer exists.
-    # The new columns 'Lat' and 'Lon' must be used instead.
+    # --- VERSION-PROOF FIX: Handle both old (pinned) and new NDBC API formats ---
 
-    # Copy the existing 'Lat' and 'Lon' columns to the required 'lat' and 'lon' names.
-    stations_df["lat"] = pd.to_numeric(stations_df["Lat"])
-    stations_df["lon"] = pd.to_numeric(stations_df["Lon"])
+    # Case 1: Older version of ndbc-api (Handling the 'pinned' version)
+    # The coordinates are combined in a single string column "Location Lat/Long"
+    if "Location Lat/Long" in stations_df.columns:
+        stations_df[["lat", "ns", "lon", "ew"]] = stations_df["Location Lat/Long"].str.extract(
+            r"(\d+\.\d+)([N|S]) (\d+\.\d+)([E|W])"
+        )
+        stations_df["lat"] = pd.to_numeric(stations_df["lat"])
+        stations_df["lon"] = pd.to_numeric(stations_df["lon"])
 
-    # The original logic handled N/S and E/W by converting the values to positive/negative.
-    # Since the new 'Lat' and 'Lon' are already in decimal degrees (positive North/East, negative South/West),
-    # the multiplication logic is removed, and we only need to set the sign.
+        # Convert to signed decimal degrees based on N/S and E/W labels
+        stations_df["lat"] = stations_df["lat"] * np.where(stations_df["ns"] == "S", -1, 1)
+        stations_df["lon"] = stations_df["lon"] * np.where(stations_df["ew"] == "W", -1, 1)
 
-    # For compatibility, we set the 'ns' and 'ew' placeholder columns if needed downstream.
-    # Assuming the API returns signed degrees:
-    stations_df["lat"] = stations_df["lat"] * np.where(
-        stations_df["lat"] < 0, 1, 1
-    )  # No change to signed degrees
-    stations_df["lon"] = stations_df["lon"] * np.where(
-        stations_df["lon"] < 0, 1, 1
-    )  # No change to signed degrees
+        stations_df = stations_df.drop(columns=["Location Lat/Long", "ns", "ew"])
 
-    # Drop the original capitalized columns
-    stations_df = stations_df.drop(columns=["Lat", "Lon"])
-    # --- FIX END ---
+    # Case 2: Newer version of ndbc-api (Handling your local/future versions)
+    # The coordinates are already split into 'Lat' and 'Lon' columns
+    elif "Lat" in stations_df.columns and "Lon" in stations_df.columns:
+        stations_df["lat"] = pd.to_numeric(stations_df["Lat"])
+        stations_df["lon"] = pd.to_numeric(stations_df["Lon"])
+
+        # Newer versions return signed floats, so we just drop the original headers
+        stations_df = stations_df.drop(columns=["Lat", "Lon"])
+
+    else:
+        logger.error(f"Unexpected NDBC station format. Columns found: {stations_df.columns}")
+        return gpd.GeoDataFrame()
+    # --- END FIX ---
 
     stations_df = gpd.GeoDataFrame(
         data=stations_df,
@@ -136,13 +142,13 @@ def _fetch_ndbc(
     Retrieve the TimeSeries for multiple stations using multithreading.
 
     :param station_ids: A list of station identifiers.
-    :param mode: Data mode. One of  ``'txt'``, ``'json'``, ``'spec'``.
+    :param mode: Data mode. One of  ``'txt'``, ``'json'``, ``'spec'``.
     :param start_dates: The starting date of the query. Defaults to 7 days ago.
     :param end_dates: The finishing date of the query. Defaults to "now".
     :param columns: Optional list of columns to retrieve.
     :param multithreading_executor: A multithreading executor.
     :return: A dictionary mapping station identifiers to their respective
-        TimeSeries.
+        TimeSeries.
     """
     now = pd.Timestamp.now("utc")
     if ndbc_api_client is None:
