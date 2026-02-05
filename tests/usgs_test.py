@@ -271,3 +271,115 @@ class TestParameterInfo:
         assert "00060" in usgs.USGS_PARAMETER_CODES
         assert "00065" in usgs.USGS_PARAMETER_CODES
         assert usgs.USGS_PARAMETER_CODES["00065"]["name"] == "Gage height, feet"
+
+
+class TestParameterCodeGroups:
+    """Test parameter code group definitions."""
+
+    def test_water_level_codes_defined(self) -> None:
+        assert isinstance(usgs.USGS_WATER_LEVEL_CODES, set)
+        assert "00065" in usgs.USGS_WATER_LEVEL_CODES  # Gage height
+        assert "63160" in usgs.USGS_WATER_LEVEL_CODES  # Stream water level NAVD88
+        assert len(usgs.USGS_WATER_LEVEL_CODES) > 0
+
+    def test_temperature_codes_defined(self) -> None:
+        assert isinstance(usgs.USGS_TEMPERATURE_CODES, set)
+        assert "00010" in usgs.USGS_TEMPERATURE_CODES  # Temperature Celsius
+        assert "00011" in usgs.USGS_TEMPERATURE_CODES  # Temperature Fahrenheit
+        assert len(usgs.USGS_TEMPERATURE_CODES) > 0
+
+    def test_salinity_codes_defined(self) -> None:
+        assert isinstance(usgs.USGS_SALINITY_CODES, set)
+        assert "00480" in usgs.USGS_SALINITY_CODES  # Salinity ppth
+        assert len(usgs.USGS_SALINITY_CODES) > 0
+
+    def test_current_codes_defined(self) -> None:
+        assert isinstance(usgs.USGS_CURRENT_CODES, set)
+        assert "00055" in usgs.USGS_CURRENT_CODES  # Stream velocity
+        assert "72255" in usgs.USGS_CURRENT_CODES  # Stream velocity
+        assert len(usgs.USGS_CURRENT_CODES) > 0
+
+    def test_code_groups_are_disjoint(self) -> None:
+        """Verify parameter code groups don't overlap (except salinity/conductance)."""
+        # Water level and temperature should not overlap
+        assert not usgs.USGS_WATER_LEVEL_CODES & usgs.USGS_TEMPERATURE_CODES
+        # Water level and currents should not overlap
+        assert not usgs.USGS_WATER_LEVEL_CODES & usgs.USGS_CURRENT_CODES
+        # Temperature and currents should not overlap
+        assert not usgs.USGS_TEMPERATURE_CODES & usgs.USGS_CURRENT_CODES
+
+
+class TestParameterAvailability:
+    """Test parameter availability functions."""
+
+    def test_get_station_parameter_availability_returns_dataframe(self) -> None:
+        """Test that get_station_parameter_availability returns proper DataFrame."""
+        result = usgs.get_station_parameter_availability(
+            site_nos=["01646500"],  # Potomac River station
+        )
+        assert isinstance(result, pd.DataFrame)
+        assert "site_no" in result.columns
+        assert "has_water_level" in result.columns
+        assert "has_temperature" in result.columns
+        assert "has_salinity" in result.columns
+        assert "has_currents" in result.columns
+        assert len(result) == 1
+        assert result.iloc[0]["site_no"] == "01646500"
+
+    def test_get_station_parameter_availability_multiple_stations(self) -> None:
+        """Test parameter availability for multiple stations."""
+        result = usgs.get_station_parameter_availability(
+            site_nos=["01646500", "15484000"],
+        )
+        assert len(result) == 2
+        assert set(result["site_no"]) == {"01646500", "15484000"}
+
+    def test_get_station_parameter_availability_nonexistent_station(self) -> None:
+        """Test that non-existent stations return False for all parameters."""
+        result = usgs.get_station_parameter_availability(
+            site_nos=["99999999"],  # Non-existent station
+        )
+        assert len(result) == 1
+        assert result.iloc[0]["site_no"] == "99999999"
+        assert result.iloc[0]["has_water_level"] == False
+        assert result.iloc[0]["has_temperature"] == False
+        assert result.iloc[0]["has_salinity"] == False
+        assert result.iloc[0]["has_currents"] == False
+
+    def test_get_station_parameter_availability_boolean_values(self) -> None:
+        """Test that availability columns contain boolean values."""
+        result = usgs.get_station_parameter_availability(
+            site_nos=["01646500"],
+        )
+        for col in ["has_water_level", "has_temperature", "has_salinity", "has_currents"]:
+            assert result[col].dtype == bool or result.iloc[0][col] in [True, False]
+
+
+class TestGetUSGSStationsWithAvailability:
+    """Test get_usgs_stations with include_parameter_availability option."""
+
+    def test_get_usgs_stations_without_availability(self) -> None:
+        """Test that default behavior doesn't include availability columns."""
+        stations = usgs.get_usgs_stations(
+            lon_min=-77.2,
+            lon_max=-77.0,
+            lat_min=38.9,
+            lat_max=39.0,
+        )
+        # Should not have availability columns by default
+        assert "has_water_level" not in stations.columns
+
+    def test_get_usgs_stations_with_availability_columns(self) -> None:
+        """Test that include_parameter_availability adds the right columns."""
+        stations = usgs.get_usgs_stations(
+            lon_min=-77.2,
+            lon_max=-77.0,
+            lat_min=38.9,
+            lat_max=39.0,
+            include_parameter_availability=True,
+        )
+        if not stations.empty:
+            assert "has_water_level" in stations.columns
+            assert "has_temperature" in stations.columns
+            assert "has_salinity" in stations.columns
+            assert "has_currents" in stations.columns

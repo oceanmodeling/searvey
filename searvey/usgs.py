@@ -50,6 +50,57 @@ USGS_PARAMETER_CODES = {
     "63160": {"name": "Stream water level elevation above NAVD 1988, in feet", "unit": "ft"},
 }
 
+# Parameter codes grouped by variable type for availability tracking
+# Water level codes (gage height, elevation datums)
+USGS_WATER_LEVEL_CODES = {
+    "00065",  # Gage height, feet
+    "62614",  # Lake/reservoir elevation above NGVD 1929
+    "62615",  # Lake/reservoir elevation above NAVD 1988
+    "62616",  # Lake/reservoir elevation above local datum
+    "62617",  # Reservoir water surface elevation above NGVD
+    "62620",  # Estuary/ocean elevation above NAVD 1988
+    "62622",  # Reservoir water surface elevation above datum
+    "63158",  # Stream water level above NGVD 1929
+    "63160",  # Stream water level above NAVD 1988
+    "63161",  # Reservoir water surface elevation above NGVD 1929
+    "72214",  # Reservoir water surface elevation above IGLD 1985
+    "72215",  # Reservoir water surface elevation above IGLD 1985
+    "72279",  # Water level, above NAVD88
+}
+
+# Water temperature codes
+USGS_TEMPERATURE_CODES = {
+    "00010",  # Temperature, water, degrees Celsius
+    "00011",  # Temperature, water, degrees Fahrenheit
+    "99976",  # Temperature, water, degrees Celsius
+    "99980",  # Temperature, water, degrees Celsius
+    "99984",  # Temperature, water, degrees Celsius
+}
+
+# Salinity codes (all essentially equivalent units)
+USGS_SALINITY_CODES = {
+    "00095",  # Specific conductance (related to salinity)
+    "00480",  # Salinity, water, parts per thousand
+    "00096",  # Salinity, water, mg/ml
+    "70305",  # Salinity, water, g/l
+    "72401",  # Salinity, water, PSU
+    "90860",  # Salinity, water, PSU
+    "90862",  # Salinity, water, PSS
+}
+
+# Current/velocity codes
+USGS_CURRENT_CODES = {
+    "00055",  # Stream velocity, ft/s
+    "72168",  # Stream velocity, ft/s
+    "72254",  # Mean velocity of water in stream, ft/s
+    "72255",  # Stream velocity, ft/s
+    "72294",  # Stream velocity, mph
+    "72321",  # Stream velocity, mph
+    "72322",  # Stream velocity, ft/s
+    "70232",  # Stream velocity, knots
+    "81904",  # Stream velocity, ft/s
+}
+
 # TODO: Should qualifier be a part of the index?
 USGS_DATA_MULTIIDX = ("site_no", "datetime", "code", "option")
 
@@ -206,6 +257,82 @@ def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
     return gdf
 
 
+def get_station_parameter_availability(
+    site_nos: list[str],
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """
+    Query which parameters are available at each station.
+
+    Uses the modernized Water Data API's time-series-metadata endpoint
+    to determine which parameter codes are available at each station.
+
+    :param site_nos: List of USGS site numbers (e.g., ['01646500', '01647000'])
+    :param api_key: USGS API key for higher rate limits
+    :param rate_limit: Rate limit to apply
+    :return: DataFrame with columns: site_no, has_water_level, has_temperature,
+             has_salinity, has_currents
+    """
+    if rate_limit is None:
+        rate_limit = get_usgs_rate_limit(api_key=api_key)
+
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
+
+    _set_api_key_env(api_key)
+
+    # Convert site numbers to monitoring location IDs
+    monitoring_location_ids = [site_no_to_monitoring_location_id(s) for s in site_nos]
+
+    try:
+        df, _ = waterdata.get_time_series_metadata(
+            monitoring_location_id=monitoring_location_ids,
+        )
+    except Exception as e:
+        logger.warning(f"Failed to get parameter availability: {e}")
+        # Return DataFrame with all False values
+        return pd.DataFrame({
+            "site_no": site_nos,
+            "has_water_level": False,
+            "has_temperature": False,
+            "has_salinity": False,
+            "has_currents": False,
+        })
+
+    if df.empty:
+        return pd.DataFrame({
+            "site_no": site_nos,
+            "has_water_level": False,
+            "has_temperature": False,
+            "has_salinity": False,
+            "has_currents": False,
+        })
+
+    # Extract site_no from monitoring_location_id
+    if "monitoring_location_id" in df.columns:
+        df["site_no"] = df["monitoring_location_id"].apply(monitoring_location_id_to_site_no)
+
+    # Group by site and get unique parameter codes
+    availability_records = []
+    for site_no in site_nos:
+        site_params = set()
+        if "site_no" in df.columns and "parameter_code" in df.columns:
+            site_df = df[df["site_no"] == site_no]
+            site_params = set(site_df["parameter_code"].dropna().astype(str))
+
+        availability_records.append({
+            "site_no": site_no,
+            "has_water_level": bool(site_params & USGS_WATER_LEVEL_CODES),
+            "has_temperature": bool(site_params & USGS_TEMPERATURE_CODES),
+            "has_salinity": bool(site_params & USGS_SALINITY_CODES),
+            "has_currents": bool(site_params & USGS_CURRENT_CODES),
+        })
+
+    return pd.DataFrame(availability_records)
+
+
 @functools.lru_cache(maxsize=None)
 def _get_all_usgs_stations(normalize: bool = True) -> gpd.GeoDataFrame:
     """
@@ -246,6 +373,8 @@ def get_usgs_stations(
     lon_max: Optional[float] = None,
     lat_min: Optional[float] = None,
     lat_max: Optional[float] = None,
+    include_parameter_availability: bool = False,
+    api_key: Optional[str] = None,
 ) -> gpd.GeoDataFrame:
     """
     Return USGS station metadata using the modernized Water Data API.
@@ -262,6 +391,12 @@ def get_usgs_stations(
     :param lon_max: The maximum Longitude of the Bounding Box.
     :param lat_min: The minimum Latitude of the Bounding Box.
     :param lat_max: The maximum Latitude of the Bounding Box.
+    :param include_parameter_availability: If True, query which parameters
+        (water_level, temperature, salinity, currents) are available at each
+        station. Adds columns: has_water_level, has_temperature, has_salinity,
+        has_currents. This requires additional API calls. Default False.
+    :param api_key: USGS API key for higher rate limits when querying
+        parameter availability.
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
     region = get_region(
@@ -276,6 +411,22 @@ def get_usgs_stations(
     usgs_stations = _get_all_usgs_stations(normalize=True)
     if region:
         usgs_stations = usgs_stations[usgs_stations.within(region)]
+
+    if include_parameter_availability and not usgs_stations.empty:
+        site_nos = usgs_stations["site_no"].tolist()
+        availability_df = get_station_parameter_availability(
+            site_nos=site_nos,
+            api_key=api_key,
+        )
+        usgs_stations = usgs_stations.merge(
+            availability_df,
+            on="site_no",
+            how="left",
+        )
+        # Fill NaN values with False for availability columns
+        for col in ["has_water_level", "has_temperature", "has_salinity", "has_currents"]:
+            if col in usgs_stations.columns:
+                usgs_stations[col] = usgs_stations[col].fillna(False)
 
     return usgs_stations
 
