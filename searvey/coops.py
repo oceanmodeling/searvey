@@ -24,7 +24,7 @@ import requests
 import shapely
 import xarray
 from bs4 import BeautifulSoup
-from bs4 import element
+from bs4 import Tag
 from deprecated import deprecated
 from geopandas import GeoDataFrame
 from pandas import DataFrame
@@ -612,7 +612,7 @@ class COOPS_Query:
 
 
 @lru_cache(maxsize=1)
-def __coops_stations_html_tables() -> element.ResultSet:
+def __coops_stations_html_tables() -> list[Tag]:
     url = "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current"
     logger.debug("Downloading: %s", url)
     response = requests.get(url)
@@ -690,9 +690,11 @@ def coops_stations(station_status: COOPS_StationStatus | None = None) -> GeoData
         COOPS_StationStatus.DISCONTINUED: (1, "HistNWSTable"),
     }
 
-    dataframes = {}
+    dataframes: dict[COOPS_StationStatus, pd.DataFrame] = {}
     for status, (table_index, table_id) in status_tables.items():
         table = tables[table_index]
+        if table is not None:
+            continue
         table = table.find("table", {"id": table_id}).find_all("tr")
         stations_columns = [field.text for field in table[0].find_all("th")]
         stations = DataFrame(

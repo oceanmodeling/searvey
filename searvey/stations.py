@@ -32,11 +32,11 @@ class Provider(str, Enum):
     An enumeration for ``searvey`` providers.
     """
 
-    ALL: str = "ALL"
-    COOPS: str = "COOPS"
-    IOC: str = "IOC"
-    USGS: str = "USGS"
-    NDBC: str = "NDBC"
+    ALL = "ALL"
+    COOPS = "COOPS"
+    IOC = "IOC"
+    USGS = "USGS"
+    NDBC = "NDBC"
 
 
 def _get_ioc_stations(
