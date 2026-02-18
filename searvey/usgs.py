@@ -293,22 +293,26 @@ def get_station_parameter_availability(
     except Exception as e:
         logger.warning(f"Failed to get parameter availability: {e}")
         # Return DataFrame with all False values
-        return pd.DataFrame({
-            "site_no": site_nos,
-            "has_water_level": False,
-            "has_temperature": False,
-            "has_salinity": False,
-            "has_currents": False,
-        })
+        return pd.DataFrame(
+            {
+                "site_no": site_nos,
+                "has_water_level": False,
+                "has_temperature": False,
+                "has_salinity": False,
+                "has_currents": False,
+            }
+        )
 
     if df.empty:
-        return pd.DataFrame({
-            "site_no": site_nos,
-            "has_water_level": False,
-            "has_temperature": False,
-            "has_salinity": False,
-            "has_currents": False,
-        })
+        return pd.DataFrame(
+            {
+                "site_no": site_nos,
+                "has_water_level": False,
+                "has_temperature": False,
+                "has_salinity": False,
+                "has_currents": False,
+            }
+        )
 
     # Extract site_no from monitoring_location_id
     if "monitoring_location_id" in df.columns:
@@ -322,13 +326,15 @@ def get_station_parameter_availability(
             site_df = df[df["site_no"] == site_no]
             site_params = set(site_df["parameter_code"].dropna().astype(str))
 
-        availability_records.append({
-            "site_no": site_no,
-            "has_water_level": bool(site_params & USGS_WATER_LEVEL_CODES),
-            "has_temperature": bool(site_params & USGS_TEMPERATURE_CODES),
-            "has_salinity": bool(site_params & USGS_SALINITY_CODES),
-            "has_currents": bool(site_params & USGS_CURRENT_CODES),
-        })
+        availability_records.append(
+            {
+                "site_no": site_no,
+                "has_water_level": bool(site_params & USGS_WATER_LEVEL_CODES),
+                "has_temperature": bool(site_params & USGS_TEMPERATURE_CODES),
+                "has_salinity": bool(site_params & USGS_SALINITY_CODES),
+                "has_currents": bool(site_params & USGS_CURRENT_CODES),
+            }
+        )
 
     return pd.DataFrame(availability_records)
 
