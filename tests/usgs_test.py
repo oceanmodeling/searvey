@@ -341,10 +341,10 @@ class TestParameterAvailability:
         )
         assert len(result) == 1
         assert result.iloc[0]["site_no"] == "99999999"
-        assert result.iloc[0]["has_water_level"] == False
-        assert result.iloc[0]["has_temperature"] == False
-        assert result.iloc[0]["has_salinity"] == False
-        assert result.iloc[0]["has_currents"] == False
+        assert not result.iloc[0]["has_water_level"]
+        assert not result.iloc[0]["has_temperature"]
+        assert not result.iloc[0]["has_salinity"]
+        assert not result.iloc[0]["has_currents"]
 
     def test_get_station_parameter_availability_boolean_values(self) -> None:
         """Test that availability columns contain boolean values."""
