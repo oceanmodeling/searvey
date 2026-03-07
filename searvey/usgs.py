@@ -18,7 +18,7 @@ import limits
 import pandas as pd
 import xarray as xr
 from dataretrieval import waterdata
-from dataretrieval.codes import state_codes as _DATARETRIEVAL_STATE_CODES
+from dataretrieval.codes import fips_codes as _DATARETRIEVAL_FIPS_CODES
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
@@ -32,11 +32,12 @@ from .utils import resolve_timestamp
 
 logger = logging.getLogger(__name__)
 
-# https://github.com/DOI-USGS/dataretrieval-python/compare/v1.0.8...v1.0.9
-if isinstance(_DATARETRIEVAL_STATE_CODES, list):
-    STATE_CODES = sorted(_DATARETRIEVAL_STATE_CODES)
+# The modernized Water Data API requires FIPS numeric state codes (e.g., "24"
+# for Maryland), not the two-letter abbreviations accepted by the legacy NWIS API.
+if isinstance(_DATARETRIEVAL_FIPS_CODES, list):
+    STATE_CODES = sorted(_DATARETRIEVAL_FIPS_CODES)
 else:
-    STATE_CODES = sorted(_DATARETRIEVAL_STATE_CODES.values())
+    STATE_CODES = sorted(_DATARETRIEVAL_FIPS_CODES.values())
 
 # Parameter codes of interest for water level/elevation data
 # See: https://help.waterdata.usgs.gov/codes-and-parameters/parameters
