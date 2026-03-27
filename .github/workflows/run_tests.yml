@@ -50,6 +50,8 @@ jobs:
       - run: python -m pip cache info
       - run: mypy searvey
       - run: make cov
+        env:
+          API_USGS_PAT: ${{ secrets.USGS_API_KEY }}
       # We only run on a single matrix case in order to speed up CI runtime
       - run: make exec_notebooks
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python == '3.10' }}
