@@ -1,7 +1,7 @@
 import contextlib
 from datetime import datetime
 from datetime import timedelta
-from urllib.parse import quote
+from urllib.parse import quote_plus
 
 import httpx
 import numpy as np
@@ -196,8 +196,8 @@ def test_generate_urls():
     assert len(urls) == 6
     assert all(isinstance(url, httpx.URL) for url in urls)
     assert all(station_id in str(url) for url in urls)
-    assert quote(_coops_date(start_date)) in str(urls[0])
-    assert quote(_coops_date(end_date)) in str(urls[-1])
+    assert quote_plus(_coops_date(start_date)) in str(urls[0])
+    assert quote_plus(_coops_date(end_date)) in str(urls[-1])
 
 
 def test_generate_urls_raises_common_start_date_and_end_date():
