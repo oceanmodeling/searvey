@@ -238,22 +238,24 @@ def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
     # Rename columns to match expected format
     column_mapping = {
         "monitoring_location_name": "station_nm",
-        "latitude": "dec_lat_va",
-        "longitude": "dec_long_va",
-        "horizontal_datum": "dec_coord_datum_cd",
         "altitude": "alt_va",
         "vertical_datum": "alt_datum_cd",
     }
     df = df.rename(columns={k: v for k, v in column_mapping.items() if k in df.columns})
 
-    # Create GeoDataFrame
-    if "dec_lat_va" in df.columns and "dec_long_va" in df.columns:
-        gdf = gpd.GeoDataFrame(
-            data=df,
-            geometry=gpd.points_from_xy(df.dec_long_va, df.dec_lat_va, crs="EPSG:4326"),
-        )
+    # Create GeoDataFrame from existing geometry column (returned by waterdata API)
+    if "geometry" in df.columns:
+        gdf = gpd.GeoDataFrame(df, geometry="geometry", crs="EPSG:4326")
     else:
         gdf = gpd.GeoDataFrame(df)
+
+    # Derive lat/lon columns from geometry for backward compatibility
+    gdf["dec_long_va"] = gdf.geometry.x
+    gdf["dec_lat_va"] = gdf.geometry.y
+    if "original_horizontal_datum" in gdf.columns:
+        gdf["dec_coord_datum_cd"] = gdf["original_horizontal_datum"]
+    else:
+        gdf["dec_coord_datum_cd"] = None
 
     return gdf
 
