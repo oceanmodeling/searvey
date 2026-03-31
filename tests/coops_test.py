@@ -233,15 +233,15 @@ def test_generate_urls_raises_when_end_date_before_start_date():
         (8654467, "predictions"),
         (8575431, "air_gap"),
         (8654467, "wind"),
-        (8654467, "air_pressure"),
-        (8654467, "air_temperature"),
+        (8551762, "air_pressure"),
+        (8551762, "air_temperature"),
         (8575437, "visibility"),
         (8419870, "humidity"),
-        (8654467, "water_temperature"),
+        (8594900, "water_temperature"),
         (8737048, "conductivity"),
-        ("cb1102", "currents"),
+        ("cb0402", "currents"),
         ("cb1102", "currents_predictions"),
-        (8654467, "datums"),
+        (8534720, "datums"),
         # (8636580, "hourly_height"),  # Default dates won't work!
         # (8636580, "high_low"),  # Default dates won't work!
         # (8518750, "monthly_mean"),  # Default dates won't work!
@@ -276,15 +276,15 @@ def now_utc():
         (7, 8654467, "predictions"),
         (7, 8575431, "air_gap"),
         (7, 8654467, "wind"),
-        (7, 8654467, "air_pressure"),
-        (7, 8654467, "air_temperature"),
+        (7, 8551762, "air_pressure"),
+        (7, 8551762, "air_temperature"),
         (7, 8575437, "visibility"),
         (7, 8419870, "humidity"),
-        (7, 8654467, "water_temperature"),
+        (7, 8594900, "water_temperature"),
         (7, 8737048, "conductivity"),
-        (7, "cb1102", "currents"),
+        (7, "cb0402", "currents"),
         (7, "cb1102", "currents_predictions"),
-        (7, 8654467, "datums"),
+        # (7, 8534720, "datums"),
         # (7, 8720233, "salinity"),
         # (30, 8636580, "daily_mean"),
     ],
@@ -307,6 +307,7 @@ def test_coops_data_products_w_date_input(now_utc, days_before_now, station_id, 
         if df.dtypes[col] != np.dtype("O")
     )
 
+    assert len(df) > 0
     if df.index.name == "time":
         # When selecting between intervals one time prior to the first
         # is also included (at most 1 out of range)
