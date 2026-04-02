@@ -309,6 +309,122 @@ class TestParameterCodeGroups:
         assert not usgs.USGS_TEMPERATURE_CODES & usgs.USGS_CURRENT_CODES
 
 
+class TestNormalizeHelpers:
+    """Tests for internal normalization helper functions (no network calls)."""
+
+    def test_normalize_column_names_no_renames_needed(self) -> None:
+        """Cover false branches when columns don't need renaming."""
+        df = pd.DataFrame({"value": [1.0, 2.0], "other": ["a", "b"]})
+        result = usgs._normalize_column_names(df)
+        assert list(result.columns) == ["value", "other"]
+
+    def test_normalize_column_names_with_parameter_code(self) -> None:
+        """Cover parameter_code -> code rename."""
+        df = pd.DataFrame({
+            "time": ["2022-01-01", "2022-01-02"],
+            "parameter_code": ["00065", "00060"],
+            "value": [1.0, 2.0],
+        })
+        result = usgs._normalize_column_names(df)
+        assert "code" in result.columns
+        assert "datetime" in result.columns
+        assert "parameter_code" not in result.columns
+
+    def test_normalize_qualifier_no_qualifier_no_approval(self) -> None:
+        """Cover branch where neither qualifier nor approval_status exists."""
+        df = pd.DataFrame({"value": [1.0, 2.0]})
+        result = usgs._normalize_qualifier_column(df)
+        assert "qualifier" in result.columns
+        assert result["qualifier"].isna().all()
+
+    def test_normalize_qualifier_with_approval_and_qualifier(self) -> None:
+        """Cover branch where both approval_status and qualifier exist."""
+        df = pd.DataFrame({
+            "value": [1.0],
+            "approval_status": ["Approved"],
+            "qualifier": ["old"],
+        })
+        result = usgs._normalize_qualifier_column(df)
+        assert "qualifier" in result.columns
+        assert result["qualifier"].iloc[0] == "Approved"
+
+    def test_add_parameter_info_no_code_column(self) -> None:
+        """Cover early return when 'code' column is missing."""
+        df = pd.DataFrame({"value": [1.0]})
+        result = usgs._add_parameter_info(df)
+        assert result.equals(df)
+
+    def test_add_parameter_info_empty_df(self) -> None:
+        """Cover early return for empty DataFrame."""
+        df = pd.DataFrame({"code": pd.Series([], dtype=str), "value": pd.Series([], dtype=float)})
+        result = usgs._add_parameter_info(df)
+        assert result.empty
+
+    def test_add_parameter_info_no_matching_codes(self) -> None:
+        """Cover branch when no codes match known parameter codes."""
+        df = pd.DataFrame({"code": ["99999", "88888"], "value": [1.0, 2.0]})
+        result = usgs._add_parameter_info(df)
+        # Original df returned since no known codes match
+        assert result.equals(df)
+
+    def test_normalize_station_data_extracts_site_no(self) -> None:
+        """Cover branch extracting site_no from monitoring_location_id."""
+        df = pd.DataFrame({
+            "monitoring_location_id": ["USGS-01646500"],
+            "time": ["2022-01-01"],
+            "parameter_code": ["00065"],
+            "value": [1.0],
+            "approval_status": ["Approved"],
+        })
+        result = usgs._normalize_station_data(df, site_no=None, set_index=False)
+        assert "site_no" in result.columns
+        assert result["site_no"].iloc[0] == "01646500"
+
+    def test_normalize_station_data_adds_option_column(self) -> None:
+        """Cover branch where 'option' column doesn't exist yet."""
+        df = pd.DataFrame({
+            "time": ["2022-01-01"],
+            "parameter_code": ["00065"],
+            "value": [1.0],
+            "approval_status": ["Approved"],
+        })
+        result = usgs._normalize_station_data(df, site_no="01646500", set_index=False)
+        assert "option" in result.columns
+        assert result["option"].iloc[0] == ""
+
+    def test_get_dataset_from_empty_df(self) -> None:
+        """Cover early return for empty DataFrame."""
+        df = pd.DataFrame()
+        meta = pd.DataFrame({"site_no": ["01646500"], "dec_lat_va": [38.0], "dec_long_va": [-77.0]})
+        result = usgs._get_dataset_from_station_data(df, meta)
+        assert isinstance(result, xr.Dataset)
+        assert len(result.data_vars) == 0
+
+    def test_get_dataset_no_matching_sites(self) -> None:
+        """Cover branch where data site_nos don't match metadata."""
+        df = pd.DataFrame({
+            "site_no": ["99999999"],
+            "datetime": [pd.Timestamp("2022-01-01")],
+            "code": ["00065"],
+            "option": [""],
+            "value": [1.0],
+            "qualifier": ["A"],
+        })
+        meta = pd.DataFrame({"site_no": ["01646500"], "dec_lat_va": [38.0], "dec_long_va": [-77.0]})
+        result = usgs._get_dataset_from_station_data(df, meta)
+        assert isinstance(result, xr.Dataset)
+        assert len(result.data_vars) == 0
+
+    def test_set_api_key_env_with_key(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """Cover branch where API key is set in env."""
+        monkeypatch.delenv(usgs.USGS_API_KEY_ENV_VAR, raising=False)
+        usgs._set_api_key_env(api_key="test-key-123")
+        import os
+        assert os.environ.get(usgs.USGS_API_KEY_ENV_VAR) == "test-key-123"
+        # Clean up
+        monkeypatch.delenv(usgs.USGS_API_KEY_ENV_VAR, raising=False)
+
+
 class TestParameterAvailability:
     """Test parameter availability functions."""
 
