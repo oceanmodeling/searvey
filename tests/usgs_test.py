@@ -84,6 +84,7 @@ def test_usgs_metadata_has_state_info():
     assert "us_state" in stations.columns
 
 
+@pytest.mark.vcr
 def test_get_usgs_station_data():
     # Test retrieval of instantaneous values (continuous data)
     df = usgs.get_usgs_station_data(
@@ -121,6 +122,7 @@ _USGS_METADATA_MINIMAL = pd.DataFrame.from_dict(
 )
 
 
+@pytest.mark.vcr
 def test_get_usgs_data():
     # in order to speed up the execution time of the test,
     # we don't retrieve the USGS metadata from the internet,
@@ -147,6 +149,7 @@ def test_get_usgs_data():
         assert set(ds.site_no.values).issubset(usgs_metadata.site_no.values)
 
 
+@pytest.mark.vcr
 def test_get_usgs_station_data_by_string_enddate():
     df = usgs.get_usgs_station_data(
         usgs_code="15484000",
@@ -182,6 +185,7 @@ def test_normalize_empty_data_df():
     assert isinstance(df2, pd.DataFrame)
 
 
+@pytest.mark.vcr
 def test_request_nonexistant_data():
     # Create minimal metadata for non-existent stations
     sta = pd.DataFrame(
