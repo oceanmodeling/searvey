@@ -320,11 +320,13 @@ class TestNormalizeHelpers:
 
     def test_normalize_column_names_with_parameter_code(self) -> None:
         """Cover parameter_code -> code rename."""
-        df = pd.DataFrame({
-            "time": ["2022-01-01", "2022-01-02"],
-            "parameter_code": ["00065", "00060"],
-            "value": [1.0, 2.0],
-        })
+        df = pd.DataFrame(
+            {
+                "time": ["2022-01-01", "2022-01-02"],
+                "parameter_code": ["00065", "00060"],
+                "value": [1.0, 2.0],
+            }
+        )
         result = usgs._normalize_column_names(df)
         assert "code" in result.columns
         assert "datetime" in result.columns
@@ -339,11 +341,13 @@ class TestNormalizeHelpers:
 
     def test_normalize_qualifier_with_approval_and_qualifier(self) -> None:
         """Cover branch where both approval_status and qualifier exist."""
-        df = pd.DataFrame({
-            "value": [1.0],
-            "approval_status": ["Approved"],
-            "qualifier": ["old"],
-        })
+        df = pd.DataFrame(
+            {
+                "value": [1.0],
+                "approval_status": ["Approved"],
+                "qualifier": ["old"],
+            }
+        )
         result = usgs._normalize_qualifier_column(df)
         assert "qualifier" in result.columns
         assert result["qualifier"].iloc[0] == "Approved"
@@ -369,25 +373,29 @@ class TestNormalizeHelpers:
 
     def test_normalize_station_data_extracts_site_no(self) -> None:
         """Cover branch extracting site_no from monitoring_location_id."""
-        df = pd.DataFrame({
-            "monitoring_location_id": ["USGS-01646500"],
-            "time": ["2022-01-01"],
-            "parameter_code": ["00065"],
-            "value": [1.0],
-            "approval_status": ["Approved"],
-        })
+        df = pd.DataFrame(
+            {
+                "monitoring_location_id": ["USGS-01646500"],
+                "time": ["2022-01-01"],
+                "parameter_code": ["00065"],
+                "value": [1.0],
+                "approval_status": ["Approved"],
+            }
+        )
         result = usgs._normalize_station_data(df, site_no=None, set_index=False)
         assert "site_no" in result.columns
         assert result["site_no"].iloc[0] == "01646500"
 
     def test_normalize_station_data_adds_option_column(self) -> None:
         """Cover branch where 'option' column doesn't exist yet."""
-        df = pd.DataFrame({
-            "time": ["2022-01-01"],
-            "parameter_code": ["00065"],
-            "value": [1.0],
-            "approval_status": ["Approved"],
-        })
+        df = pd.DataFrame(
+            {
+                "time": ["2022-01-01"],
+                "parameter_code": ["00065"],
+                "value": [1.0],
+                "approval_status": ["Approved"],
+            }
+        )
         result = usgs._normalize_station_data(df, site_no="01646500", set_index=False)
         assert "option" in result.columns
         assert result["option"].iloc[0] == ""
@@ -402,14 +410,16 @@ class TestNormalizeHelpers:
 
     def test_get_dataset_no_matching_sites(self) -> None:
         """Cover branch where data site_nos don't match metadata."""
-        df = pd.DataFrame({
-            "site_no": ["99999999"],
-            "datetime": [pd.Timestamp("2022-01-01")],
-            "code": ["00065"],
-            "option": [""],
-            "value": [1.0],
-            "qualifier": ["A"],
-        })
+        df = pd.DataFrame(
+            {
+                "site_no": ["99999999"],
+                "datetime": [pd.Timestamp("2022-01-01")],
+                "code": ["00065"],
+                "option": [""],
+                "value": [1.0],
+                "qualifier": ["A"],
+            }
+        )
         meta = pd.DataFrame({"site_no": ["01646500"], "dec_lat_va": [38.0], "dec_long_va": [-77.0]})
         result = usgs._get_dataset_from_station_data(df, meta)
         assert isinstance(result, xr.Dataset)
@@ -420,6 +430,7 @@ class TestNormalizeHelpers:
         monkeypatch.delenv(usgs.USGS_API_KEY_ENV_VAR, raising=False)
         usgs._set_api_key_env(api_key="test-key-123")
         import os
+
         assert os.environ.get(usgs.USGS_API_KEY_ENV_VAR) == "test-key-123"
         # Clean up
         monkeypatch.delenv(usgs.USGS_API_KEY_ENV_VAR, raising=False)
