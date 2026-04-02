@@ -1,0 +1,1733 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - compress, gzip
+      User-Agent:
+      - python-dataretrieval/1.1.2
+      X-Api-Key:
+      - REDACTED
+      lang:
+      - en-US
+    method: GET
+    uri: https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?id=USGS-01646500&skipGeometry=False&limit=50000
+  response:
+    body:
+      string: "{\n    \"type\":\"FeatureCollection\",\n    \"features\":[\n        {\n
+        \           \"type\":\"Feature\",\n            \"properties\":{\n                \"id\":\"USGS-01646500\",\n
+        \               \"agency_code\":\"USGS\",\n                \"agency_name\":\"U.S.
+        Geological Survey\",\n                \"monitoring_location_number\":\"01646500\",\n
+        \               \"monitoring_location_name\":\"POTOMAC RIVER NEAR WASH, DC
+        LITTLE FALLS PUMP STA\",\n                \"district_code\":\"24\",\n                \"country_code\":\"US\",\n
+        \               \"country_name\":\"United States of America\",\n                \"state_code\":\"24\",\n
+        \               \"state_name\":\"Maryland\",\n                \"county_code\":\"031\",\n
+        \               \"county_name\":\"Montgomery County\",\n                \"minor_civil_division_code\":\"90612\",\n
+        \               \"site_type_code\":\"ST\",\n                \"site_type\":\"Stream\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"basin_code\":null,\n
+        \               \"altitude\":37.04,\n                \"altitude_accuracy\":0.17,\n
+        \               \"altitude_method_code\":\"X\",\n                \"altitude_method_name\":\"GNSS2
+        - Level 2 Quality Survey Grade Global Navigation Satellite System\",\n                \"vertical_datum\":\"NAVD88\",\n
+        \               \"vertical_datum_name\":\"North American Vertical Datum of
+        1988\",\n                \"horizontal_positional_accuracy_code\":\"S\",\n
+        \               \"horizontal_positional_accuracy\":\"Accurate to + or - 1
+        sec.\",\n                \"horizontal_position_method_code\":\"G\",\n                \"horizontal_position_method_name\":\"Mapping
+        grade GPS unit (handheld accuracy range 12 to 40 ft)\",\n                \"original_horizontal_datum\":\"NAD83\",\n
+        \               \"original_horizontal_datum_name\":\"North American Datum
+        of 1983\",\n                \"drainage_area\":11560.0,\n                \"contributing_drainage_area\":null,\n
+        \               \"time_zone_abbreviation\":\"EST\",\n                \"uses_daylight_savings\":\"Y\",\n
+        \               \"construction_date\":null,\n                \"aquifer_code\":null,\n
+        \               \"national_aquifer_code\":null,\n                \"aquifer_type_code\":null,\n
+        \               \"well_constructed_depth\":null,\n                \"hole_constructed_depth\":null,\n
+        \               \"depth_source_code\":null,\n                \"revision_note\":\"<ul>\\n
+        \   <li>WSP 726: Drainage area.</li>\\n    <li>WDR MD-DE-75-1: 1973-74(M).</li>\\n
+        \   <li>https://waterdata.usgs.gov/nwis/dv/?site_no=01646500:<a href=\\\"https://waterdata.usgs.gov/md/nwis/dv?cb_00060=on&amp;format=html&amp;site_no=01646500&amp;referred_module=sw&amp;period=&amp;begin_date=2018-03-02&amp;end_date=2018-03-02\\\">
+        2018.</a></li>\\n    <li>https://waterdata.usgs.gov/nwis/uv/?site_no=01646500:<a
+        href=\\\"https://nwis.waterdata.usgs.gov/md/nwis/uv/?cb_00060=on&amp;site_no=01646500&amp;referred_module=sw&amp;period=&amp;begin_date=2021-03-02&amp;end_date=2021-06-25\\\">
+        2021.</a></li>\\n    <li>Discharge for Measurement 385 made on 06/25/2021
+        was revised on 09/22/2021 due to an error in computation.</li>\\n</ul>\",\n
+        \               \"revision_created\":\"2017-11-13T06:00:00+00:00\",\n                \"revision_modified\":\"2021-10-19T19:48:10.807000+00:00\"\n
+        \           },\n            \"id\":\"USGS-01646500\",\n            \"geometry\":{\n
+        \               \"type\":\"Point\",\n                \"coordinates\":[\n                    -77.12763888888888,\n
+        \                   38.949777777777776\n                ]\n            }\n
+        \       }\n    ],\n    \"numberReturned\":1,\n    \"links\":[\n        {\n
+        \           \"type\":\"application/geo+json\",\n            \"rel\":\"self\",\n
+        \           \"title\":\"This document as GeoJSON\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=json&id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"rel\":\"alternate\",\n            \"type\":\"application/ld+json\",\n
+        \           \"title\":\"This document as RDF (JSON-LD)\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=jsonld&id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"text/html\",\n            \"rel\":\"alternate\",\n
+        \           \"title\":\"This document as HTML\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=html&id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"text/csv; charset=utf-8\",\n
+        \           \"rel\":\"alternate\",\n            \"title\":\"This document
+        as CSV\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=csv&id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"application/json\",\n            \"title\":\"Monitoring
+        locations\",\n            \"rel\":\"collection\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations\"\n
+        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T17:36:58.879867Z\"\n}"
+    headers:
+      Age:
+      - '40'
+      Api-Version:
+      - 0.23.0
+      Cache-Control:
+      - public, max-age=3600
+      Connection:
+      - keep-alive
+      Content-Crs:
+      - <http://www.opengis.net/def/crs/OGC/1.3/CRS84>
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 02 Apr 2026 17:37:38 GMT
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Via:
+      - 1.1 185f4b03b711932fc7e735c08fdc5abe.cloudfront.net (CloudFront), https/1.1
+        api-umbrella (ApacheTrafficServer [cMsSfW])
+      X-Amz-Cf-Id:
+      - sKKJrY2ktUX-ZkdcyYk9-JIuopx0msWBt8G5qxxfgMkbhvevvPlVSQ==
+      X-Amz-Cf-Pop:
+      - HIO52-P1
+      X-Api-Umbrella-Request-Id:
+      - ct9t2qg7evb2hmq4v1vg
+      X-Build-Version:
+      - 0.42.3-e5db988b
+      X-Cache:
+      - Hit from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '994'
+      X-Vcap-Request-Id:
+      - 9c0cdfbc-242b-4bb1-4971-5b2d5531a8f8
+      X-Xss-Protection:
+      - 1; mode=block
+      content-length:
+      - '4872'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - compress, gzip
+      User-Agent:
+      - python-dataretrieval/1.1.2
+      X-Api-Key:
+      - REDACTED
+      lang:
+      - en-US
+    method: GET
+    uri: https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?monitoring_location_id=USGS-01646500&skipGeometry=False&limit=50000
+  response:
+    body:
+      string: "{\n    \"type\":\"FeatureCollection\",\n    \"features\":[\n        {\n
+        \           \"type\":\"Feature\",\n            \"properties\":{\n                \"id\":\"063be3d188fc43859c6436f021a9a31f\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-08-04T17:27:57.195918\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":\"333ff6133c21492195c89858c23b302d\"\n
+        \           },\n            \"id\":\"063be3d188fc43859c6436f021a9a31f\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"07ae98fcf74e4687a603e550c1373d25\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:16:19.133455\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"SUNA\",\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":null,\n
+        \               \"parameter_description\":\"Nitrate plus nitrite, water, in
+        situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":\"c42a4b0d3f3f4cd8b667a7e2e49a8cdf\"\n
+        \           },\n            \"id\":\"07ae98fcf74e4687a603e550c1373d25\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"088dd4b52b994012b67420da29032461\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:27:50.761432\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":\"d48f329cbda241b9923547b1dc2f90e0\"\n
+        \           },\n            \"id\":\"088dd4b52b994012b67420da29032461\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"089a50eca92a4e268b8816a1bc22c000\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:51:17.236233\",\n                \"begin\":\"2013-11-23T05:00:00.000001\",\n
+        \               \"end\":\"2019-05-27T19:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T10:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-27T23:00:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:59.3141989Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":-1\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:59.2451074Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":40\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"From multiparameter
+        sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"089a50eca92a4e268b8816a1bc22c000\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"0db1ff42570e4521b8dc8958558f7250\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:50:04.772813\",\n                \"begin\":\"2013-11-23T05:00:00.000001\",\n
+        \               \"end\":\"2019-05-27T20:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T10:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-28T00:00:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:08:01.1110243Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":80000\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"2017-10-05T12:30:00.0000000-05:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:08:01.3927394Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":0\n
+        \                           },\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2017-10-05T12:30:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2018-06-22T14:08:55.6809981Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":42\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"From multiparameter
+        sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":null\n            },\n
+        \           \"id\":\"0db1ff42570e4521b8dc8958558f7250\",\n            \"geometry\":{\n
+        \               \"type\":\"Point\",\n                \"coordinates\":[\n                    -77.12763888888888,\n
+        \                   38.949777777777776\n                ]\n            }\n
+        \       },\n        {\n            \"type\":\"Feature\",\n            \"properties\":{\n
+        \               \"id\":\"262b35c5fc68445bb9d84990eb7b7bb3\",\n                \"unit_of_measure\":\"degC\",\n
+        \               \"parameter_name\":\"Temperature, water\",\n                \"parameter_code\":\"00010\",\n
+        \               \"statistic_id\":\"00003\",\n                \"hydrologic_unit_code\":\"020700081005\",\n
+        \               \"state_name\":\"Maryland\",\n                \"last_modified\":\"2020-09-18T16:04:10.096090\",\n
+        \               \"begin\":\"1988-10-01T00:00:00.000001\",\n                \"end\":\"2019-09-30T00:00:00.000001\",\n
+        \               \"begin_utc\":\"1988-10-01T04:00:00+00:00\",\n                \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n
+        \               \"computation_period_identifier\":\"Daily\",\n                \"computation_identifier\":\"Mean\",\n
+        \               \"thresholds\":[],\n                \"sublocation_identifier\":\"7.1
+        ft from riverbed (top)\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"c8e767f6cdfc4ff484a99f77962dc46c\"\n
+        \           },\n            \"id\":\"262b35c5fc68445bb9d84990eb7b7bb3\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"267143b0f3c942569ae2802b7c288bc0\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:42:35.953889\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":\"3249b53540a44dc0877e6ff17b3325af\"\n
+        \           },\n            \"id\":\"267143b0f3c942569ae2802b7c288bc0\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"2cf409b0d9694c01828f5d4ff14586a5\",\n
+        \               \"unit_of_measure\":\"ft^3/s\",\n                \"parameter_name\":\"Discharge\",\n
+        \               \"parameter_code\":\"00060\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:31.534229\",\n                \"begin\":\"1930-03-01T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"1930-03-01T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":null,\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":null,\n
+        \               \"parameter_description\":\"Discharge, cubic feet per second\",\n
+        \               \"parent_time_series_id\":\"66a4e3fb8abe42fcb0942b5c0fe98f68\"\n
+        \           },\n            \"id\":\"2cf409b0d9694c01828f5d4ff14586a5\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"3249b53540a44dc0877e6ff17b3325af\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-11-11T00:22:14.256662\",\n                \"begin\":\"2013-11-23T05:00:00.000001\",\n
+        \               \"end\":\"2019-05-27T20:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T10:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-28T00:00:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:47.1426475Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":30\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"2017-10-05T12:30:00.0000000-05:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:47.5017722Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":0\n
+        \                           },\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2017-10-05T12:30:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2018-06-22T14:11:43.8313215Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":3\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"From multiparameter
+        sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"3249b53540a44dc0877e6ff17b3325af\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"333ff6133c21492195c89858c23b302d\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-08-04T17:27:57.183859\",\n                \"begin\":\"2013-11-23T05:00:00.000001\",\n
+        \               \"end\":\"2019-05-27T20:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T10:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-28T00:00:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:45.1153858Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":0\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:45.0540485Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":4200\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"From multiparameter
+        sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"333ff6133c21492195c89858c23b302d\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"3a55e6c16091466aabfb97a26c6ef15a\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:49:50.464070\",\n                \"begin\":\"1992-09-30T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"1992-09-30T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":null,\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":\"Discontinued\",\n
+        \               \"parameter_description\":\"Specific conductance, water, unfiltered,
+        microsiemens per centimeter at 25 degrees Celsius\",\n                \"parent_time_series_id\":\"b0989ee576fc45f2a239439db908e019\"\n
+        \           },\n            \"id\":\"3a55e6c16091466aabfb97a26c6ef15a\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"3b26feed8ed54ea393835465db50fda3\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-10-27T17:34:31.799161\",\n                \"begin\":\"2011-12-03T00:00:00.000001\",\n
+        \               \"end\":\"2019-06-10T00:00:00.000001\",\n                \"begin_utc\":\"2011-12-03T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-06-10T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"SUNA\",\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":\"Discontinued\",\n
+        \               \"parameter_description\":\"Nitrate plus nitrite, water, in
+        situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":\"ceea3bb9b349410ba4ad72128cb63392\"\n
+        \           },\n            \"id\":\"3b26feed8ed54ea393835465db50fda3\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"3ce9d38124204deba3cd1996df5afee8\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:56:39.069668\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":\"0db1ff42570e4521b8dc8958558f7250\"\n
+        \           },\n            \"id\":\"3ce9d38124204deba3cd1996df5afee8\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"400b3b19db09443da982418ceda360a6\",\n
+        \               \"unit_of_measure\":\"ft\",\n                \"parameter_name\":\"Stream
+        level, NAVD88\",\n                \"parameter_code\":\"63160\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T04:57:38.815055\",\n                \"begin\":\"2025-10-22T18:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T04:50:00.000001\",\n                \"begin_utc\":\"2025-10-22T22:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T08:50:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":null,\n                \"primary\":null,\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":null,\n
+        \               \"parameter_description\":\"Stream water level elevation above
+        NAVD 1988, in feet\",\n                \"parent_time_series_id\":null\n            },\n
+        \           \"id\":\"400b3b19db09443da982418ceda360a6\",\n            \"geometry\":{\n
+        \               \"type\":\"Point\",\n                \"coordinates\":[\n                    -77.12763888888888,\n
+        \                   38.949777777777776\n                ]\n            }\n
+        \       },\n        {\n            \"type\":\"Feature\",\n            \"properties\":{\n
+        \               \"id\":\"40bfcf380ef240e18699ee4875350640\",\n                \"unit_of_measure\":\"degC\",\n
+        \               \"parameter_name\":\"Temperature, water\",\n                \"parameter_code\":\"00010\",\n
+        \               \"statistic_id\":\"00003\",\n                \"hydrologic_unit_code\":\"020700081005\",\n
+        \               \"state_name\":\"Maryland\",\n                \"last_modified\":\"2026-04-02T05:57:21.963339\",\n
+        \               \"begin\":\"2019-07-25T00:00:00.000001\",\n                \"end\":\"2026-04-01T00:00:00.000001\",\n
+        \               \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n                \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n
+        \               \"computation_period_identifier\":\"Daily\",\n                \"computation_identifier\":\"Mean\",\n
+        \               \"thresholds\":[],\n                \"sublocation_identifier\":\"From
+        multiparameter sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"d1875d1d73e447d2a1203105ba654e7d\"\n
+        \           },\n            \"id\":\"40bfcf380ef240e18699ee4875350640\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"44ecf67807d3400eabbe388741e296a0\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-08-04T17:27:57.205373\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":\"333ff6133c21492195c89858c23b302d\"\n
+        \           },\n            \"id\":\"44ecf67807d3400eabbe388741e296a0\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"483f903dafb7474596b64ba7b37d7b6e\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:21.955239\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":\"b6c218a885b64b40aab7780d616ca13d\"\n
+        \           },\n            \"id\":\"483f903dafb7474596b64ba7b37d7b6e\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"4be302ef5b17459e825dc431e6837f98\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:10:24.284705\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"089a50eca92a4e268b8816a1bc22c000\"\n
+        \           },\n            \"id\":\"4be302ef5b17459e825dc431e6837f98\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"4cb7e97aa6db45eda9b189d12cefca5b\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:28.231005\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":\"6c904cf82efd42a6b7f94c982cea89f7\"\n
+        \           },\n            \"id\":\"4cb7e97aa6db45eda9b189d12cefca5b\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"4db043f6ac534ba0a7c68e7b84ba7b57\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-08-04T17:27:57.214815\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":\"333ff6133c21492195c89858c23b302d\"\n
+        \           },\n            \"id\":\"4db043f6ac534ba0a7c68e7b84ba7b57\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"4f3ef7be7d3b45af8d21358ce9a1488c\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:57:45.794573\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":\"0db1ff42570e4521b8dc8958558f7250\"\n
+        \           },\n            \"id\":\"4f3ef7be7d3b45af8d21358ce9a1488c\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"4f6db6b43e88466fb46fd6b65ded7d0c\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.038123\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"d1875d1d73e447d2a1203105ba654e7d\"\n
+        \           },\n            \"id\":\"4f6db6b43e88466fb46fd6b65ded7d0c\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"51a7ecee083843328f6609518990e022\",\n
+        \               \"unit_of_measure\":\"ft^3/s\",\n                \"parameter_name\":\"Discharge\",\n
+        \               \"parameter_code\":\"00060\",\n                \"statistic_id\":null,\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-02-22T09:57:27.598720\",\n                \"begin\":null,\n
+        \               \"end\":null,\n                \"begin_utc\":null,\n                \"end_utc\":null,\n
+        \               \"computation_period_identifier\":\"Water Year\",\n                \"computation_identifier\":\"Max
+        At Event Time\",\n                \"thresholds\":[\n                    {\n
+        \                       \"Name\":\"Highest since 1889-01-01\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"1936-03-19T00:00:00.0000000-05:00\",\n
+        \                               \"StartTime\":\"1889-01-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-06-21T00:22:04.7726781Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":484000\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Highest possible flood value for
+        period based on local observations - min value above which a higher flood
+        would have been detected for the period\",\n                        \"DisplayColor\":\"#0000CC\",\n
+        \                       \"ReferenceCode\":\"Lower perception threshold - Highest
+        for period\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":null,\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Discharge,
+        cubic feet per second\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"51a7ecee083843328f6609518990e022\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"52b33353ad684b76a8afd49cf017a42c\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:43:12.278591\",\n                \"begin\":\"2007-10-01T05:00:00.000001\",\n
+        \               \"end\":\"2019-10-01T16:15:00.000001\",\n                \"begin_utc\":\"2007-10-01T09:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-10-01T20:15:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:12.0574856Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":40\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:12.1914848Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":-1\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"4.1 ft from
+        riverbed (middle)\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"52b33353ad684b76a8afd49cf017a42c\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"5840cf8538df4bc8b12cb4f7fd4bb057\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:11:15.912299\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"089a50eca92a4e268b8816a1bc22c000\"\n
+        \           },\n            \"id\":\"5840cf8538df4bc8b12cb4f7fd4bb057\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"5c12923ccedb4e53b12c036810f1127d\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:03:10.261643\",\n                \"begin\":\"2006-07-13T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"2006-07-13T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"4.1 ft from riverbed (middle)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"52b33353ad684b76a8afd49cf017a42c\"\n
+        \           },\n            \"id\":\"5c12923ccedb4e53b12c036810f1127d\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"62603b70cb4a4ab29c0304e6bbb87e16\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T10:59:58.103446\",\n                \"begin\":\"2019-07-24T18:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T10:50:00.000001\",\n                \"begin_utc\":\"2019-07-24T22:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T14:50:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"Very low\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-22T00:47:12.2008281Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":4.2\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values below a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - low-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   },\n                    {\n                        \"Name\":\"Very
+        high\",\n                        \"Type\":\"ThresholdAbove\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:27:27.8657869Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":14\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values above a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - high-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":\"From
+        multiparameter sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"62603b70cb4a4ab29c0304e6bbb87e16\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"66a4e3fb8abe42fcb0942b5c0fe98f68\",\n
+        \               \"unit_of_measure\":\"ft^3/s\",\n                \"parameter_name\":\"Discharge\",\n
+        \               \"parameter_code\":\"00060\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T10:11:11.089468\",\n                \"begin\":\"1972-06-09T05:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T09:50:00.000001\",\n                \"begin_utc\":\"1972-06-09T09:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T13:50:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"Begin low flow measurements\",\n
+        \                       \"Type\":\"None\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2025-06-16T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2025-06-20T16:02:17.2082799Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":2000,\n
+        \                               \"SecondaryReferenceValue\":2500\n                            }\n
+        \                       ],\n                        \"Severity\":0,\n                        \"Description\":\"NWISWeb
+        reference line displayed to WSC level users\",\n                        \"DisplayColor\":\"#009933\",\n
+        \                       \"ReferenceCode\":\"NWISWeb ref level - WSC\",\n                        \"ProcessingOrder\":\"Normal\"\n
+        \                   },\n                    {\n                        \"Name\":\"Base
+        discharge\",\n                        \"Type\":\"ThresholdAbove\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"Comments\":\"Base discharge from adaps\",\n
+        \                               \"StartTime\":\"2016-10-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-11-24T19:12:15.0109953Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":45000,\n
+        \                               \"SecondaryReferenceValue\":45000\n                            }\n
+        \                       ],\n                        \"Severity\":0,\n                        \"Description\":\"Unspecified
+        threshold value\",\n                        \"DisplayColor\":\"#f20aee\",\n
+        \                       \"ReferenceCode\":\"AQUARIUS only\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":null,\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Discharge,
+        cubic feet per second\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"66a4e3fb8abe42fcb0942b5c0fe98f68\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"6c904cf82efd42a6b7f94c982cea89f7\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T07:57:26.188482\",\n                \"begin\":\"2019-07-24T18:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T07:50:00.000001\",\n                \"begin_utc\":\"2019-07-24T22:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T11:50:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"6c904cf82efd42a6b7f94c982cea89f7\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"6f2cdd6644424eb188a29a5dcc098a76\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:02:48.267037\",\n                \"begin\":\"2006-07-13T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"2006-07-13T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"4.1 ft from riverbed (middle)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"52b33353ad684b76a8afd49cf017a42c\"\n
+        \           },\n            \"id\":\"6f2cdd6644424eb188a29a5dcc098a76\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"70c616bea54e42e09d58048021f81a62\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-10-27T17:34:31.811799\",\n                \"begin\":\"2011-12-03T00:00:00.000001\",\n
+        \               \"end\":\"2019-06-10T00:00:00.000001\",\n                \"begin_utc\":\"2011-12-03T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-06-10T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"SUNA\",\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":\"Discontinued\",\n
+        \               \"parameter_description\":\"Nitrate plus nitrite, water, in
+        situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":\"ceea3bb9b349410ba4ad72128cb63392\"\n
+        \           },\n            \"id\":\"70c616bea54e42e09d58048021f81a62\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"73eaedd067e642c6ae52e6708251ef25\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-10-27T17:34:31.823261\",\n                \"begin\":\"2011-12-03T00:00:00.000001\",\n
+        \               \"end\":\"2019-06-10T00:00:00.000001\",\n                \"begin_utc\":\"2011-12-03T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-06-10T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"SUNA\",\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":\"Discontinued\",\n
+        \               \"parameter_description\":\"Nitrate plus nitrite, water, in
+        situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":\"ceea3bb9b349410ba4ad72128cb63392\"\n
+        \           },\n            \"id\":\"73eaedd067e642c6ae52e6708251ef25\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"752afe085d8b4aeca22d1652eabc975d\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.496913\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":\"bb18f3558934465194f8da1d5f1c3df3\"\n
+        \           },\n            \"id\":\"752afe085d8b4aeca22d1652eabc975d\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"7a3d8fd9808947c2ab23d938e1c0ce6b\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:21.960413\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"d1875d1d73e447d2a1203105ba654e7d\"\n
+        \           },\n            \"id\":\"7a3d8fd9808947c2ab23d938e1c0ce6b\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"7fb9204b83544455ada0bd8c8f441cce\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:10:51.871323\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"089a50eca92a4e268b8816a1bc22c000\"\n
+        \           },\n            \"id\":\"7fb9204b83544455ada0bd8c8f441cce\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"802fc027a9b6432da7dfa08a44b5c1aa\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:04:33.736413\",\n                \"begin\":\"1988-10-01T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"1988-10-01T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"7.1 ft from riverbed (top)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"c8e767f6cdfc4ff484a99f77962dc46c\"\n
+        \           },\n            \"id\":\"802fc027a9b6432da7dfa08a44b5c1aa\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"8a83eb3a3cbc4087b0c201cf07c0c76d\",\n
+        \               \"unit_of_measure\":\"ft\",\n                \"parameter_name\":\"Gage
+        height\",\n                \"parameter_code\":\"00065\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T10:59:57.881969\",\n                \"begin\":\"2007-10-01T05:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T10:50:00.000001\",\n                \"begin_utc\":\"2007-10-01T09:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T14:50:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"Operational limit
+        (minimum) Orifice.\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"2024-08-23T09:00:00.0000000-05:00\",\n
+        \                               \"StartTime\":\"2017-04-04T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:00.6225307Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":2,\n
+        \                               \"SecondaryReferenceValue\":2.2\n                            },\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2024-08-23T09:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2024-08-23T22:16:00.7809079Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":1.8,\n
+        \                               \"SecondaryReferenceValue\":2.2\n                            }\n
+        \                       ],\n                        \"Severity\":0,\n                        \"Description\":\"Values
+        below a specified threshold limit\",\n                        \"DisplayColor\":\"#666666\",\n
+        \                       \"ReferenceCode\":\"Operational limit - low-Public\",\n
+        \                       \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"Action Stage (National
+        Weather Service)\",\n                        \"Type\":\"None\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2017-04-04T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:01.0257343Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":5\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Display reference value\",\n                        \"DisplayColor\":\"#00CCFF\",\n
+        \                       \"ReferenceCode\":\"NWISWeb ref level - Public\",\n
+        \                       \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"Operational limit
+        (maximum) Bottom of bubbler.\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2017-04-04T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:00.4358897Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":30,\n
+        \                               \"SecondaryReferenceValue\":27\n                            }\n
+        \                       ],\n                        \"Severity\":0,\n                        \"Description\":\"Values
+        above a specified threshold limit\",\n                        \"DisplayColor\":\"#CCCCCC\",\n
+        \                       \"ReferenceCode\":\"Operational limit - high-Public\",\n
+        \                       \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"Flood Stage (National
+        Weather Service)\",\n                        \"Type\":\"None\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2017-04-04T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:00.9468856Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":10\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Display reference value\",\n                        \"DisplayColor\":\"#00CCFF\",\n
+        \                       \"ReferenceCode\":\"NWISWeb ref level - Public\",\n
+        \                       \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":null,\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":null,\n
+        \               \"parameter_description\":\"Gage height, feet\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"8a83eb3a3cbc4087b0c201cf07c0c76d\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"8d207192a5b64299bc9ef82fb04339ef\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:42:52.797412\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":\"3249b53540a44dc0877e6ff17b3325af\"\n
+        \           },\n            \"id\":\"8d207192a5b64299bc9ef82fb04339ef\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"8f29434a467e448990fcba524b2581a6\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.581219\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":\"b6c218a885b64b40aab7780d616ca13d\"\n
+        \           },\n            \"id\":\"8f29434a467e448990fcba524b2581a6\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"9089f70baed44197b24a2aa8ea43a870\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:41:53.106063\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":\"3249b53540a44dc0877e6ff17b3325af\"\n
+        \           },\n            \"id\":\"9089f70baed44197b24a2aa8ea43a870\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"97c538a59ad54faaa751f9ae48536e0f\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:28.058260\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":\"6c904cf82efd42a6b7f94c982cea89f7\"\n
+        \           },\n            \"id\":\"97c538a59ad54faaa751f9ae48536e0f\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"97d74940f4f0428a9410b37dc90bf073\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.505446\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":\"bb18f3558934465194f8da1d5f1c3df3\"\n
+        \           },\n            \"id\":\"97d74940f4f0428a9410b37dc90bf073\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"9dac11dd5bb543108c03695ed609cbb7\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:50:40.615324\",\n                \"begin\":\"1992-09-30T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"1992-09-30T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":null,\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":\"Discontinued\",\n
+        \               \"parameter_description\":\"Specific conductance, water, unfiltered,
+        microsiemens per centimeter at 25 degrees Celsius\",\n                \"parent_time_series_id\":\"b0989ee576fc45f2a239439db908e019\"\n
+        \           },\n            \"id\":\"9dac11dd5bb543108c03695ed609cbb7\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"a4405a5a82314acd99ddc7f0472c651d\",\n
+        \               \"unit_of_measure\":\"_FNU\",\n                \"parameter_name\":\"Turbidity,
+        FNU\",\n                \"parameter_code\":\"63680\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:28.049974\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Turbidity,
+        water, unfiltered, monochrome near infra-red LED light, 780-900 nm, detection
+        angle 90 +-2.5 degrees, formazin nephelometric units (FNU)\",\n                \"parent_time_series_id\":\"6c904cf82efd42a6b7f94c982cea89f7\"\n
+        \           },\n            \"id\":\"a4405a5a82314acd99ddc7f0472c651d\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"a5240ba5fef2439d9dd61a2a4eacbdd0\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:21.879373\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":\"b6c218a885b64b40aab7780d616ca13d\"\n
+        \           },\n            \"id\":\"a5240ba5fef2439d9dd61a2a4eacbdd0\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"adde19a1dd334f569273f5ee55b5b4c5\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:51:18.193632\",\n                \"begin\":\"1992-09-30T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"1992-09-30T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":null,\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":\"Discontinued\",\n
+        \               \"parameter_description\":\"Specific conductance, water, unfiltered,
+        microsiemens per centimeter at 25 degrees Celsius\",\n                \"parent_time_series_id\":\"b0989ee576fc45f2a239439db908e019\"\n
+        \           },\n            \"id\":\"adde19a1dd334f569273f5ee55b5b4c5\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"b0989ee576fc45f2a239439db908e019\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:40:50.672827\",\n                \"begin\":\"2007-10-01T05:00:00.000001\",\n
+        \               \"end\":\"2019-10-01T16:30:00.000001\",\n                \"begin_utc\":\"2007-10-01T09:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-10-01T20:30:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:35.0375393Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":1000\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF9933\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:35.2092901Z\",\n
+        \                               \"SuppressData\":false,\n                                \"ReferenceValue\":120\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#CC6600\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:35.7039375Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":40\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:35.317549Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":1850\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"7.1 ft from
+        riverbed (top)\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":null\n            },\n
+        \           \"id\":\"b0989ee576fc45f2a239439db908e019\",\n            \"geometry\":{\n
+        \               \"type\":\"Point\",\n                \"coordinates\":[\n                    -77.12763888888888,\n
+        \                   38.949777777777776\n                ]\n            }\n
+        \       },\n        {\n            \"type\":\"Feature\",\n            \"properties\":{\n
+        \               \"id\":\"b6c218a885b64b40aab7780d616ca13d\",\n                \"unit_of_measure\":\"uS/cm\",\n
+        \               \"parameter_name\":\"Specific cond at 25C\",\n                \"parameter_code\":\"00095\",\n
+        \               \"statistic_id\":\"00011\",\n                \"hydrologic_unit_code\":\"020700081005\",\n
+        \               \"state_name\":\"Maryland\",\n                \"last_modified\":\"2026-04-02T10:59:57.909798\",\n
+        \               \"begin\":\"2019-07-24T17:15:00.000001\",\n                \"end\":\"2026-04-02T10:50:00.000001\",\n
+        \               \"begin_utc\":\"2019-07-24T21:15:00+00:00\",\n                \"end_utc\":\"2026-04-02T14:50:00+00:00\",\n
+        \               \"computation_period_identifier\":\"Points\",\n                \"computation_identifier\":\"Instantaneous\",\n
+        \               \"thresholds\":[\n                    {\n                        \"Name\":\"Very
+        high\",\n                        \"Type\":\"ThresholdAbove\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:29:43.3054885Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":80000\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values above a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - high-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   },\n                    {\n                        \"Name\":\"Very
+        low\",\n                        \"Type\":\"ThresholdBelow\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:30:16.1986787Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":42\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values below a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - low-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":\"From
+        multiparameter sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":null\n            },\n
+        \           \"id\":\"b6c218a885b64b40aab7780d616ca13d\",\n            \"geometry\":{\n
+        \               \"type\":\"Point\",\n                \"coordinates\":[\n                    -77.12763888888888,\n
+        \                   38.949777777777776\n                ]\n            }\n
+        \       },\n        {\n            \"type\":\"Feature\",\n            \"properties\":{\n
+        \               \"id\":\"bb18f3558934465194f8da1d5f1c3df3\",\n                \"unit_of_measure\":\"mg/l\",\n
+        \               \"parameter_name\":\"Dissolved oxygen\",\n                \"parameter_code\":\"00300\",\n
+        \               \"statistic_id\":\"00011\",\n                \"hydrologic_unit_code\":\"020700081005\",\n
+        \               \"state_name\":\"Maryland\",\n                \"last_modified\":\"2026-04-02T10:59:57.973595\",\n
+        \               \"begin\":\"2019-07-24T18:15:00.000001\",\n                \"end\":\"2026-04-02T10:50:00.000001\",\n
+        \               \"begin_utc\":\"2019-07-24T22:15:00+00:00\",\n                \"end_utc\":\"2026-04-02T14:50:00+00:00\",\n
+        \               \"computation_period_identifier\":\"Points\",\n                \"computation_identifier\":\"Instantaneous\",\n
+        \               \"thresholds\":[\n                    {\n                        \"Name\":\"Very
+        high\",\n                        \"Type\":\"ThresholdAbove\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:28:18.4862197Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":30\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values above a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - high-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   },\n                    {\n                        \"Name\":\"Very
+        low\",\n                        \"Type\":\"ThresholdBelow\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:28:56.2095345Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":3\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values below a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - low-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":\"From
+        multiparameter sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"bb18f3558934465194f8da1d5f1c3df3\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"c42a4b0d3f3f4cd8b667a7e2e49a8cdf\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T10:49:42.127167\",\n                \"begin\":\"2019-07-24T17:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T10:30:00.000001\",\n                \"begin_utc\":\"2019-07-24T21:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T14:30:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"Very Low Suppress\",\n
+        \                       \"Type\":\"ThresholdBelow\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2021-04-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2021-06-30T12:04:39.8242946Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":0.01\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"Very high\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:35:32.5360608Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":20\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values above a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - high-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   },\n                    {\n                        \"Name\":\"Very
+        low\",\n                        \"Type\":\"ThresholdBelow\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:35:55.2743649Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":0\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values below a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - low-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":\"SUNA\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Nitrate
+        plus nitrite, water, in situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"c42a4b0d3f3f4cd8b667a7e2e49a8cdf\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"c8e767f6cdfc4ff484a99f77962dc46c\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:42:56.854269\",\n                \"begin\":\"2007-10-01T05:00:00.000001\",\n
+        \               \"end\":\"2019-10-01T16:30:00.000001\",\n                \"begin_utc\":\"2007-10-01T09:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-10-01T20:30:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:25.9611945Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":40\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:26.2726784Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":-1\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"7.1 ft from
+        riverbed (top)\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"c8e767f6cdfc4ff484a99f77962dc46c\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"ca664de0b41845d8ba74a7103df714e4\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:16:19.256762\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"SUNA\",\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":null,\n
+        \               \"parameter_description\":\"Nitrate plus nitrite, water, in
+        situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":\"c42a4b0d3f3f4cd8b667a7e2e49a8cdf\"\n
+        \           },\n            \"id\":\"ca664de0b41845d8ba74a7103df714e4\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"cb83dd0b32d44109b755c00fb8525f24\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:26:58.002379\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":\"d48f329cbda241b9923547b1dc2f90e0\"\n
+        \           },\n            \"id\":\"cb83dd0b32d44109b755c00fb8525f24\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"cc9c3c791c3b44d78c1f1f274e257f3b\",\n
+        \               \"unit_of_measure\":\"uS/cm\",\n                \"parameter_name\":\"Specific
+        cond at 25C\",\n                \"parameter_code\":\"00095\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:58:10.629885\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Specific
+        conductance, water, unfiltered, microsiemens per centimeter at 25 degrees
+        Celsius\",\n                \"parent_time_series_id\":\"0db1ff42570e4521b8dc8958558f7250\"\n
+        \           },\n            \"id\":\"cc9c3c791c3b44d78c1f1f274e257f3b\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"ceea3bb9b349410ba4ad72128cb63392\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2021-10-27T17:34:31.783489\",\n                \"begin\":\"2011-12-03T05:00:00.000001\",\n
+        \               \"end\":\"2019-06-11T15:00:00.000001\",\n                \"begin_utc\":\"2011-12-03T10:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-06-11T19:00:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-05-20T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:38.6381613Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":0\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-05-20T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:38.2902448Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":20\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"SUNA\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Nitrate
+        plus nitrite, water, in situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"ceea3bb9b349410ba4ad72128cb63392\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"d1875d1d73e447d2a1203105ba654e7d\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T10:59:57.855769\",\n                \"begin\":\"2019-07-24T18:00:00.000001\",\n
+        \               \"end\":\"2026-04-02T10:50:00.000001\",\n                \"begin_utc\":\"2019-07-24T22:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-02T14:50:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"Very high\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:31:23.3093671Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":40\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values above a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - high-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   },\n                    {\n                        \"Name\":\"Very
+        low\",\n                        \"Type\":\"ThresholdBelow\",\n                        \"Periods\":[\n
+        \                           {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2019-12-01T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2019-12-23T11:31:43.0082318Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":-1\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Values below a specified threshold
+        limit\",\n                        \"DisplayColor\":\"#990600\",\n                        \"ReferenceCode\":\"Operational
+        limit - low-Public\",\n                        \"ProcessingOrder\":\"Suppression\"\n
+        \                   }\n                ],\n                \"sublocation_identifier\":\"From
+        multiparameter sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"d1875d1d73e447d2a1203105ba654e7d\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"d1aab208a27b4a79bb1217ddd9472da6\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.304270\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":\"62603b70cb4a4ab29c0304e6bbb87e16\"\n
+        \           },\n            \"id\":\"d1aab208a27b4a79bb1217ddd9472da6\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"d22c612bbfe0453aba7adf408ea83ded\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"Dissolved
+        oxygen\",\n                \"parameter_code\":\"00300\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.245642\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Dissolved
+        oxygen, water, unfiltered, milligrams per liter\",\n                \"parent_time_series_id\":\"bb18f3558934465194f8da1d5f1c3df3\"\n
+        \           },\n            \"id\":\"d22c612bbfe0453aba7adf408ea83ded\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"d48f329cbda241b9923547b1dc2f90e0\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:55:35.104851\",\n                \"begin\":\"2013-11-23T05:00:00.000001\",\n
+        \               \"end\":\"2019-05-27T20:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T10:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-28T00:00:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:57.4735709Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":14\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"2017-10-05T12:30:00.0000000-05:00\",\n
+        \                               \"StartTime\":\"2016-09-29T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:57.9743705Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":-1\n
+        \                           },\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2017-10-05T12:30:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2018-06-22T14:08:47.5882513Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":4.2\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"From multiparameter
+        sonde\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"d48f329cbda241b9923547b1dc2f90e0\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"d544dfaaddd343eba502820866403fff\",\n
+        \               \"unit_of_measure\":\"ft\",\n                \"parameter_name\":\"Gage
+        height\",\n                \"parameter_code\":\"00065\",\n                \"statistic_id\":null,\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-02-22T09:57:20.325125\",\n                \"begin\":null,\n
+        \               \"end\":null,\n                \"begin_utc\":null,\n                \"end_utc\":null,\n
+        \               \"computation_period_identifier\":\"Water Year\",\n                \"computation_identifier\":\"Max
+        At Event Time\",\n                \"thresholds\":[],\n                \"sublocation_identifier\":null,\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"Gage
+        height, feet\",\n                \"parent_time_series_id\":null\n            },\n
+        \           \"id\":\"d544dfaaddd343eba502820866403fff\",\n            \"geometry\":{\n
+        \               \"type\":\"Point\",\n                \"coordinates\":[\n                    -77.12763888888888,\n
+        \                   38.949777777777776\n                ]\n            }\n
+        \       },\n        {\n            \"type\":\"Feature\",\n            \"properties\":{\n
+        \               \"id\":\"d79cffc85456491db8f5e416a62c369e\",\n                \"unit_of_measure\":\"degC\",\n
+        \               \"parameter_name\":\"Temperature, water\",\n                \"parameter_code\":\"00010\",\n
+        \               \"statistic_id\":\"00001\",\n                \"hydrologic_unit_code\":\"020700081005\",\n
+        \               \"state_name\":\"Maryland\",\n                \"last_modified\":\"2020-09-18T16:02:05.889128\",\n
+        \               \"begin\":\"2006-07-13T00:00:00.000001\",\n                \"end\":\"2019-09-30T00:00:00.000001\",\n
+        \               \"begin_utc\":\"2006-07-13T04:00:00+00:00\",\n                \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n
+        \               \"computation_period_identifier\":\"Daily\",\n                \"computation_identifier\":\"Max\",\n
+        \               \"thresholds\":[],\n                \"sublocation_identifier\":\"4.1
+        ft from riverbed (middle)\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"52b33353ad684b76a8afd49cf017a42c\"\n
+        \           },\n            \"id\":\"d79cffc85456491db8f5e416a62c369e\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"dc8c6197e67642daa90a9e5394b2fc01\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00008\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:22.248584\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Median\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":\"62603b70cb4a4ab29c0304e6bbb87e16\"\n
+        \           },\n            \"id\":\"dc8c6197e67642daa90a9e5394b2fc01\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"df26f4c5e5c844e583ed44a9419bb8ff\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:03:41.994307\",\n                \"begin\":\"1988-10-01T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"1988-10-01T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"7.1 ft from riverbed (top)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"c8e767f6cdfc4ff484a99f77962dc46c\"\n
+        \           },\n            \"id\":\"df26f4c5e5c844e583ed44a9419bb8ff\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"e3c168a6cbd840e095206dc7289991d3\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:01:38.149826\",\n                \"begin\":\"2006-07-13T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"2006-07-13T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"1.0 ft from riverbed (bottom)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"f60be489a22b4dfd9fd0fb97f3acc285\"\n
+        \           },\n            \"id\":\"e3c168a6cbd840e095206dc7289991d3\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"e7b2e294e6ff4b37823201aa90adb381\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:01:13.986487\",\n                \"begin\":\"2006-07-13T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"2006-07-13T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"1.0 ft from riverbed (bottom)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"f60be489a22b4dfd9fd0fb97f3acc285\"\n
+        \           },\n            \"id\":\"e7b2e294e6ff4b37823201aa90adb381\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"f41205be5cf443c88e3c23246c366caf\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00002\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:57:21.984039\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-03-31T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-03-31T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Min\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":null,\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":\"62603b70cb4a4ab29c0304e6bbb87e16\"\n
+        \           },\n            \"id\":\"f41205be5cf443c88e3c23246c366caf\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"f60be489a22b4dfd9fd0fb97f3acc285\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00011\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T11:43:22.561954\",\n                \"begin\":\"2007-10-01T05:00:00.000001\",\n
+        \               \"end\":\"2019-10-01T16:15:00.000001\",\n                \"begin_utc\":\"2007-10-01T09:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-10-01T20:15:00+00:00\",\n                \"computation_period_identifier\":\"Points\",\n
+        \               \"computation_identifier\":\"Instantaneous\",\n                \"thresholds\":[\n
+        \                   {\n                        \"Name\":\"VERY HIGH\",\n                        \"Type\":\"ThresholdAbove\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:17.1958044Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":40\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#FF0000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    },\n
+        \                   {\n                        \"Name\":\"VERY LOW\",\n                        \"Type\":\"ThresholdBelow\",\n
+        \                       \"Periods\":[\n                            {\n                                \"EndTime\":\"9999-12-31T23:59:59.9999999+00:00\",\n
+        \                               \"StartTime\":\"2016-10-06T00:00:00.0000000-05:00\",\n
+        \                               \"AppliedTime\":\"2017-07-10T15:07:17.3397561Z\",\n
+        \                               \"SuppressData\":true,\n                                \"ReferenceValue\":-1\n
+        \                           }\n                        ],\n                        \"Severity\":0,\n
+        \                       \"Description\":\"Unspecified threshold value\",\n
+        \                       \"DisplayColor\":\"#800000\",\n                        \"ReferenceCode\":\"AQUARIUS
+        only\",\n                        \"ProcessingOrder\":\"Suppression\"\n                    }\n
+        \               ],\n                \"sublocation_identifier\":\"1.0 ft from
+        riverbed (bottom)\",\n                \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":null\n
+        \           },\n            \"id\":\"f60be489a22b4dfd9fd0fb97f3acc285\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"f71829b2226641a3a1253b7b7f920f3f\",\n
+        \               \"unit_of_measure\":\"mg/l\",\n                \"parameter_name\":\"NO3+NO2,water,insitu
+        as N\",\n                \"parameter_code\":\"99133\",\n                \"statistic_id\":\"00003\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2026-04-02T05:16:19.233971\",\n                \"begin\":\"2019-07-25T00:00:00.000001\",\n
+        \               \"end\":\"2026-04-01T00:00:00.000001\",\n                \"begin_utc\":\"2019-07-25T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2026-04-01T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Mean\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"SUNA\",\n                \"primary\":\"Primary\",\n
+        \               \"monitoring_location_id\":\"USGS-01646500\",\n                \"web_description\":null,\n
+        \               \"parameter_description\":\"Nitrate plus nitrite, water, in
+        situ, milligrams per liter as nitrogen\",\n                \"parent_time_series_id\":\"c42a4b0d3f3f4cd8b667a7e2e49a8cdf\"\n
+        \           },\n            \"id\":\"f71829b2226641a3a1253b7b7f920f3f\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"f7e23f3c49b64d94894932c12dd575f9\",\n
+        \               \"unit_of_measure\":\"pH Units\",\n                \"parameter_name\":\"pH\",\n
+        \               \"parameter_code\":\"00400\",\n                \"statistic_id\":\"00008\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T16:27:24.649443\",\n                \"begin\":\"2013-11-23T00:00:00.000001\",\n
+        \               \"end\":\"2019-05-26T00:00:00.000001\",\n                \"begin_utc\":\"2013-11-23T05:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-05-26T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Median\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"From multiparameter sonde\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"pH,
+        water, unfiltered, field, standard units\",\n                \"parent_time_series_id\":\"d48f329cbda241b9923547b1dc2f90e0\"\n
+        \           },\n            \"id\":\"f7e23f3c49b64d94894932c12dd575f9\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        },\n        {\n            \"type\":\"Feature\",\n
+        \           \"properties\":{\n                \"id\":\"fb924810fc234811ac97b517cb179a86\",\n
+        \               \"unit_of_measure\":\"degC\",\n                \"parameter_name\":\"Temperature,
+        water\",\n                \"parameter_code\":\"00010\",\n                \"statistic_id\":\"00001\",\n
+        \               \"hydrologic_unit_code\":\"020700081005\",\n                \"state_name\":\"Maryland\",\n
+        \               \"last_modified\":\"2020-09-18T15:59:43.072238\",\n                \"begin\":\"2006-07-13T00:00:00.000001\",\n
+        \               \"end\":\"2019-09-30T00:00:00.000001\",\n                \"begin_utc\":\"2006-07-13T04:00:00+00:00\",\n
+        \               \"end_utc\":\"2019-09-30T04:00:00+00:00\",\n                \"computation_period_identifier\":\"Daily\",\n
+        \               \"computation_identifier\":\"Max\",\n                \"thresholds\":[],\n
+        \               \"sublocation_identifier\":\"1.0 ft from riverbed (bottom)\",\n
+        \               \"primary\":\"Primary\",\n                \"monitoring_location_id\":\"USGS-01646500\",\n
+        \               \"web_description\":\"Discontinued\",\n                \"parameter_description\":\"Temperature,
+        water, degrees Celsius\",\n                \"parent_time_series_id\":\"f60be489a22b4dfd9fd0fb97f3acc285\"\n
+        \           },\n            \"id\":\"fb924810fc234811ac97b517cb179a86\",\n
+        \           \"geometry\":{\n                \"type\":\"Point\",\n                \"coordinates\":[\n
+        \                   -77.12763888888888,\n                    38.949777777777776\n
+        \               ]\n            }\n        }\n    ],\n    \"numberReturned\":70,\n
+        \   \"links\":[\n        {\n            \"type\":\"application/geo+json\",\n
+        \           \"rel\":\"self\",\n            \"title\":\"This document as GeoJSON\",\n
+        \           \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&monitoring_location_id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"rel\":\"alternate\",\n            \"type\":\"application/ld+json\",\n
+        \           \"title\":\"This document as RDF (JSON-LD)\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=jsonld&monitoring_location_id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"text/html\",\n            \"rel\":\"alternate\",\n
+        \           \"title\":\"This document as HTML\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=html&monitoring_location_id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"text/csv; charset=utf-8\",\n
+        \           \"rel\":\"alternate\",\n            \"title\":\"This document
+        as CSV\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=csv&monitoring_location_id=USGS-01646500&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"application/json\",\n            \"title\":\"Time
+        series metadata\",\n            \"rel\":\"collection\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata\"\n
+        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:54:10.417445Z\"\n}"
+    headers:
+      Age:
+      - '2608'
+      Api-Version:
+      - 0.23.0
+      Cache-Control:
+      - public, max-age=3600
+      Connection:
+      - keep-alive
+      Content-Crs:
+      - <http://www.opengis.net/def/crs/OGC/1.3/CRS84>
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 02 Apr 2026 17:37:38 GMT
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Via:
+      - 1.1 288c777a01e22425da9494dad7a69734.cloudfront.net (CloudFront), http/1.1
+        api-umbrella (ApacheTrafficServer [cHs f ])
+      X-Amz-Cf-Id:
+      - NPpMKnIMd3GxAi2fJWau0ZAvtQ3_1u7CP2lPydh6Lr3JP_fMeoKuWg==
+      X-Amz-Cf-Pop:
+      - HIO52-P1
+      X-Api-Umbrella-Request-Id:
+      - ct9t2qk7vtkl1ksbjsjg
+      X-Build-Version:
+      - 0.42.3-e5db988b
+      X-Cache:
+      - HIT
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '993'
+      X-Vcap-Request-Id:
+      - 189de447-a57d-4975-5d41-b44ef1b414b0
+      X-Xss-Protection:
+      - 1; mode=block
+      content-length:
+      - '142915'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -224,6 +224,60 @@ def _get_usgs_stations_by_state(
         return pd.DataFrame()
 
 
+def _get_usgs_stations_by_site_nos(
+    site_nos: list[str],
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """Get monitoring locations for specific site numbers using waterdata API."""
+    if not site_nos:
+        return pd.DataFrame()
+
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
+
+    _set_api_key_env(api_key)
+
+    monitoring_location_ids = [site_no_to_monitoring_location_id(s) for s in site_nos]
+
+    try:
+        sites, _ = waterdata.get_monitoring_locations(
+            monitoring_location_id=monitoring_location_ids,
+            skip_geometry=False,
+        )
+        return sites
+    except Exception as e:
+        logger.warning(f"Failed to get stations for site_nos: {e}")
+        return pd.DataFrame()
+
+
+def _get_usgs_stations_by_bbox(
+    bbox: list[float],
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """Get monitoring locations within a bounding box using waterdata API.
+
+    :param bbox: [lon_min, lat_min, lon_max, lat_max]
+    """
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
+
+    _set_api_key_env(api_key)
+
+    try:
+        sites, _ = waterdata.get_monitoring_locations(
+            bbox=bbox,
+            skip_geometry=False,
+        )
+        return sites
+    except Exception as e:
+        logger.warning(f"Failed to get stations for bbox {bbox}: {e}")
+        return pd.DataFrame()
+
+
 def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
     """Normalize station data from waterdata API to GeoDataFrame."""
     if df.empty:
@@ -256,6 +310,10 @@ def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
         gdf["dec_coord_datum_cd"] = gdf["original_horizontal_datum"]
     else:
         gdf["dec_coord_datum_cd"] = None
+
+    # Derive us_state from state_code for direct API queries (bbox/site_nos)
+    if "us_state" not in gdf.columns and "state_code" in gdf.columns:
+        gdf["us_state"] = gdf["state_code"]
 
     return gdf
 
@@ -382,24 +440,33 @@ def get_usgs_stations(
     lon_max: Optional[float] = None,
     lat_min: Optional[float] = None,
     lat_max: Optional[float] = None,
+    bbox: Optional[list[float]] = None,
+    site_nos: Optional[list[str]] = None,
     include_parameter_availability: bool = False,
     api_key: Optional[str] = None,
 ) -> gpd.GeoDataFrame:
     """
     Return USGS station metadata using the modernized Water Data API.
 
-    If `region` is defined then the stations that are outside of the region are
-    filtered out. If the coordinates of the Bounding Box are defined then
-    stations outside of the BBox are filtered out. If both ``region`` and the
-    Bounding Box are defined, then an exception is raised.
+    Three query modes:
+
+    1. **By site numbers** (``site_nos``): Fast direct query for specific stations.
+    2. **By bounding box** (``bbox``): Fast direct query for a geographic region.
+       Format: ``[lon_min, lat_min, lon_max, lat_max]``.
+    3. **By region/lon/lat** (legacy): Fetches all US stations (cached), then
+       filters in-memory by ``region`` or bounding box corners.
+
+    These modes are mutually exclusive.
 
     Note: The longitudes of the USGS stations are in the [-180, 180] range.
 
     :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest
-    :param lon_min: The minimum Longitude of the Bounding Box.
-    :param lon_max: The maximum Longitude of the Bounding Box.
-    :param lat_min: The minimum Latitude of the Bounding Box.
-    :param lat_max: The maximum Latitude of the Bounding Box.
+    :param lon_min: The minimum Longitude of the Bounding Box (legacy mode).
+    :param lon_max: The maximum Longitude of the Bounding Box (legacy mode).
+    :param lat_min: The minimum Latitude of the Bounding Box (legacy mode).
+    :param lat_max: The maximum Latitude of the Bounding Box (legacy mode).
+    :param bbox: Direct API bounding box as ``[lon_min, lat_min, lon_max, lat_max]``.
+    :param site_nos: List of USGS site numbers for direct lookup.
     :param include_parameter_availability: If True, query which parameters
         (water_level, temperature, salinity, currents) are available at each
         station. Adds columns: has_water_level, has_temperature, has_salinity,
@@ -408,23 +475,46 @@ def get_usgs_stations(
         parameter availability.
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
-    region = get_region(
-        region=region,
-        lon_min=lon_min,
-        lon_max=lon_max,
-        lat_min=lat_min,
-        lat_max=lat_max,
-        symmetric=True,
-    )
+    # Validate mutual exclusivity
+    has_legacy = any((lon_min, lon_max, lat_min, lat_max)) or region is not None
+    specified = sum([has_legacy, bbox is not None, site_nos is not None])
+    if specified > 1:
+        raise ValueError(
+            "Specify only one of: `site_nos`, `bbox`, or `region`/`lon_min`/`lon_max`/`lat_min`/`lat_max`."
+        )
 
-    usgs_stations = _get_all_usgs_stations(normalize=True)
-    if region:
-        usgs_stations = usgs_stations[usgs_stations.within(region)]
+    rate_limit = get_usgs_rate_limit(api_key=api_key)
+
+    # Fast path: direct station ID lookup
+    if site_nos is not None:
+        raw = _get_usgs_stations_by_site_nos(site_nos=site_nos, api_key=api_key, rate_limit=rate_limit)
+        usgs_stations = normalize_usgs_stations(raw)
+
+    # Fast path: direct bounding box query
+    elif bbox is not None:
+        if len(bbox) != 4:
+            raise ValueError("`bbox` must be a list of 4 floats: [lon_min, lat_min, lon_max, lat_max]")
+        raw = _get_usgs_stations_by_bbox(bbox=bbox, api_key=api_key, rate_limit=rate_limit)
+        usgs_stations = normalize_usgs_stations(raw)
+
+    # Legacy path: fetch all stations, filter in-memory
+    else:
+        region = get_region(
+            region=region,
+            lon_min=lon_min,
+            lon_max=lon_max,
+            lat_min=lat_min,
+            lat_max=lat_max,
+            symmetric=True,
+        )
+        usgs_stations = _get_all_usgs_stations(normalize=True)
+        if region:
+            usgs_stations = usgs_stations[usgs_stations.within(region)]
 
     if include_parameter_availability and not usgs_stations.empty:
-        site_nos = usgs_stations["site_no"].tolist()
+        station_site_nos = usgs_stations["site_no"].tolist()
         availability_df = get_station_parameter_availability(
-            site_nos=site_nos,
+            site_nos=station_site_nos,
             api_key=api_key,
         )
         usgs_stations = usgs_stations.merge(

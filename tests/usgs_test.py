@@ -204,6 +204,77 @@ def test_request_nonexistant_data():
     assert isinstance(ds, xr.Dataset)
 
 
+class TestGetStationsByDirectQuery:
+    """Tests for site_nos and bbox fast-path parameters."""
+
+    @pytest.mark.vcr
+    def test_get_usgs_stations_by_site_nos(self) -> None:
+        sta = usgs.get_usgs_stations(site_nos=["01646500", "15484000"])
+        assert isinstance(sta, gpd.GeoDataFrame)
+        assert len(sta) == 2
+        assert set(sta["site_no"]) == {"01646500", "15484000"}
+        assert set(sta.columns).issuperset(usgs.USGS_STATIONS_COLUMN_NAMES)
+
+    @pytest.mark.vcr
+    def test_get_usgs_stations_by_site_nos_has_state_info(self) -> None:
+        sta = usgs.get_usgs_stations(site_nos=["01646500"])
+        assert "us_state" in sta.columns
+        assert sta.iloc[0]["us_state"] is not None
+
+    @pytest.mark.vcr
+    def test_get_usgs_stations_by_bbox(self) -> None:
+        sta = usgs.get_usgs_stations(bbox=[-77.2, 38.9, -77.0, 39.0])
+        assert isinstance(sta, gpd.GeoDataFrame)
+        assert len(sta) > 0
+        assert (sta["dec_long_va"] >= -77.3).all()
+        assert (sta["dec_long_va"] <= -76.9).all()
+        assert (sta["dec_lat_va"] >= 38.8).all()
+        assert (sta["dec_lat_va"] <= 39.1).all()
+
+    @pytest.mark.vcr
+    def test_get_usgs_stations_by_bbox_has_state_info(self) -> None:
+        sta = usgs.get_usgs_stations(bbox=[-77.2, 38.9, -77.0, 39.0])
+        assert "us_state" in sta.columns
+
+    @pytest.mark.vcr
+    def test_get_usgs_stations_by_site_nos_with_availability(self) -> None:
+        sta = usgs.get_usgs_stations(
+            site_nos=["01646500"],
+            include_parameter_availability=True,
+        )
+        assert "has_water_level" in sta.columns
+        assert "has_temperature" in sta.columns
+        assert "has_salinity" in sta.columns
+        assert "has_currents" in sta.columns
+
+    def test_get_usgs_stations_by_site_nos_empty(self) -> None:
+        sta = usgs.get_usgs_stations(site_nos=[])
+        assert isinstance(sta, gpd.GeoDataFrame)
+        assert sta.empty
+
+    def test_raises_when_site_nos_and_bbox(self) -> None:
+        with pytest.raises(ValueError):
+            usgs.get_usgs_stations(site_nos=["01646500"], bbox=[-77, 38, -76, 39])
+
+    def test_raises_when_site_nos_and_region(self) -> None:
+        geom = geometry.box(-77, 38, -76, 39)
+        with pytest.raises(ValueError):
+            usgs.get_usgs_stations(site_nos=["01646500"], region=geom)
+
+    def test_raises_when_bbox_and_region(self) -> None:
+        geom = geometry.box(-77, 38, -76, 39)
+        with pytest.raises(ValueError):
+            usgs.get_usgs_stations(bbox=[-77, 38, -76, 39], region=geom)
+
+    def test_raises_when_bbox_and_lon_min(self) -> None:
+        with pytest.raises(ValueError):
+            usgs.get_usgs_stations(bbox=[-77, 38, -76, 39], lon_min=-77)
+
+    def test_bbox_wrong_length(self) -> None:
+        with pytest.raises(ValueError):
+            usgs.get_usgs_stations(bbox=[-77, 38, -76])
+
+
 class TestAPIKeyManagement:
     def test_get_api_key_from_param(self) -> None:
         key = usgs.get_usgs_api_key(api_key="test-key-123")
