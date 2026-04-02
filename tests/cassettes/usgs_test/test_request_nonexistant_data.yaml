@@ -37,10 +37,10 @@ interactions:
         as CSV\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=csv&time=2015-07-03%2F2015-07-04&skipGeometry=False&limit=50000\"\n
         \       },\n        {\n            \"type\":\"application/json\",\n            \"title\":\"Continuous
         values\",\n            \"rel\":\"collection\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous\"\n
-        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:39:10.623134Z\"\n}"
+        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:57:06.297279Z\"\n}"
     headers:
       Age:
-      - '0'
+      - '2'
       Api-Version:
       - 0.23.0
       Cache-Control:
@@ -49,16 +49,12 @@ interactions:
       - keep-alive
       Content-Crs:
       - <http://www.opengis.net/def/crs/OGC/1.3/CRS84>
-      Content-Encoding:
-      - gzip
       Content-Language:
       - en-US
-      Content-Length:
-      - '421'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 02 Apr 2026 16:39:10 GMT
+      - Thu, 02 Apr 2026 16:57:07 GMT
       Expires:
       - '0'
       Pragma:
@@ -71,14 +67,14 @@ interactions:
       - Accept-Encoding
       - Accept-Encoding
       Via:
-      - 1.1 f193acd25f2604e189bfbfaf539aaa06.cloudfront.net (CloudFront), https/1.1
+      - 1.1 88a7ff956a5b49ec3a35abfc0027af12.cloudfront.net (CloudFront), https/1.1
         api-umbrella (ApacheTrafficServer [cMsSf ])
       X-Amz-Cf-Id:
-      - c0v6fnRPa9-rySObMa7gbUitfzZkJZ1izFMSf9jM01L3-8rdjLMTLA==
+      - yj3PsLnzaOh74LyPzV_uLXYCRjlDo2Le-7NbQSnYkRVrg6O2zxI-0A==
       X-Amz-Cf-Pop:
       - HIO52-P1
       X-Api-Umbrella-Request-Id:
-      - ct9s823cr1m9oqdv90ag
+      - ct9sg8l7q2iqj0o2opgg
       X-Build-Version:
       - 0.42.3-e5db988b
       X-Cache:
@@ -90,11 +86,13 @@ interactions:
       X-Ratelimit-Limit:
       - '1000'
       X-Ratelimit-Remaining:
-      - '996'
+      - '992'
       X-Vcap-Request-Id:
-      - b8721ae0-6468-4ef9-6180-5f5c3206b5d9
+      - 484f59b0-85d7-48c3-69d0-e45cbf521ff1
       X-Xss-Protection:
       - 1; mode=block
+      content-length:
+      - '1552'
     status:
       code: 200
       message: OK
@@ -196,21 +194,17 @@ interactions:
         \   \"$id\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/schema\"\n}"
     headers:
       Age:
-      - '68498'
+      - '69575'
       Api-Version:
       - 0.23.0
       Connection:
       - keep-alive
-      Content-Encoding:
-      - gzip
       Content-Language:
       - en-US
-      Content-Length:
-      - '1961'
       Content-Type:
       - application/schema+json; charset=utf-8
       Date:
-      - Thu, 02 Apr 2026 16:39:11 GMT
+      - Thu, 02 Apr 2026 16:57:08 GMT
       Referrer-Policy:
       - strict-origin-when-cross-origin
       Strict-Transport-Security:
@@ -219,14 +213,14 @@ interactions:
       - Accept-Encoding
       - Accept-Encoding
       Via:
-      - 1.1 0a166b53605851fe961f5a2952e5a748.cloudfront.net (CloudFront), https/1.1
+      - 1.1 8ead054384c1626556ee4410cad35692.cloudfront.net (CloudFront), https/1.1
         api-umbrella (ApacheTrafficServer [cMsSf ])
       X-Amz-Cf-Id:
-      - d0oeViyrse0iXddteB36sjDALm701tCcNpmk4euM_U_wZ3vFqW7Xjg==
+      - 3Yrm1nu032G2pBIGXpwfJQRCLbunxAZlSDC6IdhHRzSEUEmUORjx4w==
       X-Amz-Cf-Pop:
       - HIO52-P1
       X-Api-Umbrella-Request-Id:
-      - ct9s829ia3ra42bn32i0
+      - ct9sg98ofdhisn5mo8b0
       X-Build-Version:
       - 0.42.3-e5db988b
       X-Cache:
@@ -238,11 +232,13 @@ interactions:
       X-Ratelimit-Limit:
       - '4000'
       X-Ratelimit-Remaining:
-      - '3996'
+      - '3990'
       X-Vcap-Request-Id:
-      - 9dc68df4-f3fe-475d-63c6-761f13e8d6d9
+      - 646a206a-d8fa-4767-5a4a-01f35f5c6808
       X-Xss-Protection:
       - 1; mode=block
+      content-length:
+      - '6288'
     status:
       code: 200
       message: OK

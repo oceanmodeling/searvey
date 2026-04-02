@@ -2725,10 +2725,10 @@ interactions:
         as CSV\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=csv&monitoring_location_id=USGS-15484000&time=2022-09-30%2F2022-10-01&skipGeometry=False&limit=50000\"\n
         \       },\n        {\n            \"type\":\"application/json\",\n            \"title\":\"Continuous
         values\",\n            \"rel\":\"collection\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous\"\n
-        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:39:07.261321Z\"\n}"
+        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:57:03.025636Z\"\n}"
     headers:
       Age:
-      - '0'
+      - '1'
       Api-Version:
       - 0.23.0
       Cache-Control:
@@ -2737,16 +2737,12 @@ interactions:
       - keep-alive
       Content-Crs:
       - <http://www.opengis.net/def/crs/OGC/1.3/CRS84>
-      Content-Encoding:
-      - gzip
       Content-Language:
       - en-US
-      Content-Length:
-      - '11755'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 02 Apr 2026 16:39:07 GMT
+      - Thu, 02 Apr 2026 16:57:03 GMT
       Expires:
       - '0'
       Pragma:
@@ -2759,14 +2755,14 @@ interactions:
       - Accept-Encoding
       - Accept-Encoding
       Via:
-      - 1.1 b6cdb2111444305bd4957a473b711ad6.cloudfront.net (CloudFront), https/1.1
+      - 1.1 6af36c6902a46beec743522a9bbb3ab0.cloudfront.net (CloudFront), https/1.1
         api-umbrella (ApacheTrafficServer [cMsSf ])
       X-Amz-Cf-Id:
-      - mfVCG908F3uAxrN7TvpSROLk_N8KPdp7h10XLQregccEgrpoPn4Xvw==
+      - pmKzQbjb-cVseVipv2hZRmyKRXBy-BIg92Wvwd6Tsk12LB4JNrwuqQ==
       X-Amz-Cf-Pop:
       - HIO52-P1
       X-Api-Umbrella-Request-Id:
-      - ct9s818ueqh61k7vmps0
+      - ct9sg7soqlc18pbaad3g
       X-Build-Version:
       - 0.42.3-e5db988b
       X-Cache:
@@ -2778,11 +2774,13 @@ interactions:
       X-Ratelimit-Limit:
       - '1000'
       X-Ratelimit-Remaining:
-      - '999'
+      - '994'
       X-Vcap-Request-Id:
-      - 22ca9572-ed43-47ca-5f8d-cd1cfe9a6ea5
+      - 5b4a8793-562c-4786-78ea-396576eb1b2e
       X-Xss-Protection:
       - 1; mode=block
+      content-length:
+      - '244538'
     status:
       code: 200
       message: OK

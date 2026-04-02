@@ -9293,7 +9293,7 @@ interactions:
         as CSV\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=csv&time=2022-09-27%2F2022-09-29&skipGeometry=False&limit=50000\"\n
         \       },\n        {\n            \"type\":\"application/json\",\n            \"title\":\"Continuous
         values\",\n            \"rel\":\"collection\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous\"\n
-        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:39:09.395928Z\"\n}"
+        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:57:05.230149Z\"\n}"
     headers:
       Age:
       - '0'
@@ -9305,16 +9305,12 @@ interactions:
       - keep-alive
       Content-Crs:
       - <http://www.opengis.net/def/crs/OGC/1.3/CRS84>
-      Content-Encoding:
-      - gzip
       Content-Language:
       - en-US
-      Content-Length:
-      - '39209'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 02 Apr 2026 16:39:09 GMT
+      - Thu, 02 Apr 2026 16:57:05 GMT
       Expires:
       - '0'
       Pragma:
@@ -9327,14 +9323,14 @@ interactions:
       - Accept-Encoding
       - Accept-Encoding
       Via:
-      - 1.1 6af36c6902a46beec743522a9bbb3ab0.cloudfront.net (CloudFront), https/1.1
+      - 1.1 185f4b03b711932fc7e735c08fdc5abe.cloudfront.net (CloudFront), https/1.1
         api-umbrella (ApacheTrafficServer [cMsSf ])
       X-Amz-Cf-Id:
-      - WjI0k72Qi_kI5OutzzSRo6-zMN6_rcTaIBeJHG57Zgl59fIt1FFrzA==
+      - On3hpPvtZls15eojlw3zmhOOhR-yfQBSubq3OxAiJSEJlu2LXCMtNw==
       X-Amz-Cf-Pop:
       - HIO52-P1
       X-Api-Umbrella-Request-Id:
-      - ct9s81p7lut3cuorvd4g
+      - ct9sg8eku16637tr6j00
       X-Build-Version:
       - 0.42.3-e5db988b
       X-Cache:
@@ -9346,11 +9342,13 @@ interactions:
       X-Ratelimit-Limit:
       - '1000'
       X-Ratelimit-Remaining:
-      - '998'
+      - '993'
       X-Vcap-Request-Id:
-      - 5b51cf76-b4f5-476d-6543-743339885a6d
+      - 8514ccc8-2bef-43ee-68e1-52fbdbd3e0f4
       X-Xss-Protection:
       - 1; mode=block
+      content-length:
+      - '835934'
     status:
       code: 200
       message: OK
