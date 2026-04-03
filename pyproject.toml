@@ -30,7 +30,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.9, <4.0"
 beautifulsoup4 = "*"
-dataretrieval = ">=1"
+dataretrieval = ">=1.1.2"
 deprecated = "*"
 erddapy = "*"
 geopandas = "*"

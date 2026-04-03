@@ -1,69 +1,111 @@
 # `dataretrieval` package developed by USGS is used for the USGS stations: https://usgs-python.github.io/dataretrieval/
 #
-# This package is a thin wrapper around NWIS _REST API: https://waterservices.usgs.gov/rest/
-# We take the return values from `dataretrieval` to be the original data
+# This module uses the modernized Water Data API via dataretrieval.waterdata
+# See: https://waterdata.usgs.gov/blog/api_catalog/
 from __future__ import annotations
 
 import datetime
 import functools
-import importlib.metadata
 import logging
-from itertools import product
+import os
 from typing import Any
 from typing import Dict
-from typing import List
 from typing import Optional
-from typing import Tuple
 from typing import Union
 
 import geopandas as gpd
 import limits
-import numpy as np
 import pandas as pd
 import xarray as xr
-from dataretrieval import nwis
-from dataretrieval.codes import state_codes as _DATARETRIEVAL_STATE_CODES
-from dataretrieval.utils import BaseMetadata
+from dataretrieval import waterdata
+from dataretrieval.codes import fips_codes as _DATARETRIEVAL_FIPS_CODES
 from shapely.geometry import MultiPolygon
 from shapely.geometry import Polygon
 
 from .custom_types import DateTimeLike
-from .multi import multiprocess
 from .multi import multithread
 from .rate_limit import RateLimit
 from .rate_limit import wait
 from .utils import get_region
-from .utils import merge_datasets
 from .utils import NOW
 from .utils import resolve_timestamp
 
-
 logger = logging.getLogger(__name__)
 
-# This will stop working if pandas switches its versioning scheme to CalVer or something...
-_PANDAS_MAJOR_VERSION = int(importlib.metadata.version("pandas").split(".")[0])
-
-# https://github.com/DOI-USGS/dataretrieval-python/compare/v1.0.8...v1.0.9
-if isinstance(_DATARETRIEVAL_STATE_CODES, list):
-    STATE_CODES = sorted(_DATARETRIEVAL_STATE_CODES)
+# The modernized Water Data API requires FIPS numeric state codes (e.g., "24"
+# for Maryland), not the two-letter abbreviations accepted by the legacy NWIS API.
+if isinstance(_DATARETRIEVAL_FIPS_CODES, list):
+    STATE_CODES = sorted(_DATARETRIEVAL_FIPS_CODES)
 else:
-    STATE_CODES = sorted(_DATARETRIEVAL_STATE_CODES.values())
+    STATE_CODES = sorted(_DATARETRIEVAL_FIPS_CODES.values())
 
-# constants
-USGS_OUTPUT_OF_INTEREST = (
-    "elevation",  # Overlaps some of the specific codes below
-    "flow rate",  # Overlaps some of the specific codes below
+# Parameter codes of interest for water level/elevation data
+# See: https://help.waterdata.usgs.gov/codes-and-parameters/parameters
+USGS_PARAMETER_CODES = {
+    "00060": {"name": "Discharge, cubic feet per second", "unit": "ft3/s"},
+    "00065": {"name": "Gage height, feet", "unit": "ft"},
+    "62614": {"name": "Lake or reservoir water surface elevation above NGVD 1929, feet", "unit": "ft"},
+    "62615": {"name": "Lake or reservoir water surface elevation above NAVD 1988, feet", "unit": "ft"},
+    "62620": {"name": "Estuary or ocean water surface elevation above NAVD 1988, feet", "unit": "ft"},
+    "63158": {"name": "Stream water level elevation above NGVD 1929, in feet", "unit": "ft"},
+    "63160": {"name": "Stream water level elevation above NAVD 1988, in feet", "unit": "ft"},
+}
+
+# Parameter codes grouped by variable type for availability tracking
+# Water level codes (gage height, elevation datums)
+USGS_WATER_LEVEL_CODES = {
     "00065",  # Gage height, feet
-    "62614",  # Lake or reservoir water surface elevation above NGVD 1929, feet
-    "62615",  # Lake or reservoir water surface elevation above NAVD 1988, feet
-    "62620",  # Estuary or ocean water surface elevation above NAVD 1988, feet
-    "63158",  # Stream water level elevation above NGVD 1929, in feet
-    "63160",  # Stream water level elevation above NAVD 1988, in feet
-)
-USGS_OUTPUT_TYPE = ("iv",)
-USGS_RATE_LIMIT = limits.parse("5/second")
+    "62614",  # Lake/reservoir elevation above NGVD 1929
+    "62615",  # Lake/reservoir elevation above NAVD 1988
+    "62616",  # Lake/reservoir elevation above local datum
+    "62617",  # Reservoir water surface elevation above NGVD
+    "62620",  # Estuary/ocean elevation above NAVD 1988
+    "62622",  # Reservoir water surface elevation above datum
+    "63158",  # Stream water level above NGVD 1929
+    "63160",  # Stream water level above NAVD 1988
+    "63161",  # Reservoir water surface elevation above NGVD 1929
+    "72214",  # Reservoir water surface elevation above IGLD 1985
+    "72215",  # Reservoir water surface elevation above IGLD 1985
+    "72279",  # Water level, above NAVD88
+}
+
+# Water temperature codes
+USGS_TEMPERATURE_CODES = {
+    "00010",  # Temperature, water, degrees Celsius
+    "00011",  # Temperature, water, degrees Fahrenheit
+    "99976",  # Temperature, water, degrees Celsius
+    "99980",  # Temperature, water, degrees Celsius
+    "99984",  # Temperature, water, degrees Celsius
+}
+
+# Salinity codes (all essentially equivalent units)
+USGS_SALINITY_CODES = {
+    "00095",  # Specific conductance (related to salinity)
+    "00480",  # Salinity, water, parts per thousand
+    "00096",  # Salinity, water, mg/ml
+    "70305",  # Salinity, water, g/l
+    "72401",  # Salinity, water, PSU
+    "90860",  # Salinity, water, PSU
+    "90862",  # Salinity, water, PSS
+}
+
+# Current/velocity codes
+USGS_CURRENT_CODES = {
+    "00055",  # Stream velocity, ft/s
+    "72168",  # Stream velocity, ft/s
+    "72254",  # Mean velocity of water in stream, ft/s
+    "72255",  # Stream velocity, ft/s
+    "72294",  # Stream velocity, mph
+    "72321",  # Stream velocity, mph
+    "72322",  # Stream velocity, ft/s
+    "70232",  # Stream velocity, knots
+    "81904",  # Stream velocity, ft/s
+}
+
 # TODO: Should qualifier be a part of the index?
 USGS_DATA_MULTIIDX = ("site_no", "datetime", "code", "option")
+
+# Column names expected in station metadata
 USGS_STATIONS_COLUMN_NAMES = [
     "site_no",
     "station_nm",
@@ -72,107 +114,320 @@ USGS_STATIONS_COLUMN_NAMES = [
     "dec_coord_datum_cd",
     "alt_va",
     "alt_datum_cd",
-    "begin_date",
-    "end_date",
 ]
 
+# API Key configuration
+USGS_API_KEY_ENV_VAR = "API_USGS_PAT"
 
-def _filter_parameter_codes(param_cd_df: pd.DataFrame) -> pd.DataFrame:
-    # Should we filter based on units?
-    param_cd_df = param_cd_df[(param_cd_df.group == "Physical")]
+# Rate limits for modernized Water Data API
+USGS_WATERDATA_RATE_LIMIT_NO_KEY = limits.parse("50/hour")
+USGS_WATERDATA_RATE_LIMIT_WITH_KEY = limits.parse("1000/hour")
 
-    return param_cd_df
+# Monitoring location ID prefix
+USGS_MONITORING_LOCATION_PREFIX = "USGS-"
+
+# Track if we've already warned about missing API key
+_warned_no_api_key = False
+
+
+def get_usgs_api_key(api_key: Optional[str] = None) -> Optional[str]:
+    """Get USGS API key from parameter or API_USGS_PAT environment variable."""
+    if api_key is not None:
+        return api_key
+    return os.environ.get(USGS_API_KEY_ENV_VAR)
+
+
+def _set_api_key_env(api_key: Optional[str] = None) -> None:
+    """Set API key in environment for dataretrieval library.
+
+    The dataretrieval library reads the API key from the API_USGS_PAT
+    environment variable. This function sets it if a key is available.
+
+    Note: This modifies global state (os.environ). In multi-threaded code,
+    ensure api_key is set before spawning threads, or set the environment
+    variable externally before running.
+    """
+    key = get_usgs_api_key(api_key)
+    if key:
+        os.environ[USGS_API_KEY_ENV_VAR] = key
+
+
+def get_usgs_rate_limit(api_key: Optional[str] = None) -> RateLimit:
+    """Get rate limit based on API key availability."""
+    global _warned_no_api_key
+
+    key = get_usgs_api_key(api_key)
+    if key:
+        logger.info("USGS API key detected - using 1000 requests/hour limit")
+        return RateLimit(rate_limit=USGS_WATERDATA_RATE_LIMIT_WITH_KEY)
+    else:
+        if not _warned_no_api_key:
+            logger.warning(
+                f"No USGS API key. Limited to 50 requests/hour. "
+                f"Set {USGS_API_KEY_ENV_VAR} env var for higher limits."
+            )
+            _warned_no_api_key = True
+        return RateLimit(rate_limit=USGS_WATERDATA_RATE_LIMIT_NO_KEY)
+
+
+def site_no_to_monitoring_location_id(site_no: str) -> str:
+    """Convert '01646500' to 'USGS-01646500' format."""
+    if site_no.startswith(USGS_MONITORING_LOCATION_PREFIX):
+        return site_no
+    return f"{USGS_MONITORING_LOCATION_PREFIX}{site_no}"
+
+
+def monitoring_location_id_to_site_no(monitoring_location_id: str) -> str:
+    """Convert 'USGS-01646500' to '01646500' format."""
+    if monitoring_location_id.startswith(USGS_MONITORING_LOCATION_PREFIX):
+        return monitoring_location_id[len(USGS_MONITORING_LOCATION_PREFIX) :]
+    return monitoring_location_id
+
+
+def format_time_range(starttime: datetime.date, endtime: datetime.date) -> str:
+    """Format as 'YYYY-MM-DD/YYYY-MM-DD' for waterdata API."""
+    return f"{starttime.isoformat()}/{endtime.isoformat()}"
 
 
 @functools.lru_cache(maxsize=None)
-def _get_usgs_output_info() -> pd.DataFrame:
-    output_info = []
-    for var in USGS_OUTPUT_OF_INTEREST:
-        df_param_cd, _ = nwis.get_pmcodes(var)
-        df_param_cd = _filter_parameter_codes(df_param_cd)
-        df_param_cd["output_cat"] = var
-        output_info.append(df_param_cd)
-    df_param_info = pd.concat(output_info, axis="index", join="outer", ignore_index=True)
-    df_param_info = df_param_info.drop_duplicates(subset="parameter_cd")
-    return df_param_info
+def _get_usgs_parameter_info() -> pd.DataFrame:
+    """Return DataFrame with parameter code information."""
+    data = [
+        {"parameter_cd": code, "parm_nm": info["name"], "parm_unit": info["unit"]}
+        for code, info in USGS_PARAMETER_CODES.items()
+    ]
+    return pd.DataFrame(data)
 
 
-@functools.lru_cache(maxsize=None)
-def _get_usgs_output_codes() -> Dict[str, pd.DataFrame]:
-    output_codes = {}
-    df_param_info = _get_usgs_output_info()
-    for var in USGS_OUTPUT_OF_INTEREST:
-        output_codes[var] = df_param_info[df_param_info["output_cat"] == var].parameter_cd.values.tolist()
+def _get_usgs_stations_by_state(
+    state_code: str,
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """Get monitoring locations for a state using waterdata API."""
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
 
-    return output_codes
+    _set_api_key_env(api_key)
+
+    try:
+        sites, _ = waterdata.get_monitoring_locations(
+            state_code=[state_code],
+            skip_geometry=False,
+        )
+        if not sites.empty:
+            sites["us_state"] = state_code
+        return sites
+    except Exception as e:
+        logger.warning(f"Failed to get stations for state {state_code}: {e}")
+        return pd.DataFrame()
 
 
-def _get_usgs_stations_by_output(output: List[str], **kwargs: Any) -> pd.DataFrame:
-    # NOTE: There are many combinations in df for a single station
-    # if `seriesCatalogOutput` is `True`. This is due to different
-    # begin and end date for each output
-    sites, sites_md = nwis.get_info(seriesCatalogOutput=True, parameterCd=output, **kwargs)
-    # NOTE metadata object cannot be pickled due to lambda func
-    return sites
+def _get_usgs_stations_by_site_nos(
+    site_nos: list[str],
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """Get monitoring locations for specific site numbers using waterdata API."""
+    if not site_nos:
+        return pd.DataFrame()
+
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
+
+    _set_api_key_env(api_key)
+
+    monitoring_location_ids = [site_no_to_monitoring_location_id(s) for s in site_nos]
+
+    try:
+        sites, _ = waterdata.get_monitoring_locations(
+            monitoring_location_id=monitoring_location_ids,
+            skip_geometry=False,
+        )
+        return sites
+    except Exception as e:
+        logger.warning(f"Failed to get stations for site_nos: {e}")
+        return pd.DataFrame()
 
 
-def _get_usgs_stations_by_state(output: List[str], stateCd: str, **kwargs: Any) -> pd.DataFrame:
-    sites = _get_usgs_stations_by_output(output=output, stateCd=stateCd, **kwargs)
-    sites["us_state"] = stateCd
-    return sites
+def _get_usgs_stations_by_bbox(
+    bbox: list[float],
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """Get monitoring locations within a bounding box using waterdata API.
+
+    :param bbox: [lon_min, lat_min, lon_max, lat_max]
+    """
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
+
+    _set_api_key_env(api_key)
+
+    try:
+        sites, _ = waterdata.get_monitoring_locations(
+            bbox=bbox,
+            skip_geometry=False,
+        )
+        return sites
+    except Exception as e:
+        logger.warning(f"Failed to get stations for bbox {bbox}: {e}")
+        return pd.DataFrame()
 
 
 def normalize_usgs_stations(df: pd.DataFrame) -> gpd.GeoDataFrame:
+    """Normalize station data from waterdata API to GeoDataFrame."""
     if df.empty:
         return gpd.GeoDataFrame()
 
-    param_dict = _get_usgs_output_info().set_index("parameter_cd").to_dict()
+    df = df.copy()
 
-    to_datetime_kwargs = dict(errors="coerce")
-    if _PANDAS_MAJOR_VERSION >= 2:
-        to_datetime_kwargs["format"] = "mixed"
-    df.end_date = pd.to_datetime(df.end_date, **to_datetime_kwargs)
-    df.begin_date = pd.to_datetime(df.begin_date, **to_datetime_kwargs)
-    df["parm_nm"] = [param_dict["parm_nm"].get(i) for i in df.parm_cd.values]
-    df["parm_unit"] = [param_dict["parm_unit"].get(i) for i in df.parm_cd.values]
-    df = df.dropna(subset="parm_nm")
-    # TODO: Should station duplicates (by site_no) be removed?
-    gdf = gpd.GeoDataFrame(
-        data=df,
-        geometry=gpd.points_from_xy(df.dec_long_va, df.dec_lat_va, crs="EPSG:4326"),
-    )
+    # Extract site_no from monitoring_location_id (e.g., "USGS-01646500" -> "01646500")
+    if "monitoring_location_id" in df.columns:
+        df["site_no"] = df["monitoring_location_id"].apply(monitoring_location_id_to_site_no)
+
+    # Rename columns to match expected format
+    column_mapping = {
+        "monitoring_location_name": "station_nm",
+        "altitude": "alt_va",
+        "vertical_datum": "alt_datum_cd",
+    }
+    df = df.rename(columns={k: v for k, v in column_mapping.items() if k in df.columns})
+
+    # Create GeoDataFrame from existing geometry column (returned by waterdata API)
+    if "geometry" in df.columns:
+        gdf = gpd.GeoDataFrame(df, geometry="geometry", crs="EPSG:4326")
+    else:
+        gdf = gpd.GeoDataFrame(df)
+
+    # Derive lat/lon columns from geometry for backward compatibility
+    gdf["dec_long_va"] = gdf.geometry.x
+    gdf["dec_lat_va"] = gdf.geometry.y
+    if "original_horizontal_datum" in gdf.columns:
+        gdf["dec_coord_datum_cd"] = gdf["original_horizontal_datum"]
+    else:
+        gdf["dec_coord_datum_cd"] = None
+
+    # Derive us_state from state_code for direct API queries (bbox/site_nos)
+    if "us_state" not in gdf.columns and "state_code" in gdf.columns:
+        gdf["us_state"] = gdf["state_code"]
+
     return gdf
+
+
+def get_station_parameter_availability(
+    site_nos: list[str],
+    api_key: Optional[str] = None,
+    rate_limit: Optional[RateLimit] = None,
+) -> pd.DataFrame:
+    """
+    Query which parameters are available at each station.
+
+    Uses the modernized Water Data API's time-series-metadata endpoint
+    to determine which parameter codes are available at each station.
+
+    :param site_nos: List of USGS site numbers (e.g., ['01646500', '01647000'])
+    :param api_key: USGS API key for higher rate limits
+    :param rate_limit: Rate limit to apply
+    :return: DataFrame with columns: site_no, has_water_level, has_temperature,
+             has_salinity, has_currents
+    """
+    if rate_limit is None:
+        rate_limit = get_usgs_rate_limit(api_key=api_key)
+
+    if rate_limit:
+        while rate_limit.reached(identifier="USGS"):
+            wait()
+
+    _set_api_key_env(api_key)
+
+    # Convert site numbers to monitoring location IDs
+    monitoring_location_ids = [site_no_to_monitoring_location_id(s) for s in site_nos]
+
+    try:
+        df, _ = waterdata.get_time_series_metadata(
+            monitoring_location_id=monitoring_location_ids,
+        )
+    except Exception as e:
+        logger.warning(f"Failed to get parameter availability: {e}")
+        # Return DataFrame with all False values
+        return pd.DataFrame(
+            {
+                "site_no": site_nos,
+                "has_water_level": False,
+                "has_temperature": False,
+                "has_salinity": False,
+                "has_currents": False,
+            }
+        )
+
+    if df.empty:
+        return pd.DataFrame(
+            {
+                "site_no": site_nos,
+                "has_water_level": False,
+                "has_temperature": False,
+                "has_salinity": False,
+                "has_currents": False,
+            }
+        )
+
+    # Extract site_no from monitoring_location_id
+    if "monitoring_location_id" in df.columns:
+        df["site_no"] = df["monitoring_location_id"].apply(monitoring_location_id_to_site_no)
+
+    # Group by site and get unique parameter codes
+    availability_records = []
+    for site_no in site_nos:
+        site_params = set()
+        if "site_no" in df.columns and "parameter_code" in df.columns:
+            site_df = df[df["site_no"] == site_no]
+            site_params = set(site_df["parameter_code"].dropna().astype(str))
+
+        availability_records.append(
+            {
+                "site_no": site_no,
+                "has_water_level": bool(site_params & USGS_WATER_LEVEL_CODES),
+                "has_temperature": bool(site_params & USGS_TEMPERATURE_CODES),
+                "has_salinity": bool(site_params & USGS_SALINITY_CODES),
+                "has_currents": bool(site_params & USGS_CURRENT_CODES),
+            }
+        )
+
+    return pd.DataFrame(availability_records)
 
 
 @functools.lru_cache(maxsize=None)
 def _get_all_usgs_stations(normalize: bool = True) -> gpd.GeoDataFrame:
     """
-    Return USGS station metadata for all stations in all the states
+    Return USGS station metadata for all stations in all the states.
+
+    Uses the modernized waterdata API.
 
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
+    rate_limit = get_usgs_rate_limit()
 
-    # NOTE: multiprocess does NOT keep order
-    usgs_stations_results = multiprocess(
+    func_kwargs = [{"state_code": st, "rate_limit": rate_limit} for st in STATE_CODES]
+
+    results = multithread(
         func=_get_usgs_stations_by_state,
-        func_kwargs=[
-            {
-                "stateCd": st,
-                "output": set(j for i in _get_usgs_output_codes().values() for j in i),
-                "hasDataType": dtp,
-            }
-            for st, dtp in product(
-                STATE_CODES,
-                USGS_OUTPUT_TYPE,
-            )
-        ],
+        func_kwargs=func_kwargs,
+        n_workers=5,
+        print_exceptions=False,
+        disable_progress_bar=False,
     )
 
-    usgs_stations = functools.reduce(
-        # functools.partial(pd.merge, how='outer'),
-        lambda i, j: pd.concat([i, j], ignore_index=True),
-        (r.result for r in usgs_stations_results if r.result is not None and not r.result.empty),
-    )
+    dfs = [r.result for r in results if r.result is not None and not r.result.empty]
+
+    if not dfs:
+        return gpd.GeoDataFrame()
+
+    usgs_stations = pd.concat(dfs, ignore_index=True)
+
     if normalize:
         usgs_stations = normalize_usgs_stations(usgs_stations)
 
@@ -185,78 +440,202 @@ def get_usgs_stations(
     lon_max: Optional[float] = None,
     lat_min: Optional[float] = None,
     lat_max: Optional[float] = None,
+    bbox: Optional[list[float]] = None,
+    site_nos: Optional[list[str]] = None,
+    include_parameter_availability: bool = False,
+    api_key: Optional[str] = None,
 ) -> gpd.GeoDataFrame:
     """
-    Return USGS station metadata from: https://waterservices.usgs.gov/rest/Site-Service.html
+    Return USGS station metadata using the modernized Water Data API.
 
-    If `region` is defined then the stations that are outside of the region are
-    filtered out. If the coordinates of the Bounding Box are defined then
-    stations outside of the BBox are filtered out. If both ``region`` and the
-    Bounding Box are defined, then an exception is raised.
+    Three query modes:
+
+    1. **By site numbers** (``site_nos``): Fast direct query for specific stations.
+    2. **By bounding box** (``bbox``): Fast direct query for a geographic region.
+       Format: ``[lon_min, lat_min, lon_max, lat_max]``.
+    3. **By region/lon/lat** (legacy): Fetches all US stations (cached), then
+       filters in-memory by ``region`` or bounding box corners.
+
+    These modes are mutually exclusive.
 
     Note: The longitudes of the USGS stations are in the [-180, 180] range.
 
     :param region: ``Polygon`` or ``MultiPolygon`` denoting region of interest
-    :param lon_min: The minimum Longitude of the Bounding Box.
-    :param lon_max: The maximum Longitude of the Bounding Box.
-    :param lat_min: The minimum Latitude of the Bounding Box.
-    :param lat_max: The maximum Latitude of the Bounding Box.
+    :param lon_min: The minimum Longitude of the Bounding Box (legacy mode).
+    :param lon_max: The maximum Longitude of the Bounding Box (legacy mode).
+    :param lat_min: The minimum Latitude of the Bounding Box (legacy mode).
+    :param lat_max: The maximum Latitude of the Bounding Box (legacy mode).
+    :param bbox: Direct API bounding box as ``[lon_min, lat_min, lon_max, lat_max]``.
+    :param site_nos: List of USGS site numbers for direct lookup.
+    :param include_parameter_availability: If True, query which parameters
+        (water_level, temperature, salinity, currents) are available at each
+        station. Adds columns: has_water_level, has_temperature, has_salinity,
+        has_currents. This requires additional API calls. Default False.
+    :param api_key: USGS API key for higher rate limits when querying
+        parameter availability.
     :return: ``geopandas.GeoDataFrame`` with the station metadata
     """
-    region = get_region(
-        region=region,
-        lon_min=lon_min,
-        lon_max=lon_max,
-        lat_min=lat_min,
-        lat_max=lat_max,
-        symmetric=True,
-    )
+    # Validate mutual exclusivity
+    has_legacy = any((lon_min, lon_max, lat_min, lat_max)) or region is not None
+    specified = sum([has_legacy, bbox is not None, site_nos is not None])
+    if specified > 1:
+        raise ValueError(
+            "Specify only one of: `site_nos`, `bbox`, or `region`/`lon_min`/`lon_max`/`lat_min`/`lat_max`."
+        )
 
-    usgs_stations = _get_all_usgs_stations(normalize=True)
-    if region:
-        usgs_stations = usgs_stations[usgs_stations.within(region)]
+    rate_limit = get_usgs_rate_limit(api_key=api_key)
+
+    # Fast path: direct station ID lookup
+    if site_nos is not None:
+        raw = _get_usgs_stations_by_site_nos(site_nos=site_nos, api_key=api_key, rate_limit=rate_limit)
+        usgs_stations = normalize_usgs_stations(raw)
+
+    # Fast path: direct bounding box query
+    elif bbox is not None:
+        if len(bbox) != 4:
+            raise ValueError("`bbox` must be a list of 4 floats: [lon_min, lat_min, lon_max, lat_max]")
+        raw = _get_usgs_stations_by_bbox(bbox=bbox, api_key=api_key, rate_limit=rate_limit)
+        usgs_stations = normalize_usgs_stations(raw)
+
+    # Legacy path: fetch all stations, filter in-memory
+    else:
+        region = get_region(
+            region=region,
+            lon_min=lon_min,
+            lon_max=lon_max,
+            lat_min=lat_min,
+            lat_max=lat_max,
+            symmetric=True,
+        )
+        usgs_stations = _get_all_usgs_stations(normalize=True)
+        if region:
+            usgs_stations = usgs_stations[usgs_stations.within(region)]
+
+    if include_parameter_availability and not usgs_stations.empty:
+        station_site_nos = usgs_stations["site_no"].tolist()
+        availability_df = get_station_parameter_availability(
+            site_nos=station_site_nos,
+            api_key=api_key,
+        )
+        usgs_stations = usgs_stations.merge(
+            availability_df,
+            on="site_no",
+            how="left",
+        )
+        # Fill NaN values with False for availability columns
+        for col in ["has_water_level", "has_temperature", "has_salinity", "has_currents"]:
+            if col in usgs_stations.columns:
+                usgs_stations[col] = usgs_stations[col].fillna(False)
 
     return usgs_stations
 
 
-def normalize_usgs_station_data(df: pd.DataFrame) -> pd.DataFrame:
+def _get_usgs_station_data(
+    usgs_code: str,
+    starttime: datetime.date,
+    endtime: datetime.date,
+    api_key: Optional[str] = None,
+    parameter_code: Optional[str] = None,
+) -> pd.DataFrame:
+    """Get station data using waterdata.get_continuous().
+
+    Returns instantaneous values (typically 15-minute intervals).
+    """
+    _set_api_key_env(api_key)
+
+    monitoring_location_id = site_no_to_monitoring_location_id(usgs_code)
+    time_range = format_time_range(starttime, endtime)
+
+    kwargs: Dict[str, Any] = {
+        "monitoring_location_id": monitoring_location_id,
+        "time": time_range,
+    }
+    if parameter_code:
+        kwargs["parameter_code"] = parameter_code
+
+    try:
+        df, _ = waterdata.get_continuous(**kwargs)
+    except Exception as e:
+        logger.warning(f"Failed to get data for station {usgs_code}: {e}")
+        return pd.DataFrame()
+
+    return _normalize_station_data(df, usgs_code)
+
+
+def _normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
+    """Rename waterdata API columns to standard format."""
+    rename_map = {}
+    if "time" in df.columns and "datetime" not in df.columns:
+        rename_map["time"] = "datetime"
+    if "parameter_code" in df.columns:
+        rename_map["parameter_code"] = "code"
+    if rename_map:
+        df = df.rename(columns=rename_map)
+    if "datetime" in df.columns:
+        df["datetime"] = pd.to_datetime(df["datetime"])
+    return df
+
+
+def _normalize_qualifier_column(df: pd.DataFrame) -> pd.DataFrame:
+    """Handle qualifier column - prefer approval_status over existing qualifier."""
+    if "approval_status" in df.columns:
+        if "qualifier" in df.columns:
+            df = df.drop(columns=["qualifier"])
+        df = df.rename(columns={"approval_status": "qualifier"})
+    elif "qualifier" not in df.columns:
+        df["qualifier"] = None
+    return df
+
+
+def _add_parameter_info(df: pd.DataFrame) -> pd.DataFrame:
+    """Add unit/name columns from parameter code lookup."""
+    if "code" not in df.columns or df.empty:
+        return df
+    df_parm = _get_usgs_parameter_info().set_index("parameter_cd")
+    known_codes = df.code.isin(df_parm.index)
+    if not known_codes.any():
+        return df
+    df = df[known_codes].copy()
+    df["unit"] = df_parm.loc[df.code.values, "parm_unit"].values
+    df["name"] = df_parm.loc[df.code.values, "parm_nm"].values
+    return df
+
+
+def _normalize_station_data(
+    df: pd.DataFrame,
+    site_no: Optional[str] = None,
+    set_index: bool = True,
+) -> pd.DataFrame:
+    """Normalize waterdata response to standard format.
+
+    :param df: DataFrame from waterdata API
+    :param site_no: Site number to assign. If None, extracts from monitoring_location_id.
+    :param set_index: Whether to set the MultiIndex. Set False for further processing.
+    """
     if df.empty:
         return df
 
-    df = df.reset_index()
-    df = df.melt(id_vars=["datetime", "site_no"], var_name="output_id")
+    df = df.copy()
 
-    df["qualifier"] = df.value.where(df.output_id.str.contains("_cd"))
-    df["value"] = df.value.where(~df.output_id.str.contains("_cd"))
-    df = df.dropna(subset=["value", "qualifier"], how="all")
+    # Handle site_no - either from parameter or extract from monitoring_location_id
+    if site_no is not None:
+        df["site_no"] = site_no
+    elif "monitoring_location_id" in df.columns:
+        df["site_no"] = df["monitoring_location_id"].apply(monitoring_location_id_to_site_no)
 
-    df["code"] = df.output_id.str.split("_").str[0]
-    df["option"] = df.output_id.str.removesuffix("_cd").str.split("_").str[1:].str.join("")
-    df["isqual"] = df.output_id.str.contains("_cd")
-    df["output_id"] = df.output_id.str.removesuffix("_cd")
-    df = df.set_index(list(USGS_DATA_MULTIIDX))
+    df = _normalize_column_names(df)
+    df = _normalize_qualifier_column(df)
 
-    # Drop should happen based on time and station as well, not
-    # just based on 'value' and 'qualifier'
-    df = (
-        pd.merge(
-            df.drop(columns="qualifier")[~df.isqual],
-            df.qualifier[df.isqual],
-            left_index=True,
-            right_index=True,
-            how="left",
-        )
-        .drop(columns=["output_id", "isqual"])
-        .reset_index()
-        .drop_duplicates(subset=["site_no", "datetime", "code", "option", "qualifier"])
-    )
+    if "option" not in df.columns:
+        df["option"] = ""
 
-    df_parm = _get_usgs_output_info().set_index("parameter_cd")
-    df = df[df.code.isin(df_parm.index)]
-    df["unit"] = df_parm.parm_unit[df.code.values].values
-    df["name"] = df_parm.parm_nm[df.code.values].values
+    df = _add_parameter_info(df)
 
-    df = df.set_index(list(USGS_DATA_MULTIIDX))
+    # Set MultiIndex
+    if set_index:
+        index_cols = [c for c in USGS_DATA_MULTIIDX if c in df.columns]
+        if index_cols:
+            df = df.set_index(index_cols)
 
     return df
 
@@ -265,54 +644,111 @@ def get_usgs_station_data(
     usgs_code: str,
     endtime: DateTimeLike = NOW,
     period: float = 30,
-    rate_limit: Optional[RateLimit] = RateLimit(),
+    rate_limit: Optional[RateLimit] = None,
+    api_key: Optional[str] = None,
+    parameter_code: Optional[str] = None,
 ) -> pd.DataFrame:
-    """Retrieve the TimeSeries of a single USGS station.
+    """Retrieve instantaneous values for a single USGS station.
+
+    Uses the modernized Water Data API which returns continuous data
+    (typically 15-minute interval measurements).
 
     :param usgs_code: USGS station code a.k.a. "site number"
-    :param endtime: The end date for the measurement data for fetch. Defaults to `datetime.date.today()`
-    :param period: Number of date for which to fetch station data
-    :param rate_limit: The default rate limit is 5 requests/second.
-    :return: ``pandas.DataFrame`` with the a single station measurements
+    :param endtime: The end date for the measurement data to fetch. Defaults to today.
+    :param period: Number of days for which to fetch station data
+    :param rate_limit: Rate limit to apply. If None, auto-configures based on API key.
+    :param api_key: USGS API key for higher rate limits. Falls back to API_USGS_PAT env var.
+    :param parameter_code: Optional parameter code to filter results.
+    :return: ``pandas.DataFrame`` with the station measurements
     """
+    if rate_limit is None:
+        rate_limit = get_usgs_rate_limit(api_key=api_key)
 
     if rate_limit:
         while rate_limit.reached(identifier="USGS"):
             wait()
 
-    endtime = resolve_timestamp(endtime, timezone_aware=False).date()
-    starttime = endtime - datetime.timedelta(days=period)
-    df_iv, _ = nwis.get_iv(sites=[usgs_code], start=starttime.isoformat(), end=endtime.isoformat())
-    df_iv = normalize_usgs_station_data(df=df_iv)
-    return df_iv
+    endtime_date = resolve_timestamp(endtime, timezone_aware=False).date()
+    starttime = endtime_date - datetime.timedelta(days=period)
+
+    df = _get_usgs_station_data(
+        usgs_code=usgs_code,
+        starttime=starttime,
+        endtime=endtime_date,
+        api_key=api_key,
+        parameter_code=parameter_code,
+    )
+
+    return df
 
 
-def _get_dataset_from_query_results(
-    query_result: Tuple[pd.DataFrame, BaseMetadata],
+def _get_dataset_from_station_data(
+    df: pd.DataFrame,
     usgs_metadata: pd.DataFrame,
 ) -> xr.Dataset:
-    df_iv, _ = query_result
-    if len(df_iv) == 0:
+    """Convert station DataFrame to xarray Dataset."""
+    if df.empty:
         return xr.Dataset()
 
-    df_iv = df_iv.reset_index()
-    df_iv = normalize_usgs_station_data(df=df_iv)
+    df = df.reset_index() if isinstance(df.index, pd.MultiIndex) else df.copy()
+
+    # Filter to only site_nos that exist in metadata to avoid KeyError
+    metadata_site_nos = set(usgs_metadata.site_no.unique())
+    df_site_nos = set(df.site_no.unique())
+    valid_site_nos = df_site_nos & metadata_site_nos
+
+    if not valid_site_nos:
+        logger.warning("No matching site_nos between data and metadata")
+        return xr.Dataset()
+
+    # Filter df to only valid site_nos
+    df = df[df.site_no.isin(valid_site_nos)].copy()
+
     st_meta = (
         usgs_metadata.set_index("site_no")
-        .loc[df_iv.reset_index().site_no.unique()]
+        .reindex(list(valid_site_nos))
         .reset_index()
         .drop_duplicates(subset="site_no")
         .set_index("site_no")
     )
-    pr_meta = df_iv.reset_index()[["code", "unit", "name"]].drop_duplicates().set_index("code")
-    ds = df_iv.drop(columns=["unit", "name"]).to_xarray()
-    ds["datetime"] = pd.DatetimeIndex(ds["datetime"].values)
-    ds["lon"] = ("site_no", st_meta.loc[ds.site_no.values.tolist()].dec_long_va)
-    ds["lat"] = ("site_no", st_meta.loc[ds.site_no.values.tolist()].dec_lat_va)
-    ds["unit"] = ("code", pr_meta.loc[ds.code.values.tolist()].unit)
-    ds["name"] = ("code", pr_meta.loc[ds.code.values.tolist()].name)
-    # ds["country"] = ("site_no", st_meta.country)
-    # ds["location"] = ("site_no", st_meta.location)
+
+    # Get parameter metadata
+    cols_to_check = ["code", "unit", "name"]
+    available_cols = [c for c in cols_to_check if c in df.columns]
+    if "code" in available_cols:
+        pr_meta = df[available_cols].drop_duplicates().set_index("code")
+    else:
+        pr_meta = pd.DataFrame()
+
+    # Keep only necessary columns for the dataset
+    keep_cols = list(USGS_DATA_MULTIIDX) + ["value", "qualifier"]
+    df_clean = df[[c for c in keep_cols if c in df.columns]].copy()
+
+    # Build dataset
+    index_cols = [c for c in USGS_DATA_MULTIIDX if c in df_clean.columns]
+    if index_cols:
+        df_indexed = df_clean.set_index(index_cols)
+    else:
+        df_indexed = df_clean
+
+    # Remove duplicate indices before converting to xarray
+    df_indexed = df_indexed[~df_indexed.index.duplicated(keep="first")]
+
+    ds = df_indexed.to_xarray()
+
+    if "datetime" in ds.dims:
+        ds["datetime"] = pd.DatetimeIndex(ds["datetime"].values)
+
+    # Add coordinates from metadata
+    if "site_no" in ds.dims and "dec_long_va" in st_meta.columns:
+        ds["lon"] = ("site_no", st_meta.loc[ds.site_no.values.tolist()].dec_long_va)
+        ds["lat"] = ("site_no", st_meta.loc[ds.site_no.values.tolist()].dec_lat_va)
+
+    if "code" in ds.dims and not pr_meta.empty:
+        if "unit" in pr_meta.columns:
+            ds["unit"] = ("code", pr_meta.loc[ds.code.values.tolist()].unit)
+        if "name" in pr_meta.columns:
+            ds["name"] = ("code", pr_meta.loc[ds.code.values.tolist()].name)
 
     return ds
 
@@ -321,58 +757,60 @@ def get_usgs_data(
     usgs_metadata: pd.DataFrame,
     endtime: DateTimeLike = NOW,
     period: float = 1,  # one day
-    rate_limit: RateLimit = RateLimit(),
-    disable_progress_bar: bool = False,
+    rate_limit: Optional[RateLimit] = None,
+    api_key: Optional[str] = None,
 ) -> xr.Dataset:
     """
     Return the data of the stations specified in ``usgs_metadata`` as an ``xr.Dataset``.
 
+    Uses the modernized Water Data API which returns continuous/instantaneous data
+    (typically 15-minute interval measurements).
+
     :param usgs_metadata: A ``pd.DataFrame`` returned by ``get_usgs_stations``.
-    :param endtime: The date of the "end" of the data. Defaults to `datetime.date.today()`
-    :param period: The number of days to be requested. USGS does not support values greater than 30
-    :param rate_limit: The default rate limit is 5 requests/second.
-    :param disable_progress_bar: If ``True`` then the progress bar is not displayed.
+    :param endtime: The date of the "end" of the data. Defaults to today.
+    :param period: The number of days to be requested.
+    :param rate_limit: Rate limit to apply. If None, auto-configures based on API key.
+    :param api_key: USGS API key for higher rate limits. Falls back to API_USGS_PAT env var.
     :return: ``xr.Dataset`` of station measurements
     """
+    if rate_limit is None:
+        rate_limit = get_usgs_rate_limit(api_key=api_key)
+
     if rate_limit:
         while rate_limit.reached(identifier="USGS"):
             wait()
 
-    endtime = resolve_timestamp(endtime)
-    starttime = endtime - datetime.timedelta(days=period)
+    endtime_resolved = resolve_timestamp(endtime)
+    starttime = endtime_resolved - datetime.timedelta(days=period)
+    time_range = format_time_range(starttime.date(), endtime_resolved.date())
 
-    func_kwargs = []
     usgs_sites = usgs_metadata.site_no.unique()
-    chunk_size = 30
-    n_chunks = len(usgs_sites) // chunk_size + 1
-    for usgs_code_ary in np.array_split(usgs_sites, n_chunks):
-        func_kwargs.append(
-            dict(sites=usgs_code_ary.tolist(), start=starttime.isoformat(), end=endtime.isoformat()),
+
+    # Build monitoring location IDs
+    monitoring_location_ids = [site_no_to_monitoring_location_id(s) for s in usgs_sites]
+
+    # Fetch data for all stations
+    _set_api_key_env(api_key)
+
+    try:
+        df, _ = waterdata.get_continuous(
+            monitoring_location_id=monitoring_location_ids,
+            time=time_range,
         )
+    except Exception as e:
+        logger.warning(f"Failed to get data: {e}")
+        return xr.Dataset()
 
-    results = multithread(
-        func=nwis.get_iv,
-        func_kwargs=func_kwargs,
-        n_workers=5,
-        print_exceptions=False,
-        disable_progress_bar=disable_progress_bar,
-    )
+    if df.empty:
+        return xr.Dataset()
 
-    datasets = []
-    for result in results:
-        if result.result is None:
-            # When the `get_iv` call on station results in exception
-            # in `data_retrieval` due to non-existant data
-            continue
+    # Normalize the data using shared function (don't set index yet for dataset conversion)
+    df = _normalize_station_data(df, site_no=None, set_index=False)
 
-        ds = _get_dataset_from_query_results(result.result, usgs_metadata)
-        if any((ds.count(ds.dims) > 0)[v] for v in ds.data_vars):
-            datasets.append(ds)
+    if df.empty:
+        return xr.Dataset()
 
-    # in order to keep memory consumption low, let's group the datasets
-    # and merge them in batches
-    while len(datasets) > 5:
-        datasets = merge_datasets(datasets)
-    # Do the final merging
-    ds = xr.merge(datasets)
+    # Convert to dataset
+    ds = _get_dataset_from_station_data(df, usgs_metadata)
+
     return ds

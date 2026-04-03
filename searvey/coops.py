@@ -24,7 +24,8 @@ import requests
 import shapely
 import xarray
 from bs4 import BeautifulSoup
-from bs4 import element
+from bs4.element import ResultSet
+from bs4.element import Tag
 from deprecated import deprecated
 from geopandas import GeoDataFrame
 from pandas import DataFrame
@@ -612,7 +613,7 @@ class COOPS_Query:
 
 
 @lru_cache(maxsize=1)
-def __coops_stations_html_tables() -> element.ResultSet:
+def __coops_stations_html_tables() -> ResultSet[Tag]:
     url = "https://access.co-ops.nos.noaa.gov/nwsproducts.html?type=current"
     logger.debug("Downloading: %s", url)
     response = requests.get(url)
@@ -690,13 +691,18 @@ def coops_stations(station_status: COOPS_StationStatus | None = None) -> GeoData
         COOPS_StationStatus.DISCONTINUED: (1, "HistNWSTable"),
     }
 
-    dataframes = {}
+    dataframes: dict[COOPS_StationStatus, pd.DataFrame] = {}
     for status, (table_index, table_id) in status_tables.items():
-        table = tables[table_index]
-        table = table.find("table", {"id": table_id}).find_all("tr")
-        stations_columns = [field.text for field in table[0].find_all("th")]
+        table_1 = tables[table_index]
+        if table_1 is None:
+            continue
+        table_2 = table_1.find("table", {"id": table_id})
+        if table_2 is None:
+            continue
+        table_3 = table_2.find_all("tr")
+        stations_columns = [field.text for field in table_3[0].find_all("th")]
         stations = DataFrame(
-            [[value.text.strip() for value in station.find_all("td")] for station in table[1:]],
+            [[value.text.strip() for value in station.find_all("td")] for station in table_3[1:]],
             columns=stations_columns,
         )
         stations.rename(

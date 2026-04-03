@@ -138,14 +138,16 @@ def get_ioc_stations_by_output(output: str, skip_table_rows: int) -> pd.DataFram
     soup = bs4.BeautifulSoup(response.content, "html5lib")
     logger.debug("Created soup: %s", url)
     table = soup.find("table", {"class": "nice"})
-    trs = table.find_all("tr")
-    table_contents = "\n".join(str(tr) for tr in trs[skip_table_rows:])
-    html = f"<table>{table_contents}</table>"
-    logger.debug("Created table: %s", url)
-    df = pd.read_html(io.StringIO(html))[0]
-    logger.debug("Parsed table: %s", url)
-    df.columns = IOC_STATIONS_COLUMN_NAMES[output]
-    df = df.drop(columns="view")
+    df = pd.DataFrame(columns=IOC_STATIONS_COLUMN_NAMES[output])
+    if table:
+        trs = table.find_all("tr")
+        table_contents = "\n".join(str(tr) for tr in trs[skip_table_rows:])
+        html = f"<table>{table_contents}</table>"
+        logger.debug("Created table: %s", url)
+        df = pd.read_html(io.StringIO(html))[0]
+        logger.debug("Parsed table: %s", url)
+        df.columns = IOC_STATIONS_COLUMN_NAMES[output]
+        df = df.drop(columns="view")
     return df
 
 

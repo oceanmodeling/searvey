@@ -1,0 +1,245 @@
+interactions:
+- request:
+    body: "{\n    \"op\": \"and\",\n    \"args\": [\n        {\n            \"op\":
+      \"in\",\n            \"args\": [\n                {\n                    \"property\":
+      \"monitoring_location_id\"\n                },\n                [\n                    \"USGS-373707086300703\",\n
+      \                   \"USGS-373707086300801\",\n                    \"USGS-373707086300802\"\n
+      \               ]\n            ]\n        }\n    ]\n}"
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - compress, gzip
+      Content-Length:
+      - '381'
+      Content-Type:
+      - application/query-cql-json
+      User-Agent:
+      - python-dataretrieval/1.1.2
+      X-Api-Key:
+      - REDACTED
+      lang:
+      - en-US
+    method: POST
+    uri: https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?time=2015-07-03%2F2015-07-04&skipGeometry=False&limit=50000
+  response:
+    body:
+      string: "{\n    \"type\":\"FeatureCollection\",\n    \"features\":[],\n    \"numberReturned\":0,\n
+        \   \"links\":[\n        {\n            \"type\":\"application/geo+json\",\n
+        \           \"rel\":\"self\",\n            \"title\":\"This document as GeoJSON\",\n
+        \           \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=json&time=2015-07-03%2F2015-07-04&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"rel\":\"alternate\",\n            \"type\":\"application/ld+json\",\n
+        \           \"title\":\"This document as RDF (JSON-LD)\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=jsonld&time=2015-07-03%2F2015-07-04&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"text/html\",\n            \"rel\":\"alternate\",\n
+        \           \"title\":\"This document as HTML\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=html&time=2015-07-03%2F2015-07-04&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"text/csv; charset=utf-8\",\n
+        \           \"rel\":\"alternate\",\n            \"title\":\"This document
+        as CSV\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?f=csv&time=2015-07-03%2F2015-07-04&skipGeometry=False&limit=50000\"\n
+        \       },\n        {\n            \"type\":\"application/json\",\n            \"title\":\"Continuous
+        values\",\n            \"rel\":\"collection\",\n            \"href\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous\"\n
+        \       }\n    ],\n    \"timeStamp\":\"2026-04-02T16:57:06.297279Z\"\n}"
+    headers:
+      Age:
+      - '2'
+      Api-Version:
+      - 0.23.0
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Crs:
+      - <http://www.opengis.net/def/crs/OGC/1.3/CRS84>
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 02 Apr 2026 16:57:07 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Via:
+      - 1.1 88a7ff956a5b49ec3a35abfc0027af12.cloudfront.net (CloudFront), https/1.1
+        api-umbrella (ApacheTrafficServer [cMsSf ])
+      X-Amz-Cf-Id:
+      - yj3PsLnzaOh74LyPzV_uLXYCRjlDo2Le-7NbQSnYkRVrg6O2zxI-0A==
+      X-Amz-Cf-Pop:
+      - HIO52-P1
+      X-Api-Umbrella-Request-Id:
+      - ct9sg8l7q2iqj0o2opgg
+      X-Build-Version:
+      - 0.42.3-e5db988b
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Ratelimit-Limit:
+      - '1000'
+      X-Ratelimit-Remaining:
+      - '992'
+      X-Vcap-Request-Id:
+      - 484f59b0-85d7-48c3-69d0-e45cbf521ff1
+      X-Xss-Protection:
+      - 1; mode=block
+      content-length:
+      - '1552'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - compress, gzip
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-dataretrieval/1.1.2
+      X-Api-Key:
+      - REDACTED
+      lang:
+      - en-US
+    method: GET
+    uri: https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/schema
+  response:
+    body:
+      string: "{\n    \"type\":\"object\",\n    \"title\":\"Continuous values\",\n
+        \   \"properties\":{\n        \"geometry\":{\n            \"format\":\"geometry-any\",\n
+        \           \"x-ogc-role\":\"primary-geometry\"\n        },\n        \"id\":{\n
+        \           \"type\":\"string\",\n            \"format\":\"uuid\",\n            \"description\":\"A
+        universally unique identifier (UUID) representing a single version of a record.
+        It is not stable over time. Every time the record is refreshed in our database
+        (which may happen as part of normal operations and does not imply any change
+        to the data itself) a new ID will be generated. To uniquely identify a single
+        observation over time, compare the `time` and `time_series_id` fields; each
+        time series will only have a single observation at a given `time`.\\n\",\n
+        \           \"x-ogc-role\":\"id\"\n        },\n        \"time_series_id\":{\n
+        \           \"type\":\"string\",\n            \"title\":\"Time series ID\",\n
+        \           \"description\":\"A unique identifier representing a single time
+        series. This corresponds to the `id` field in the `time-series-metadata` endpoint.\\n\"\n
+        \       },\n        \"monitoring_location_id\":{\n            \"type\":\"string\",\n
+        \           \"title\":\"Monitoring location ID\",\n            \"description\":\"A
+        unique identifier representing a single monitoring location. This corresponds
+        to the `id` field in the `monitoring-locations` endpoint. Monitoring location
+        IDs are created by combining the agency code of the agency responsible for
+        the monitoring location (e.g. USGS) with the ID number of the monitoring location
+        (e.g. 02238500), separated by a hyphen (e.g. USGS-02238500).\\n\"\n        },\n
+        \       \"parameter_code\":{\n            \"type\":\"string\",\n            \"title\":\"Parameter
+        code\",\n            \"description\":\"Parameter codes are 5-digit codes used
+        to identify the constituent measured and the units of measure. A complete
+        list of parameter codes and associated groupings can be found at [https://api.waterdata.usgs.gov/ogcapi/v0/collections/parameter-codes/items](https://api.waterdata.usgs.gov/ogcapi/v0/collections/parameter-codes/items).\\n\"\n
+        \       },\n        \"statistic_id\":{\n            \"type\":\"string\",\n
+        \           \"title\":\"Statistic ID\",\n            \"description\":\"A code
+        corresponding to the statistic an observation represents. Example codes include
+        00001 (max), 00002 (min), and 00003 (mean). A complete list of codes and their
+        descriptions can be found at [https://api.waterdata.usgs.gov/ogcapi/v0/collections/statistic-codes/items](https://api.waterdata.usgs.gov/ogcapi/v0/collections/statistic-codes/items).\\n\"\n
+        \       },\n        \"time\":{\n            \"type\":\"string\",\n            \"title\":\"Time\",\n
+        \           \"description\":\"The date an observation represents. You can
+        query this field using date-times or intervals, adhering to RFC 3339, or using
+        ISO 8601 duration objects. Intervals may be bounded or half-bounded (double-dots
+        at start or end).\\nExamples:\\n\\n  - A date-time: \\\"2018-02-12T23:20:50Z\\\"\\n
+        \ - A bounded interval: \\\"2018-02-12T00:00:00Z/2018-03-18T12:31:12Z\\\"\\n
+        \ - Half-bounded intervals: \\\"2018-02-12T00:00:00Z/..\\\" or \\\"../2018-03-18T12:31:12Z\\\"\\n
+        \ - Duration objects: \\\"P1M\\\" for data from the past month or \\\"PT36H\\\"
+        for the last 36 hours\\n\\nOnly features that have a `time` that intersects
+        the value of datetime are selected. If a feature has multiple temporal properties,
+        it is the decision of the server whether only a single temporal property is
+        used to determine the extent or all relevant temporal properties.\\n\",\n
+        \           \"x-ogc-role\":\"primary-instant\"\n        },\n        \"value\":{\n
+        \           \"type\":\"string\",\n            \"title\":\"Value\",\n            \"description\":\"The
+        value of the observation. Values are transmitted as strings in the JSON response
+        format in order to preserve precision.\\n\"\n        },\n        \"unit_of_measure\":{\n
+        \           \"type\":\"string\",\n            \"title\":\"Unit of measure\",\n
+        \           \"description\":\"A human-readable description of the units of
+        measurement associated with an observation.\"\n        },\n        \"approval_status\":{\n
+        \           \"type\":\"string\",\n            \"title\":\"Approval Status\",\n
+        \           \"description\":\"Some of the data that you have obtained from
+        this U.S. Geological Survey database may not have received Director's approval.
+        \ Any such data values are qualified as provisional and are subject to revision.
+        \ Provisional data are released on the condition that neither the USGS nor
+        the United States Government may be held liable for any damages resulting
+        from its use. This field reflects the approval status of each record, and
+        is either \\\"Approved\\\", meaining processing review has been completed
+        and the data is approved for publication, or \\\"Provisional\\\" and subject
+        to revision. For more information about provisional data, go to [https://waterdata.usgs.gov/provisional-data-statement/](https://waterdata.usgs.gov/provisional-data-statement/).\\n\",\n
+        \           \"enum\":[\n                \"Provisional\",\n                \"Approved\"\n
+        \           ]\n        },\n        \"qualifier\":{\n            \"type\":\"string\",\n
+        \           \"title\":\"Qualifier\",\n            \"description\":\"This field
+        indicates any qualifiers associated with an observation, for instance if a
+        sensor may have been impacted by ice or if values were estimated.\\n\"\n        },\n
+        \       \"last_modified\":{\n            \"type\":\"string\",\n            \"title\":\"Last
+        modified date\",\n            \"description\":\"The last time a record was
+        refreshed in our database. This may happen due to regular operational processes
+        and does not necessarily indicate anything about the measurement has changed.\\nYou
+        can query this field using date-times or intervals, adhering to RFC 3339,
+        or using ISO 8601 duration objects. Intervals may be bounded or half-bounded
+        (double-dots at start or end).\\nExamples:\\n\\n  - A date-time: \\\"2018-02-12T23:20:50Z\\\"\\n
+        \ - A bounded interval: \\\"2018-02-12T00:00:00Z/2018-03-18T12:31:12Z\\\"\\n
+        \ - Half-bounded intervals: \\\"2018-02-12T00:00:00Z/..\\\" or \\\"../2018-03-18T12:31:12Z\\\"\\n
+        \ - Duration objects: \\\"P1M\\\" for data from the past month or \\\"PT36H\\\"
+        for the last 36 hours\\n\\nOnly features that have a `last_modified` that
+        intersects the value of datetime are selected.\\n\"\n        }\n    },\n    \"$schema\":\"http://json-schema.org/draft/2019-09/schema\",\n
+        \   \"$id\":\"https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/schema\"\n}"
+    headers:
+      Age:
+      - '69575'
+      Api-Version:
+      - 0.23.0
+      Connection:
+      - keep-alive
+      Content-Language:
+      - en-US
+      Content-Type:
+      - application/schema+json; charset=utf-8
+      Date:
+      - Thu, 02 Apr 2026 16:57:08 GMT
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Via:
+      - 1.1 8ead054384c1626556ee4410cad35692.cloudfront.net (CloudFront), https/1.1
+        api-umbrella (ApacheTrafficServer [cMsSf ])
+      X-Amz-Cf-Id:
+      - 3Yrm1nu032G2pBIGXpwfJQRCLbunxAZlSDC6IdhHRzSEUEmUORjx4w==
+      X-Amz-Cf-Pop:
+      - HIO52-P1
+      X-Api-Umbrella-Request-Id:
+      - ct9sg98ofdhisn5mo8b0
+      X-Build-Version:
+      - 0.42.3-e5db988b
+      X-Cache:
+      - Hit from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Ratelimit-Limit:
+      - '4000'
+      X-Ratelimit-Remaining:
+      - '3990'
+      X-Vcap-Request-Id:
+      - 646a206a-d8fa-4767-5a4a-01f35f5c6808
+      X-Xss-Protection:
+      - 1; mode=block
+      content-length:
+      - '6288'
+    status:
+      code: 200
+      message: OK
+version: 1

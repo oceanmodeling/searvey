@@ -24,6 +24,7 @@ jobs:
     name: test Python ${{ matrix.python }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         python: ["3.9", "3.10", "3.11", "3.12"]
@@ -50,9 +51,14 @@ jobs:
       - run: python -m pip cache info
       - run: mypy searvey
       - run: make cov
+        env:
+          API_USGS_PAT: ${{ secrets.USGS_API_KEY }}
       # We only run on a single matrix case in order to speed up CI runtime
+      # continue-on-error: notebook execution depends on external USGS/NOAA APIs
+      # that may timeout or be temporarily unavailable
       - run: make exec_notebooks
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.python == '3.10' }}
+        continue-on-error: true
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

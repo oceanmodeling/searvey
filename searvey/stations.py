@@ -32,11 +32,11 @@ class Provider(str, Enum):
     An enumeration for ``searvey`` providers.
     """
 
-    ALL: str = "ALL"
-    COOPS: str = "COOPS"
-    IOC: str = "IOC"
-    USGS: str = "USGS"
-    NDBC: str = "NDBC"
+    ALL = "ALL"
+    COOPS = "COOPS"
+    IOC = "IOC"
+    USGS = "USGS"
+    NDBC = "NDBC"
 
 
 def _get_ioc_stations(
@@ -116,28 +116,21 @@ def _get_usgs_stations(
     activity_threshold: datetime.timedelta,
     region: Polygon | MultiPolygon | None = None,
 ) -> gpd.GeoDataFrame:
-    # Convert activity threshold to a Timezone Aware Datetime object
-    now_utc = datetime.datetime.now(datetime.timezone.utc)
-    activity_threshold_ts = now_utc - activity_threshold
-
     # Get full metadata
     usgs_gdf = usgs.get_usgs_stations(region=region)
 
-    # Normalize USGS
-    # Calculate the timestamp of the last observation
-    usgs_gdf = usgs_gdf.assign(
-        last_observation=usgs_gdf.end_date.dt.tz_localize("UTC"),
-    )
-
+    # The modernized Water Data API does not provide begin_date/end_date,
+    # so we cannot determine activity from observation timestamps.
     usgs_gdf = usgs_gdf.assign(
         country="USA",
         location=usgs_gdf.station_nm,
-        lon=usgs_gdf.dec_long_va,
-        lat=usgs_gdf.dec_lat_va,
+        lon=usgs_gdf.geometry.x,
+        lat=usgs_gdf.geometry.y,
         provider=Provider.USGS.value,
         provider_id=usgs_gdf.site_no,
-        start_date=usgs_gdf.begin_date.dt.tz_localize("UTC"),
-        is_active=usgs_gdf.last_observation > activity_threshold_ts,
+        start_date=pd.NaT,
+        last_observation=pd.NaT,
+        is_active=True,
     )
 
     # Filter out columns
