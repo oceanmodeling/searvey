@@ -25,7 +25,7 @@ from searvey.utils import get_region
 
 logger = logging.getLogger(__name__)
 
-CHS_BASE_URL = "https://api.iwls-sine.azure.cloud-nuage.dfo-mpo.gc.ca/api/v1"
+CHS_BASE_URL = "https://api-iwls.dfo-mpo.gc.ca/api/v1"
 
 
 @functools.lru_cache
@@ -44,7 +44,8 @@ def get_chs_stations(
     Bounding Box are defined, then an exception is raised.
     """
     url = f"{CHS_BASE_URL}/stations"
-    response = httpx.get(url)
+    response = httpx.get(url, follow_redirects=True, timeout=60)
+    response.raise_for_status()
     stations_data = response.json()
 
     stations_df = pd.DataFrame(stations_data)
@@ -144,7 +145,7 @@ def _fetch_chs_station_data(
     # Use ISO formatted strings for timestamps
     url += f"&from={start_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
     url += f"&to={end_time.strftime('%Y-%m-%dT%H:%M:%SZ')}"
-    data = _fetch_url(url=url, client=client, rate_limit=rate_limit, redirect=False)
+    data = _fetch_url(url=url, client=client, rate_limit=rate_limit, redirect=True)
     data = json.loads(data)
     return data
 
