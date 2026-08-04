@@ -43,7 +43,7 @@ def remove_null_sea_levels(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def normalize_timestamps(df: pd.DataFrame, freq: str = "H") -> pd.DataFrame:
+def normalize_timestamps(df: pd.DataFrame, freq: str = "h") -> pd.DataFrame:
     df = df.assign(time=pd.to_datetime(df.time).dt.round(freq=freq))
     return df
 
